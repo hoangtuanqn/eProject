@@ -1,0 +1,54 @@
+[
+    {
+        "id": 1,
+        "name": "Half sleeve T-shirt",
+        "price": "16.368.000",
+        "image": "/assets/imgs/product-1.png"
+    },
+    {
+        "id": 2,
+        "name": "Brown hat craft",
+        "price": "13.924.000",
+        "image": "/assets/imgs/product-2.png"
+    },
+    {
+        "id": 3,
+        "name": "Slim-Fit Formal Suit Blazer",
+        "price": "13.594.000",
+        "image": "/assets/imgs/product-3.png"
+    },
+    {
+        "id": 4,
+        "name": "Retro Tie-Dye Color Splash T-Shirt",
+        "price": "13.823.000",
+        "image": "/assets/imgs/product-4.png"
+    },
+    {
+        "id": 5,
+        "name": "Geometric Print Relaxed Fit Tee",
+        "price": "19.168.000",
+        "image": "/assets/imgs/product-5.png"
+    },
+    {
+        "id": 6,
+        "name": "Floral Pattern Colorful Summer Tee",
+        "price": "19.474.000",
+        "discounted_price": "22.909.000",
+        "image": "/assets/imgs/product-6.png",
+        "sale": true
+    },
+    {
+        "id": 7,
+        "name": "Black hat craft",
+        "price": "11.073.000",
+        "image": "/assets/imgs/product-7.png"
+    },
+    {
+        "id": 8,
+        "name": "Warm Fit-and-Flare Winter Dress with Fleece Lining",
+        "price": "16.648.000",
+        "discounted_price": "19.014.000",
+        "image": "/assets/imgs/product-8.png",
+        "sale": true
+    }
+]

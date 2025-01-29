@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "avatar": "/assets/imgs/user-1.jpg",
+        "role": "Smart Home Assistant",
+        "stars": 5,
+        "text": "The service was amazing! The product arrived on time and works perfectly. Highly recommended!",
+        "name": "Michael L.",
+        "address": "London, UK"
+    },
+    {
+        "id": 2,
+        "avatar": "/assets/imgs/user-2.jpg",
+        "role": "Smart Home Assistant",
+        "stars": 4,
+        "text": "Great experience overall. The customer support team was very helpful and responsive.",
+        "name": "Emily T.",
+        "address": "Sydney, Australia"
+    },
+    {
+        "id": 3,
+        "avatar": "/assets/imgs/user-3.jpg",
+        "role": "Smart Home Assistant",
+        "stars": 5,
+        "text": "I love the product! It has made my life so much easier. Definitely worth the investment.",
+        "name": "Willie Bradley",
+        "address": "New York, USA"
+    },
+    {
+        "id": 4,
+        "avatar": "/assets/imgs/user-4.jpg",
+        "role": "Smart Home Assistant",
+        "stars": 3,
+        "text": "The product is good, but it took a while to set up. Could be more user-friendly.",
+        "name": "Sarah Johnson",
+        "address": "Toronto, Canada"
+    },
+    {
+        "id": 5,
+        "avatar": "/assets/imgs/user-5.jpg",
+        "role": "Smart Home Assistant",
+        "stars": 5,
+        "text": "Absolutely fantastic! The quality is top-notch, and the delivery was super fast.",
+        "name": "David Smith",
+        "address": "Berlin, Germany"
+    },
+    {
+        "id": 6,
+        "avatar": "/assets/imgs/user-6.jpg",
+        "role": "Smart Home Assistant",
+        "stars": 4,
+        "text": "Very satisfied with the purchase. The product works well and looks great in my home.",
+        "name": "Anna Lee",
+        "address": "Paris, France"
+    }
+]

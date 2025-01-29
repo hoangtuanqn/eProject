@@ -1,0 +1,168 @@
+:root {
+    --gradient-bg: #fff2ef;
+    --color-grey-7: #121212;
+    --color-text: rgba(18, 18, 18, 0.75);
+    --font-jost: "Jost", sans-serif;
+    --transition: 0.3s ease-in-out;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-jost);
+    font-size: 1.6rem;
+}
+
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: var(--line-clamp, 2);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.container {
+    width: 1430px;
+    max-width: calc(100% - 30px);
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+}
+.bold {
+    font-weight: bold;
+}
+.dfcenter,
+.dfbetween {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.dfbetween {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.dfcenter {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.main {
+    overflow: hidden;
+    position: relative;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+.btn:hover {
+    opacity: 0.8;
+}
+input,
+select,
+textarea {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+}
+
+/* Scroll Top BTN */
+.scrollToTopBtn {
+    position: fixed;
+    bottom: 70px;
+    right: 25px;
+    outline: none;
+    background-color: rgba(18, 18, 18);
+    border: 1px solid rgba(18, 18, 18);
+    cursor: pointer;
+    color: rgb(243, 243, 243);
+    border-radius: 4px;
+    -webkit-transform: translateY(50px);
+    -ms-transform: translateY(50px);
+    transform: translateY(50px);
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    line-height: 1;
+    padding: 8px;
+}
+.scrollToTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+}
+.scrollToTopBtn svg {
+    width: 24px;
+    height: 24px;
+}
+.scrollToTopBtn:hover {
+    background-color: transparent;
+    color: rgba(18, 18, 18);
+}
+
+/* Section title and subtitle */
+.section-title {
+    color: var(--color-grey-7);
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.section-subtitle {
+    color: rgba(18, 18, 18, 0.8);
+    text-align: center;
+    line-height: 1.8;
+}
+
+/* Badge sale */
+.badge__sale {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    background-color: #333;
+    color: white;
+    font-size: 1.3rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+
+
+/* Responsive */
+
+/* Mobile */
+@media screen and (max-width: 749px) {
+    /* Hide elements on mobile */
+    .hiddenMobile {
+        display: none;
+    }
+    .section-title {
+        font-size: 2.8rem;
+    }
+}
+
+/* Tablet */
+@media screen and (min-width: 750px) and (max-width: 1024px) {
+}
+
+/* Desktop */
+@media screen and (min-width: 1025px) {
+    /* Preserve existing desktop styles */
+}
