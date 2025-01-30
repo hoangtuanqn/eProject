@@ -13,8 +13,8 @@ export default function Footer() {
                             <address className="footer__address">
                                 70 Washington Square South, New York, NY 10012, United States
                             </address>
-                            <a href="mailto:phamhoangtuanqn@gmail.com" className="footer__link">
-                                Email: phamhoangtuanqn@gmail.com
+                            <a href="mailto:support@maverickdresses.com" className="footer__link">
+                                Email: support@maverickdresses.com
                             </a>
                             <a href="tel:0812665001" className="footer__link">
                                 {" "}
@@ -98,12 +98,12 @@ export default function Footer() {
                     <div className="footer__bottom">
                         <p className="footer__copyright">&copy; 2025, Team 02 FPT APTECH</p>
                         <div className="footer__payment">
-                            <img src="./assets/icon/visa.svg" alt="Visa" className="footer__payment-img" />
-                            <img src="./assets/icon/mastercard.svg" alt="Mastercard" className="footer__payment-img" />
-                            <img src="./assets/icon/amex.svg" alt="American Express" className="footer__payment-img" />
-                            <img src="./assets/icon/paypal.svg" alt="PayPal" className="footer__payment-img" />
-                            <img src="./assets/icon/dinersclub.svg" alt="Diners Club" className="dinersclub-img" />
-                            <img src="./assets/icon/discover.svg" alt="Discover" className="footer__payment-img" />
+                            <img src="/assets/icon/visa.svg" alt="Visa" className="footer__payment-img" />
+                            <img src="/assets/icon/mastercard.svg" alt="Mastercard" className="footer__payment-img" />
+                            <img src="/assets/icon/amex.svg" alt="American Express" className="footer__payment-img" />
+                            <img src="/assets/icon/paypal.svg" alt="PayPal" className="footer__payment-img" />
+                            <img src="/assets/icon/dinersclub.svg" alt="Diners Club" className="dinersclub-img" />
+                            <img src="/assets/icon/discover.svg" alt="Discover" className="footer__payment-img" />
                         </div>
                     </div>
                 </div>

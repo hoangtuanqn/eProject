@@ -1,5 +1,6 @@
 import React from "react";
 import "../../assets/css/hero.css";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
     return (
@@ -19,7 +20,7 @@ export default function Hero() {
                             Trendsetting Fashion for Every Season
                         </h1>
                         <p className="hero__desc">Tell your brand's story through images</p>
-                        <a href="#!" className="btn hero__btn" data-aos-once="true">
+                        <Link to="/categories" className="btn hero__btn">
                             Shop Now
                             {/* Icon arrow right top */}
                             <svg
@@ -39,7 +40,7 @@ export default function Hero() {
                                     fill="currentColor"
                                 ></path>
                             </svg>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </section>

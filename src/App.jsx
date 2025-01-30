@@ -1,6 +1,5 @@
 // Import Library
-
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect } from "react";
 // Router dom
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -12,7 +11,9 @@ import HomePage from "./components/HomePage";
 import Search from "./components/Search";
 import Policies from "./components/Policies";
 import NotFound from "./components/NotFound";
-import Collections from "./components/Collections";
+import Category from "./components/Category";
+import Categories from "./components/Categories";
+import Product from "./components/Product";
 
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
@@ -36,10 +37,13 @@ const App = () => {
                 <Route path="/pages/policies" element={<Policies />} exact />
 
                 {/* Danh mục product*/}
-                {/* <Route path="/collections" element={<Policies />} exact /> */}
+                <Route path="/categories" element={<Categories />} exact />
 
                 {/* Sản phẩm product theo từng danh mục*/}
-                <Route path="/collections" element={<Collections />} />
+                <Route path="/category/:slug" element={<Category />} />
+
+                {/* Hiển thị 1 sản phẩm */}
+                <Route path="/product/:slug" element={<Product />} />
 
                 {/* Page Error - 404 */}
                 <Route path="*" element={<NotFound />} />

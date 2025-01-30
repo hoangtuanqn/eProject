@@ -2,26 +2,31 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../../assets/css/breadcrumb.css";
 
-export default function Breadcrumb({ title, items }) {
+export default function Breadcrumb({ title, items, style = {} }) {
     return (
-        <div className="breadcrumb">
-            <h1 className="breadcrumb__title">{title}</h1>
-            <div className="breadcrumb__list">
-                {items.map((item, index) => (
-                    <React.Fragment key={index}>
-                        <div className="breadcrumb__item">
-                            {index === items.length - 1 ? (
-                                <span>{item.label}</span>
-                            ) : (
-                                <Link to={item.url} className="breadcrumb__link">
-                                    {item.label}
-                                </Link>
-                            )}
-                        </div>
-                        {index < items.length - 1 && <span className="breadcrumb__separator">/</span>}
-                    </React.Fragment>
-                ))}
+        <section className="breadcrumb">
+            <div className="container">
+                <div className="beardcumb__inner" style={style}>
+                    <h1 className="breadcrumb__title">{title}</h1>
+                    {/* Style tùy chỉnh bên ngoài nếu có */}
+                    <div className="breadcrumb__list">
+                        {items.map((item, index) => (
+                            <React.Fragment key={index}>
+                                <div className="breadcrumb__item">
+                                    {index === items.length - 1 ? (
+                                        <span>{item.label}</span>
+                                    ) : (
+                                        <Link to={item.url} className="breadcrumb__link">
+                                            {item.label}
+                                        </Link>
+                                    )}
+                                </div>
+                                {index < items.length - 1 && <span className="breadcrumb__separator">/</span>}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     );
 }

@@ -1,4 +1,5 @@
 .collections {
+    /* min-height: 60vh; */
     font-size: 1.4rem;
     padding-top: 60px;
 }
@@ -35,9 +36,7 @@
     color: rgba(18, 18, 18);
 }
 .collections__body {
-    margin-top: 60px;
-}
-.collections__body {
+    margin-top: 30px;
     display: grid;
     grid-template-columns: 285px 1fr;
     gap: 30px;
@@ -130,6 +129,7 @@
     background-color: var(--filter-color, transparent);
     position: relative;
     transition: all 0.3s ease;
+    border: 1px solid #ccc;
 }
 .filter__options--color {
     margin-left: 10px;
@@ -151,6 +151,14 @@
     width: 100%;
     object-fit: cover;
 }
+.collections__product-image:hover {
+    transform: scale(1.2);
+}
+.collections__product-image--opacity,
+.collections__product--opcity {
+    opacity: 0.4;
+}
+
 .collections__product-name {
     font-size: 1.6rem;
     font-weight: 500;
@@ -170,6 +178,7 @@
     margin-left: 5px;
 }
 .collections-product__wrapper {
+    overflow: hidden;
     position: relative;
 }
 
@@ -261,4 +270,263 @@
 .filter__option.disabled .filter__label,
 .filter__option.disabled .filter__checkbox {
     cursor: not-allowed;
+}
+
+@media screen and (max-width: 1024px) {
+    .collections__body {
+        grid-template-columns: 1fr;
+    }
+
+    .collections__filter.mobile-visible {
+        left: 0;
+    }
+
+    .mobile-filter-toggle {
+        display: block;
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .collections__product-grid {
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .collections__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .collections__sort {
+        margin-top: 15px;
+    }
+
+    .collections__product-grid.responsive-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .collections__product-name {
+        font-size: 1.4rem;
+    }
+
+    .collections__product-price {
+        font-size: 1.4rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .collections__product-grid.responsive-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .collections__filter {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* Add new mobile filter drawer styles */
+.mobile-filter-drawer {
+    display: none;
+}
+
+.mobile-filter-toggle {
+    margin-top: 30px;
+    display: none;
+    /* width: 100%; */
+    padding: 12px 20px;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    color: #333;
+    text-align: left;
+    margin-bottom: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-filter-toggle span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 749px) {
+    .collections {
+        padding-top: 30px;
+    }
+
+    .collections__header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .collections__filter-icon {
+        display: none;
+    }
+
+    .collections__sort {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .sort__by {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .collections__body {
+        grid-template-columns: 1fr;
+        margin-top: 20px;
+        gap: 20px;
+    }
+
+    .collections__filter {
+        display: none;
+    }
+
+    .mobile-filter-toggle {
+        display: flex;
+    }
+
+    .mobile-filter-drawer {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-filter-drawer.active {
+        transform: translateX(0);
+    }
+
+    .mobile-filter-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        border-bottom: 1px solid rgba(18, 18, 18, 0.1);
+    }
+
+    .mobile-filter-title {
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+
+    .mobile-filter-close {
+        background: none;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .mobile-filter-content {
+        padding: 20px;
+        height: calc(100% - 60px);
+        overflow-y: auto;
+    }
+
+    .mobile-filter-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background: white;
+        border-top: 1px solid rgba(18, 18, 18, 0.1);
+    }
+
+    .mobile-filter-apply {
+        width: 100%;
+        padding: 12px;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.4rem;
+        cursor: pointer;
+    }
+
+    .filter__category {
+        margin-top: 0;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(18, 18, 18, 0.1);
+    }
+
+    .filter__category:last-child {
+        border-bottom: none;
+    }
+
+    .filter__title {
+        font-size: 1.6rem;
+    }
+
+    .collections__product-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px;
+    }
+
+    .collections__product-name {
+        font-size: 1.4rem;
+    }
+
+    .collections__product-price {
+        font-size: 1.4rem;
+    }
+
+    /* Pagination mobile styles */
+    .pagination {
+        margin-top: 20px;
+    }
+
+    .pagination__link {
+        padding: 6px 12px;
+        margin: 0 2px;
+    }
+}
+
+/* Tablet Styles - FIXED to show filters */
+@media screen and (min-width: 750px) and (max-width: 1024px) {
+    .collections__body {
+        grid-template-columns: 220px 1fr;
+        gap: 20px;
+    }
+
+    .collections__product-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 20px;
+    }
+
+    /* .collections__filter {
+        padding-right: 15px;
+        display: block !important;
+    } */
+
+    .mobile-filter-toggle,
+    .mobile-filter-drawer {
+        display: none !important; /* Hide mobile elements on tablet */
+    }
+}
+
+/* Desktop Styles */
+@media screen and (min-width: 1025px) {
+    .mobile-filter-toggle,
+    .mobile-filter-drawer {
+        display: none !important;
+    }
 }

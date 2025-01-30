@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Gradient from "./Gradient";
 import "../../assets/css/header.css";
+import categoriesData from "../../data/categories.json";
 // CSS Search header
 import "../../assets/css/headerSearch.css";
 import { Link, useLocation } from "react-router-dom";
@@ -199,36 +200,18 @@ export default function Header() {
                                                         <h2 className="submenu-title">Product</h2>
 
                                                         <ul>
-                                                            <li>
-                                                                <a href="#!" className="header__submenu-link">
-                                                                    T-shirt
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#!" className="header__submenu-link">
-                                                                    Rainbow T-shirt
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#!" className="header__submenu-link">
-                                                                    Waist denim
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#!" className="header__submenu-link">
-                                                                    Slim fit formal
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#!" className="header__submenu-link">
-                                                                    Warm fit dress
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#!" className="header__submenu-link">
-                                                                    Rx line
-                                                                </a>
-                                                            </li>
+                                                            {categoriesData.map((item) => {
+                                                                return (
+                                                                    <li key={item.id}>
+                                                                        <Link
+                                                                            to={`category/${item.slug}`}
+                                                                            className="header__submenu-link"
+                                                                        >
+                                                                            {item.name}
+                                                                        </Link>
+                                                                    </li>
+                                                                );
+                                                            })}
                                                         </ul>
                                                     </div>
                                                     {/* Column 3 */}

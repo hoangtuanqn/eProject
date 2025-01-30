@@ -11,7 +11,9 @@
     box-shadow: 0 1px 5px rgba(18, 18, 18, 0.05);
 }
 .header__logo {
+    width: 190px;
     position: absolute;
+    object-fit: cover;
     left: 50%;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
@@ -32,7 +34,7 @@
     position: absolute;
     top: 40px;
     min-width: 220px;
-    z-index: 2;
+    z-index: 4;
     background-color: #fff;
     -webkit-transition: all ease 0.3s;
     -o-transition: all ease 0.3s;
@@ -398,7 +400,6 @@
 
     .header__logo {
         width: 120px;
-        height: auto;
     }
 
     .header__icon {

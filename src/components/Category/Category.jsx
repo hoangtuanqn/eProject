@@ -1,64 +1,76 @@
-/**
- * Component Collections
- *
- * Chức năng chính:
- * 1. Hiển thị danh sách sản phẩm
- * 2. Lọc sản phẩm theo màu sắc, kích thước và tình trạng còn hàng
- * 3. Sắp xếp sản phẩm theo các tiêu chí khác nhau
- * 4. Thay đổi số cột hiển thị sản phẩm
- * 5. Phân trang danh sách sản phẩm
- */
-
-import { useState, useEffect, useMemo } from "react";
-import data from "../../data/collections.json";
-import "../../assets/css/collections.css";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { motion, AnimatePresence } from "framer-motion";
+import { clsx } from "clsx";
+import { DoorClosedIcon as CloseIcon, FilterIcon } from "lucide-react";
 
-export default function Collections() {
-    const [selectedColors, setSelectedColors] = useState([]); // Lưu trữ các màu sắc được chọn
+import productData from "../../data/product.json";
+import NotData from "../NotData/NotData";
+import "../../assets/css/category.css";
+
+export default function Category({ nameCategory }) {
+    const navigate = useNavigate();
+    const { slug } = useParams();
+    const [selectedColors, setSelectedColors] = useState([]);
     const [openCategories, setOpenCategories] = useState({
         availability: true,
         color: true,
         size: true,
-    }); // Quản lý trạng thái mở/đóng của các danh mục lọc
-    const [filteredProducts, setFilteredProducts] = useState(data); // Lưu trữ danh sách sản phẩm sau khi lọc
-    const [sortOption, setSortOption] = useState("featured"); // Lưu trữ tùy chọn sắp xếp hiện tại
-    const [selectedSizes, setSelectedSizes] = useState([]); // Lưu trữ các kích thước được chọn
-    const [selectedAvailability, setSelectedAvailability] = useState([]); // Lưu trữ tình trạng còn hàng được chọn
-    const [displayColumns, setDisplayColumns] = useState(4); // Số cột hiển thị sản phẩm
-    const [currentPage, setCurrentPage] = useState(0); // Trang hiện tại cho phân trang
-    const [itemsPerPage] = useState(12); // Số sản phẩm trên mỗi trang
+    });
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+    const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
-    // Hàm này mở/đóng các danh mục lọc (màu sắc, kích thước, tình trạng còn hàng)
-    const toggleCategory = (category) => {
+    // Điều hướng đến trang 404 nếu nameCategory là "404"
+    useEffect(() => {
+        if (nameCategory === "404") {
+            navigate("/404", { replace: true });
+        }
+    }, [nameCategory, navigate]);
+
+    // Tính toán dữ liệu sản phẩm dựa trên nameCategory
+    const data = useMemo(() => {
+        if (nameCategory === "All Product") return productData;
+        return productData.filter((product) => product.category === nameCategory);
+    }, [nameCategory, productData]);
+
+    const [filteredProducts, setFilteredProducts] = useState(data);
+    const [sortOption, setSortOption] = useState("featured");
+    const [selectedSizes, setSelectedSizes] = useState([]);
+    const [selectedAvailability, setSelectedAvailability] = useState([]);
+    const [displayColumns, setDisplayColumns] = useState(4);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [itemsPerPage] = useState(12);
+
+    // Hàm để mở/tắt các danh mục bộ lọc
+    const toggleCategory = useCallback((category) => {
         setOpenCategories((prev) => ({
             ...prev,
             [category]: !prev[category],
         }));
-    };
+    }, []);
 
-    // Hàm này thêm/xóa màu sắc được chọn
-    const handleSelectColor = (color) => {
+    // Hàm để chọn màu sắc
+    const handleSelectColor = useCallback((color) => {
         setSelectedColors((prev) => (prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color]));
-    };
+    }, []);
 
-    // Sử dụng useMemo để tối ưu hóa việc tạo danh sách màu sắc
+    // Tính toán các màu sắc duy nhất từ dữ liệu sản phẩm
     const colors = useMemo(() => {
         const uniqueColors = [...new Set(data.map((item) => item.color))];
         return uniqueColors.map((color) => ({
             name: color,
             hex: data.find((item) => item.color === color)?.nameColor || color.toLowerCase(),
         }));
-    }, []);
+    }, [data]);
 
-    // Sử dụng useMemo để tối ưu hóa việc tạo danh sách kích thước
+    // Tính toán các kích thước duy nhất từ dữ liệu sản phẩm
     const sizes = useMemo(() => {
         return [...new Set(data.map((item) => item.size))];
-    }, []);
+    }, [data]);
 
-    const getSizeLabel = (size) => {
+    // Hàm để lấy nhãn kích thước
+    const getSizeLabel = useCallback((size) => {
         const sizeMap = {
             S: "Small (S)",
             M: "Medium (M)",
@@ -67,10 +79,10 @@ export default function Collections() {
             XXL: "Double Extra Large (XXL)",
         };
         return sizeMap[size] || size;
-    };
+    }, []);
 
-    // Hàm này lọc và sắp xếp sản phẩm dựa trên các tiêu chí đã chọn
-    const filterProducts = () => {
+    // Hàm để lọc sản phẩm dựa trên các bộ lọc đã chọn
+    const filterProducts = useCallback(() => {
         const filtered = data.filter((product) => {
             const colorMatch = selectedColors.length === 0 || selectedColors.includes(product.color);
             const sizeMatch = selectedSizes.length === 0 || selectedSizes.includes(product.size);
@@ -109,53 +121,86 @@ export default function Collections() {
         }
 
         setFilteredProducts(sortedFiltered);
-    };
+    }, [data, selectedColors, selectedSizes, selectedAvailability, sortOption]);
 
-    // useEffect này gọi hàm filterProducts mỗi khi các tiêu chí lọc hoặc sắp xếp thay đổi
+    // Gọi hàm filterProducts mỗi khi các bộ lọc thay đổi
     useEffect(() => {
         filterProducts();
-    }, [selectedColors, selectedSizes, selectedAvailability, sortOption, data]);
+    }, [filterProducts]);
 
-    // useEffect này đặt lại trang hiện tại về 0 mỗi khi danh sách sản phẩm đã lọc thay đổi
+    // Đặt lại trang hiện tại về 0 mỗi khi danh sách sản phẩm được lọc thay đổi
     useEffect(() => {
         setCurrentPage(0);
-    }, [filteredProducts]);
+    }, [filteredProducts, itemsPerPage]);
 
-    // Hàm này xử lý việc thay đổi tùy chọn sắp xếp
-    const handleSortChange = (e) => {
+    // Hàm để thay đổi tùy chọn sắp xếp
+    const handleSortChange = useCallback((e) => {
         setSortOption(e.target.value);
-    };
+    }, []);
 
-    // Hàm này thêm/xóa kích thước được chọn
-    const handleSelectSize = (size) => {
+    // Hàm để chọn kích thước
+    const handleSelectSize = useCallback((size) => {
         setSelectedSizes((prev) => (prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]));
-    };
+    }, []);
 
-    // Hàm này thêm/xóa tình trạng còn hàng được chọn
-    const handleSelectAvailability = (availability) => {
+    // Hàm để chọn tình trạng sẵn có
+    const handleSelectAvailability = useCallback((availability) => {
         setSelectedAvailability((prev) =>
             prev.includes(availability) ? prev.filter((a) => a !== availability) : [...prev, availability],
         );
-    };
+    }, []);
 
-    // Hàm này thay đổi số cột hiển thị sản phẩm
-    const handleColumnChange = (columns) => {
+    // Hàm để thay đổi số cột hiển thị
+    const handleColumnChange = useCallback((columns) => {
         setDisplayColumns(columns);
-    };
+    }, []);
 
-    // Tính toán số trang dựa trên số lượng sản phẩm đã lọc và số sản phẩm trên mỗi trang
-    const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
+    // Hàm để mở/tắt bộ lọc trên di động
+    const toggleMobileFilter = useCallback(() => {
+        setIsMobileFilterOpen((prev) => !prev);
+        document.body.style.overflow = !isMobileFilterOpen ? "hidden" : "";
+    }, [isMobileFilterOpen]);
 
-    // Hàm này lấy các sản phẩm cho trang hiện tại
-    const getCurrentItems = () => {
+    // Tính toán số lượng bộ lọc đang hoạt động
+    useEffect(() => {
+        const count = selectedColors.length + selectedSizes.length + selectedAvailability.length;
+        setActiveFiltersCount(count);
+    }, [selectedColors, selectedSizes, selectedAvailability]);
+
+    // Tính toán số trang dựa trên số lượng sản phẩm đã lọc
+    const pageCount = useMemo(
+        () => Math.ceil(filteredProducts.length / itemsPerPage),
+        [filteredProducts.length, itemsPerPage],
+    );
+
+    // Lấy các sản phẩm hiện tại dựa trên trang hiện tại
+    const getCurrentItems = useCallback(() => {
         const startIndex = currentPage * itemsPerPage;
         return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
-    };
+    }, [currentPage, itemsPerPage, filteredProducts]);
 
-    // Hàm này xử lý việc thay đổi trang
-    const handlePageChange = ({ selected }) => {
+    // Hàm để thay đổi trang
+    const handlePageChange = useCallback(({ selected }) => {
         setCurrentPage(selected);
-    };
+    }, []);
+
+    // Hàm để xử lý thay đổi kích thước cửa sổ
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 768) {
+                setDisplayColumns(2);
+            } else if (window.innerWidth <= 1024) {
+                setDisplayColumns(3);
+            } else {
+                setDisplayColumns(4);
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+        handleResize();
+
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     return (
         <section className="collections">
@@ -164,6 +209,7 @@ export default function Collections() {
                     <div className="collections__filter-icon">
                         <span className="collections__product-col" onClick={() => handleColumnChange(2)}>
                             <svg
+                                className={displayColumns === 2 ? "collections__product--opcity" : undefined}
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -176,6 +222,7 @@ export default function Collections() {
                         </span>
                         <span className="collections__product-col" onClick={() => handleColumnChange(3)}>
                             <svg
+                                className={displayColumns === 3 ? "collections__product--opcity" : undefined}
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -189,6 +236,7 @@ export default function Collections() {
                         </span>
                         <span className="collections__product-col" onClick={() => handleColumnChange(4)}>
                             <svg
+                                className={displayColumns === 4 ? "collections__product--opcity" : undefined}
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -206,18 +254,196 @@ export default function Collections() {
                         <label className="sort__name">Sort by:</label>
                         <select name="sort__by" className="sort__by" onChange={handleSortChange} value={sortOption}>
                             <option value="featured">Featured</option>
-                            <option value="best_selling">Best selling</option>
                             <option value="az">Alphabetically, A-Z</option>
                             <option value="za">Alphabetically, Z-A</option>
                             <option value="price_low_high">Price, low to high</option>
                             <option value="price_high_low">Price, high to low</option>
-                            <option value="date_old_new">Date, old to new</option>
-                            <option value="date_new_old">Date, new to old</option>
                         </select>
                         <span className="sort__count-product">{filteredProducts.length} products</span>
                     </div>
                 </div>
+
+                <button className="mobile-filter-toggle" onClick={toggleMobileFilter}>
+                    <span>
+                        <FilterIcon size={16} />
+                        Filter and sort
+                    </span>
+                </button>
+
+                <div className={`mobile-filter-drawer ${isMobileFilterOpen ? "active" : ""}`}>
+                    <div className="mobile-filter-header">
+                        <h2 className="mobile-filter-title">Filter and sort</h2>
+                        <button className="mobile-filter-close" onClick={toggleMobileFilter}>
+                            <CloseIcon size={24} />
+                        </button>
+                    </div>
+                    {/* Filter trên PC & Tablet */}
+                    <div className="mobile-filter-content">
+                        <div className="filter__category">
+                            <div className="filter__category-top dfbetween">
+                                <h3 className="filter__title">Sort by</h3>
+                            </div>
+                            <div className="filter__options">
+                                <select
+                                    name="sort__by"
+                                    className="sort__by"
+                                    onChange={handleSortChange}
+                                    value={sortOption}
+                                    style={{ width: "100%", marginTop: "10px" }}
+                                >
+                                    <option value="featured">Featured</option>
+                                    <option value="az">Alphabetically, A-Z</option>
+                                    <option value="za">Alphabetically, Z-A</option>
+                                    <option value="price_low_high">Price, low to high</option>
+                                    <option value="price_high_low">Price, high to low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="filter__category">
+                            <div
+                                className="filter__category-top dfbetween"
+                                onClick={() => toggleCategory("availability")}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <h3 className="filter__title">Availability</h3>
+                                <img
+                                    src="/assets/icon/chevron-top.svg"
+                                    alt=""
+                                    className={`filter__category-icon ${
+                                        openCategories.availability ? "rotate-up" : "rotate-down"
+                                    }`}
+                                />
+                            </div>
+                            {openCategories.availability && (
+                                <ul className="filter__options">
+                                    <li className="filter__option">
+                                        <input
+                                            type="checkbox"
+                                            id="mobile-in-stock"
+                                            className="filter__checkbox"
+                                            checked={selectedAvailability.includes("In stock")}
+                                            onChange={() => handleSelectAvailability("In stock")}
+                                        />
+                                        <label htmlFor="mobile-in-stock" className="filter__label">
+                                            <span className="custom-checkbox"></span> In stock
+                                        </label>
+                                        <span className="filter__count">
+                                            ({data.filter((item) => item.quantity > 0).length})
+                                        </span>
+                                    </li>
+                                    <li className="filter__option">
+                                        <input
+                                            type="checkbox"
+                                            id="mobile-out-stock"
+                                            className="filter__checkbox"
+                                            checked={selectedAvailability.includes("Out of stock")}
+                                            onChange={() => handleSelectAvailability("Out of stock")}
+                                        />
+                                        <label htmlFor="mobile-out-stock" className="filter__label">
+                                            <span className="custom-checkbox"></span> Out of stock
+                                        </label>
+                                        <span className="filter__count">
+                                            ({data.filter((item) => item.quantity === 0).length})
+                                        </span>
+                                    </li>
+                                </ul>
+                            )}
+                        </div>
+                        <div className="filter__category">
+                            <div
+                                className="filter__category-top dfbetween"
+                                onClick={() => toggleCategory("color")}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <h3 className="filter__title">Color</h3>
+                                <img
+                                    src="/assets/icon/chevron-top.svg"
+                                    alt=""
+                                    className={`filter__category-icon ${
+                                        openCategories.color ? "rotate-up" : "rotate-down"
+                                    }`}
+                                />
+                            </div>
+                            {openCategories.color && (
+                                <ul className="filter__options filter__options--color">
+                                    {colors.map((color) => {
+                                        const colorCount = data.filter((item) => item.color === color.name).length;
+                                        const isDisabled = data.every(
+                                            (item) => item.color === color.name && item.quantity === 0,
+                                        );
+                                        return (
+                                            <li
+                                                key={color.name}
+                                                className={`filter__option ${
+                                                    selectedColors.includes(color.name) ? "selected" : ""
+                                                } ${isDisabled ? "disabled" : ""}`}
+                                                onClick={() => !isDisabled && handleSelectColor(color.name)}
+                                            >
+                                                <span className="filter__color" style={{ backgroundColor: color.hex }}>
+                                                    {selectedColors.includes(color.name) && (
+                                                        <span className="filter__checkmark"></span>
+                                                    )}
+                                                </span>
+                                                <label className="filter__label">{color.name}</label>
+                                                <span className="filter__count">({colorCount})</span>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            )}
+                        </div>
+                        <div className="filter__category">
+                            <div
+                                className="filter__category-top dfbetween"
+                                onClick={() => toggleCategory("size")}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <h3 className="filter__title">Size</h3>
+                                <img
+                                    src="/assets/icon/chevron-top.svg"
+                                    alt=""
+                                    className={`filter__category-icon ${
+                                        openCategories.size ? "rotate-up" : "rotate-down"
+                                    }`}
+                                />
+                            </div>
+                            {openCategories.size && (
+                                <ul className="filter__options">
+                                    {sizes.map((size) => {
+                                        const sizeCount = data.filter((item) => item.size === size).length;
+                                        const isDisabled = data.every(
+                                            (item) => item.size === size && item.quantity === 0,
+                                        );
+                                        return (
+                                            <li key={size} className={`filter__option ${isDisabled ? "disabled" : ""}`}>
+                                                <input
+                                                    type="checkbox"
+                                                    id={`mobile-size-${size}`}
+                                                    className="filter__checkbox"
+                                                    checked={selectedSizes.includes(size)}
+                                                    onChange={() => !isDisabled && handleSelectSize(size)}
+                                                    disabled={isDisabled}
+                                                />
+                                                <label htmlFor={`mobile-size-${size}`} className="filter__label">
+                                                    <span className="custom-checkbox"></span> {getSizeLabel(size)}
+                                                </label>
+                                                <span className="filter__count">({sizeCount})</span>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            )}
+                        </div>
+                    </div>
+                    <div className="mobile-filter-footer">
+                        <button className="mobile-filter-apply" onClick={toggleMobileFilter}>
+                            Apply
+                        </button>
+                    </div>
+                </div>
+
                 <div className="collections__body">
+                    {/* Filter trên PC & Tablet */}
                     <aside className="collections__filter">
                         <div className="filter__category">
                             <div
@@ -356,24 +582,33 @@ export default function Collections() {
                         </div>
                     </aside>
                     <div className="collections__product">
-                        <div className={`collections__product-grid columns-${displayColumns}`}>
+                        {filteredProducts.length === 0 && <NotData />}
+
+                        <div className={`collections__product-grid columns-${displayColumns} responsive-grid`}>
                             <AnimatePresence>
                                 {getCurrentItems().map((item) => (
                                     <motion.article
-                                        key={item.id}
+                                        key={item.slug}
                                         className="collections__product-item"
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 0 }}
                                         transition={{ duration: 1 }}
                                     >
-                                        <Link to={`/product/${item.id}`}>
+                                        <Link to={`/product/${item.slug}`}>
                                             <figure className="collections-product__wrapper">
-                                                {item.sale && <span className="badge__sale">SALE</span>}
+                                                {item.quantity > 0 ? (
+                                                    item.sale && <span className="badge__sale">SALE</span>
+                                                ) : (
+                                                    <span className="badge__sale">Sold Out</span>
+                                                )}
                                                 <img
                                                     src={item.image || "/placeholder.svg"}
                                                     alt=""
-                                                    className="collections__product-image"
+                                                    className={clsx(
+                                                        "collections__product-image",
+                                                        item.quantity === 0 && "collections__product-image--opacity",
+                                                    )}
                                                 />
                                             </figure>
                                             <div className="collections__product-details">

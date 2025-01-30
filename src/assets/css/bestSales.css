@@ -67,17 +67,6 @@
     margin-left: 5px;
 }
 
-.badge__sale {
-    position: absolute;
-    z-index: 3;
-    top: 10px;
-    left: 10px;
-    background-color: #333;
-    color: white;
-    font-size: 1.3rem;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
 
 .best-sales-item__info {
     width: 60%;
