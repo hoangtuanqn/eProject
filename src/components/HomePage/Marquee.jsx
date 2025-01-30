@@ -1,5 +1,4 @@
 import React from "react";
-import clsx from "clsx";
 import "../../assets/css/marquee.css"; // Import CSS Module
 import marqueeData from "../../data/marquee.json";
 

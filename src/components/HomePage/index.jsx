@@ -1,7 +1,6 @@
 // Import Component
 import { useEffect } from "react";
 
-import Gradient from "./Gradient";
 import Header from "../Common/Header";
 import Hero from "./Hero";
 import CategoryHighlights from "./CategoryHighlights";
@@ -29,7 +28,6 @@ const App = () => {
     }, []);
     return (
         <>
-            <Gradient />
             <Header />
             {/* Main Content */}
             <main className="main">

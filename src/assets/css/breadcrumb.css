@@ -1,0 +1,50 @@
+.breadcrumb {
+    padding: 50px 0;
+    text-align: center;
+    background-color: #f3f3f3;
+}
+
+.breadcrumb__title {
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.breadcrumb__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.breadcrumb__item {
+    font-size: 15px;
+    color: rgba(18, 18, 18, 0.75);
+}
+
+.breadcrumb__link {
+    color: rgba(18, 18, 18, 0.75);
+    text-decoration: none; 
+}
+
+.breadcrumb__link:hover {
+    color: #333;
+    text-decoration: underline;
+    text-underline-offset: 3px; /* Khoảng cách underline với chữ */
+}
+
+.breadcrumb__separator {
+    color: rgba(18, 18, 18, 0.4);
+}
+
+/* Responsive */
+@media screen and (max-width: 749px) {
+    .breadcrumb__title {
+        font-size: 28px;
+    }
+
+    .breadcrumb__item {
+        font-size: 14px;
+    }
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import '../../assets/css/gradient.css'
+import "../../assets/css/gradient.css";
 export default function Gradient() {
     return (
         <>
@@ -12,9 +12,9 @@ export default function Gradient() {
                                 <img src="/assets/icon/phone.svg" alt="Phone" className="gradient__icon" />
                                 0812665001
                             </a>
-                            <a href="mailto:phamhoangtuanqn@gmail.com" className="gradient__email dfcenter">
+                            <a href="mailto:support@maverickdresses.com" className="gradient__email dfcenter">
                                 <img src="/assets/icon/email.svg" alt="Email" className="gradient__icon" />
-                                phamhoangtuanqn@gmail.com
+                                support@maverickdresses.com
                             </a>
                         </div>
                         <p className="gradient__message">

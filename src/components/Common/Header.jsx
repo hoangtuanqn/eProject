@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import Gradient from "./Gradient";
 import "../../assets/css/header.css";
 // CSS Search header
 import "../../assets/css/headerSearch.css";
@@ -87,6 +88,8 @@ export default function Header() {
     }, []);
     return (
         <>
+            {/* Gradient */}
+            <Gradient />
             {/* Header */}
             <header className="header">
                 <div className="container">
@@ -333,9 +336,9 @@ export default function Header() {
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#!" className="header__submenu-link">
+                                            <Link to="/pages/policies" className="header__submenu-link">
                                                 Shipping Policy
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </li>

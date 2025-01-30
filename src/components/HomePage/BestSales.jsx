@@ -1,7 +1,6 @@
 import React from "react";
 import "../../assets/css/bestSales.css"; // Import CSS Module
 import bestSalesData from "../../data/best-sales.json";
-import clsx from "clsx";
 
 export default function BestSales() {
     return (
