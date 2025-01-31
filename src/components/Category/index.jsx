@@ -25,12 +25,10 @@ export default function IndexPage() {
 
     return (
         <>
-            <Header />
             <main className="main">
                 <Breadcrumb title={nameCategory} items={breadcrumbItems} style={{ alignItems: "flex-start" }} />
                 <Category nameCategory={nameCategory} />
             </main>
-            <Footer />
         </>
     );
 }

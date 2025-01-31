@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Jovan",
+        "role": "Designation",
+        "image": "/assets/imgs/team-1.webp",
+        "social": {
+            "twitter": "https://twitter.com",
+            "linkedin": "https://linkedin.com",
+            "github": "https://github.com",
+            "instagram": "https://instagram.com"
+        }
+    },
+    {
+        "id": 2,
+        "name": "Cynthia Casey",
+        "role": "Design",
+        "image": "/assets/imgs/team-2.webp",
+        "social": {
+            "twitter": "https://twitter.com",
+            "linkedin": "https://linkedin.com",
+            "github": "https://github.com",
+            "instagram": "https://instagram.com"
+        }
+    },
+    {
+        "id": 3,
+        "name": "Phillip Butler",
+        "role": "Director",
+        "image": "/assets/imgs/team-3.webp",
+        "social": {
+            "twitter": "https://twitter.com",
+            "linkedin": "https://linkedin.com",
+            "github": "https://github.com",
+            "instagram": "https://instagram.com"
+        }
+    },
+    {
+        "id": 4,
+        "name": "Dollie Horton",
+        "role": "Marketing",
+        "image": "/assets/imgs/team-4.webp",
+        "social": {
+            "twitter": "https://twitter.com",
+            "linkedin": "https://linkedin.com",
+            "github": "https://github.com",
+            "instagram": "https://instagram.com"
+        }
+    }
+]

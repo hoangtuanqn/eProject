@@ -1,5 +1,6 @@
 import React from "react";
 import "../../assets/css/footer.css";
+import Newsletter from "../HomePage/Newsletter";
 
 export default function Footer() {
     return (
@@ -77,21 +78,8 @@ export default function Footer() {
                         </div>
 
                         {/* Newsletter */}
-                        <div className="footer__column">
-                            <h3 className="footer__heading">Sign Up for Email</h3>
-                            <p className="footer__desc">Subscribe to our newsletter to receive news on update.</p>
-                            <form className="footer__form">
-                                <div className="footer__form-group">
-                                    <div className="footer__input-wrapper">
-                                        <input type="email" placeholder=" " className="footer__input" required />
-                                        <label className="footer__label">Enter your email</label>
-                                    </div>
-                                    <button type="submit" className="footer__submit">
-                                        SUBSCRIBE
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                        <Newsletter/>
+                        
                     </div>
 
                     {/* Footer Bottom */}
@@ -102,7 +90,7 @@ export default function Footer() {
                             <img src="/assets/icon/mastercard.svg" alt="Mastercard" className="footer__payment-img" />
                             <img src="/assets/icon/amex.svg" alt="American Express" className="footer__payment-img" />
                             <img src="/assets/icon/paypal.svg" alt="PayPal" className="footer__payment-img" />
-                            <img src="/assets/icon/dinersclub.svg" alt="Diners Club" className="dinersclub-img" />
+                            <img src="/assets/icon/diners.svg" alt="Diners Club" className="dinersclub-img" />
                             <img src="/assets/icon/discover.svg" alt="Discover" className="footer__payment-img" />
                         </div>
                     </div>

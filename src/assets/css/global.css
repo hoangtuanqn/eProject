@@ -157,14 +157,16 @@ textarea {
     padding: 5px 10px;
     border-radius: 5px;
 }
-
+strong {
+    font-weight: 700;
+}
 /* Responsive */
 
 /* Mobile */
 @media screen and (max-width: 749px) {
     /* Hide elements on mobile */
     .hiddenMobile {
-        display: none;
+        display: none !important;
     }
     .section-title {
         font-size: 2.8rem;

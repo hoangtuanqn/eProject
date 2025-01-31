@@ -207,7 +207,24 @@
     height: 24px;
     width: auto;
 }
+.footer__loading {
+    display: block;
+    width: 20px;
+    height: 100%;
+    object-fit: cover;
+}
+.footer__message {
+    margin-top: 10px;
+    font-size: 1.5rem;
+}
 
+.footer__message.success {
+    color: green;
+}
+
+.footer__message.error {
+    color: red;
+}
 /* Responsive */
 
 /* Mobile */

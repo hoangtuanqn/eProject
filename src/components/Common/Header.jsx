@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+
 import Gradient from "./Gradient";
 import "../../assets/css/header.css";
-import categoriesData from "../../data/categories.json";
-// CSS Search header
 import "../../assets/css/headerSearch.css";
-import { Link, useLocation } from "react-router-dom";
+import categoriesData from "../../data/categories.json";
+import Counter from "../Header/Counter";
+
 export default function Header() {
     const mobileMenuRef = useRef(null);
     const searchRef = useRef(null);
@@ -204,7 +206,7 @@ export default function Header() {
                                                                 return (
                                                                     <li key={item.id}>
                                                                         <Link
-                                                                            to={`category/${item.slug}`}
+                                                                            to={`/category/${item.slug}`}
                                                                             className="header__submenu-link"
                                                                         >
                                                                             {item.name}
@@ -289,19 +291,19 @@ export default function Header() {
                                     {/* Submenu */}
                                     <ul className="header__submenu">
                                         <li>
-                                            <a href="#!" className="header__submenu-link">
+                                            <Link to="/pages/about" className="header__submenu-link">
                                                 About Us
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#!" className="header__submenu-link">
+                                            <Link to="/pages/team" className="header__submenu-link">
                                                 Team
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a href="#!" className="header__submenu-link">
+                                            <Link to="/pages/faq" className="header__submenu-link">
                                                 FAQ
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
                                             <a href="#!" className="header__submenu-link">
@@ -314,9 +316,9 @@ export default function Header() {
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#!" className="header__submenu-link">
-                                                Collections
-                                            </a>
+                                            <Link to="/categories" className="header__submenu-link">
+                                                Categories
+                                            </Link>
                                         </li>
                                         <li>
                                             <Link to="/pages/policies" className="header__submenu-link">
@@ -340,25 +342,26 @@ export default function Header() {
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#!" className="header__link">
+                                    <Link to="/pages/contact" className="header__link">
                                         Contact
                                         {/* <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" /> */}
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>
                         <img src="/assets/imgs/logo.png" alt="Maverick Dresses" className="header__logo" />
 
                         <div className="dfbetween">
-                            <button className="header__icon-wrap dfbetween" onClick={() => openMenu(searchRef)}>
+                            <button
+                                className="header__icon-wrap dfbetween hiddenMobile"
+                                onClick={() => openMenu(searchRef)}
+                            >
                                 <img src="/assets/icon/search.svg" alt="" className="header__icon" />
                             </button>
                             <button className="header__icon-wrap dfbetween hiddenMobile">
-                                <img src="/assets/icon/tym.svg" alt="" className="header__icon" />
-                            </button>
-                            <button className="header__icon-wrap dfbetween">
                                 <img src="/assets/icon/cart.svg" alt="" className="header__icon" />
                             </button>
+                            <Counter />
                         </div>
 
                         {/* Mobile Menu */}

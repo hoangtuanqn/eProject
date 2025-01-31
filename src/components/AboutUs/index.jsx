@@ -1,19 +1,17 @@
 import React from "react";
-import Categories from "./Categories";
-import Header from "../Common/Header";
-import Footer from "../Common/Footer";
 import Breadcrumb from "../Breadcrumb/Breadcrumb";
+import AboutUs from "./AboutUs";
 
 export default function index() {
     const breadcrumbItems = [
         { label: "Home", url: "/" },
-        { label: "Categories", url: "/categories" },
+        { label: "About Us", url: "/pages/about" },
     ];
     return (
         <>
             <main className="main">
-                <Breadcrumb title="Categories" items={breadcrumbItems} />
-                <Categories />
+                <Breadcrumb title="About Us" items={breadcrumbItems} />
+                <AboutUs />
             </main>
         </>
     );

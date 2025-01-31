@@ -28,7 +28,6 @@ const App = () => {
     }, []);
     return (
         <>
-            <Header />
             {/* Main Content */}
             <main className="main">
                 <Hero />
@@ -41,7 +40,6 @@ const App = () => {
                 <Testimonial />
                 <BlogPosts />
             </main>
-            <Footer />
         </>
     );
 };

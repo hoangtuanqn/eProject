@@ -67,7 +67,6 @@
     margin-left: 5px;
 }
 
-
 .best-sales-item__info {
     width: 60%;
     padding: 10px 20px;
@@ -129,6 +128,7 @@
     }
 
     .best-sales__grid {
+        -ms-grid-columns: 1fr 15px 1fr;
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
         width: 100%;
@@ -152,7 +152,7 @@
         height: auto;
     }
     .best-sales-item__image img {
-        width: unset;
+        width: 100%;
     }
 }
 
