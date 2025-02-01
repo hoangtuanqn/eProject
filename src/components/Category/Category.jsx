@@ -590,10 +590,11 @@ export default function Category({ nameCategory }) {
                                     <motion.article
                                         key={item.slug}
                                         className="collections__product-item"
-                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        layout
+                                        initial={{ opacity: 0, scale: 0.8 }}
                                         animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0 }}
-                                        transition={{ duration: 1 }}
+                                        exit={{ opacity: 0, scale: 0.8 }}
+                                        whileHover={{ scale: 1.05 }}
                                     >
                                         <Link to={`/product/${item.slug}`}>
                                             <figure className="collections-product__wrapper">

@@ -1,0 +1,234 @@
+[
+    {
+        "id": 1,
+        "category": "Primary School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p81-303089.jpg"
+    },
+    {
+        "id": 2,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p530-114698.jpg"
+    },
+    {
+        "id": 3,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/ao-dong-phuc-mam-non-co-co-mau-trang.jpg"
+    },
+    {
+        "id": 4,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/mau-dong-phuc-mam-non-trang-le-xanh.jpg"
+    },
+    {
+        "id": 5,
+        "category": "University Uniform",
+        "src": "https://dongphuckimvang.vn/uploads/news/2023_02/316671427_8280721338669521_5676085322887485660_n.jpg"
+    },
+    {
+        "id": 6,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p527-393473.jpg"
+    },
+    {
+        "id": 7,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/dong-phuc-mam-non-co-co-mau-xanh.jpg"
+    },
+    {
+        "id": 8,
+        "category": "Primary School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p85-953646.jpg"
+    },
+    {
+        "id": 9,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/mau-ao-dong-phuc-mam-non-hong-phoi-ke-dong-phuc-hai-anh.jpg"
+    },
+    {
+        "id": 10,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/dong-phuc-mam-non-co-co-mau-cam.jpg"
+    },
+    {
+        "id": 11,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p533-486539.jpg"
+    },
+    {
+        "id": 12,
+        "category": "University Uniform",
+        "src": "https://dongphuckimvang.vn/uploads/news/2023_02/328624306_844650296633786_7264760428367744196_n.jpg"
+    },
+    {
+        "id": 13,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/bo-dong-phuc-mam-non-trang-phoi-do-dong-phuc-hai-anh.jpg"
+    },
+    {
+        "id": 14,
+        "category": "Primary School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p82-874987.jpg"
+    },
+    {
+        "id": 15,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/mau-dong-phuc-mam-non-xanh-phoi-hong-dong-phuc-hai-anh.jpg"
+    },
+    { "id": 16, "category": "University Uniform", "src": "https://dongphuckimvang.vn/uploads/news/2023_02/hoc.jpg" },
+    {
+        "id": 17,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/ao-polo-dong-phuc-mam-non-mau-xanh-la-cay.jpg"
+    },
+    {
+        "id": 18,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p537-776396.jpg"
+    },
+    {
+        "id": 19,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/mau-dong-phuc-mam-non-do-phoi-ke-dong-phuc-hai-anh.jpg"
+    },
+    {
+        "id": 20,
+        "category": "Primary School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p86-171158.jpg"
+    },
+    {
+        "id": 21,
+        "category": "University Uniform",
+        "src": "https://dongphuckimvang.vn/uploads/news/2023_02/319436869_654596473026543_2595863286591350949_n.jpg"
+    },
+    {
+        "id": 22,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/mau-ao-dong-phuc-mam-non-co-co-mau-trang-phoi-nau-dong-phuc-hai-anh.jpg"
+    },
+    {
+        "id": 23,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p529-277230.jpg"
+    },
+    {
+        "id": 24,
+        "category": "University Uniform",
+        "src": "https://dongphuckimvang.vn/uploads/news/2023_02/dong-phuc-cac-truong-dai-hoc-5.jpg"
+    },
+    {
+        "id": 25,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/dong-phuc-mam-non-co-co-mau-xanh-tim-than.jpg"
+    },
+    {
+        "id": 26,
+        "category": "Primary School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p83-535069.jpg"
+    },
+    {
+        "id": 27,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/07/ao-dong-phuc-mam-non-co-co-do-phoi-trang.jpg"
+    },
+    {
+        "id": 28,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p534-228791.jpg"
+    },
+    { "id": 29, "category": "University Uniform", "src": "https://dongphuckimvang.vn/uploads/news/2023_02/hutech.jpg" },
+    {
+        "id": 30,
+        "category": "Primary School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p84-700693.jpg"
+    },
+    {
+        "id": 31,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p535-599010.jpg"
+    },
+    {
+        "id": 32,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/07/dong-phuc-mam-non-wonderkids-montessori-school.jpg"
+    },
+    {
+        "id": 33,
+        "category": "Primary School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p87-298451.jpg"
+    },
+    {
+        "id": 34,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p531-444764.jpg"
+    },
+    {
+        "id": 35,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/bo-ao-dong-phuc-mam-non-xanh-phoi-trang-dong-phuc-hai-anh.jpg"
+    },
+    {
+        "id": 36,
+        "category": "University Uniform",
+        "src": "https://dongphuckimvang.vn/uploads/news/2023_02/323989355_850937672806802_1983603750127921219_n.jpg"
+    },
+    {
+        "id": 37,
+        "category": "Primary School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p88-592706.jpg"
+    },
+    {
+        "id": 38,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p536-805500.jpg"
+    },
+    {
+        "id": 39,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/dong-phuc-mam-non-co-co-mau-do.jpg"
+    },
+    {
+        "id": 40,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p482-803987.jpg"
+    },
+    {
+        "id": 41,
+        "category": "Primary School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p89-990953.jpg"
+    },
+    {
+        "id": 42,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/07/ao-dong-phuc-mam-truong-viet-anh-bvis.jpg"
+    },
+    {
+        "id": 43,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p476-639247.jpg"
+    },
+    {
+        "id": 44,
+        "category": "University Uniform",
+        "src": "https://dongphuckimvang.vn/uploads/news/2023_02/van-lang-2.jpg"
+    },
+    {
+        "id": 45,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/06/mau-dong-phuc-mam-non-trang-phoi-ke-den-vang-dong-phuc-hai-anh.jpg"
+    },
+    {
+        "id": 46,
+        "category": "High School Uniforms",
+        "src": "https://www.dongphuctranganh.vn/media/photo/w500/p528-685138.jpg"
+    },
+    {
+        "id": 47,
+        "category": "Preschool Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/07/ao-dong-phuc-mam-non-mau-tim.jpg"
+    },
+    {
+        "id": 48,
+        "category": "University Uniform",
+        "src": "https://dongphuchaianh.vn/wp-content/uploads/2023/11/thiet-ke-mau-ao-khoac-gio-dong-phuc-fpt-dong-phuc-hai-anh.jpg"
+    }
+]

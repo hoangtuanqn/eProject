@@ -19,7 +19,9 @@ import Product from "./components/Product";
 import Contact from "./components/Contact";
 import Faq from "./components/Faq";
 import Team from "./components/Team";
-import AboutUs from "./components/AboutUs/AboutUs";
+import AboutUs from "./components/AboutUs";
+import Gallery from "./components/Gallery";
+import Partners from "./components/Partners";
 
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
@@ -54,6 +56,12 @@ const App = () => {
 
                 {/* Page About Us */}
                 <Route path="/pages/about" element={<AboutUs />} />
+
+                {/* Page Gallery */}
+                <Route path="/pages/gallery" element={<Gallery />} />
+
+                {/* Page Partners */}
+                <Route path="/pages/partners" element={<Partners />} />
 
                 {/* Danh mục product*/}
                 <Route path="/categories" element={<Categories />} exact />
