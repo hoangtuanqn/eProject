@@ -98,7 +98,7 @@ textarea {
 /* Scroll Top BTN */
 .scrollToTopBtn {
     position: fixed;
-    bottom: 70px;
+    bottom: 110px;
     right: 25px;
     outline: none;
     background-color: rgba(18, 18, 18);

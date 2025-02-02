@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/policies.css";
+import { Link } from "react-router-dom";
 
 export default function Policies() {
     return (
@@ -45,9 +46,9 @@ export default function Policies() {
                                     allow 5-10 business days for the refund to appear on your original payment method.
                                 </p>
 
-                                <a href="#" className="policies__button">
+                                {/* <a href="#" className="policies__button">
                                     Initiate a Return
-                                </a>
+                                </a> */}
                             </div>
                         </div>
 
@@ -99,9 +100,9 @@ export default function Policies() {
                                     <a href="mailto:support@maverickdresses.com" className="policies__highlight">support@maverickdresses.com</a>.
                                 </p>
 
-                                <a href="#" className="policies__button">
+                                <Link to="/pages/contact" className="policies__button">
                                     Contact Us
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -2,10 +2,18 @@ import React, { useEffect } from "react";
 import "../../styles/footer.css";
 import Newsletter from "./Newsletter";
 import { initTicker } from "./ticker";
+import { initScrollToTop } from "../../utils/scrollToTop";
 
 export default function Footer() {
     useEffect(() => {
         initTicker();
+        const cleanupScrollToTop = initScrollToTop();
+
+        return () => {
+            if (typeof cleanupScrollToTop === "function") {
+                cleanupScrollToTop();
+            }
+        };
     }, []);
     return (
         <>

@@ -1,62 +1,70 @@
-import { closeWithAnimation, toggleSubmenu } from "../utils/menuHelpers";
+import { closeWithAnimation, toggleSubmenu } from "../../utils/menuHelpers";
+import { initScrollToTop } from "../../utils/scrollToTop";
 
-document.addEventListener("DOMContentLoaded", () => {
-    const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
-    const mobileMenu = document.querySelector(".mobile-menu");
-    const mobileMenuClose = document.querySelector(".mobile-menu__close");
-    const menuLinks = document.querySelectorAll(".mobile-menu__link[data-submenu]");
+export function initMobileMenu() {
+    try {
+        const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+        const mobileMenu = document.querySelector(".mobile-menu");
+        const mobileMenuClose = document.querySelector(".mobile-menu__close");
+        const menuLinks = document.querySelectorAll(".mobile-menu__link[data-submenu]");
 
-    // Hàm mở/đóng menu
-    function toggleMenu() {
-        if (!mobileMenu.classList.contains("active")) {
-            // Mở menu
-            mobileMenu.classList.add("active");
-            document.body.style.overflow = "hidden"; // Ngăn cuộn trang khi menu mở
-        } else {
-            // Đóng menu với animation
-            closeMenuWithAnimation();
+        // Kiểm tra xem các elements cần thiết có tồn tại không
+        if (!mobileMenuToggle || !mobileMenu || !mobileMenuClose) {
+            console.warn("Mobile menu elements not found");
+            return;
         }
+
+        // Hàm mở/đóng menu
+        function toggleMenu() {
+            if (!mobileMenu.classList.contains("active")) {
+                // Mở menu
+                mobileMenu.classList.add("active");
+                document.body.style.overflow = "hidden";
+            } else {
+                // Đóng menu với animation
+                closeMenuWithAnimation();
+            }
+        }
+
+        // Hàm đóng menu với animation
+        function closeMenuWithAnimation() {
+            mobileMenu.classList.add("closing");
+            setTimeout(() => {
+                mobileMenu.classList.remove("active", "closing");
+                document.body.style.overflow = "";
+            }, 500);
+        }
+
+        // Cleanup function để remove event listeners
+        const cleanup = () => {
+            mobileMenuToggle.removeEventListener("click", toggleMenu);
+            mobileMenuClose.removeEventListener("click", closeMenuWithAnimation);
+            mobileMenu.removeEventListener("click", handleOverlayClick);
+            menuLinks.forEach((link) => {
+                link.removeEventListener("click", toggleSubmenu);
+            });
+        };
+
+        // Handler cho click vào overlay
+        const handleOverlayClick = (e) => {
+            if (e.target === mobileMenu) {
+                closeMenuWithAnimation();
+            }
+        };
+
+        // Cleanup trước khi thêm listeners mới
+        cleanup();
+
+        // Thêm event listeners
+        mobileMenuToggle.addEventListener("click", toggleMenu);
+        mobileMenuClose.addEventListener("click", closeMenuWithAnimation);
+        mobileMenu.addEventListener("click", handleOverlayClick);
+        menuLinks.forEach((link) => {
+            link.addEventListener("click", toggleSubmenu);
+        });
+
+        return cleanup;
+    } catch (error) {
+        console.error("Error initializing mobile menu:", error);
     }
-
-    // Hàm đóng menu với animation
-    function closeMenuWithAnimation() {
-        // Thêm class closing để kích hoạt animation đóng menu
-        mobileMenu.classList.add("closing");
-
-        // Sau khi animation kết thúc, xóa class active và closing
-        setTimeout(() => {
-            mobileMenu.classList.remove("active", "closing");
-            document.body.style.overflow = ""; // Cho phép cuộn trang lại
-        }, 500); // Thời gian phải khớp với thời lượng animation (0.5s)
-    }
-
-    // Sự kiện mở/đóng menu
-    mobileMenuToggle.addEventListener("click", toggleMenu);
-    mobileMenuClose.addEventListener("click", closeMenuWithAnimation);
-
-    // Đóng menu khi nhấp vào overlay
-    mobileMenu.addEventListener("click", (e) => {
-        if (e.target === mobileMenu) {
-            closeMenuWithAnimation();
-        }
-    });
-
-    // Sử dụng lại hàm toggleSubmenu từ utils
-    menuLinks.forEach((link) => {
-        link.addEventListener("click", toggleSubmenu);
-    });
-
-    // Xử lý phần Scroll Top
-    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 200) {
-            scrollToTopBtn.classList.add("show");
-        } else {
-            scrollToTopBtn.classList.remove("show");
-        }
-    });
-
-    scrollToTopBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-});
+}

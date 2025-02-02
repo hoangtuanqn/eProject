@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { initMobileMenu } from "../../assets/js/main";
 
 import "../../styles/header.css";
 import "../../styles/headerSearch.css";
@@ -30,6 +31,16 @@ export default function Header() {
             document.removeEventListener("click", handleSearchOutside);
         };
     }, []);
+
+    useEffect(() => {
+        const cleanup = initMobileMenu();
+        return () => {
+            if (typeof cleanup === "function") {
+                cleanup();
+            }
+        };
+    }, []);
+
     return (
         <>
             {/* Gradient */}
