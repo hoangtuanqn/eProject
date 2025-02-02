@@ -1,19 +1,34 @@
 "use client";
 
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import { Github, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Github, Twitter, Linkedin, Instagram, X } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "../../assets/css/team.css";
 
-import teamMembers from '../../data/team.json'
+import teamMembers from "../../data/team.json";
 
 export default function Team() {
+    const [selectedMember, setSelectedMember] = useState(null);
+
+    const openModal = (member) => {
+        setSelectedMember(member);
+    };
+
+    const closeModal = () => {
+        setSelectedMember(null);
+    };
+
     return (
         <section className="creative-team">
             <div className="container">
+                <h2 className="creative-team__title">Meet Our Creative Team</h2>
+                <p className="creative-team__description">
+                    Our diverse team of experts brings passion and innovation to every project.
+                </p>
                 <div className="creative-team__list">
                     <Swiper
                         modules={[Navigation, Pagination, Autoplay]}
@@ -31,7 +46,7 @@ export default function Team() {
                     >
                         {teamMembers.map((member) => (
                             <SwiperSlide key={member.id}>
-                                <article className="creative-team__item">
+                                <article className="creative-team__item" onClick={() => openModal(member)}>
                                     <div className="creative-team__image-wrapper">
                                         <img
                                             src={member.image || "/placeholder.svg"}
@@ -68,6 +83,46 @@ export default function Team() {
                     </Swiper>
                 </div>
             </div>
+            {selectedMember && (
+                <div className="team-modal">
+                    <div className="team-modal__content">
+                        <button className="team-modal__close" onClick={closeModal}>
+                            <X size={24} />
+                        </button>
+                        <img
+                            src={selectedMember.image || "/placeholder.svg"}
+                            alt={selectedMember.name}
+                            className="team-modal__image"
+                        />
+                        <h3 className="team-modal__name">{selectedMember.name}</h3>
+                        <p className="team-modal__role">{selectedMember.role}</p>
+                        <p className="team-modal__bio">{selectedMember.bio}</p>
+                        <blockquote className="team-modal__quote">"{selectedMember.quote}"</blockquote>
+                        <div className="team-modal__skills">
+                            <h4>Skills:</h4>
+                            <ul>
+                                {selectedMember.skills.map((skill, index) => (
+                                    <li key={index}>{skill}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="team-modal__social">
+                            <a href={selectedMember.social.github} className="team-modal__social-link">
+                                <Github size={24} />
+                            </a>
+                            <a href={selectedMember.social.twitter} className="team-modal__social-link">
+                                <Twitter size={24} />
+                            </a>
+                            <a href={selectedMember.social.linkedin} className="team-modal__social-link">
+                                <Linkedin size={24} />
+                            </a>
+                            <a href={selectedMember.social.instagram} className="team-modal__social-link">
+                                <Instagram size={24} />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 }

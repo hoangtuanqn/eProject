@@ -130,18 +130,8 @@ export default function AboutUs() {
                     </div>
                 </div>
             </section>
-            <section className="about-us__team">
-                <div className="container">
-                    <header className="about-us__header">
-                        <h2 className="about-us__team-title">The Team Behind the Success</h2>
-                        <p className="about-us__team-description">
-                            Our team is passionate and dedicated to delivering the highest quality school uniforms for
-                            students.
-                        </p>
-                    </header>
-                </div>
-                <Team />
-            </section>
+
+            <Team />
         </>
     );
 }

@@ -5,10 +5,10 @@ import "../../assets/css/gallery.css";
 import galleryItems from "../../data/gallery.json";
 const categories = [
     "All",
-    "Preschool Uniform",
+    "Preschool Uniforms",
     "Primary School Uniforms",
     "High School Uniforms",
-    "University Uniform",
+    "University Uniforms",
 ];
 
 export default function Gallery() {

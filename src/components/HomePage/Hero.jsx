@@ -10,16 +10,16 @@ export default function Hero() {
                 <div
                     className="hero__bg"
                     style={{
-                        background: "url('/assets/imgs/hero-image-lg-3.webp') top center / cover no-repeat",
+                        background: "url('/assets/imgs/hero-image-lg-3.png') top center / cover no-repeat",
                     }}
                 ></div>
 
                 <div className="container">
                     <div className="hero__inner">
                         <h1 className="hero__heading" data-aos="fade-down">
-                            Trendsetting Fashion for Every Season
+                            Quality School Uniforms for Every Season
                         </h1>
-                        <p className="hero__desc">Tell your brand's story through images</p>
+                        <p className="hero__desc">Tell your story through meaningful school uniforms</p>
                         <Link to="/categories" className="btn hero__btn">
                             Shop Now
                             {/* Icon arrow right top */}

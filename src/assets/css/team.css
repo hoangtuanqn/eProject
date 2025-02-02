@@ -3,7 +3,18 @@
     padding-bottom: 80px;
 }
 
+.creative-team__title {
+    font-size: 3.6rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
+.creative-team__description {
+    text-align: center;
+    font-size: 1.8rem;
+    color: rgba(18, 18, 18, 0.75);
+    margin-bottom: 40px;
+}
 
 .creative-team__list {
     position: relative;
@@ -13,6 +24,7 @@
 .creative-team__item {
     text-align: center;
     transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
 .creative-team__image-wrapper {
@@ -97,6 +109,119 @@
     color: rgba(18, 18, 18, 0.75);
 }
 
+/* Modal styles */
+.team-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.team-modal__content {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.team-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgb(18, 18, 18);
+}
+
+.team-modal__image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: block;
+}
+
+.team-modal__name {
+    font-size: 2.4rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.team-modal__role {
+    font-size: 1.8rem;
+    text-align: center;
+    color: rgba(18, 18, 18, 0.75);
+    margin-bottom: 20px;
+}
+
+.team-modal__bio {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.team-modal__quote {
+    font-style: italic;
+    font-size: 1.8rem;
+    text-align: center;
+    margin: 20px 0;
+    color: rgba(18, 18, 18, 0.75);
+}
+
+.team-modal__skills {
+    margin-bottom: 20px;
+}
+
+.team-modal__skills h4 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.team-modal__skills ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.team-modal__skills li {
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+}
+
+.team-modal__social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.team-modal__social-link {
+    width: 40px;
+    height: 40px;
+    background: rgb(18, 18, 18);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.team-modal__social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 /* Swiper styles */
 .creative-team .swiper {
     padding: 20px 10px;
@@ -157,5 +282,28 @@
     .creative-team .swiper-button-next,
     .creative-team .swiper-button-prev {
         display: none;
+    }
+
+    .team-modal__content {
+        padding: 20px;
+    }
+
+    .team-modal__image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .team-modal__name {
+        font-size: 2rem;
+    }
+
+    .team-modal__role {
+        font-size: 1.6rem;
+    }
+
+    .team-modal__bio,
+    .team-modal__quote,
+    .team-modal__skills li {
+        font-size: 1.4rem;
     }
 }

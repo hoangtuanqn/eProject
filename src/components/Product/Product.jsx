@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Minus, Plus, Share2, Facebook, Twitter, PinIcon } from "lucide-react";
 import "../../assets/css/product.css";

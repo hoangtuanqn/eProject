@@ -295,14 +295,24 @@ export default function Header() {
                                                 About Us
                                             </Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <Link to="/pages/team" className="header__submenu-link">
-                                                Team
+                                                About Team
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <Link to="/pages/faq" className="header__submenu-link">
                                                 FAQ
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/pages/gallery" className="header__submenu-link">
+                                                Gallery
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/pages/partners" className="header__submenu-link">
+                                                Partners
                                             </Link>
                                         </li>
                                         <li>
@@ -322,7 +332,7 @@ export default function Header() {
                                         </li>
                                         <li>
                                             <Link to="/pages/policies" className="header__submenu-link">
-                                                Shipping Policy
+                                                Shipping & Returns Policy
                                             </Link>
                                         </li>
                                     </ul>
@@ -343,7 +353,7 @@ export default function Header() {
                                 </li>
                                 <li>
                                     <Link to="/pages/contact" className="header__link">
-                                        Contact
+                                        Contact Us
                                         {/* <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" /> */}
                                     </Link>
                                 </li>

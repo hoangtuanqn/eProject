@@ -18,7 +18,7 @@ import Categories from "./components/Categories";
 import Product from "./components/Product";
 import Contact from "./components/Contact";
 import Faq from "./components/Faq";
-import Team from "./components/Team";
+// import Team from "./components/Team";
 import AboutUs from "./components/AboutUs";
 import Gallery from "./components/Gallery";
 import Partners from "./components/Partners";
@@ -52,7 +52,7 @@ const App = () => {
                 <Route path="/pages/faq" element={<Faq />} />
 
                 {/* Page Team */}
-                <Route path="/pages/team" element={<Team />} />
+                {/* <Route path="/pages/team" element={<Team />} /> */}
 
                 {/* Page About Us */}
                 <Route path="/pages/about" element={<AboutUs />} />
