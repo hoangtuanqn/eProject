@@ -1,3 +1,5 @@
+import { closeWithAnimation, toggleSubmenu } from "../utils/menuHelpers";
+
 document.addEventListener("DOMContentLoaded", () => {
     const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
     const mobileMenu = document.querySelector(".mobile-menu");
@@ -28,23 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 500); // Thời gian phải khớp với thời lượng animation (0.5s)
     }
 
-    // Hàm xử lý submenu
-    function toggleSubmenu(e) {
-        e.preventDefault();
-        const menuItem = this.closest(".mobile-menu__item");
-
-        // Đóng các submenu khác đang mở
-        const siblings = menuItem.parentElement.children;
-        Array.from(siblings).forEach((sibling) => {
-            if (sibling !== menuItem && sibling.classList.contains("active")) {
-                sibling.classList.remove("active");
-            }
-        });
-
-        // Mở/đóng submenu hiện tại
-        menuItem.classList.toggle("active");
-    }
-
     // Sự kiện mở/đóng menu
     mobileMenuToggle.addEventListener("click", toggleMenu);
     mobileMenuClose.addEventListener("click", closeMenuWithAnimation);
@@ -56,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Sự kiện mở/đóng submenu
+    // Sử dụng lại hàm toggleSubmenu từ utils
     menuLinks.forEach((link) => {
         link.addEventListener("click", toggleSubmenu);
     });

@@ -3,25 +3,25 @@ import { useLayoutEffect } from "react";
 // Router dom
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import "./assets/css/reset.css"; // Reset css
-import "./assets/css/global.css"; // CSS Common
+import "./styles/reset.css"; // Reset css
+import "./styles/global.css"; // CSS Common
 
 // Import Page
-import Header from "./components/Common/Header";
-import Footer from "./components/Common/Footer";
-import HomePage from "./components/HomePage";
-import Search from "./components/Search";
-import Policies from "./components/Policies";
-import NotFound from "./components/NotFound";
-import Category from "./components/Category";
-import Categories from "./components/Categories";
-import Product from "./components/Product";
-import Contact from "./components/Contact";
-import Faq from "./components/Faq";
-// import Team from "./components/Team";
-import AboutUs from "./components/AboutUs";
-import Gallery from "./components/Gallery";
-import Partners from "./components/Partners";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+import HomePage from "./pages/HomePage";
+import Search from "./pages/Search";
+import Policies from "./pages/Policies";
+import NotFound from "./pages/NotFound";
+import Category from "./pages/Category";
+import Categories from "./pages/Categories";
+import Product from "./pages/Product";
+import Contact from "./pages/Contact";
+import Faq from "./pages/Faq";
+import AboutUs from "./pages/AboutUs";
+import Gallery from "./pages/Gallery";
+import Partners from "./pages/Partners";
 
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang

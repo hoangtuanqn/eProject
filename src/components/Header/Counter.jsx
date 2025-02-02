@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { User as IconUser } from "lucide-react";
+import axios from "axios";
 
 export default function Counter() {
     const [counterVisited, setCounterVisited] = useState(null);
@@ -8,12 +9,8 @@ export default function Counter() {
     // Hàm lấy dữ liệu lượt truy cập từ API
     const fetchCounterVisited = async () => {
         try {
-            const response = await fetch("https://679c72d387618946e65238ce.mockapi.io/api/v1/user_visited/1");
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const data = await response.json();
-            return data.counter_visited; // Trả về số lượt truy cập
+            const { data } = await axios.get("https://679c72d387618946e65238ce.mockapi.io/api/v1/user_visited/1");
+            return data.counter_visited;
         } catch (error) {
             console.error("Error fetching counter visited:", error);
             return null;
@@ -23,23 +20,14 @@ export default function Counter() {
     // Hàm cập nhật lượt truy cập (tăng lên 1)
     const updateCounterVisited = async (currentCount) => {
         try {
-            const response = await fetch("https://679c72d387618946e65238ce.mockapi.io/api/v1/user_visited/1", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ counter_visited: currentCount + 1, id: "1" }),
+            const { data } = await axios.put("https://679c72d387618946e65238ce.mockapi.io/api/v1/user_visited/1", {
+                counter_visited: currentCount + 1,
+                id: "1",
             });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            return data.counter_visited; // Trả về số lượt truy cập sau khi cập nhật
+            return data.counter_visited;
         } catch (error) {
             console.error("Error updating counter visited:", error);
-            return currentCount; // Tránh lỗi làm mất dữ liệu hiện tại
+            return currentCount;
         }
     };
 

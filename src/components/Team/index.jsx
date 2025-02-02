@@ -1,6 +1,6 @@
 import React from "react";
 import Team from "./Team";
-import Breadcrumb from "../Breadcrumb/Breadcrumb";
+import Breadcrumb from "../Breadcrumb";
 
 const breadcrumbItems = [
     { label: "Home", url: "/" },
