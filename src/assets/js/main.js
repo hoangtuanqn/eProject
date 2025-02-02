@@ -1,5 +1,4 @@
-import { closeWithAnimation, toggleSubmenu } from "../../utils/menuHelpers";
-import { initScrollToTop } from "../../utils/scrollToTop";
+import { toggleSubmenu } from "../../utils/menuHelpers";
 
 export function initMobileMenu() {
     try {

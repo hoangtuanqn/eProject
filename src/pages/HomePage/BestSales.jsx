@@ -1,6 +1,7 @@
 import React from "react";
 import "../../styles/bestSales.css"; // Import CSS Module
 import bestSalesData from "../../data/best-sales.json";
+import { ShoppingCartIcon } from "lucide-react";
 
 export default function BestSales() {
     return (
@@ -35,7 +36,7 @@ export default function BestSales() {
                                 {/* Nút thêm vào giỏ hàng và yêu thích */}
                                 <div className="best-sales-item__actions">
                                     <button className="best-sales-item__button">
-                                        <img src="/assets/icon/plus.svg" alt="Add" className="best-sales-item__icon" />
+                                        <ShoppingCartIcon className="best-sales-item__icon" />
                                     </button>
                                     <button className="best-sales-item__button">
                                         <img

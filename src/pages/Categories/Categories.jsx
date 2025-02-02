@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import data from "../../data/categories.json";
 import product from "../../data/product.json";
 import "../../styles/categories.css";
 import { Link } from "react-router-dom";
+
 export default function Categories() {
     const [counter, setCounter] = useState(() => {
         const objectCounter = {};
@@ -11,12 +13,28 @@ export default function Categories() {
         });
         return objectCounter;
     });
+
     return (
-        <section className="categories">
+        <motion.section
+            className="categories"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
             <div className="container">
                 <div className="categories__grid">
-                    {data.map((category) => (
-                        <div className="categories__column" key={category.id}>
+                    {data.map((category, index) => (
+                        <motion.div
+                            className="categories__column"
+                            key={category.id}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                                duration: 0.5,
+                                delay: index * 0.1,
+                            }}
+                            whileHover={{ scale: 1.05 }}
+                        >
                             <figure className="categories__imgs">
                                 <Link to={`/category/${category.slug}`}>
                                     <img src={category.image} alt={category.name} className="categories__img" />
@@ -30,10 +48,10 @@ export default function Categories() {
                                 </h3>
                                 <span className="categories__counter">{counter[category.name] ?? 0} item</span>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 }

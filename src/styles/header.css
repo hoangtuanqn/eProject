@@ -415,7 +415,58 @@
 .header__counter {
     font-size: 1.6rem;
 }
-/* Responsive */
+
+/* Thêm vào phần mobile menu styles */
+.mobile-submenu__child {
+    display: none;
+    padding-left: 20px;
+}
+
+.mobile-submenu__child li {
+    border-bottom: 1px solid #ededed;
+}
+
+.mobile-submenu__child li:last-child {
+    border-bottom: none;
+}
+
+.mobile-submenu li {
+    border-bottom: 1px solid #ededed;
+}
+
+.mobile-submenu li:last-child {
+    border-bottom: none;
+}
+
+.mobile-submenu li.active > .mobile-submenu__child {
+    display: block;
+    animation: fadeInSubMenu_Header 0.6s ease;
+}
+
+.mobile-submenu__link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+    color: rgba(18, 18, 18, 0.75);
+    font-size: 1.4rem;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.mobile-submenu li.active > .mobile-submenu__link svg {
+    transform: rotate(45deg);
+}
+
+.mobile-submenu__link svg {
+    transition: transform 0.3s ease;
+}
+
+/* Responsive - Luôn nằm ở cuối cùng */
 
 /* Mobile */
 @media screen and (max-width: 749px) {

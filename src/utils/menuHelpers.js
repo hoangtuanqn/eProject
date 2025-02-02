@@ -8,6 +8,7 @@ export const openMenu = (target) => {
 
 // Hàm đóng menu/search với animation
 export const closeWithAnimation = (target) => {
+    
     if (target.current) {
         target.current.classList.add("closing");
         setTimeout(() => {
@@ -29,16 +30,22 @@ export const handleClickOutside = (e, target, closeCallback) => {
 // Hàm xử lý submenu
 export const toggleSubmenu = (e) => {
     e.preventDefault();
-    const menuItem = e.currentTarget.closest(".mobile-menu__item");
+    e.stopPropagation();
+
+    const menuItem = e.currentTarget.closest("li");
     if (!menuItem) return;
 
-    // Đóng tất cả submenu đang mở
-    document.querySelectorAll(".mobile-menu__item.active").forEach((item) => {
-        if (item !== menuItem) {
-            item.classList.remove("active");
+    const parentUl = menuItem.closest("ul");
+    const isMainMenu = parentUl.classList.contains("mobile-menu__list");
+
+    // Đóng tất cả submenu cùng cấp
+    const siblings = parentUl.children;
+    Array.from(siblings).forEach((sibling) => {
+        if (sibling !== menuItem) {
+            sibling.classList.remove("active");
         }
     });
 
-    // Toggle submenu hiện tại
+    // Toggle active class cho menu item hiện tại
     menuItem.classList.toggle("active");
 };

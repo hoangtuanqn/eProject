@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { Phone, Mail, MapPin, Clock, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import "../../styles/contact.css";
 import axios from "axios";
 import stores from "../../data/stores.json";
@@ -22,6 +23,26 @@ export default function Contact() {
         email: useRef(null),
         phone: useRef(null),
         message: useRef(null),
+    };
+
+    // Thêm các variants cho animation
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                delayChildren: 0.3,
+                staggerChildren: 0.2,
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+        },
     };
 
     const handleChange = (e) => {
@@ -96,11 +117,16 @@ export default function Contact() {
     };
 
     return (
-        <section className="contact">
+        <motion.section
+            className="contact"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
             <div className="container">
-                <div className="contact__grid">
+                <motion.div className="contact__grid" variants={containerVariants} initial="hidden" animate="visible">
                     {/* Contact Info */}
-                    <div className="contact__info">
+                    <motion.div className="contact__info" variants={itemVariants}>
                         <h2 className="contact__title">Let's Collaborate</h2>
                         <p className="contact__text">
                             At <strong>Maverick Dresses</strong>, we believe in the power of collaboration to drive
@@ -115,14 +141,16 @@ export default function Contact() {
                             something extraordinary.
                         </p>
 
-                        <div className="contact__stores">
+                        <motion.div className="contact__stores" variants={itemVariants}>
                             <h3 className="contact__stores-title">Our Stores</h3>
                             <div className="contact__stores-list">
                                 {stores.map((store) => (
-                                    <div
+                                    <motion.div
                                         key={store.id}
                                         className={`contact__store ${selectedStore.id === store.id ? "active" : ""}`}
                                         onClick={() => handleStoreSelect(store)}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
                                     >
                                         <div className="contact__store-content">
                                             <h4 className="contact__store-name">{store.name}</h4>
@@ -150,23 +178,29 @@ export default function Contact() {
                                                 selectedStore.id === store.id ? "active" : ""
                                             }`}
                                         />
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
 
                     {/* Form Contact */}
-                    <div className="contact__form-wrapper">
+                    <motion.div className="contact__form-wrapper" variants={itemVariants}>
                         <h2 className="contact__form-title">Contact</h2>
-                        <form className="contact__form" onSubmit={handleSubmit}>
+                        <motion.form
+                            className="contact__form"
+                            onSubmit={handleSubmit}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
+                        >
                             <div className="contact__form-group">
                                 <label htmlFor="store" className="contact__form-label">
                                     Select Store:
                                 </label>
                                 <select
                                     id="store"
-                                                name="store"
+                                    name="store"
                                     className="contact__form-input"
                                     value={formData.store}
                                     onChange={handleChange}
@@ -245,20 +279,40 @@ export default function Contact() {
                                 />
                             </div>
 
-                            <button type="submit" className="contact__form-submit" disabled={loading}>
+                            <motion.button
+                                type="submit"
+                                className="contact__form-submit"
+                                disabled={loading}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
                                 {loading ? (
                                     <img src="/assets/icon/loading.gif" className="contact__loading" alt="Loading..." />
                                 ) : (
                                     "Send Now"
                                 )}
-                            </button>
-                        </form>
-                        {message && <p className={`contact__message ${messageType}`}>{message}</p>}
-                    </div>
-                </div>
+                            </motion.button>
+                        </motion.form>
+                        {message && (
+                            <motion.p
+                                className={`contact__message ${messageType}`}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                            >
+                                {message}
+                            </motion.p>
+                        )}
+                    </motion.div>
+                </motion.div>
 
                 {/* Google Map */}
-                <div className="contact__map">
+                <motion.div
+                    className="contact__map"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.8 }}
+                >
                     <iframe
                         key={selectedStore.id}
                         title={`${selectedStore.name} location map`}
@@ -270,8 +324,8 @@ export default function Contact() {
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
                     ></iframe>
-                </div>
+                </motion.div>
             </div>
-        </section>
+        </motion.section>
     );
 }
