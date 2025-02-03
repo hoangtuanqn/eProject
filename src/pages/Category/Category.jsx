@@ -18,6 +18,7 @@ export default function Category({ nameCategory }) {
     const [selectedEducationLevels, setSelectedEducationLevels] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [openCategories, setOpenCategories] = useState({
+        search: true,
         category: true,
         education: true,
         price: true,
@@ -33,6 +34,7 @@ export default function Category({ nameCategory }) {
     });
     const [priceRangeSlider, setPriceRangeSlider] = useState(999);
     const [selectedSale, setSelectedSale] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     // Thêm state tạm thời cho mobile filter
     const [tempMobileFilters, setTempMobileFilters] = useState({
@@ -41,6 +43,7 @@ export default function Category({ nameCategory }) {
         educationLevels: [],
         sale: [],
         priceRange: { min: 10, max: 999 },
+        searchTerm: "",
     });
 
     // Thêm state cho sorting
@@ -150,7 +153,7 @@ export default function Category({ nameCategory }) {
                     setSelectedCategories((prev) => prev.filter((c) => c !== categoryName));
                     return;
                 }
-                
+
                 // Nếu không phải category hiện tại, chuyển về all-product
                 navigate("/category/all-product");
                 setTimeout(() => {
@@ -164,13 +167,11 @@ export default function Category({ nameCategory }) {
             } else {
                 // Nếu đã ở all-product, xử lý toggle như bình thường
                 setSelectedCategories((prev) =>
-                    prev.includes(categoryName) 
-                        ? prev.filter((c) => c !== categoryName) 
-                        : [...prev, categoryName]
+                    prev.includes(categoryName) ? prev.filter((c) => c !== categoryName) : [...prev, categoryName],
                 );
             }
         },
-        [slug, navigate, categoriesData]
+        [slug, navigate, categoriesData],
     );
 
     // Thêm hàm xử lý filter sale
@@ -184,9 +185,12 @@ export default function Category({ nameCategory }) {
         });
     };
 
-    // Sửa lại phần filteredProductsList để thêm điều kiện sale
+    // Cập nhật lại filteredProductsList để thêm điều kiện search
     const filteredProductsList = useMemo(() => {
         return productData.filter((product) => {
+            // Thêm điều kiện search
+            const searchCondition = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+
             // Lọc sản phẩm hết hàng
             if (product.quantity <= 0) return false;
 
@@ -201,21 +205,28 @@ export default function Category({ nameCategory }) {
 
             const categoryCondition = selectedCategories.length === 0 || selectedCategories.includes(product.category);
 
-            // Thêm điều kiện sale
             const saleCondition =
                 selectedSale.length === 0 ||
                 (selectedSale.includes("On Sale") && product.sale > 0) ||
                 (selectedSale.includes("Regular Price") && product.sale === 0);
 
-            return priceCondition && sizeCondition && educationCondition && categoryCondition && saleCondition;
+            return (
+                searchCondition &&
+                priceCondition &&
+                sizeCondition &&
+                educationCondition &&
+                categoryCondition &&
+                saleCondition
+            );
         });
     }, [
         productData,
+        searchTerm, // Thêm searchTerm vào dependencies
         priceRange,
         selectedSizes,
         selectedEducationLevels,
         selectedCategories,
-        selectedSale, // Thêm selectedSale vào dependencies
+        selectedSale,
     ]);
 
     // Update references to use filteredProductsList instead of filteredProducts
@@ -414,9 +425,18 @@ export default function Category({ nameCategory }) {
                 educationLevels: [...selectedEducationLevels],
                 sale: [...selectedSale],
                 priceRange: { ...priceRange },
+                searchTerm: searchTerm,
             });
         }
-    }, [isMobileFilterOpen]);
+    }, [
+        isMobileFilterOpen,
+        selectedCategories,
+        selectedSizes,
+        selectedEducationLevels,
+        selectedSale,
+        priceRange,
+        searchTerm,
+    ]);
 
     // Handlers cho mobile filter
     const handleMobileCategoryChange = useCallback((categoryName) => {
@@ -460,7 +480,15 @@ export default function Category({ nameCategory }) {
         }));
     }, []);
 
-    // Handler khi nhấn Apply
+    // Thêm handler cho mobile search
+    const handleMobileSearchChange = useCallback((value) => {
+        setTempMobileFilters((prev) => ({
+            ...prev,
+            searchTerm: value,
+        }));
+    }, []);
+
+    // Cập nhật handler khi nhấn Apply
     const handleApplyMobileFilters = useCallback(() => {
         // Nếu đang ở category cụ thể và có thay đổi categories
         if (slug !== "all-product" && tempMobileFilters.categories.length > 0) {
@@ -472,6 +500,7 @@ export default function Category({ nameCategory }) {
         setSelectedEducationLevels(tempMobileFilters.educationLevels);
         setSelectedSale(tempMobileFilters.sale);
         setPriceRange(tempMobileFilters.priceRange);
+        setSearchTerm(tempMobileFilters.searchTerm);
 
         // Đóng mobile filter drawer
         setIsMobileFilterOpen(false);
@@ -554,6 +583,24 @@ export default function Category({ nameCategory }) {
                         </button>
                     </div>
                     <div className="mobile-filter-content">
+                        {/* Search - Updated with tempMobileFilters */}
+                        <div className="filter__category">
+                            <div className="filter__category-top">
+                                <h3>Search Products</h3>
+                            </div>
+                            <div className="filter__content">
+                                <div className="filter__search">
+                                    <input
+                                        type="text"
+                                        className="price-range__input-field"
+                                        placeholder="Search products..."
+                                        value={tempMobileFilters.searchTerm}
+                                        onChange={(e) => handleMobileSearchChange(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
                         {/* Categories */}
                         <div className="filter__category">
                             <div className="filter__category-top">
@@ -731,9 +778,35 @@ export default function Category({ nameCategory }) {
                 </div>
 
                 <div className="collections__body">
-                    {/* Filter trên PC & Tablet */}
                     <aside className="collections__filter">
-                        {/* Categories - Đặt đầu tiên vì đây là cách phân loại tổng quát nhất */}
+                        {/* Search Filter */}
+                        <div className="filter__group">
+                            <div className="filter__header" onClick={() => toggleCategory("search")}>
+                                <h3>Search Products</h3>
+                                <img
+                                    src="/assets/icon/chevron-top.svg"
+                                    alt=""
+                                    className={clsx("filter__icon", {
+                                        "filter__icon--active": openCategories.search,
+                                    })}
+                                />
+                            </div>
+                            {openCategories.search && (
+                                <div className="filter__content">
+                                    <div className="filter__search">
+                                        <input
+                                            type="text"
+                                            className="price-range__input-field"
+                                            placeholder="Search products..."
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Categories Filter */}
                         <div className="filter__group">
                             <div className="filter__header" onClick={() => toggleCategory("category")}>
                                 <h3>Categories</h3>
@@ -747,6 +820,7 @@ export default function Category({ nameCategory }) {
                             </div>
                             {openCategories.category && (
                                 <div className="filter__content">
+                                    {/* Categories checkboxes */}
                                     {categoriesData.map((category) => (
                                         <label
                                             key={category.id}

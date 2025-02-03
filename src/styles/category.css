@@ -774,7 +774,7 @@
 }
 
 .filter__content {
-    padding-top: 10px;
+    padding-top: 15px;
 }
 
 .checkbox-label {
@@ -820,4 +820,13 @@
 
 .filter__icon--active {
     transform: rotate(180deg);
+}
+
+/* Add these new styles */
+.filter__search {
+    margin-bottom: 15px;
+}
+
+.filter__search .price-range__input-field {
+    padding: 8px 12px; /* Overwrite padding to remove space for currency symbol */
 }
