@@ -1,12 +1,12 @@
 import React from "react";
-import NotFound from "./NotFound";
+import WishList from "./WishList";
 import useTitle from "../../hooks/useTitle";
 export default function Index() {
-    useTitle("404 Not Found");
+    useTitle("Wish List");
     return (
         <>
             <main className="main">
-                <NotFound />
+                <WishList />
             </main>
         </>
     );

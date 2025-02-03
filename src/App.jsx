@@ -22,6 +22,7 @@ import Faq from "./pages/Faq";
 import AboutUs from "./pages/AboutUs";
 import Gallery from "./pages/Gallery";
 import Partners from "./pages/Partners";
+import WishList from "./pages/WishList";
 
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
@@ -60,8 +61,12 @@ const App = () => {
                 {/* Page Partners */}
                 <Route path="/pages/partners" element={<Partners />} exact />
 
+                {/* Page WishList */}
+                <Route path="/pages/wishlist" element={<WishList />} exact />
+
                 {/* Danh mục product*/}
                 <Route path="/categories" element={<Categories />} exact />
+
 
                 {/* Sản phẩm product theo từng danh mục*/}
                 <Route path="/category/:slug" element={<Category />} exact />

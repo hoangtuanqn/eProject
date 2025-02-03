@@ -1,5 +1,6 @@
 // Import Component
 import { useEffect } from "react";
+import useTitle from "../../hooks/useTitle";
 
 import Hero from "./Hero";
 import CategoryHighlights from "./CategoryHighlights";
@@ -17,6 +18,7 @@ import AOS from "aos";
 import "aos/dist/aos.css"; // Import file CSS của AOS
 
 const App = () => {
+    useTitle("HomePage");
     useEffect(() => {
         AOS.init({
             duration: 2500,

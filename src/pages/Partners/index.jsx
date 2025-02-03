@@ -1,7 +1,9 @@
 import React from "react";
 import Partners from "./Partners";
 import Breadcrumb from "../../components/Breadcrumb";
-export default function index() {
+import useTitle from "../../hooks/useTitle";
+export default function Index() {
+    useTitle("Partners");
     const breadcrumbItems = [
         { label: "Home", url: "/" },
         { label: "Partners", url: "/pages/partners" },

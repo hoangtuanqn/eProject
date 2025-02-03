@@ -149,14 +149,15 @@ textarea {
 /* Badge sale */
 .badge__sale {
     position: absolute;
+    z-index: 1;
     top: 10px;
     left: 10px;
-    z-index: 1;
-    background-color: #333;
+    background-color: #ff4d4d;
     color: white;
-    font-size: 1.3rem;
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 3px;
+    font-size: 1.3rem;
+    font-weight: 500;
 }
 strong {
     font-weight: 700;

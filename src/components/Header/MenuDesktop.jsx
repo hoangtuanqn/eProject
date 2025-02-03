@@ -182,9 +182,9 @@ export default function MenuDesktop() {
                             </a>
                         </li>
                         <li>
-                            <a href="#!" className="header__submenu-link">
+                            <Link to="/pages/wishlist" className="header__submenu-link">
                                 Wishlist
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <Link to="/categories" className="header__submenu-link">

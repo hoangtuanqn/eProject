@@ -24,6 +24,7 @@ export default function Category({ nameCategory }) {
         price: true,
         sizes: true,
         sale: true,
+        gender: true,
     });
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
@@ -44,10 +45,14 @@ export default function Category({ nameCategory }) {
         sale: [],
         priceRange: { min: 10, max: 999 },
         searchTerm: "",
+        genders: [],
     });
 
     // Thêm state cho sorting
     const [sortOption, setSortOption] = useState("newest");
+
+    // Thêm state cho gender filter
+    const [selectedGenders, setSelectedGenders] = useState([]);
 
     // Kiểm tra path và slug
     useEffect(() => {
@@ -132,6 +137,9 @@ export default function Category({ nameCategory }) {
     const sizeOptions = ["S", "M", "L", "XL", "XXL"];
     const educationOptions = ["Preschool", "Elementary School", "High School", "University"];
 
+    // Thêm gender options
+    const genderOptions = ["Unisex", "Male", "Female"];
+
     // Thêm handlers cho các filter mới
     const handleSizeChange = useCallback((size) => {
         setSelectedSizes((prev) => (prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]));
@@ -185,6 +193,11 @@ export default function Category({ nameCategory }) {
         });
     };
 
+    // Thêm handler cho gender filter
+    const handleGenderChange = useCallback((gender) => {
+        setSelectedGenders((prev) => (prev.includes(gender) ? prev.filter((g) => g !== gender) : [...prev, gender]));
+    }, []);
+
     // Cập nhật lại filteredProductsList để thêm điều kiện search
     const filteredProductsList = useMemo(() => {
         return productData.filter((product) => {
@@ -210,13 +223,16 @@ export default function Category({ nameCategory }) {
                 (selectedSale.includes("On Sale") && product.sale > 0) ||
                 (selectedSale.includes("Regular Price") && product.sale === 0);
 
+            const genderCondition = selectedGenders.length === 0 || selectedGenders.includes(product.gender);
+
             return (
                 searchCondition &&
                 priceCondition &&
                 sizeCondition &&
                 educationCondition &&
                 categoryCondition &&
-                saleCondition
+                saleCondition &&
+                genderCondition
             );
         });
     }, [
@@ -227,6 +243,7 @@ export default function Category({ nameCategory }) {
         selectedEducationLevels,
         selectedCategories,
         selectedSale,
+        selectedGenders,
     ]);
 
     // Update references to use filteredProductsList instead of filteredProducts
@@ -426,6 +443,7 @@ export default function Category({ nameCategory }) {
                 sale: [...selectedSale],
                 priceRange: { ...priceRange },
                 searchTerm: searchTerm,
+                genders: [...selectedGenders],
             });
         }
     }, [
@@ -436,6 +454,7 @@ export default function Category({ nameCategory }) {
         selectedSale,
         priceRange,
         searchTerm,
+        selectedGenders,
     ]);
 
     // Handlers cho mobile filter
@@ -488,9 +507,18 @@ export default function Category({ nameCategory }) {
         }));
     }, []);
 
+    // Thêm handler cho mobile gender
+    const handleMobileGenderChange = useCallback((gender) => {
+        setTempMobileFilters((prev) => ({
+            ...prev,
+            genders: prev.genders.includes(gender)
+                ? prev.genders.filter((g) => g !== gender)
+                : [...prev.genders, gender],
+        }));
+    }, []);
+
     // Cập nhật handler khi nhấn Apply
     const handleApplyMobileFilters = useCallback(() => {
-        // Nếu đang ở category cụ thể và có thay đổi categories
         if (slug !== "all-product" && tempMobileFilters.categories.length > 0) {
             navigate("/category/all-product");
         }
@@ -501,8 +529,8 @@ export default function Category({ nameCategory }) {
         setSelectedSale(tempMobileFilters.sale);
         setPriceRange(tempMobileFilters.priceRange);
         setSearchTerm(tempMobileFilters.searchTerm);
+        setSelectedGenders(tempMobileFilters.genders);
 
-        // Đóng mobile filter drawer
         setIsMobileFilterOpen(false);
     }, [tempMobileFilters, slug, navigate]);
 
@@ -769,6 +797,26 @@ export default function Category({ nameCategory }) {
                                 </label>
                             </div>
                         </div>
+
+                        {/* Gender */}
+                        <div className="filter__category">
+                            <div className="filter__category-top">
+                                <h3>Gender</h3>
+                            </div>
+                            <div className="filter__content">
+                                {genderOptions.map((gender) => (
+                                    <label key={gender} className="checkbox-label">
+                                        <input
+                                            type="checkbox"
+                                            checked={tempMobileFilters.genders.includes(gender)}
+                                            onChange={() => handleMobileGenderChange(gender)}
+                                        />
+                                        <span className="checkbox-custom"></span>
+                                        {gender}
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                     <div className="mobile-filter-footer">
                         <button className="mobile-filter-apply" onClick={handleApplyMobileFilters}>
@@ -779,7 +827,7 @@ export default function Category({ nameCategory }) {
 
                 <div className="collections__body">
                     <aside className="collections__filter">
-                        {/* Search Filter */}
+                        {/* Search Filter - Quan trọng nhất vì người dùng thường tìm kiếm trực tiếp */}
                         <div className="filter__group">
                             <div className="filter__header" onClick={() => toggleCategory("search")}>
                                 <h3>Search Products</h3>
@@ -806,7 +854,7 @@ export default function Category({ nameCategory }) {
                             )}
                         </div>
 
-                        {/* Categories Filter */}
+                        {/* Categories Filter - Quan trọng thứ hai vì phân loại chính của sản phẩm */}
                         <div className="filter__group">
                             <div className="filter__header" onClick={() => toggleCategory("category")}>
                                 <h3>Categories</h3>
@@ -835,35 +883,6 @@ export default function Category({ nameCategory }) {
                                             />
                                             <span className="checkbox-custom"></span>
                                             {category.name}
-                                        </label>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Education Level - Quan trọng thứ hai vì liên quan đến mục đích sử dụng */}
-                        <div className="filter__group">
-                            <div className="filter__header" onClick={() => toggleCategory("education")}>
-                                <h3>Education Level</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={clsx("filter__icon", {
-                                        "filter__icon--active": openCategories.education,
-                                    })}
-                                />
-                            </div>
-                            {openCategories.education && (
-                                <div className="filter__content">
-                                    {educationOptions.map((level) => (
-                                        <label key={level} className="checkbox-label">
-                                            <input
-                                                type="checkbox"
-                                                checked={selectedEducationLevels.includes(level)}
-                                                onChange={() => handleEducationChange(level)}
-                                            />
-                                            <span className="checkbox-custom"></span>
-                                            {level}
                                         </label>
                                     ))}
                                 </div>
@@ -943,6 +962,64 @@ export default function Category({ nameCategory }) {
                             )}
                         </div>
 
+                        {/* Education Level - Quan trọng vì liên quan đến mục đích sử dụng */}
+                        <div className="filter__group">
+                            <div className="filter__header" onClick={() => toggleCategory("education")}>
+                                <h3>Education Level</h3>
+                                <img
+                                    src="/assets/icon/chevron-top.svg"
+                                    alt=""
+                                    className={clsx("filter__icon", {
+                                        "filter__icon--active": openCategories.education,
+                                    })}
+                                />
+                            </div>
+                            {openCategories.education && (
+                                <div className="filter__content">
+                                    {educationOptions.map((level) => (
+                                        <label key={level} className="checkbox-label">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedEducationLevels.includes(level)}
+                                                onChange={() => handleEducationChange(level)}
+                                            />
+                                            <span className="checkbox-custom"></span>
+                                            {level}
+                                        </label>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Gender - Quan trọng vì ảnh hưởng trực tiếp đến việc lựa chọn */}
+                        <div className="filter__group">
+                            <div className="filter__header" onClick={() => toggleCategory("gender")}>
+                                <h3>Gender</h3>
+                                <img
+                                    src="/assets/icon/chevron-top.svg"
+                                    alt=""
+                                    className={clsx("filter__icon", {
+                                        "filter__icon--active": openCategories.gender,
+                                    })}
+                                />
+                            </div>
+                            {openCategories.gender && (
+                                <div className="filter__content">
+                                    {genderOptions.map((gender) => (
+                                        <label key={gender} className="checkbox-label">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedGenders.includes(gender)}
+                                                onChange={() => handleGenderChange(gender)}
+                                            />
+                                            <span className="checkbox-custom"></span>
+                                            {gender}
+                                        </label>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
                         {/* Sizes - Thông tin kỹ thuật của sản phẩm */}
                         <div className="filter__group">
                             <div className="filter__header" onClick={() => toggleCategory("sizes")}>
@@ -970,7 +1047,7 @@ export default function Category({ nameCategory }) {
                             )}
                         </div>
 
-                        {/* Sale Status - Đặt cuối cùng */}
+                        {/* Sale Status - Đặt cuối cùng vì là thông tin bổ sung */}
                         <div className="filter__group">
                             <div className="filter__header" onClick={() => toggleCategory("sale")}>
                                 <h3>Sale Status</h3>

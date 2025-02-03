@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 
 import Category from "./Category";
 import Breadcrumb from "../../components/Breadcrumb";
-
+import useTitle from "../../hooks/useTitle";
 import categories from "../../data/categories.json";
 
 export default function IndexPage() {
+    useTitle("Category");
     const { slug } = useParams();
 
     // Dùng useMemo để tính toán nameCategory
