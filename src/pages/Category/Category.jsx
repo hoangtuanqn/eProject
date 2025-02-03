@@ -5,22 +5,34 @@ import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
 import { DoorClosedIcon as CloseIcon, FilterIcon } from "lucide-react";
 
-import productData from "../../data/product.json";
 import NotData from "../../components/NotData";
 import "../../styles/category.css";
+import productData from "../../data/product.json";
+import categoriesData from "../../data/categories.json";
 
 export default function Category({ nameCategory }) {
     const navigate = useNavigate();
     const { slug } = useParams();
     const [selectedAvailability, setSelectedAvailability] = useState([]);
+    const [selectedSizes, setSelectedSizes] = useState([]);
+    const [selectedEducationLevels, setSelectedEducationLevels] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState([]);
     const [openCategories, setOpenCategories] = useState({
-        availability: true,
+        category: true,
+        education: true,
         price: true,
+        sizes: true,
+        sale: true,
     });
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
-    const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
-    const [priceInputs, setPriceInputs] = useState({ min: "", max: "" });
+    const [priceRange, setPriceRange] = useState({ min: 10, max: 999 });
+    const [priceInputs, setPriceInputs] = useState({
+        min: 10,
+        max: 999,
+    });
+    const [priceRangeSlider, setPriceRangeSlider] = useState(999);
+    const [selectedSale, setSelectedSale] = useState([]);
 
     // Điều hướng đến trang 404 nếu nameCategory là "404"
     useEffect(() => {
@@ -40,6 +52,14 @@ export default function Category({ nameCategory }) {
     const [displayColumns, setDisplayColumns] = useState(4);
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage] = useState(12);
+
+    // Đồng bộ giá trị ban đầu
+    useEffect(() => {
+        setPriceInputs({
+            min: priceRange.min,
+            max: priceRange.max,
+        });
+    }, []); // Chỉ chạy một lần khi component mount
 
     // Hàm để mở/tắt các danh mục bộ lọc
     const toggleCategory = useCallback((category) => {
@@ -68,44 +88,76 @@ export default function Category({ nameCategory }) {
         return originalPrice * (1 - salePercentage / 100);
     }, []);
 
-    // Hàm để lọc sản phẩm dựa trên các bộ lọc đã chọn
-    const filterProducts = useCallback(() => {
-        const filtered = data.filter((product) => {
-            const minPrice = getMinPrice(product);
-            const priceMatch = minPrice >= priceRange.min && minPrice <= (priceRange.max || Infinity);
-            const availabilityMatch =
-                selectedAvailability.length === 0 ||
-                (selectedAvailability.includes("In stock") && product.quantity > 0) ||
-                (selectedAvailability.includes("Out of stock") && product.quantity === 0);
-            return priceMatch && availabilityMatch;
+    // Định nghĩa các options
+    const sizeOptions = ["S", "M", "L", "XL", "XXL"];
+    const educationOptions = ["Preschool", "Elementary School", "High School", "University"];
+
+    // Thêm handlers cho các filter mới
+    const handleSizeChange = useCallback((size) => {
+        setSelectedSizes((prev) => (prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]));
+    }, []);
+
+    const handleEducationChange = useCallback((level) => {
+        setSelectedEducationLevels((prev) =>
+            prev.includes(level) ? prev.filter((l) => l !== level) : [...prev, level],
+        );
+    }, []);
+
+    const handleCategoryChange = useCallback((category) => {
+        setSelectedCategories((prev) =>
+            prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category],
+        );
+    }, []);
+
+    // Thêm hàm xử lý filter sale
+    const handleSelectSale = (saleStatus) => {
+        setSelectedSale((prev) => {
+            if (prev.includes(saleStatus)) {
+                return prev.filter((status) => status !== saleStatus);
+            } else {
+                return [...prev, saleStatus];
+            }
         });
+    };
 
-        const sortedFiltered = [...filtered];
+    // Sửa lại phần filteredProductsList để thêm điều kiện sale
+    const filteredProductsList = useMemo(() => {
+        return productData.filter((product) => {
+            // Lọc sản phẩm hết hàng
+            if (product.quantity <= 0) return false;
 
-        switch (sortOption) {
-            case "price_low_high":
-                sortedFiltered.sort((a, b) => getMinPrice(a) - getMinPrice(b));
-                break;
-            case "price_high_low":
-                sortedFiltered.sort((a, b) => getMinPrice(b) - getMinPrice(a));
-                break;
-            case "az":
-                sortedFiltered.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case "za":
-                sortedFiltered.sort((a, b) => b.name.localeCompare(a.name));
-                break;
-            default:
-                break;
-        }
+            // Các điều kiện lọc hiện có
+            const priceCondition = product.price >= priceRange.min && product.price <= priceRange.max;
 
-        setFilteredProducts(sortedFiltered);
-    }, [data, priceRange, selectedAvailability, sortOption, getMinPrice]);
+            const sizeCondition =
+                selectedSizes.length === 0 || product.sizes.some((size) => selectedSizes.includes(size));
 
-    // Gọi hàm filterProducts mỗi khi các bộ lọc thay đổi
+            const educationCondition =
+                selectedEducationLevels.length === 0 || selectedEducationLevels.includes(product.education_levels);
+
+            const categoryCondition = selectedCategories.length === 0 || selectedCategories.includes(product.category);
+
+            // Thêm điều kiện sale
+            const saleCondition =
+                selectedSale.length === 0 ||
+                (selectedSale.includes("On Sale") && product.sale > 0) ||
+                (selectedSale.includes("Regular Price") && product.sale === 0);
+
+            return priceCondition && sizeCondition && educationCondition && categoryCondition && saleCondition;
+        });
+    }, [
+        productData,
+        priceRange,
+        selectedSizes,
+        selectedEducationLevels,
+        selectedCategories,
+        selectedSale, // Thêm selectedSale vào dependencies
+    ]);
+
+    // Update references to use filteredProductsList instead of filteredProducts
     useEffect(() => {
-        filterProducts();
-    }, [filterProducts]);
+        setFilteredProducts(filteredProductsList);
+    }, [filteredProductsList]);
 
     // Đặt lại trang hiện tại về 0 mỗi khi danh sách sản phẩm được lọc thay đổi
     useEffect(() => {
@@ -185,15 +237,82 @@ export default function Category({ nameCategory }) {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Hàm xử lý khi người dùng nhập giá
-    const handlePriceInput = useCallback((type, value) => {
-        // Chỉ cho phép nhập số
-        const numericValue = value.replace(/\D/g, "");
-        setPriceInputs((prev) => ({
-            ...prev,
-            [type]: numericValue,
-        }));
-    }, []);
+    // Cập nhật hàm xử lý khi nhập input
+    const handlePriceInputChange = useCallback(
+        (e) => {
+            const { name, value } = e.target;
+            const newValue = value === "" ? "" : Math.max(0, parseInt(value));
+
+            setPriceInputs((prev) => ({
+                ...prev,
+                [name]: newValue,
+            }));
+
+            // Đồng bộ với thanh trượt
+            if (name === "min") {
+                const validMin = Math.min(Math.max(10, newValue), priceRange.max);
+                setPriceRange((prev) => ({ ...prev, min: validMin }));
+            } else {
+                const validMax = Math.max(Math.min(999, newValue), priceRange.min);
+                setPriceRange((prev) => ({ ...prev, max: validMax }));
+            }
+        },
+        [priceRange],
+    );
+
+    // Thêm hàm xử lý khi blur khỏi input
+    const handlePriceInputBlur = useCallback(
+        (e) => {
+            const { name, value } = e.target;
+
+            // Nếu input trống, đặt lại giá trị mặc định
+            if (value === "") {
+                if (name === "min") {
+                    setPriceInputs((prev) => ({ ...prev, min: 10 }));
+                    setPriceRange((prev) => ({ ...prev, min: 10 }));
+                } else {
+                    setPriceInputs((prev) => ({ ...prev, max: 999 }));
+                    setPriceRange((prev) => ({ ...prev, max: 999 }));
+                }
+                return;
+            }
+
+            const newValue = parseInt(value);
+
+            if (name === "min") {
+                // Đảm bảo min không vượt quá max và nằm trong khoảng cho phép
+                const validMin = Math.min(Math.max(10, newValue), priceRange.max);
+                setPriceInputs((prev) => ({ ...prev, min: validMin }));
+                setPriceRange((prev) => ({ ...prev, min: validMin }));
+            } else {
+                // Đảm bảo max không nhỏ hơn min và nằm trong khoảng cho phép
+                const validMax = Math.max(Math.min(999, newValue), priceRange.min);
+                setPriceInputs((prev) => ({ ...prev, max: validMax }));
+                setPriceRange((prev) => ({ ...prev, max: validMax }));
+            }
+        },
+        [priceRange],
+    );
+
+    // Cập nhật hàm xử lý khi kéo thanh trượt
+    const handlePriceRangeChange = useCallback(
+        (e) => {
+            const { name, value } = e.target;
+            const newValue = parseInt(value);
+
+            // Cập nhật cả priceRange và priceInputs
+            if (name === "min") {
+                const validMin = Math.min(newValue, priceRange.max);
+                setPriceRange((prev) => ({ ...prev, min: validMin }));
+                setPriceInputs((prev) => ({ ...prev, min: validMin }));
+            } else {
+                const validMax = Math.max(newValue, priceRange.min);
+                setPriceRange((prev) => ({ ...prev, max: validMax }));
+                setPriceInputs((prev) => ({ ...prev, max: validMax }));
+            }
+        },
+        [priceRange],
+    );
 
     return (
         <section className="collections">
@@ -358,22 +477,62 @@ export default function Category({ nameCategory }) {
                                 />
                             </div>
                             {openCategories.price && (
-                                <div className="filter__price-range">
-                                    <div className="price-inputs">
+                                <div className="price-range">
+                                    <div className="price-range__inputs">
+                                        <div className="price-range__input-group">
+                                            <span className="price-range__currency">$</span>
+                                            <input
+                                                type="number"
+                                                name="min"
+                                                className="price-range__input-field"
+                                                value={priceInputs.min}
+                                                onChange={handlePriceInputChange}
+                                                onBlur={handlePriceInputBlur}
+                                                min="10"
+                                                max="999"
+                                            />
+                                        </div>
+                                        <span className="price-range__separator">to</span>
+                                        <div className="price-range__input-group">
+                                            <span className="price-range__currency">$</span>
+                                            <input
+                                                type="number"
+                                                name="max"
+                                                className="price-range__input-field"
+                                                value={priceInputs.max}
+                                                onChange={handlePriceInputChange}
+                                                onBlur={handlePriceInputBlur}
+                                                min="10"
+                                                max="999"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="price-range__slider">
+                                        <div className="price-range__track"></div>
+                                        <div
+                                            className="price-range__progress"
+                                            style={{
+                                                left: `${((priceRange.min - 10) / (999 - 10)) * 100}%`,
+                                                right: `${100 - ((priceRange.max - 10) / (999 - 10)) * 100}%`,
+                                            }}
+                                        ></div>
                                         <input
-                                            type="text"
-                                            placeholder="₫ FROM"
-                                            value={priceInputs.min}
-                                            onChange={(e) => handlePriceInput("min", e.target.value)}
-                                            className="price-input"
+                                            type="range"
+                                            name="min"
+                                            min="10"
+                                            max="999"
+                                            value={priceRange.min}
+                                            onChange={handlePriceRangeChange}
+                                            className="price-range__input price-range__input--left"
                                         />
-                                        <span className="price-separator">-</span>
                                         <input
-                                            type="text"
-                                            placeholder="₫ TO"
-                                            value={priceInputs.max}
-                                            onChange={(e) => handlePriceInput("max", e.target.value)}
-                                            className="price-input"
+                                            type="range"
+                                            name="max"
+                                            min="10"
+                                            max="999"
+                                            value={priceRange.max}
+                                            onChange={handlePriceRangeChange}
+                                            className="price-range__input price-range__input--right"
                                         />
                                     </div>
                                 </div>
@@ -396,93 +555,194 @@ export default function Category({ nameCategory }) {
                 <div className="collections__body">
                     {/* Filter trên PC & Tablet */}
                     <aside className="collections__filter">
-                        <div className="filter__category">
-                            <div
-                                className="filter__category-top dfbetween"
-                                onClick={() => toggleCategory("availability")}
-                                style={{ cursor: "pointer" }}
-                            >
-                                <h3 className="filter__title">Availability</h3>
+                        {/* Categories - Đặt đầu tiên vì đây là cách phân loại tổng quát nhất */}
+                        <div className="filter__group">
+                            <div className="filter__header" onClick={() => toggleCategory("category")}>
+                                <h3>Categories</h3>
                                 <img
                                     src="/assets/icon/chevron-top.svg"
                                     alt=""
-                                    className={`filter__category-icon ${
-                                        openCategories.availability ? "rotate-up" : "rotate-down"
-                                    }`}
+                                    className={clsx("filter__icon", {
+                                        "filter__icon--active": openCategories.category,
+                                    })}
                                 />
                             </div>
-                            {openCategories.availability && (
-                                <ul className="filter__options">
-                                    <li className="filter__option">
-                                        <input
-                                            type="checkbox"
-                                            id="in-stock"
-                                            className="filter__checkbox"
-                                            checked={selectedAvailability.includes("In stock")}
-                                            onChange={() => handleSelectAvailability("In stock")}
-                                        />
-                                        <label htmlFor="in-stock" className="filter__label">
-                                            <span className="custom-checkbox"></span> In stock
+                            {openCategories.category && (
+                                <div className="filter__content">
+                                    {categoriesData.map((category) => (
+                                        <label key={category.id} className="checkbox-label">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedCategories.includes(category.name)}
+                                                onChange={() => handleCategoryChange(category.name)}
+                                            />
+                                            <span className="checkbox-custom"></span>
+                                            {category.name}
                                         </label>
-                                        <span className="filter__count">
-                                            ({data.filter((item) => item.quantity > 0).length})
-                                        </span>
-                                    </li>
-                                    <li className="filter__option">
-                                        <input
-                                            type="checkbox"
-                                            id="out-stock"
-                                            className="filter__checkbox"
-                                            checked={selectedAvailability.includes("Out of stock")}
-                                            onChange={() => handleSelectAvailability("Out of stock")}
-                                        />
-                                        <label htmlFor="out-stock" className="filter__label">
-                                            <span className="custom-checkbox"></span> Out of stock
-                                        </label>
-                                        <span className="filter__count">
-                                            ({data.filter((item) => item.quantity === 0).length})
-                                        </span>
-                                    </li>
-                                </ul>
+                                    ))}
+                                </div>
                             )}
                         </div>
-                        <div className="filter__category">
-                            <div
-                                className="filter__category-top dfbetween"
-                                onClick={() => toggleCategory("price")}
-                                style={{ cursor: "pointer" }}
-                            >
-                                <h3 className="filter__title">Price Range</h3>
+
+                        {/* Education Level - Quan trọng thứ hai vì liên quan đến mục đích sử dụng */}
+                        <div className="filter__group">
+                            <div className="filter__header" onClick={() => toggleCategory("education")}>
+                                <h3>Education Level</h3>
                                 <img
                                     src="/assets/icon/chevron-top.svg"
                                     alt=""
-                                    className={`filter__category-icon ${
-                                        openCategories.price ? "rotate-up" : "rotate-down"
-                                    }`}
+                                    className={clsx("filter__icon", {
+                                        "filter__icon--active": openCategories.education,
+                                    })}
+                                />
+                            </div>
+                            {openCategories.education && (
+                                <div className="filter__content">
+                                    {educationOptions.map((level) => (
+                                        <label key={level} className="checkbox-label">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedEducationLevels.includes(level)}
+                                                onChange={() => handleEducationChange(level)}
+                                            />
+                                            <span className="checkbox-custom"></span>
+                                            {level}
+                                        </label>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Price Range - Yếu tố quan trọng trong quyết định mua hàng */}
+                        <div className="filter__group">
+                            <div className="filter__header" onClick={() => toggleCategory("price")}>
+                                <h3>Price Range</h3>
+                                <img
+                                    src="/assets/icon/chevron-top.svg"
+                                    alt=""
+                                    className={clsx("filter__icon", { "filter__icon--active": openCategories.price })}
                                 />
                             </div>
                             {openCategories.price && (
-                                <div className="filter__price-range">
-                                    <div className="price-inputs">
+                                <div className="price-range">
+                                    <div className="price-range__inputs">
+                                        <div className="price-range__input-group">
+                                            <span className="price-range__currency">$</span>
+                                            <input
+                                                type="number"
+                                                name="min"
+                                                className="price-range__input-field"
+                                                value={priceInputs.min}
+                                                onChange={handlePriceInputChange}
+                                                onBlur={handlePriceInputBlur}
+                                                min="10"
+                                                max="999"
+                                            />
+                                        </div>
+                                        <span className="price-range__separator">to</span>
+                                        <div className="price-range__input-group">
+                                            <span className="price-range__currency">$</span>
+                                            <input
+                                                type="number"
+                                                name="max"
+                                                className="price-range__input-field"
+                                                value={priceInputs.max}
+                                                onChange={handlePriceInputChange}
+                                                onBlur={handlePriceInputBlur}
+                                                min="10"
+                                                max="999"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="price-range__slider">
+                                        <div className="price-range__track"></div>
+                                        <div
+                                            className="price-range__progress"
+                                            style={{
+                                                left: `${((priceRange.min - 10) / (999 - 10)) * 100}%`,
+                                                right: `${100 - ((priceRange.max - 10) / (999 - 10)) * 100}%`,
+                                            }}
+                                        ></div>
                                         <input
-                                            type="text"
-                                            placeholder="₫ FROM"
-                                            value={priceInputs.min}
-                                            onChange={(e) => handlePriceInput("min", e.target.value)}
-                                            className="price-input"
+                                            type="range"
+                                            name="min"
+                                            min="10"
+                                            max="999"
+                                            value={priceRange.min}
+                                            onChange={handlePriceRangeChange}
+                                            className="price-range__input price-range__input--left"
                                         />
-                                        <span className="price-separator">-</span>
                                         <input
-                                            type="text"
-                                            placeholder="₫ TO"
-                                            value={priceInputs.max}
-                                            onChange={(e) => handlePriceInput("max", e.target.value)}
-                                            className="price-input"
+                                            type="range"
+                                            name="max"
+                                            min="10"
+                                            max="999"
+                                            value={priceRange.max}
+                                            onChange={handlePriceRangeChange}
+                                            className="price-range__input price-range__input--right"
                                         />
                                     </div>
-                                    <button className="btn desktop-only" onClick={handleApplyPriceFilter}>
-                                        APPLY
-                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Sizes - Thông tin kỹ thuật của sản phẩm */}
+                        <div className="filter__group">
+                            <div className="filter__header" onClick={() => toggleCategory("sizes")}>
+                                <h3>Sizes</h3>
+                                <img
+                                    src="/assets/icon/chevron-top.svg"
+                                    alt=""
+                                    className={clsx("filter__icon", { "filter__icon--active": openCategories.sizes })}
+                                />
+                            </div>
+                            {openCategories.sizes && (
+                                <div className="filter__content">
+                                    {sizeOptions.map((size) => (
+                                        <label key={size} className="checkbox-label">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedSizes.includes(size)}
+                                                onChange={() => handleSizeChange(size)}
+                                            />
+                                            <span className="checkbox-custom"></span>
+                                            {size}
+                                        </label>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Sale Status - Đặt cuối cùng */}
+                        <div className="filter__group">
+                            <div className="filter__header" onClick={() => toggleCategory("sale")}>
+                                <h3>Sale Status</h3>
+                                <img
+                                    src="/assets/icon/chevron-top.svg"
+                                    alt=""
+                                    className={clsx("filter__icon", { "filter__icon--active": openCategories.sale })}
+                                />
+                            </div>
+                            {openCategories.sale && (
+                                <div className="filter__content">
+                                    <label className="checkbox-label">
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedSale.includes("On Sale")}
+                                            onChange={() => handleSelectSale("On Sale")}
+                                        />
+                                        <span className="checkbox-custom"></span>
+                                        On Sale
+                                    </label>
+                                    <label className="checkbox-label">
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedSale.includes("Regular Price")}
+                                            onChange={() => handleSelectSale("Regular Price")}
+                                        />
+                                        <span className="checkbox-custom"></span>
+                                        Regular Price
+                                    </label>
                                 </div>
                             )}
                         </div>
@@ -531,15 +791,15 @@ export default function Category({ nameCategory }) {
                                                 <div className="collections__product-details">
                                                     <h3 className="collections__product-name">{item.name}</h3>
                                                     <span className="collections__product-price dfcenter">
-                                                        {new Intl.NumberFormat("vi-VN", {
+                                                        {new Intl.NumberFormat("en-US", {
                                                             style: "currency",
-                                                            currency: "VND",
+                                                            currency: "USD",
                                                         }).format(finalPrice)}
                                                         {item.sale > 0 && (
                                                             <span className="collections__product-price--old">
-                                                                {new Intl.NumberFormat("vi-VN", {
+                                                                {new Intl.NumberFormat("en-US", {
                                                                     style: "currency",
-                                                                    currency: "VND",
+                                                                    currency: "USD",
                                                                 }).format(originalPrice)}
                                                             </span>
                                                         )}

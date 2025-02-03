@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/blogPosts.css";
+import { ArrowRight } from "lucide-react";
 export default function BlogPosts() {
     return (
         <>
@@ -22,9 +23,9 @@ export default function BlogPosts() {
                             </figure>
                             <div className="blog-posts__content">
                                 <h3 className="blog-posts__name">Street Style Stories Unfold</h3>
-                                <a href="#" className="blog-posts__link">
+                                <a href="#!" className="blog-posts__link">
                                     Read more
-                                    <img src="/assets/icon/arrow-right.svg" alt="" />
+                                    <ArrowRight size={20} />
                                 </a>
                             </div>
                         </article>
@@ -42,9 +43,9 @@ export default function BlogPosts() {
                             </figure>
                             <div className="blog-posts__content">
                                 <h3 className="blog-posts__name">Dressing the Dream Closet</h3>
-                                <a href="#" className="blog-posts__link">
+                                <a href="#!" className="blog-posts__link">
                                     Read more
-                                    <img src="/assets/icon/arrow-right.svg" alt="" />
+                                    <ArrowRight size={20} />
                                 </a>
                             </div>
                         </article>
@@ -62,9 +63,9 @@ export default function BlogPosts() {
                             </figure>
                             <div className="blog-posts__content">
                                 <h3 className="blog-posts__name">Sleek Seams and Patterns</h3>
-                                <a href="#" className="blog-posts__link">
+                                <a href="#!" className="blog-posts__link">
                                     Read more
-                                    <img src="/assets/icon/arrow-right.svg" alt="" />
+                                    <ArrowRight size={20} />
                                 </a>
                             </div>
                         </article>

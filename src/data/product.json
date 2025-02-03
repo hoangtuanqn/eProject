@@ -3,11 +3,11 @@
         "id": 1,
         "name": "Blush Beanie",
         "category": "Shirts",
-        "price": 16648000,
-        "currency": "VND",
+        "price": 200,
         "sale": 50,
         "quantity": 12,
-        "thumbnail": "/assets/imgs/product-1.png",
+        "thumbnail": "/assets/imgs/product-2.png",
+        "education_levels": "Preschool",
         "images": [
             "/assets/imgs/product-1.png",
             "/assets/imgs/product-2.png",
@@ -15,245 +15,47 @@
             "/assets/imgs/product-4.png",
             "/assets/imgs/product-5.png"
         ],
-        "models": {
-            "One": {
-                "sizes": ["S", "XL", "XXL"],
-                "price": 200000,
-                "thumbnail": "/assets/imgs/product-1.png"
-            },
-            "Two": {
-                "sizes": ["S", "M", "L"],
-                "price": 100000,
-                "thumbnail": "/assets/imgs/product-2.png"
-            },
-            "Three": {
-                "sizes": ["XL", "XXL"],
-                "price": 400000,
-                "thumbnail": "/assets/imgs/product-3.png"
-            }
-        },
+        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "gender": "Male",
+        "colors": ["Black", "White", "Grey"],
+        "tags": ["fashion", "winter", "beanie", "casual", "comfortable"],
         "slug": "blush-beanie",
         "best_sale": true,
         "feature": true
     },
     {
         "id": 2,
-        "name": "Summer Dress",
+        "name": "Classic White Tee",
         "category": "Shirts",
-        "price": 12500000,
-        "currency": "VND",
-        "sale": 30,
-        "quantity": 8,
-        "thumbnail": "/assets/imgs/product-2.png",
-        "images": [
-            "/assets/imgs/product-2.png",
-            "/assets/imgs/product-3.png",
-            "/assets/imgs/product-4.png",
-            "/assets/imgs/product-5.png",
-            "/assets/imgs/product-6.png"
-        ],
-        "models": {
-            "One": {
-                "sizes": ["S", "M", "L"],
-                "price": 300000,
-                "thumbnail": "/assets/imgs/product-2.png"
-            },
-            "Two": {
-                "sizes": ["S", "M"],
-                "price": 250000,
-                "thumbnail": "/assets/imgs/product-3.png"
-            }
-        },
-        "slug": "summer-dress",
+        "price": 10,
+        "sale": 0,
+        "quantity": 20,
+        "thumbnail": "/assets/imgs/product-3.png",
+        "education_levels": "Preschool",
+        "images": ["/assets/imgs/product-3.png", "/assets/imgs/product-4.png", "/assets/imgs/product-5.png"],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["White", "Blue"],
+        "tags": ["casual", "basic", "summer"],
+        "slug": "classic-white-tee",
         "best_sale": false,
         "feature": true
     },
     {
         "id": 3,
-        "name": "Denim Jacket",
+        "name": "Unisex Hoodie",
         "category": "Shirts",
-        "price": 18900000,
-        "currency": "VND",
-        "sale": 20,
-        "quantity": 15,
-        "thumbnail": "/assets/imgs/product-3.png",
-        "images": ["/assets/imgs/product-3.png", "/assets/imgs/product-4.png", "/assets/imgs/product-5.png"],
-        "models": {
-            "One": {
-                "sizes": ["M", "L", "XL"],
-                "price": 450000,
-                "thumbnail": "/assets/imgs/product-3.png"
-            }
-        },
-        "slug": "denim-jacket",
-        "best_sale": true,
-        "feature": false
-    },
-    {
-        "id": 4,
-        "name": "Floral Skirt",
-        "category": "Shirts",
-        "price": 8500000,
-        "currency": "VND",
-        "sale": 40,
-        "quantity": 20,
-        "thumbnail": "/assets/imgs/product-4.png",
-        "images": ["/assets/imgs/product-4.png", "/assets/imgs/product-5.png", "/assets/imgs/product-6.png"],
-        "models": {
-            "One": {
-                "sizes": ["S", "M", "L"],
-                "price": 200000,
-                "thumbnail": "/assets/imgs/product-4.png"
-            }
-        },
-        "slug": "floral-skirt",
-        "best_sale": false,
-        "feature": true
-    },
-    {
-        "id": 5,
-        "name": "Casual Blazer",
-        "category": "Shirts",
-        "price": 22500000,
-        "currency": "VND",
-        "sale": 15,
-        "quantity": 6,
-        "thumbnail": "/assets/imgs/product-5.png",
-        "images": ["/assets/imgs/product-5.png", "/assets/imgs/product-6.png", "/assets/imgs/product-7.png"],
-        "models": {
-            "One": {
-                "sizes": ["S", "M", "L", "XL"],
-                "price": 550000,
-                "thumbnail": "/assets/imgs/product-5.png"
-            }
-        },
-        "slug": "casual-blazer",
-        "best_sale": true,
-        "feature": true
-    },
-    {
-        "id": 6,
-        "name": "Printed T-Shirt",
-        "category": "Shirts",
-        "price": 5900000,
-        "currency": "VND",
-        "sale": 25,
-        "quantity": 30,
-        "thumbnail": "/assets/imgs/product-6.png",
-        "images": ["/assets/imgs/product-6.png", "/assets/imgs/product-7.png", "/assets/imgs/product-8.png"],
-        "models": {
-            "One": {
-                "sizes": ["S", "M", "L"],
-                "price": 150000,
-                "thumbnail": "/assets/imgs/product-6.png"
-            }
-        },
-        "slug": "printed-t-shirt",
-        "best_sale": false,
-        "feature": true
-    },
-    {
-        "id": 7,
-        "name": "Leather Pants",
-        "category": "Shirts",
-        "price": 16800000,
-        "currency": "VND",
-        "sale": 35,
-        "quantity": 10,
-        "thumbnail": "/assets/imgs/product-7.png",
-        "images": ["/assets/imgs/product-7.png", "/assets/imgs/product-8.png", "/assets/imgs/product-9.png"],
-        "models": {
-            "One": {
-                "sizes": ["S", "M", "L"],
-                "price": 400000,
-                "thumbnail": "/assets/imgs/product-7.png"
-            }
-        },
-        "slug": "leather-pants",
-        "best_sale": true,
-        "feature": false
-    },
-    {
-        "id": 8,
-        "name": "Winter Sweater",
-        "category": "Shirts",
-        "price": 13500000,
-        "currency": "VND",
-        "sale": 45,
-        "quantity": 18,
-        "thumbnail": "/assets/imgs/product-8.png",
-        "images": ["/assets/imgs/product-8.png", "/assets/imgs/product-9.png", "/assets/imgs/product-10.png"],
-        "models": {
-            "One": {
-                "sizes": ["M", "L", "XL"],
-                "price": 350000,
-                "thumbnail": "/assets/imgs/product-8.png"
-            }
-        },
-        "slug": "winter-sweater",
-        "best_sale": false,
-        "feature": true
-    },
-    {
-        "id": 9,
-        "name": "Maxi Dress",
-        "category": "Shirts",
-        "price": 19900000,
-        "currency": "VND",
-        "sale": 10,
-        "quantity": 0,
-        "thumbnail": "/assets/imgs/product-8.png",
-        "images": ["/assets/imgs/product-9.png", "/assets/imgs/product-10.png", "/assets/imgs/product-1.png"],
-        "models": {
-            "One": {
-                "sizes": ["S", "M", "L"],
-                "price": 480000,
-                "thumbnail": "/assets/imgs/product-9.png"
-            }
-        },
-        "slug": "maxi-dress",
-        "best_sale": true,
-        "feature": true
-    },
-    {
-        "id": 10,
-        "name": "Cargo Pants",
-        "category": "Shirts",
-        "price": 11200000,
-        "currency": "VND",
+        "price": 10,
         "sale": 30,
-        "quantity": 0,
-        "thumbnail": "/assets/imgs/product-8.png",
-        "images": ["/assets/imgs/product-10.png", "/assets/imgs/product-1.png", "/assets/imgs/product-2.png"],
-        "models": {
-            "One": {
-                "sizes": ["S", "M", "L", "XL"],
-                "price": 280000,
-                "thumbnail": "/assets/imgs/product-10.png"
-            }
-        },
-        "slug": "cargo-pants",
-        "best_sale": false,
-        "feature": true
-    },
-    {
-        "id": 11,
-        "name": "Silk Blouse",
-        "category": "Shirts",
-        "price": 14500000,
-        "currency": "VND",
-        "sale": 25,
-        "quantity": 12,
-        "thumbnail": "/assets/imgs/product-8.png",
-        "images": ["/assets/imgs/product-11.png", "/assets/imgs/product-1.png", "/assets/imgs/product-2.png"],
-        "models": {
-            "One": {
-                "sizes": ["S", "M", "L"],
-                "price": 360000,
-                "thumbnail": "/assets/imgs/product-10.png"
-            }
-        },
-        "slug": "silk-blouse",
+        "quantity": 8,
+        "thumbnail": "/assets/imgs/product-4.png",
+        "education_levels": "Elementary School",
+        "images": ["/assets/imgs/product-4.png", "/assets/imgs/product-5.png", "/assets/imgs/product-1.png"],
+        "sizes": ["M", "L", "XL", "XXL"],
+        "gender": "Unisex",
+        "colors": ["Black", "Grey", "Red"],
+        "tags": ["casual", "winter", "comfortable"],
+        "slug": "unisex-hoodie",
         "best_sale": true,
         "feature": false
     }

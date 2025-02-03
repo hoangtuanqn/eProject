@@ -283,7 +283,6 @@ export default function Contact() {
                                 type="submit"
                                 className="contact__form-submit"
                                 disabled={loading}
-                                whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
                                 {loading ? (

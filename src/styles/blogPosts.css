@@ -49,11 +49,7 @@
 
 .blog-posts__link {
     margin-top: 15px;
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
     display: inline-flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     gap: 8px;
     padding: 10px 15px;
@@ -62,15 +58,32 @@
     border-radius: 5px;
     text-decoration: none;
     font-size: 1.5rem;
-    -webkit-transition: background 0.3s ease-in-out;
-    -o-transition: background 0.3s ease-in-out;
-    transition: background 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     font-weight: 500;
     line-height: 1.8;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.blog-posts__link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #121212;
+    transition: all 0.3s ease-in-out;
+    z-index: -1;
 }
 
 .blog-posts__link:hover {
-    opacity: 0.8;
+    color: #fff;
+}
+
+.blog-posts__link:hover::before {
+    left: 0;
 }
 
 @media (max-width: 768px) {

@@ -63,6 +63,14 @@
     left: 0;
     right: 0;
 }
+.header__submenu__big::before {
+    position: absolute;
+    content: "";
+    top: -28px;
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+}
 .header__submenu__big .header__submenu-row {
     display: -ms-grid;
     display: grid;

@@ -45,7 +45,11 @@
     font-size: 2rem;
 }
 .filter__category {
-    margin-top: 30px;
+    border-top: 1px solid rgba(18, 18, 18, 0.1);
+    padding-top: 30px;
+}
+.filter__category:first-child {
+    border-top: none;
 }
 .filter__category:first-child {
     margin-top: 0;
@@ -160,7 +164,7 @@
 }
 
 .collections__product-name {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 500;
     text-align: center;
     color: rgb(18, 18, 18);
@@ -169,7 +173,7 @@
 .collections__product-price {
     font-size: 1.6rem;
     margin-top: 10px;
-    color: var(--color-grey-7);
+    color: rgb(18, 18, 18);
     line-height: 1.5;
 }
 .collections__product-price--old {
@@ -541,54 +545,108 @@
 }
 
 /* Price Range Filter Styles */
-.filter__price-range {
+.price-range {
     padding: 15px 0;
 }
 
-.price-inputs {
+.price-range__values {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    color: rgba(18, 18, 18, 0.75);
+    font-size: 1.4rem;
+}
+
+.price-range__slider {
+    position: relative;
+    height: 30px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+    margin-top: 10px;
 }
 
-.price-input {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid rgba(18, 18, 18, 0.2);
-    border-radius: 4px;
-    font-size: 1.4rem;
+.price-range__track {
+    position: absolute;
     width: 100%;
-    outline: none;
-    transition: border-color 0.3s ease;
+    height: 2px;
+    background-color: #ddd; /* Màu mặc định của track */
 }
 
-.price-input:focus {
-    border-color: #333;
+.price-range__progress {
+    position: absolute;
+    height: 2px;
+    background-color: #000; /* Màu của phần đã chọn */
+    left: 0;
+    right: 0;
 }
 
-.price-input::placeholder {
-    color: rgba(18, 18, 18, 0.5);
-    font-size: 1.4rem;
-}
-
-.price-separator {
-    color: rgba(18, 18, 18, 0.7);
-    font-weight: 500;
-    font-size: 1.4rem;
-}
-
-.price-apply-btn {
+.price-range__input {
+    position: absolute;
     width: 100%;
-    padding: 10px;
-    background-color: rgba(18, 18, 18, 0.9);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.4rem;
-    font-weight: 500;
+    height: 2px;
+    -webkit-appearance: none;
+    pointer-events: none;
+    background: none;
+    margin: 0;
+    padding: 0;
+}
+
+.price-range__input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    pointer-events: all;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #000;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-top: -9px;
+}
+
+.price-range__input::-moz-range-thumb {
+    pointer-events: all;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #000;
+    cursor: pointer;
+    margin-top: -9px;
+}
+
+.price-range__input::-webkit-slider-runnable-track {
+    height: 2px;
+    background: none;
+    border: none;
+}
+
+.price-range__input::-moz-range-track {
+    height: 2px;
+    background: none;
+    border: none;
+}
+
+.price-range__input--left {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.price-range__input--right {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 749px) {
+    .filter__price-range {
+        padding: 10px 0;
+    }
+
+    .price-range-values {
+        font-size: 1.3rem;
+    }
 }
 
 /* Desktop styles */
@@ -621,4 +679,143 @@
         font-size: 1.3rem;
         padding: 6px 10px;
     }
+}
+
+/* Thêm vào phần CSS hiện có */
+.price-range-slider--left {
+    z-index: 3; /* Đảm bảo thumb của min luôn nằm trên */
+}
+
+.price-range-slider--right {
+    z-index: 2;
+}
+
+/* Thêm hiệu ứng hover */
+.price-range-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+.price-range-slider::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Thêm vào CSS hiện có */
+.price-range__inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.price-range__input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.price-range__currency {
+    position: absolute;
+    left: 10px;
+    color: #666;
+    font-size: 1.4rem;
+}
+
+.price-range__input-field {
+    width: 100%;
+    padding: 8px 8px 8px 25px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    outline: none;
+}
+
+.price-range__input-field:focus {
+    border-color: #000;
+}
+
+.price-range__separator {
+    color: #666;
+    font-size: 1.4rem;
+}
+
+/* Ẩn mũi tên tăng giảm của input number */
+.price-range__input-field::-webkit-outer-spin-button,
+.price-range__input-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.price-range__input-field[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Common Filter Styles - Áp dụng cho tất cả các filter */
+.filter__group {
+    border-top: 1px solid rgba(18, 18, 18, 0.1);
+    padding-top: 30px;
+    margin-top: 30px;
+}
+
+.filter__group:first-child {
+    border-top: none;
+    margin-top: 0;
+}
+
+.filter__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.filter__content {
+    padding-top: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    cursor: pointer;
+    color: rgba(18, 18, 18, 0.7);
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-custom {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    position: relative;
+    background-color: white;
+    margin-right: 8px;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+
+.filter__icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+.filter__icon--active {
+    transform: rotate(180deg);
 }

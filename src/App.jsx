@@ -46,34 +46,31 @@ const App = () => {
                 <Route path="/pages/policies" element={<Policies />} exact />
 
                 {/* Page Contact */}
-                <Route path="/pages/contact" element={<Contact />} />
+                <Route path="/pages/contact" element={<Contact />} exact />
 
                 {/* Page FAQ */}
-                <Route path="/pages/faq" element={<Faq />} />
-
-                {/* Page Team */}
-                {/* <Route path="/pages/team" element={<Team />} /> */}
+                <Route path="/pages/faq" element={<Faq />} exact />
 
                 {/* Page About Us */}
-                <Route path="/pages/about" element={<AboutUs />} />
+                <Route path="/pages/about" element={<AboutUs />} exact />
 
                 {/* Page Gallery */}
-                <Route path="/pages/gallery" element={<Gallery />} />
+                <Route path="/pages/gallery" element={<Gallery />} exact />
 
                 {/* Page Partners */}
-                <Route path="/pages/partners" element={<Partners />} />
+                <Route path="/pages/partners" element={<Partners />} exact />
 
                 {/* Danh mục product*/}
                 <Route path="/categories" element={<Categories />} exact />
 
                 {/* Sản phẩm product theo từng danh mục*/}
-                <Route path="/category/:slug" element={<Category />} />
+                <Route path="/category/:slug" element={<Category />} exact />
 
                 {/* Hiển thị 1 sản phẩm */}
-                <Route path="/product/:slug" element={<Product />} />
+                <Route path="/product/:slug" element={<Product />} exact />
 
                 {/* Page Error - 404 */}
-                <Route path="*" element={<NotFound />} />
+                <Route path="*" element={<NotFound />} exact />
             </Routes>
             <Footer />
         </>
