@@ -1,30 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, Minus, Plus, Share2, Facebook, Twitter, PinIcon } from "lucide-react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import productData from "../../data/product.json";
+import { useParams } from "react-router-dom";
 import "../../styles/product.css";
 
 export default function Product() {
-    const [selectedColor, setSelectedColor] = useState("Gray");
-    const [selectedSize, setSelectedSize] = useState("XL");
+    const { slug } = useParams();
+    const [product, setProduct] = useState(null);
+    const [selectedModel, setSelectedModel] = useState("");
+    const [selectedSize, setSelectedSize] = useState("");
     const [quantity, setQuantity] = useState(1);
     const [selectedImage, setSelectedImage] = useState(0);
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+    const [availableSizes, setAvailableSizes] = useState([]);
 
-        const images = [
-            "/assets/imgs/product-1.png",
-            "/assets/imgs/product-2.png",
-            "/assets/imgs/product-3.png",
-            "/assets/imgs/product-4.png",
-        "/assets/imgs/product-5.png",
-    ];
+    // Find product based on slug
+    useEffect(() => {
+        const foundProduct = productData.find((p) => p.slug === slug);
+        if (foundProduct) {
+            setProduct(foundProduct);
+            // Set first model as default
+            const firstModel = Object.keys(foundProduct.models)[0];
+            setSelectedModel(firstModel);
+            setAvailableSizes(foundProduct.models[firstModel].sizes);
+            setSelectedSize(foundProduct.models[firstModel].sizes[0]);
+        }
+    }, [slug]);
 
-    const colors = [
-        { name: "Gray", hex: "#808080" },
-        { name: "Brown", hex: "#8B4513" },
-        { name: "Pink", hex: "#FFB6C1" },
-        {}
-    ];
-
-    const sizes = ["XL", "L", "M", "S"];
+    // Update sizes when model changes
+    useEffect(() => {
+        if (product && selectedModel) {
+            setAvailableSizes(product.models[selectedModel].sizes);
+            setSelectedSize(product.models[selectedModel].sizes[0]);
+        }
+    }, [selectedModel, product]);
 
     const handleQuantityChange = (value) => {
         const newQuantity = quantity + value;
@@ -33,40 +44,78 @@ export default function Product() {
         }
     };
 
-    const handleAddToCart = () => {
-        console.log("Added to cart:", {
-            color: selectedColor,
+    const addToCart = () => {
+        if (!selectedModel || !selectedSize) {
+            toast.error("Please select model and size!");
+            return;
+        }
+
+        const cartItem = {
+            productId: product.id,
+            model: selectedModel,
             size: selectedSize,
-            quantity,
-        });
+            quantity: quantity,
+            price: product.models[selectedModel].price,
+            thumbnail: product.models[selectedModel].thumbnail,
+            name: product.name,
+        };
+
+        // Lấy giỏ hàng từ localStorage
+        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+        // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+        const existingItemIndex = cart.findIndex(
+            (item) =>
+                item.productId === cartItem.productId && item.model === cartItem.model && item.size === cartItem.size,
+        );
+
+        if (existingItemIndex !== -1) {
+            // Nếu sản phẩm đã tồn tại, tăng số lượng
+            cart[existingItemIndex].quantity += quantity;
+            toast.success("Updated quantity in cart!");
+        } else {
+            // Nếu sản phẩm chưa tồn tại, thêm mới
+            cart.push(cartItem);
+            toast.success("Added to cart!");
+        }
+
+        // Lưu giỏ hàng mới vào localStorage
+        localStorage.setItem("cart", JSON.stringify(cart));
     };
 
-    const handleBuyNow = () => {
-        console.log("Buy now:", {
-            color: selectedColor,
-            size: selectedSize,
-            quantity,
-        });
+    if (!product) return <div>Loading...</div>;
+
+    const calculateFinalPrice = () => {
+        const originalPrice = product.models[selectedModel]?.price || 0;
+        if (product.sale > 0) {
+            return originalPrice * (1 - product.sale / 100);
+        }
+        return originalPrice;
     };
 
+    // Thêm các hàm xử lý chia sẻ
     const handleFacebookShare = () => {
-        const url = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent("Slim-Fit Formal Suit Blazer");
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${title}`, "_blank");
+        const url = window.location.href;
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, "_blank");
     };
 
     const handleTwitterShare = () => {
-        const url = encodeURIComponent(window.location.href);
-        const text = encodeURIComponent("Check out this Slim-Fit Formal Suit Blazer!");
-        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, "_blank");
+        const url = window.location.href;
+        const text = `Check out ${product.name}!`;
+        window.open(
+            `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+            "_blank",
+        );
     };
 
     const handlePinterestShare = () => {
-        const url = encodeURIComponent(window.location.href);
-        const media = encodeURIComponent(images[selectedImage]);
-        const description = encodeURIComponent("Slim-Fit Formal Suit Blazer");
+        const url = window.location.href;
+        const media = product.images[0]; // Sử dụng ảnh đầu tiên
+        const description = product.name;
         window.open(
-            `https://pinterest.com/pin/create/button/?url=${url}&media=${media}&description=${description}`,
+            `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&media=${encodeURIComponent(
+                media,
+            )}&description=${encodeURIComponent(description)}`,
             "_blank",
         );
     };
@@ -75,32 +124,49 @@ export default function Product() {
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: "Slim-Fit Formal Suit Blazer",
-                    text: "Check out this amazing blazer!",
+                    title: product.name,
+                    text: `Check out ${product.name}!`,
                     url: window.location.href,
                 });
             } catch (error) {
                 console.log("Error sharing:", error);
             }
+        } else {
+            // Fallback cho các trình duyệt không hỗ trợ Web Share API
+            const url = window.location.href;
+            navigator.clipboard.writeText(url);
+            toast.success("Link copied!");
         }
     };
 
     return (
         <section className="product">
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="container">
                 <div className="product__grid">
                     <div className="product__images">
                         <div className="product__image-main">
-                            <img src={images[selectedImage] || "/placeholder.svg"} alt="Slim-Fit Formal Suit Blazer" />
+                            <img src={product.images[selectedImage]} alt={product.name} />
                         </div>
                         <div className="product__image-gallery">
-                            {images.map((image, index) => (
+                            {product.images.map((image, index) => (
                                 <div
                                     key={index}
                                     className={`product__image-thumbnail ${selectedImage === index ? "active" : ""}`}
                                     onClick={() => setSelectedImage(index)}
                                 >
-                                    <img src={image || "/placeholder.svg"} alt={`Thumbnail ${index + 1}`} />
+                                    <img src={image} alt={`${product.name} ${index + 1}`} />
                                 </div>
                             ))}
                         </div>
@@ -110,35 +176,42 @@ export default function Product() {
                         <div className="product__breadcrumb">
                             <a href="/">Home</a>
                             <span>/</span>
-                            <span>Slim-Fit Formal Suit Blazer</span>
+                            <span>{product.name}</span>
                         </div>
 
-                        <h2 className="product__title">Slim-Fit Formal Suit Blazer</h2>
-                        <span className="product__price">13.594.000₫</span>
-                        <span className="product__tax">Tax included.</span>
+                        <h2 className="product__title">{product.name}</h2>
 
-                        <span className="product__vendor">
-                            <strong>Vendor:</strong> <a href="/vendors/fashion">fashion</a>
-                        </span>
-
-                        <span className="product__stock">Only 44 items in stock!</span>
+                        <div className="product__price-wrapper">
+                            <span className="product__price">
+                                {new Intl.NumberFormat("vi-VN", {
+                                    style: "currency",
+                                    currency: "VND",
+                                }).format(calculateFinalPrice())}
+                            </span>
+                            {product.sale > 0 && (
+                                <span className="product__price--old">
+                                    {new Intl.NumberFormat("vi-VN", {
+                                        style: "currency",
+                                        currency: "VND",
+                                    }).format(product.models[selectedModel]?.price)}
+                                </span>
+                            )}
+                        </div>
 
                         <div className="product__variant">
                             <div className="product__variant-label">
-                                <span>Color:</span>
-                                <span>{selectedColor}</span>
+                                <span>Model:</span>
+                                <span>{selectedModel}</span>
                             </div>
-                            <div className="product__color-options">
-                                {colors.map((color) => (
+                            <div className="product__model-options">
+                                {Object.keys(product.models).map((model) => (
                                     <button
-                                        key={color.name}
-                                        className={`product__color-option ${
-                                            selectedColor === color.name ? "active" : ""
-                                        }`}
-                                        style={{ backgroundColor: color.hex }}
-                                        onClick={() => setSelectedColor(color.name)}
-                                        aria-label={`Select ${color.name} color`}
-                                    />
+                                        key={model}
+                                        className={`product__model-option ${selectedModel === model ? "active" : ""}`}
+                                        onClick={() => setSelectedModel(model)}
+                                    >
+                                        {model}
+                                    </button>
                                 ))}
                             </div>
                         </div>
@@ -149,7 +222,7 @@ export default function Product() {
                                 <span>{selectedSize}</span>
                             </div>
                             <div className="product__size-options">
-                                {sizes.map((size) => (
+                                {availableSizes.map((size) => (
                                     <button
                                         key={size}
                                         className={`product__size-option ${selectedSize === size ? "active" : ""}`}
@@ -175,7 +248,7 @@ export default function Product() {
                                     type="number"
                                     className="product__quantity-number"
                                     value={quantity}
-                                    onChange={(e) => setQuantity(Math.max(1, Number.parseInt(e.target.value) || 1))}
+                                    onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                                     min="1"
                                 />
                                 <button className="product__quantity-button" onClick={() => handleQuantityChange(1)}>
@@ -185,27 +258,27 @@ export default function Product() {
                         </div>
 
                         <div className="product__buttons">
-                            <button className="product__add-to-cart" onClick={handleAddToCart}>
-                                Add To Cart
+                            <button
+                                className="product__add-to-cart"
+                                onClick={addToCart}
+                                disabled={product.quantity === 0}
+                            >
+                                {product.quantity === 0 ? "Out of Stock" : "Add to Cart"}
                             </button>
-                            <button className="product__buy-now" onClick={handleBuyNow}>
-                                Buy It Now
+                            <button className="product__buy-now" onClick={addToCart} disabled={product.quantity === 0}>
+                                {product.quantity === 0 ? "Out of Stock" : "Buy Now"}
                             </button>
                         </div>
 
                         <div className="product__secure">Guaranteed safe checkout</div>
                         <div className="product__payment">
-                            <img src="/assets/icon/visa.svg" alt="Visa" class="footer__payment-img" />
-                            <img src="/assets/icon/mastercard.svg" alt="Mastercard" class="footer__payment-img" />
-                            <img src="/assets/icon/amex.svg" alt="American Express" class="footer__payment-img" />
-                            <img src="/assets/icon/paypal.svg" alt="PayPal" class="footer__payment-img" />
-                            <img src="/assets/icon/diners.svg" alt="Diners Club" class="dinersclub-img" />
-                            <img src="/assets/icon/discover.svg" alt="Discover" class="footer__payment-img" />
+                            <img src="/assets/icon/visa.svg" alt="Visa" className="footer__payment-img" />
+                            <img src="/assets/icon/mastercard.svg" alt="Mastercard" className="footer__payment-img" />
+                            <img src="/assets/icon/amex.svg" alt="American Express" className="footer__payment-img" />
+                            <img src="/assets/icon/paypal.svg" alt="PayPal" className="footer__payment-img" />
+                            <img src="/assets/icon/diners.svg" alt="Diners Club" className="dinersclub-img" />
+                            <img src="/assets/icon/discover.svg" alt="Discover" className="footer__payment-img" />
                         </div>
-
-                        {/* <a href="#size-guide" className="product__size-guide">
-                            Size Guide
-                        </a> */}
 
                         <div className="product__details">
                             <div className="product__details-header" onClick={() => setIsDetailsOpen(!isDetailsOpen)}>

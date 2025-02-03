@@ -498,6 +498,15 @@
         padding: 6px 12px;
         margin: 0 2px;
     }
+
+    .price-inputs {
+        flex-direction: row;
+    }
+
+    .price-input {
+        font-size: 1.3rem;
+        padding: 6px 10px;
+    }
 }
 
 /* Tablet Styles - FIXED to show filters */
@@ -528,5 +537,88 @@
     .mobile-filter-toggle,
     .mobile-filter-drawer {
         display: none !important;
+    }
+}
+
+/* Price Range Filter Styles */
+.filter__price-range {
+    padding: 15px 0;
+}
+
+.price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.price-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid rgba(18, 18, 18, 0.2);
+    border-radius: 4px;
+    font-size: 1.4rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.price-input:focus {
+    border-color: #333;
+}
+
+.price-input::placeholder {
+    color: rgba(18, 18, 18, 0.5);
+    font-size: 1.4rem;
+}
+
+.price-separator {
+    color: rgba(18, 18, 18, 0.7);
+    font-weight: 500;
+    font-size: 1.4rem;
+}
+
+.price-apply-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(18, 18, 18, 0.9);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Desktop styles */
+@media screen and (min-width: 750px) {
+    .desktop-only {
+        display: block;
+    }
+
+    .filter__category {
+        margin-bottom: 20px;
+    }
+
+    .filter__price-range {
+        padding: 15px 0;
+    }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 749px) {
+    .desktop-only {
+        display: none;
+    }
+
+    .price-inputs {
+        flex-direction: row;
+        margin-bottom: 0; /* Remove margin on mobile */
+    }
+
+    .price-input {
+        font-size: 1.3rem;
+        padding: 6px 10px;
     }
 }

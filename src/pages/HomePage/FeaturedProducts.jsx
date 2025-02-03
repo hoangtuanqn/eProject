@@ -1,5 +1,5 @@
 import React from "react";
-import { Plus, Eye, Heart } from "lucide-react";
+import { Eye, Heart, ShoppingCartIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import featuredProductsData from "../../data/featured-products.json";
 import "../../styles/featuredProducts.css";
@@ -22,14 +22,14 @@ export default function FeaturedProducts() {
                                         <img src={image} alt={name} className="product-card__image" />
                                         <div className="product-card__actions">
                                             <button className="action-btn" title="Quick view">
-                                                <Plus size={20} />
+                                                <ShoppingCartIcon size={20} />
                                             </button>
                                             <button className="action-btn" title="Compare">
                                                 <Eye size={20} />
                                             </button>
-                                            <Link to="/" className="action-btn" title="Add to wishlist">
+                                            <button className="action-btn" title="Add to wishlist">
                                                 <Heart size={20} />
-                                            </Link>
+                                            </button>
                                         </div>
                                     </figure>
                                     <figcaption className="product-card__name">{name}</figcaption>

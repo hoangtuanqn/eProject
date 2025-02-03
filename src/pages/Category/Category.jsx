@@ -12,14 +12,15 @@ import "../../styles/category.css";
 export default function Category({ nameCategory }) {
     const navigate = useNavigate();
     const { slug } = useParams();
-    const [selectedColors, setSelectedColors] = useState([]);
+    const [selectedAvailability, setSelectedAvailability] = useState([]);
     const [openCategories, setOpenCategories] = useState({
         availability: true,
-        color: true,
-        size: true,
+        price: true,
     });
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
+    const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
+    const [priceInputs, setPriceInputs] = useState({ min: "", max: "" });
 
     // Điều hướng đến trang 404 nếu nameCategory là "404"
     useEffect(() => {
@@ -32,12 +33,10 @@ export default function Category({ nameCategory }) {
     const data = useMemo(() => {
         if (nameCategory === "All Product") return productData;
         return productData.filter((product) => product.category === nameCategory);
-    }, [nameCategory, productData]);
+    }, [nameCategory]);
 
     const [filteredProducts, setFilteredProducts] = useState(data);
     const [sortOption, setSortOption] = useState("featured");
-    const [selectedSizes, setSelectedSizes] = useState([]);
-    const [selectedAvailability, setSelectedAvailability] = useState([]);
     const [displayColumns, setDisplayColumns] = useState(4);
     const [currentPage, setCurrentPage] = useState(0);
     const [itemsPerPage] = useState(12);
@@ -50,65 +49,45 @@ export default function Category({ nameCategory }) {
         }));
     }, []);
 
-    // Hàm để chọn màu sắc
-    const handleSelectColor = useCallback((color) => {
-        setSelectedColors((prev) => (prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color]));
+    // Helper function to get minimum price from models
+    const getMinPrice = useCallback((product) => {
+        if (!product.models) return product.price;
+        return Math.min(...Object.values(product.models).map((model) => model.price));
     }, []);
 
-    // Tính toán các màu sắc duy nhất từ dữ liệu sản phẩm
-    const colors = useMemo(() => {
-        const uniqueColors = [...new Set(data.map((item) => item.color))];
-        return uniqueColors.map((color) => ({
-            name: color,
-            hex: data.find((item) => item.color === color)?.nameColor || color.toLowerCase(),
-        }));
-    }, [data]);
+    // Sửa lại hàm calculateSalePrice và thêm hàm calculateOriginalPrice
+    const calculateOriginalPrice = useCallback((finalPrice, salePercentage) => {
+        if (!salePercentage) return finalPrice;
+        // Ví dụ: finalPrice = 100, sale = 50%
+        // => originalPrice = 100 / (1 - 0.5) = 100 / 0.5 = 200
+        return finalPrice / (1 - salePercentage / 100);
+    }, []);
 
-    // Tính toán các kích thước duy nhất từ dữ liệu sản phẩm
-    const sizes = useMemo(() => {
-        return [...new Set(data.map((item) => item.size))];
-    }, [data]);
-
-    // Hàm để lấy nhãn kích thước
-    const getSizeLabel = useCallback((size) => {
-        const sizeMap = {
-            S: "Small (S)",
-            M: "Medium (M)",
-            L: "Large (L)",
-            XL: "Extra Large (XL)",
-            XXL: "Double Extra Large (XXL)",
-        };
-        return sizeMap[size] || size;
+    const calculateSalePrice = useCallback((originalPrice, salePercentage) => {
+        if (!salePercentage) return originalPrice;
+        return originalPrice * (1 - salePercentage / 100);
     }, []);
 
     // Hàm để lọc sản phẩm dựa trên các bộ lọc đã chọn
     const filterProducts = useCallback(() => {
         const filtered = data.filter((product) => {
-            const colorMatch = selectedColors.length === 0 || selectedColors.includes(product.color);
-            const sizeMatch = selectedSizes.length === 0 || selectedSizes.includes(product.size);
+            const minPrice = getMinPrice(product);
+            const priceMatch = minPrice >= priceRange.min && minPrice <= (priceRange.max || Infinity);
             const availabilityMatch =
                 selectedAvailability.length === 0 ||
                 (selectedAvailability.includes("In stock") && product.quantity > 0) ||
                 (selectedAvailability.includes("Out of stock") && product.quantity === 0);
-            return colorMatch && sizeMatch && availabilityMatch;
+            return priceMatch && availabilityMatch;
         });
 
         const sortedFiltered = [...filtered];
 
         switch (sortOption) {
             case "price_low_high":
-                sortedFiltered.sort(
-                    (a, b) =>
-                        Number.parseFloat(a.price.replace(/[^0-9.-]+/g, "")) -
-                        Number.parseFloat(b.price.replace(/[^0-9.-]+/g, "")),
-                );
+                sortedFiltered.sort((a, b) => getMinPrice(a) - getMinPrice(b));
                 break;
             case "price_high_low":
-                sortedFiltered.sort(
-                    (a, b) =>
-                        Number.parseFloat(b.price.replace(/[^0-9.-]+/g, "")) -
-                        Number.parseFloat(a.price.replace(/[^0-9.-]+/g, "")),
-                );
+                sortedFiltered.sort((a, b) => getMinPrice(b) - getMinPrice(a));
                 break;
             case "az":
                 sortedFiltered.sort((a, b) => a.name.localeCompare(b.name));
@@ -121,7 +100,7 @@ export default function Category({ nameCategory }) {
         }
 
         setFilteredProducts(sortedFiltered);
-    }, [data, selectedColors, selectedSizes, selectedAvailability, sortOption]);
+    }, [data, priceRange, selectedAvailability, sortOption, getMinPrice]);
 
     // Gọi hàm filterProducts mỗi khi các bộ lọc thay đổi
     useEffect(() => {
@@ -138,11 +117,6 @@ export default function Category({ nameCategory }) {
         setSortOption(e.target.value);
     }, []);
 
-    // Hàm để chọn kích thước
-    const handleSelectSize = useCallback((size) => {
-        setSelectedSizes((prev) => (prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]));
-    }, []);
-
     // Hàm để chọn tình trạng sẵn có
     const handleSelectAvailability = useCallback((availability) => {
         setSelectedAvailability((prev) =>
@@ -156,16 +130,25 @@ export default function Category({ nameCategory }) {
     }, []);
 
     // Hàm để mở/tắt bộ lọc trên di động
+    const handleApplyPriceFilter = useCallback(() => {
+        const min = priceInputs.min === "" ? 0 : Number(priceInputs.min);
+        const max = priceInputs.max === "" ? Infinity : Number(priceInputs.max);
+        setPriceRange({ min, max });
+    }, [priceInputs]);
+
     const toggleMobileFilter = useCallback(() => {
+        if (isMobileFilterOpen) {
+            handleApplyPriceFilter();
+        }
         setIsMobileFilterOpen((prev) => !prev);
         document.body.style.overflow = !isMobileFilterOpen ? "hidden" : "";
-    }, [isMobileFilterOpen]);
+    }, [isMobileFilterOpen, handleApplyPriceFilter]);
 
     // Tính toán số lượng bộ lọc đang hoạt động
     useEffect(() => {
-        const count = selectedColors.length + selectedSizes.length + selectedAvailability.length;
+        const count = selectedAvailability.length;
         setActiveFiltersCount(count);
-    }, [selectedColors, selectedSizes, selectedAvailability]);
+    }, [selectedAvailability]);
 
     // Tính toán số trang dựa trên số lượng sản phẩm đã lọc
     const pageCount = useMemo(
@@ -200,6 +183,16 @@ export default function Category({ nameCategory }) {
         handleResize();
 
         return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    // Hàm xử lý khi người dùng nhập giá
+    const handlePriceInput = useCallback((type, value) => {
+        // Chỉ cho phép nhập số
+        const numericValue = value.replace(/\D/g, "");
+        setPriceInputs((prev) => ({
+            ...prev,
+            [type]: numericValue,
+        }));
     }, []);
 
     return (
@@ -352,91 +345,49 @@ export default function Category({ nameCategory }) {
                         <div className="filter__category">
                             <div
                                 className="filter__category-top dfbetween"
-                                onClick={() => toggleCategory("color")}
+                                onClick={() => toggleCategory("price")}
                                 style={{ cursor: "pointer" }}
                             >
-                                <h3 className="filter__title">Color</h3>
+                                <h3 className="filter__title">Price Range</h3>
                                 <img
                                     src="/assets/icon/chevron-top.svg"
                                     alt=""
                                     className={`filter__category-icon ${
-                                        openCategories.color ? "rotate-up" : "rotate-down"
+                                        openCategories.price ? "rotate-up" : "rotate-down"
                                     }`}
                                 />
                             </div>
-                            {openCategories.color && (
-                                <ul className="filter__options filter__options--color">
-                                    {colors.map((color) => {
-                                        const colorCount = data.filter((item) => item.color === color.name).length;
-                                        const isDisabled = data.every(
-                                            (item) => item.color === color.name && item.quantity === 0,
-                                        );
-                                        return (
-                                            <li
-                                                key={color.name}
-                                                className={`filter__option ${
-                                                    selectedColors.includes(color.name) ? "selected" : ""
-                                                } ${isDisabled ? "disabled" : ""}`}
-                                                onClick={() => !isDisabled && handleSelectColor(color.name)}
-                                            >
-                                                <span className="filter__color" style={{ backgroundColor: color.hex }}>
-                                                    {selectedColors.includes(color.name) && (
-                                                        <span className="filter__checkmark"></span>
-                                                    )}
-                                                </span>
-                                                <label className="filter__label">{color.name}</label>
-                                                <span className="filter__count">({colorCount})</span>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            )}
-                        </div>
-                        <div className="filter__category">
-                            <div
-                                className="filter__category-top dfbetween"
-                                onClick={() => toggleCategory("size")}
-                                style={{ cursor: "pointer" }}
-                            >
-                                <h3 className="filter__title">Size</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={`filter__category-icon ${
-                                        openCategories.size ? "rotate-up" : "rotate-down"
-                                    }`}
-                                />
-                            </div>
-                            {openCategories.size && (
-                                <ul className="filter__options">
-                                    {sizes.map((size) => {
-                                        const sizeCount = data.filter((item) => item.size === size).length;
-                                        const isDisabled = data.every(
-                                            (item) => item.size === size && item.quantity === 0,
-                                        );
-                                        return (
-                                            <li key={size} className={`filter__option ${isDisabled ? "disabled" : ""}`}>
-                                                <input
-                                                    type="checkbox"
-                                                    id={`mobile-size-${size}`}
-                                                    className="filter__checkbox"
-                                                    checked={selectedSizes.includes(size)}
-                                                    onChange={() => !isDisabled && handleSelectSize(size)}
-                                                    disabled={isDisabled}
-                                                />
-                                                <label htmlFor={`mobile-size-${size}`} className="filter__label">
-                                                    <span className="custom-checkbox"></span> {getSizeLabel(size)}
-                                                </label>
-                                                <span className="filter__count">({sizeCount})</span>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
+                            {openCategories.price && (
+                                <div className="filter__price-range">
+                                    <div className="price-inputs">
+                                        <input
+                                            type="text"
+                                            placeholder="₫ FROM"
+                                            value={priceInputs.min}
+                                            onChange={(e) => handlePriceInput("min", e.target.value)}
+                                            className="price-input"
+                                        />
+                                        <span className="price-separator">-</span>
+                                        <input
+                                            type="text"
+                                            placeholder="₫ TO"
+                                            value={priceInputs.max}
+                                            onChange={(e) => handlePriceInput("max", e.target.value)}
+                                            className="price-input"
+                                        />
+                                    </div>
+                                </div>
                             )}
                         </div>
                     </div>
                     <div className="mobile-filter-footer">
-                        <button className="mobile-filter-apply" onClick={toggleMobileFilter}>
+                        <button
+                            className="mobile-filter-apply"
+                            onClick={() => {
+                                handleApplyPriceFilter();
+                                toggleMobileFilter();
+                            }}
+                        >
                             Apply
                         </button>
                     </div>
@@ -498,86 +449,41 @@ export default function Category({ nameCategory }) {
                         <div className="filter__category">
                             <div
                                 className="filter__category-top dfbetween"
-                                onClick={() => toggleCategory("color")}
+                                onClick={() => toggleCategory("price")}
                                 style={{ cursor: "pointer" }}
                             >
-                                <h3 className="filter__title">Color</h3>
+                                <h3 className="filter__title">Price Range</h3>
                                 <img
                                     src="/assets/icon/chevron-top.svg"
                                     alt=""
                                     className={`filter__category-icon ${
-                                        openCategories.color ? "rotate-up" : "rotate-down"
+                                        openCategories.price ? "rotate-up" : "rotate-down"
                                     }`}
                                 />
                             </div>
-                            {openCategories.color && (
-                                <ul className="filter__options filter__options--color">
-                                    {colors.map((color) => {
-                                        const colorCount = data.filter((item) => item.color === color.name).length;
-                                        const isDisabled = data.every(
-                                            (item) => item.color === color.name && item.quantity === 0,
-                                        );
-                                        return (
-                                            <li
-                                                key={color.name}
-                                                className={`filter__option ${
-                                                    selectedColors.includes(color.name) ? "selected" : ""
-                                                } ${isDisabled ? "disabled" : ""}`}
-                                                onClick={() => !isDisabled && handleSelectColor(color.name)}
-                                            >
-                                                <span className="filter__color" style={{ backgroundColor: color.hex }}>
-                                                    {selectedColors.includes(color.name) && (
-                                                        <span className="filter__checkmark"></span>
-                                                    )}
-                                                </span>
-                                                <label className="filter__label">{color.name}</label>
-                                                <span className="filter__count">({colorCount})</span>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            )}
-                        </div>
-                        <div className="filter__category">
-                            <div
-                                className="filter__category-top dfbetween"
-                                onClick={() => toggleCategory("size")}
-                                style={{ cursor: "pointer" }}
-                            >
-                                <h3 className="filter__title">Size</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={`filter__category-icon ${
-                                        openCategories.size ? "rotate-up" : "rotate-down"
-                                    }`}
-                                />
-                            </div>
-                            {openCategories.size && (
-                                <ul className="filter__options">
-                                    {sizes.map((size) => {
-                                        const sizeCount = data.filter((item) => item.size === size).length;
-                                        const isDisabled = data.every(
-                                            (item) => item.size === size && item.quantity === 0,
-                                        );
-                                        return (
-                                            <li key={size} className={`filter__option ${isDisabled ? "disabled" : ""}`}>
-                                                <input
-                                                    type="checkbox"
-                                                    id={`size-${size}`}
-                                                    className="filter__checkbox"
-                                                    checked={selectedSizes.includes(size)}
-                                                    onChange={() => !isDisabled && handleSelectSize(size)}
-                                                    disabled={isDisabled}
-                                                />
-                                                <label htmlFor={`size-${size}`} className="filter__label">
-                                                    <span className="custom-checkbox"></span> {getSizeLabel(size)}
-                                                </label>
-                                                <span className="filter__count">({sizeCount})</span>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
+                            {openCategories.price && (
+                                <div className="filter__price-range">
+                                    <div className="price-inputs">
+                                        <input
+                                            type="text"
+                                            placeholder="₫ FROM"
+                                            value={priceInputs.min}
+                                            onChange={(e) => handlePriceInput("min", e.target.value)}
+                                            className="price-input"
+                                        />
+                                        <span className="price-separator">-</span>
+                                        <input
+                                            type="text"
+                                            placeholder="₫ TO"
+                                            value={priceInputs.max}
+                                            onChange={(e) => handlePriceInput("max", e.target.value)}
+                                            className="price-input"
+                                        />
+                                    </div>
+                                    <button className="btn desktop-only" onClick={handleApplyPriceFilter}>
+                                        APPLY
+                                    </button>
+                                </div>
                             )}
                         </div>
                     </aside>
@@ -586,52 +492,63 @@ export default function Category({ nameCategory }) {
 
                         <div className={`collections__product-grid columns-${displayColumns} responsive-grid`}>
                             <AnimatePresence>
-                                {getCurrentItems().map((item) => (
-                                    <motion.article
-                                        key={item.slug}
-                                        className="collections__product-item"
-                                        layout
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.8 }}
-                                        whileHover={{ scale: 1.05 }}
-                                    >
-                                        <Link to={`/product/${item.slug}`}>
-                                            <figure className="collections-product__wrapper">
-                                                {item.quantity > 0 ? (
-                                                    item.sale && <span className="badge__sale">SALE</span>
-                                                ) : (
-                                                    <span className="badge__sale">Sold Out</span>
-                                                )}
-                                                <img
-                                                    src={item.image || "/placeholder.svg"}
-                                                    alt=""
-                                                    className={clsx(
-                                                        "collections__product-image",
-                                                        item.quantity === 0 && "collections__product-image--opacity",
+                                {getCurrentItems().map((item) => {
+                                    const minPrice = getMinPrice(item);
+                                    // Nếu có sale thì minPrice là giá đã giảm, cần tính ngược lại giá gốc
+                                    const originalPrice =
+                                        item.sale > 0 ? calculateOriginalPrice(minPrice, item.sale) : minPrice;
+                                    const finalPrice = minPrice; // Giá hiển thị chính là minPrice (đã bao gồm giảm giá)
+
+                                    return (
+                                        <motion.article
+                                            key={item.slug}
+                                            className="collections__product-item"
+                                            layout
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0, scale: 0.8 }}
+                                            whileHover={{ scale: 1.05 }}
+                                        >
+                                            <Link to={`/product/${item.slug}`}>
+                                                <figure className="collections-product__wrapper">
+                                                    {item.quantity > 0 ? (
+                                                        item.sale > 0 && (
+                                                            <span className="badge__sale">{item.sale}% OFF</span>
+                                                        )
+                                                    ) : (
+                                                        <span className="badge__sale">Sold Out</span>
                                                     )}
-                                                />
-                                            </figure>
-                                            <div className="collections__product-details">
-                                                <h3 className="collections__product-name">{item.name}</h3>
-                                                <span className="collections__product-price dfcenter">
-                                                    {new Intl.NumberFormat("vi-VN", {
-                                                        style: "currency",
-                                                        currency: "VND",
-                                                    }).format(Number.parseInt(item.price))}
-                                                    {item.price_old && (
-                                                        <span className="collections__product-price--old">
-                                                            {new Intl.NumberFormat("vi-VN", {
-                                                                style: "currency",
-                                                                currency: "VND",
-                                                            }).format(Number.parseInt(item.price_old))}
-                                                        </span>
-                                                    )}
-                                                </span>
-                                            </div>
-                                        </Link>
-                                    </motion.article>
-                                ))}
+                                                    <img
+                                                        src={item.thumbnail || "/placeholder.svg"}
+                                                        alt=""
+                                                        className={clsx(
+                                                            "collections__product-image",
+                                                            item.quantity === 0 &&
+                                                                "collections__product-image--opacity",
+                                                        )}
+                                                    />
+                                                </figure>
+                                                <div className="collections__product-details">
+                                                    <h3 className="collections__product-name">{item.name}</h3>
+                                                    <span className="collections__product-price dfcenter">
+                                                        {new Intl.NumberFormat("vi-VN", {
+                                                            style: "currency",
+                                                            currency: "VND",
+                                                        }).format(finalPrice)}
+                                                        {item.sale > 0 && (
+                                                            <span className="collections__product-price--old">
+                                                                {new Intl.NumberFormat("vi-VN", {
+                                                                    style: "currency",
+                                                                    currency: "VND",
+                                                                }).format(originalPrice)}
+                                                            </span>
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            </Link>
+                                        </motion.article>
+                                    );
+                                })}
                             </AnimatePresence>
                         </div>
                         {filteredProducts.length > 20 && (
