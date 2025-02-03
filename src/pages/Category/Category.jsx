@@ -43,6 +43,9 @@ export default function Category({ nameCategory }) {
         priceRange: { min: 10, max: 999 },
     });
 
+    // Thêm state cho sorting
+    const [sortOption, setSortOption] = useState("newest");
+
     // Kiểm tra path và slug
     useEffect(() => {
         // Nếu path là /all-product thì không cần kiểm tra
@@ -83,10 +86,9 @@ export default function Category({ nameCategory }) {
     }, [slug]);
 
     const [filteredProducts, setFilteredProducts] = useState(data);
-    const [sortOption, setSortOption] = useState("featured");
     const [displayColumns, setDisplayColumns] = useState(4);
     const [currentPage, setCurrentPage] = useState(0);
-    const [itemsPerPage] = useState(12);
+    const [itemsPerPage] = useState(20);
 
     // Đồng bộ giá trị ban đầu
     useEffect(() => {
@@ -141,27 +143,34 @@ export default function Category({ nameCategory }) {
     const handleCategoryChange = useCallback(
         (categoryName) => {
             if (slug !== "all-product") {
-                // Nếu đang ở category cụ thể, chuyển về category/all-product
+                // Kiểm tra xem category được click có phải là category hiện tại không
+                const currentCategory = categoriesData.find((cat) => cat.slug === slug);
+                if (currentCategory && currentCategory.name === categoryName) {
+                    // Nếu đúng là category hiện tại, chỉ cần bỏ chọn nó
+                    setSelectedCategories((prev) => prev.filter((c) => c !== categoryName));
+                    return;
+                }
+                
+                // Nếu không phải category hiện tại, chuyển về all-product
                 navigate("/category/all-product");
-                // Đặt timeout nhỏ để đảm bảo navigation hoàn tất trước khi cập nhật state
                 setTimeout(() => {
                     setSelectedCategories((prev) => {
-                        // Nếu category đã có trong danh sách, giữ nguyên danh sách
                         if (prev.includes(categoryName)) {
                             return prev;
                         }
-                        // Nếu category chưa có, thêm vào danh sách hiện tại
                         return [...prev, categoryName];
                     });
                 }, 0);
             } else {
                 // Nếu đã ở all-product, xử lý toggle như bình thường
                 setSelectedCategories((prev) =>
-                    prev.includes(categoryName) ? prev.filter((c) => c !== categoryName) : [...prev, categoryName],
+                    prev.includes(categoryName) 
+                        ? prev.filter((c) => c !== categoryName) 
+                        : [...prev, categoryName]
                 );
             }
         },
-        [slug, navigate],
+        [slug, navigate, categoriesData]
     );
 
     // Thêm hàm xử lý filter sale
@@ -219,17 +228,50 @@ export default function Category({ nameCategory }) {
         setCurrentPage(0);
     }, [filteredProducts, itemsPerPage]);
 
-    // Hàm để thay đổi tùy chọn sắp xếp
+    // Thêm hàm sortProducts
+    const sortProducts = useCallback((products, option) => {
+        const sortedProducts = [...products];
+        switch (option) {
+            case "newest":
+                return sortedProducts.sort((a, b) => b.id - a.id); // Giả sử id cao hơn là sản phẩm mới hơn
+            case "oldest":
+                return sortedProducts.sort((a, b) => a.id - b.id);
+            case "az":
+                return sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+            case "za":
+                return sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+            case "price_low_high":
+                return sortedProducts.sort((a, b) => {
+                    const priceA = a.sale > 0 ? a.price * (1 - a.sale / 100) : a.price;
+                    const priceB = b.sale > 0 ? b.price * (1 - b.sale / 100) : b.price;
+                    return priceA - priceB;
+                });
+            case "price_high_low":
+                return sortedProducts.sort((a, b) => {
+                    const priceA = a.sale > 0 ? a.price * (1 - a.sale / 100) : a.price;
+                    const priceB = b.sale > 0 ? b.price * (1 - b.sale / 100) : b.price;
+                    return priceB - priceA;
+                });
+            default:
+                return sortedProducts;
+        }
+    }, []);
+
+    // Thêm hàm handleSortChange
     const handleSortChange = useCallback((e) => {
         setSortOption(e.target.value);
     }, []);
 
-    // Hàm để chọn tình trạng sẵn có
-    const handleSelectAvailability = useCallback((availability) => {
-        setSelectedAvailability((prev) =>
-            prev.includes(availability) ? prev.filter((a) => a !== availability) : [...prev, availability],
-        );
-    }, []);
+    // Thêm sortedProducts memo để xử lý sorting mà không ảnh hưởng đến filteredProducts
+    const sortedProducts = useMemo(() => {
+        return sortProducts(filteredProducts, sortOption);
+    }, [filteredProducts, sortOption, sortProducts]);
+
+    // Cập nhật getCurrentItems để sử dụng sortedProducts thay vì filteredProducts
+    const getCurrentItems = useCallback(() => {
+        const startIndex = currentPage * itemsPerPage;
+        return sortedProducts.slice(startIndex, startIndex + itemsPerPage);
+    }, [currentPage, itemsPerPage, sortedProducts]);
 
     // Hàm để thay đổi số cột hiển thị
     const handleColumnChange = useCallback((columns) => {
@@ -262,12 +304,6 @@ export default function Category({ nameCategory }) {
         () => Math.ceil(filteredProducts.length / itemsPerPage),
         [filteredProducts.length, itemsPerPage],
     );
-
-    // Lấy các sản phẩm hiện tại dựa trên trang hiện tại
-    const getCurrentItems = useCallback(() => {
-        const startIndex = currentPage * itemsPerPage;
-        return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
-    }, [currentPage, itemsPerPage, filteredProducts]);
 
     // Hàm để thay đổi trang
     const handlePageChange = useCallback(({ selected }) => {
@@ -492,7 +528,8 @@ export default function Category({ nameCategory }) {
                     <div className="collections__sort dfbetween">
                         <label className="sort__name">Sort by:</label>
                         <select name="sort__by" className="sort__by" onChange={handleSortChange} value={sortOption}>
-                            <option value="featured">Featured</option>
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
                             <option value="az">Alphabetically, A-Z</option>
                             <option value="za">Alphabetically, Z-A</option>
                             <option value="price_low_high">Price, low to high</option>
