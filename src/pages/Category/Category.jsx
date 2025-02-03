@@ -34,6 +34,15 @@ export default function Category({ nameCategory }) {
     const [priceRangeSlider, setPriceRangeSlider] = useState(999);
     const [selectedSale, setSelectedSale] = useState([]);
 
+    // Thêm state tạm thời cho mobile filter
+    const [tempMobileFilters, setTempMobileFilters] = useState({
+        categories: [],
+        sizes: [],
+        educationLevels: [],
+        sale: [],
+        priceRange: { min: 10, max: 999 },
+    });
+
     // Kiểm tra path và slug
     useEffect(() => {
         // Nếu path là /all-product thì không cần kiểm tra
@@ -360,6 +369,78 @@ export default function Category({ nameCategory }) {
         [priceRange],
     );
 
+    // Khởi tạo giá trị cho tempMobileFilters khi mở mobile filter
+    useEffect(() => {
+        if (isMobileFilterOpen) {
+            setTempMobileFilters({
+                categories: [...selectedCategories],
+                sizes: [...selectedSizes],
+                educationLevels: [...selectedEducationLevels],
+                sale: [...selectedSale],
+                priceRange: { ...priceRange },
+            });
+        }
+    }, [isMobileFilterOpen]);
+
+    // Handlers cho mobile filter
+    const handleMobileCategoryChange = useCallback((categoryName) => {
+        setTempMobileFilters((prev) => ({
+            ...prev,
+            categories: prev.categories.includes(categoryName)
+                ? prev.categories.filter((c) => c !== categoryName)
+                : [...prev.categories, categoryName],
+        }));
+    }, []);
+
+    const handleMobileSizeChange = useCallback((size) => {
+        setTempMobileFilters((prev) => ({
+            ...prev,
+            sizes: prev.sizes.includes(size) ? prev.sizes.filter((s) => s !== size) : [...prev.sizes, size],
+        }));
+    }, []);
+
+    const handleMobileEducationChange = useCallback((level) => {
+        setTempMobileFilters((prev) => ({
+            ...prev,
+            educationLevels: prev.educationLevels.includes(level)
+                ? prev.educationLevels.filter((l) => l !== level)
+                : [...prev.educationLevels, level],
+        }));
+    }, []);
+
+    const handleMobileSaleChange = useCallback((saleStatus) => {
+        setTempMobileFilters((prev) => ({
+            ...prev,
+            sale: prev.sale.includes(saleStatus)
+                ? prev.sale.filter((s) => s !== saleStatus)
+                : [...prev.sale, saleStatus],
+        }));
+    }, []);
+
+    const handleMobilePriceChange = useCallback((min, max) => {
+        setTempMobileFilters((prev) => ({
+            ...prev,
+            priceRange: { min, max },
+        }));
+    }, []);
+
+    // Handler khi nhấn Apply
+    const handleApplyMobileFilters = useCallback(() => {
+        // Nếu đang ở category cụ thể và có thay đổi categories
+        if (slug !== "all-product" && tempMobileFilters.categories.length > 0) {
+            navigate("/category/all-product");
+        }
+
+        setSelectedCategories(tempMobileFilters.categories);
+        setSelectedSizes(tempMobileFilters.sizes);
+        setSelectedEducationLevels(tempMobileFilters.educationLevels);
+        setSelectedSale(tempMobileFilters.sale);
+        setPriceRange(tempMobileFilters.priceRange);
+
+        // Đóng mobile filter drawer
+        setIsMobileFilterOpen(false);
+    }, [tempMobileFilters, slug, navigate]);
+
     return (
         <section className="collections">
             <div className="container">
@@ -435,164 +516,178 @@ export default function Category({ nameCategory }) {
                             <CloseIcon size={24} />
                         </button>
                     </div>
-                    {/* Filter trên PC & Tablet */}
                     <div className="mobile-filter-content">
+                        {/* Categories */}
                         <div className="filter__category">
-                            <div className="filter__category-top dfbetween">
-                                <h3 className="filter__title">Sort by</h3>
+                            <div className="filter__category-top">
+                                <h3>Categories</h3>
                             </div>
-                            <div className="filter__options">
-                                <select
-                                    name="sort__by"
-                                    className="sort__by"
-                                    onChange={handleSortChange}
-                                    value={sortOption}
-                                    style={{ width: "100%", marginTop: "10px" }}
-                                >
-                                    <option value="featured">Featured</option>
-                                    <option value="az">Alphabetically, A-Z</option>
-                                    <option value="za">Alphabetically, Z-A</option>
-                                    <option value="price_low_high">Price, low to high</option>
-                                    <option value="price_high_low">Price, high to low</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="filter__category">
-                            <div
-                                className="filter__category-top dfbetween"
-                                onClick={() => toggleCategory("availability")}
-                                style={{ cursor: "pointer" }}
-                            >
-                                <h3 className="filter__title">Availability</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={`filter__category-icon ${
-                                        openCategories.availability ? "rotate-up" : "rotate-down"
-                                    }`}
-                                />
-                            </div>
-                            {openCategories.availability && (
-                                <ul className="filter__options">
-                                    <li className="filter__option">
+                            <div className="filter__content">
+                                {categoriesData.map((category) => (
+                                    <label key={category.id} className="checkbox-label">
                                         <input
                                             type="checkbox"
-                                            id="mobile-in-stock"
-                                            className="filter__checkbox"
-                                            checked={selectedAvailability.includes("In stock")}
-                                            onChange={() => handleSelectAvailability("In stock")}
+                                            checked={tempMobileFilters.categories.includes(category.name)}
+                                            onChange={() => handleMobileCategoryChange(category.name)}
                                         />
-                                        <label htmlFor="mobile-in-stock" className="filter__label">
-                                            <span className="custom-checkbox"></span> In stock
-                                        </label>
-                                        <span className="filter__count">
-                                            ({data.filter((item) => item.quantity > 0).length})
-                                        </span>
-                                    </li>
-                                    <li className="filter__option">
+                                        <span className="checkbox-custom"></span>
+                                        {category.name}
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Sizes */}
+                        <div className="filter__category">
+                            <div className="filter__category-top">
+                                <h3>Sizes</h3>
+                            </div>
+                            <div className="filter__content">
+                                {sizeOptions.map((size) => (
+                                    <label key={size} className="checkbox-label">
                                         <input
                                             type="checkbox"
-                                            id="mobile-out-stock"
-                                            className="filter__checkbox"
-                                            checked={selectedAvailability.includes("Out of stock")}
-                                            onChange={() => handleSelectAvailability("Out of stock")}
+                                            checked={tempMobileFilters.sizes.includes(size)}
+                                            onChange={() => handleMobileSizeChange(size)}
                                         />
-                                        <label htmlFor="mobile-out-stock" className="filter__label">
-                                            <span className="custom-checkbox"></span> Out of stock
-                                        </label>
-                                        <span className="filter__count">
-                                            ({data.filter((item) => item.quantity === 0).length})
-                                        </span>
-                                    </li>
-                                </ul>
-                            )}
-                        </div>
-                        <div className="filter__category">
-                            <div
-                                className="filter__category-top dfbetween"
-                                onClick={() => toggleCategory("price")}
-                                style={{ cursor: "pointer" }}
-                            >
-                                <h3 className="filter__title">Price Range</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={`filter__category-icon ${
-                                        openCategories.price ? "rotate-up" : "rotate-down"
-                                    }`}
-                                />
+                                        <span className="checkbox-custom"></span>
+                                        {size}
+                                    </label>
+                                ))}
                             </div>
-                            {openCategories.price && (
-                                <div className="price-range">
-                                    <div className="price-range__inputs">
-                                        <div className="price-range__input-group">
-                                            <span className="price-range__currency">$</span>
-                                            <input
-                                                type="number"
-                                                name="min"
-                                                className="price-range__input-field"
-                                                value={priceInputs.min}
-                                                onChange={handlePriceInputChange}
-                                                onBlur={handlePriceInputBlur}
-                                                min="10"
-                                                max="999"
-                                            />
-                                        </div>
-                                        <span className="price-range__separator">to</span>
-                                        <div className="price-range__input-group">
-                                            <span className="price-range__currency">$</span>
-                                            <input
-                                                type="number"
-                                                name="max"
-                                                className="price-range__input-field"
-                                                value={priceInputs.max}
-                                                onChange={handlePriceInputChange}
-                                                onBlur={handlePriceInputBlur}
-                                                min="10"
-                                                max="999"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="price-range__slider">
-                                        <div className="price-range__track"></div>
-                                        <div
-                                            className="price-range__progress"
-                                            style={{
-                                                left: `${((priceRange.min - 10) / (999 - 10)) * 100}%`,
-                                                right: `${100 - ((priceRange.max - 10) / (999 - 10)) * 100}%`,
-                                            }}
-                                        ></div>
+                        </div>
+
+                        {/* Education Levels */}
+                        <div className="filter__category">
+                            <div className="filter__category-top">
+                                <h3>Education Levels</h3>
+                            </div>
+                            <div className="filter__content">
+                                {educationOptions.map((level) => (
+                                    <label key={level} className="checkbox-label">
                                         <input
-                                            type="range"
+                                            type="checkbox"
+                                            checked={tempMobileFilters.educationLevels.includes(level)}
+                                            onChange={() => handleMobileEducationChange(level)}
+                                        />
+                                        <span className="checkbox-custom"></span>
+                                        {level}
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Price Range */}
+                        <div className="filter__category">
+                            <div className="filter__category-top">
+                                <h3>Price Range</h3>
+                            </div>
+                            <div className="price-range">
+                                <div className="price-range__inputs">
+                                    <div className="price-range__input-group">
+                                        <span className="price-range__currency">$</span>
+                                        <input
+                                            type="number"
                                             name="min"
+                                            className="price-range__input-field"
+                                            value={tempMobileFilters.priceRange.min}
+                                            onChange={(e) =>
+                                                handleMobilePriceChange(
+                                                    e.target.value,
+                                                    tempMobileFilters.priceRange.max,
+                                                )
+                                            }
+                                            onBlur={handlePriceInputBlur}
                                             min="10"
                                             max="999"
-                                            value={priceRange.min}
-                                            onChange={handlePriceRangeChange}
-                                            className="price-range__input price-range__input--left"
                                         />
+                                    </div>
+                                    <span className="price-range__separator">to</span>
+                                    <div className="price-range__input-group">
+                                        <span className="price-range__currency">$</span>
                                         <input
-                                            type="range"
+                                            type="number"
                                             name="max"
+                                            className="price-range__input-field"
+                                            value={tempMobileFilters.priceRange.max}
+                                            onChange={(e) =>
+                                                handleMobilePriceChange(
+                                                    tempMobileFilters.priceRange.min,
+                                                    e.target.value,
+                                                )
+                                            }
+                                            onBlur={handlePriceInputBlur}
                                             min="10"
                                             max="999"
-                                            value={priceRange.max}
-                                            onChange={handlePriceRangeChange}
-                                            className="price-range__input price-range__input--right"
                                         />
                                     </div>
                                 </div>
-                            )}
+                                <div className="price-range__slider">
+                                    <div className="price-range__track"></div>
+                                    <div
+                                        className="price-range__progress"
+                                        style={{
+                                            left: `${((tempMobileFilters.priceRange.min - 10) / (999 - 10)) * 100}%`,
+                                            right: `${
+                                                100 - ((tempMobileFilters.priceRange.max - 10) / (999 - 10)) * 100
+                                            }%`,
+                                        }}
+                                    ></div>
+                                    <input
+                                        type="range"
+                                        name="min"
+                                        min="10"
+                                        max="999"
+                                        value={tempMobileFilters.priceRange.min}
+                                        onChange={(e) =>
+                                            handleMobilePriceChange(e.target.value, tempMobileFilters.priceRange.max)
+                                        }
+                                        className="price-range__input price-range__input--left"
+                                    />
+                                    <input
+                                        type="range"
+                                        name="max"
+                                        min="10"
+                                        max="999"
+                                        value={tempMobileFilters.priceRange.max}
+                                        onChange={(e) =>
+                                            handleMobilePriceChange(tempMobileFilters.priceRange.min, e.target.value)
+                                        }
+                                        className="price-range__input price-range__input--right"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Sale Status */}
+                        <div className="filter__category">
+                            <div className="filter__category-top">
+                                <h3>Sale Status</h3>
+                            </div>
+                            <div className="filter__content">
+                                <label className="checkbox-label">
+                                    <input
+                                        type="checkbox"
+                                        checked={tempMobileFilters.sale.includes("On Sale")}
+                                        onChange={() => handleMobileSaleChange("On Sale")}
+                                    />
+                                    <span className="checkbox-custom"></span>
+                                    On Sale
+                                </label>
+                                <label className="checkbox-label">
+                                    <input
+                                        type="checkbox"
+                                        checked={tempMobileFilters.sale.includes("Regular Price")}
+                                        onChange={() => handleMobileSaleChange("Regular Price")}
+                                    />
+                                    <span className="checkbox-custom"></span>
+                                    Regular Price
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div className="mobile-filter-footer">
-                        <button
-                            className="mobile-filter-apply"
-                            onClick={() => {
-                                handleApplyPriceFilter();
-                                toggleMobileFilter();
-                            }}
-                        >
+                        <button className="mobile-filter-apply" onClick={handleApplyMobileFilters}>
                             Apply
                         </button>
                     </div>
