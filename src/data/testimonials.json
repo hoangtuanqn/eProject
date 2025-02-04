@@ -2,55 +2,55 @@
     {
         "id": 1,
         "avatar": "/assets/imgs/user-1.jpg",
-        "role": "Smart Home Assistant",
+        "role": "Parent",
         "stars": 5,
-        "text": "The service was amazing! The product arrived on time and works perfectly. Highly recommended!",
-        "name": "Michael L.",
-        "address": "London, UK"
+        "text": "The uniforms are very stylish and of high quality! My child loves wearing them to school. Delivery was also very fast.",
+        "name": "Michael Johnson",
+        "address": "New York, USA"
     },
     {
         "id": 2,
         "avatar": "/assets/imgs/user-2.jpg",
-        "role": "Smart Home Assistant",
+        "role": "Teacher",
         "stars": 4,
-        "text": "Great experience overall. The customer support team was very helpful and responsive.",
-        "name": "Emily T.",
-        "address": "Sydney, Australia"
+        "text": "The uniforms meet our school's requirements perfectly. The fabric is breathable and durable. The students are very satisfied.",
+        "name": "Emily Davis",
+        "address": "London, UK"
     },
     {
         "id": 3,
         "avatar": "/assets/imgs/user-3.jpg",
-        "role": "Smart Home Assistant",
+        "role": "Parent",
         "stars": 5,
-        "text": "I love the product! It has made my life so much easier. Definitely worth the investment.",
-        "name": "Willie Bradley",
-        "address": "New York, USA"
+        "text": "I am very impressed with the quality of the uniforms. They are comfortable and look great on my kids. Highly recommended!",
+        "name": "David Wilson",
+        "address": "Sydney, Australia"
     },
     {
         "id": 4,
         "avatar": "/assets/imgs/user-4.jpg",
-        "role": "Smart Home Assistant",
-        "stars": 3,
-        "text": "The product is good, but it took a while to set up. Could be more user-friendly.",
-        "name": "Sarah Johnson",
+        "role": "Student",
+        "stars": 4,
+        "text": "I absolutely love the new uniforms! They are incredibly comfortable to wear all day long, and the design is so modern, sleek, and trendy. ",
+        "name": "Sophia Martinez",
         "address": "Toronto, Canada"
     },
     {
         "id": 5,
         "avatar": "/assets/imgs/user-5.jpg",
-        "role": "Smart Home Assistant",
+        "role": "Parent",
         "stars": 5,
-        "text": "Absolutely fantastic! The quality is top-notch, and the delivery was super fast.",
-        "name": "David Smith",
+        "text": "The uniforms are excellent value for money. They are well-made and have lasted through multiple washes without fading.",
+        "name": "James Brown",
         "address": "Berlin, Germany"
     },
     {
         "id": 6,
         "avatar": "/assets/imgs/user-6.jpg",
-        "role": "Smart Home Assistant",
+        "role": "Teacher",
         "stars": 4,
-        "text": "Very satisfied with the purchase. The product works well and looks great in my home.",
-        "name": "Anna Lee",
+        "text": "The uniforms are a great fit for our school. The colors are vibrant, and the material is easy to maintain. Very happy with the purchase.",
+        "name": "Olivia Taylor",
         "address": "Paris, France"
     }
 ]

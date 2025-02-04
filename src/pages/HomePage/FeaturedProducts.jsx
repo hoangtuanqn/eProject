@@ -1,42 +1,59 @@
 import React from "react";
 import { Eye, Heart, ShoppingCartIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import featuredProductsData from "../../data/featured-products.json";
+import productData from "../../data/product.json";
 import "../../styles/featuredProducts.css";
 
 export default function FeaturedProducts() {
+    // Lọc sản phẩm có feature=true và giới hạn 8 sản phẩm
+    const featuredProducts = productData.filter((product) => product.feature).slice(0, 8);
+
     return (
         <>
-            {/* Featured Products Section */}
             <section className="featured-products">
                 <div className="container">
-                    <h2 className="section-title">Featured Products</h2>
-                    <p className="section-subtitle">We have your occasion covered</p>
+                    <div className="section-top">
+                        <h2 className="section-title">Featured Products</h2>
+                        <p className="section-subtitle">
+                            Discover our premium school uniforms - Crafted with care and designed for comfort, our
+                            collection features high-quality materials and timeless styles
+                        </p>
+                    </div>
 
                     <div className="featured-products__grid">
-                        {featuredProductsData.map(({ id, name, price, discounted_price, image, sale }) => {
+                        {featuredProducts.map(({ id, name, price, sale, thumbnail }) => {
+                            const originalPrice = price;
+                            const salePrice = sale > 0 ? price * (1 - sale / 100) : price;
+
                             return (
                                 <article key={id} className="product-card" data-aos="zoom-in">
-                                    <figure className="product-card__wrapper">
-                                        {sale && <span className="badge__sale">SALE</span>}
-                                        <img src={image} alt={name} className="product-card__image" />
-                                        <div className="product-card__actions">
-                                            <button className="action-btn" title="Quick view">
+                                    <figure className="collections-product__wrapper">
+                                        {sale > 0 && <span className="badge__sale">{`${sale}% OFF`}</span>}
+                                        <img src={thumbnail} alt={name} className="collections__product-image" />
+                                        <div className="product-actions">
+                                            <button className="product-action-btn" title="Add to cart">
                                                 <ShoppingCartIcon size={20} />
                                             </button>
-                                            <button className="action-btn" title="Compare">
+                                            <button className="product-action-btn" title="Quick view">
                                                 <Eye size={20} />
                                             </button>
-                                            <button className="action-btn" title="Add to wishlist">
+                                            <button className="product-action-btn" title="Add to wishlist">
                                                 <Heart size={20} />
                                             </button>
                                         </div>
                                     </figure>
-                                    <figcaption className="product-card__name">{name}</figcaption>
-                                    <p className="product-card__price">
-                                        {price}₫{" "}
-                                        {sale && <span className="product-card__price--old">{discounted_price}₫</span>}
-                                    </p>
+                                    {/* Tái sử dụng collections bên Category.css */}
+                                    <div className="collections__product-details">
+                                        <h3 className="collections__product-name">{name}</h3>
+                                        <p className="collections__product-price">
+                                            ${Math.round(salePrice)}
+                                            {sale > 0 && (
+                                                <span className="collections__product-price--old">
+                                                    ${Math.round(originalPrice)}
+                                                </span>
+                                            )}
+                                        </p>
+                                    </div>
                                 </article>
                             );
                         })}

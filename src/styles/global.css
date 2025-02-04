@@ -86,9 +86,16 @@ img {
     text-transform: capitalize;
     border: none;
     cursor: pointer;
+    position: relative;
+    min-width: 120px;
+    min-height: 45px;
 }
 .btn:hover {
     background-color: #555;
+}
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
 }
 input,
 select,
@@ -132,6 +139,12 @@ textarea {
 }
 
 /* Section title and subtitle */
+.section-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
 .section-title {
     color: var(--color-grey-7);
     text-align: center;
@@ -141,6 +154,7 @@ textarea {
 }
 
 .section-subtitle {
+    width: 50%;
     color: rgba(18, 18, 18, 0.8);
     text-align: center;
     line-height: 1.8;
@@ -162,16 +176,45 @@ textarea {
 strong {
     font-weight: 700;
 }
+
+/* Loading spinner styles */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
 /* Responsive */
 
 /* Mobile */
 @media screen and (max-width: 749px) {
+    .section-subtitle {
+        width: 100%;
+    }
     /* Hide elements on mobile */
     .hiddenMobile {
         display: none !important;
     }
     .section-title {
         font-size: 2.8rem;
+    }
+    .btn {
+        width: 100%;
+        max-width: 300px;
     }
 }
 

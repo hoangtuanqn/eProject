@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
-import { DoorClosedIcon as CloseIcon, FilterIcon } from "lucide-react";
+import { DoorClosedIcon as CloseIcon, FilterIcon, Eye, ShoppingCart, Heart } from "lucide-react";
 
 import NotData from "../../components/NotData";
 import "../../styles/category.css";
@@ -54,6 +54,12 @@ export default function Category({ nameCategory }) {
     // Thêm state cho gender filter
     const [selectedGenders, setSelectedGenders] = useState([]);
 
+    // Thay thế state currentPage bằng visibleItems
+    const [visibleItems, setVisibleItems] = useState(20);
+
+    // Thêm state để quản lý trạng thái loading
+    const [isLoading, setIsLoading] = useState(false);
+
     // Kiểm tra path và slug
     useEffect(() => {
         // Nếu path là /all-product thì không cần kiểm tra
@@ -95,8 +101,6 @@ export default function Category({ nameCategory }) {
 
     const [filteredProducts, setFilteredProducts] = useState(data);
     const [displayColumns, setDisplayColumns] = useState(4);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [itemsPerPage] = useState(20);
 
     // Đồng bộ giá trị ban đầu
     useEffect(() => {
@@ -172,6 +176,8 @@ export default function Category({ nameCategory }) {
                         return [...prev, categoryName];
                     });
                 }, 0);
+
+                // Hiển thị 20 sản phẩm
             } else {
                 // Nếu đã ở all-product, xử lý toggle như bình thường
                 setSelectedCategories((prev) =>
@@ -251,11 +257,6 @@ export default function Category({ nameCategory }) {
         setFilteredProducts(filteredProductsList);
     }, [filteredProductsList]);
 
-    // Đặt lại trang hiện tại về 0 mỗi khi danh sách sản phẩm được lọc thay đổi
-    useEffect(() => {
-        setCurrentPage(0);
-    }, [filteredProducts, itemsPerPage]);
-
     // Thêm hàm sortProducts
     const sortProducts = useCallback((products, option) => {
         const sortedProducts = [...products];
@@ -295,11 +296,10 @@ export default function Category({ nameCategory }) {
         return sortProducts(filteredProducts, sortOption);
     }, [filteredProducts, sortOption, sortProducts]);
 
-    // Cập nhật getCurrentItems để sử dụng sortedProducts thay vì filteredProducts
-    const getCurrentItems = useCallback(() => {
-        const startIndex = currentPage * itemsPerPage;
-        return sortedProducts.slice(startIndex, startIndex + itemsPerPage);
-    }, [currentPage, itemsPerPage, sortedProducts]);
+    // Thay thế getCurrentItems bằng getVisibleItems
+    const getVisibleItems = useCallback(() => {
+        return sortedProducts.slice(0, visibleItems);
+    }, [sortedProducts, visibleItems]);
 
     // Hàm để thay đổi số cột hiển thị
     const handleColumnChange = useCallback((columns) => {
@@ -318,6 +318,7 @@ export default function Category({ nameCategory }) {
             handleApplyPriceFilter();
         }
         setIsMobileFilterOpen((prev) => !prev);
+        // Reset overflow style cho body
         document.body.style.overflow = !isMobileFilterOpen ? "hidden" : "";
     }, [isMobileFilterOpen, handleApplyPriceFilter]);
 
@@ -329,13 +330,19 @@ export default function Category({ nameCategory }) {
 
     // Tính toán số trang dựa trên số lượng sản phẩm đã lọc
     const pageCount = useMemo(
-        () => Math.ceil(filteredProducts.length / itemsPerPage),
-        [filteredProducts.length, itemsPerPage],
+        () => Math.ceil(filteredProducts.length / visibleItems),
+        [filteredProducts.length, visibleItems],
     );
 
-    // Hàm để thay đổi trang
-    const handlePageChange = useCallback(({ selected }) => {
-        setCurrentPage(selected);
+    // Cập nhật handler cho nút Load More với hiệu ứng loading
+    const handleLoadMore = useCallback(() => {
+        setIsLoading(true);
+
+        // Giả lập loading trong 2 giây
+        setTimeout(() => {
+            setVisibleItems((prev) => prev + 20);
+            setIsLoading(false);
+        }, 2000);
     }, []);
 
     // Hàm để xử lý thay đổi kích thước cửa sổ
@@ -532,6 +539,8 @@ export default function Category({ nameCategory }) {
         setSelectedGenders(tempMobileFilters.genders);
 
         setIsMobileFilterOpen(false);
+        // Reset overflow style cho body khi đóng filter
+        document.body.style.overflow = "";
     }, [tempMobileFilters, slug, navigate]);
 
     return (
@@ -1086,7 +1095,7 @@ export default function Category({ nameCategory }) {
 
                         <div className={`collections__product-grid columns-${displayColumns} responsive-grid`}>
                             <AnimatePresence>
-                                {getCurrentItems().map((item) => {
+                                {getVisibleItems().map((item) => {
                                     const minPrice = getMinPrice(item);
                                     // Nếu có sale thì minPrice là giá đã giảm, cần tính ngược lại giá gốc
                                     const originalPrice =
@@ -1121,20 +1130,46 @@ export default function Category({ nameCategory }) {
                                                                 "collections__product-image--opacity",
                                                         )}
                                                     />
+                                                    <div className="product-actions">
+                                                        {/* <button
+                                                            className="product-action-btn"
+                                                            title="Quick view"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                // Handle quick view
+                                                            }}
+                                                        >
+                                                            <Eye size={18} />
+                                                        </button> */}
+                                                        <button
+                                                            className="product-action-btn"
+                                                            title="Add to cart"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                // Handle add to cart
+                                                            }}
+                                                        >
+                                                            <ShoppingCart size={18} />
+                                                        </button>
+                                                        <button
+                                                            className="product-action-btn"
+                                                            title="Add to wishlist"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                // Handle add to wishlist
+                                                            }}
+                                                        >
+                                                            <Heart size={18} />
+                                                        </button>
+                                                    </div>
                                                 </figure>
                                                 <div className="collections__product-details">
                                                     <h3 className="collections__product-name">{item.name}</h3>
                                                     <span className="collections__product-price dfcenter">
-                                                        {new Intl.NumberFormat("en-US", {
-                                                            style: "currency",
-                                                            currency: "USD",
-                                                        }).format(finalPrice)}
+                                                        ${Math.round(finalPrice)}
                                                         {item.sale > 0 && (
                                                             <span className="collections__product-price--old">
-                                                                {new Intl.NumberFormat("en-US", {
-                                                                    style: "currency",
-                                                                    currency: "USD",
-                                                                }).format(originalPrice)}
+                                                                ${Math.round(originalPrice)}
                                                             </span>
                                                         )}
                                                     </span>
@@ -1145,18 +1180,18 @@ export default function Category({ nameCategory }) {
                                 })}
                             </AnimatePresence>
                         </div>
-                        {filteredProducts.length > 20 && (
-                            <ReactPaginate
-                                previousLabel={"Previous"}
-                                nextLabel={"Next"}
-                                pageCount={pageCount}
-                                onPageChange={handlePageChange}
-                                containerClassName={"pagination"}
-                                previousLinkClassName={"pagination__link"}
-                                nextLinkClassName={"pagination__link"}
-                                disabledClassName={"pagination__link--disabled"}
-                                activeClassName={"pagination__link--active"}
-                            />
+
+                        {/* Thay thế ReactPaginate bằng nút Load More */}
+                        {filteredProducts.length > visibleItems && (
+                            <div className="dfcenter">
+                                <button
+                                    className={`btn ${isLoading ? "loading" : ""}`}
+                                    onClick={handleLoadMore}
+                                    disabled={isLoading}
+                                >
+                                    {isLoading ? <span className="loading-spinner"></span> : "Show More Products"}
+                                </button>
+                            </div>
                         )}
                     </div>
                 </div>

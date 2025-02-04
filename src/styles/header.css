@@ -42,6 +42,17 @@
     transition: all ease 0.3s;
     -webkit-box-shadow: 0 10px 20px rgba(18, 18, 18, 0.15);
     box-shadow: 0 10px 20px rgba(18, 18, 18, 0.15);
+    animation: fadeInSubMenu_HeaderPC 0.5s ease;
+}
+@keyframes fadeInSubMenu_HeaderPC {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 .header__nav li:hover .header__submenu {
     display: block;
@@ -66,8 +77,9 @@
 .header__submenu__big::before {
     position: absolute;
     content: "";
+    left: 0;
+    right: 0;
     top: -28px;
-    width: 100%;
     height: 30px;
     background-color: transparent;
 }

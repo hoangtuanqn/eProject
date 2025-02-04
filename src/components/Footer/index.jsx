@@ -105,20 +105,21 @@ export default function Footer() {
                             <img src="/assets/icon/discover.svg" alt="Discover" className="footer__payment-img" />
                         </div>
                     </div>
-                </div>
-                {/* Ticker */}
-                <div className="footer__ticker-container">
-                    <div className="footer__ticker">
-                        <span id="dateTime"></span>
-                        <span id="location"></span>
+                    {/* Ticker */}
+                    <div className="footer__ticker-container">
+                        <div className="footer__ticker">
+                            <span id="dateTime"></span>
+                            <span id="location"></span>
+                        </div>
                     </div>
+                    {/* Scoll top button */}
+                    <button className="scrollToTopBtn" id="scrollToTopBtn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 4l-8 8h5v8h6v-8h5z" />
+                        </svg>
+                    </button>
+                    
                 </div>
-                {/* Scoll top button */}
-                <button className="scrollToTopBtn" id="scrollToTopBtn">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 4l-8 8h5v8h6v-8h5z" />
-                    </svg>
-                </button>
             </footer>
         </>
     );

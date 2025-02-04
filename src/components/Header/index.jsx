@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { initMobileMenu } from "../../assets/js/main";
 
 import "../../styles/header.css";
@@ -8,10 +8,12 @@ import Counter from "../Header/Counter";
 import { openMenu, closeWithAnimation, handleClickOutside, toggleSubmenu } from "../../utils/menuHelpers";
 import MenuDesktop from "./MenuDesktop";
 import MenuMobile from "./MenuMobile";
+import Cart from "./Cart";
 
 export default function Header() {
     const mobileMenuRef = useRef(null);
     const searchRef = useRef(null);
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
     // Tái sử dụng hàm đóng menu/search
     const closeMenuWithAnimation = () => closeWithAnimation(mobileMenuRef);
@@ -96,7 +98,10 @@ export default function Header() {
                             >
                                 <img src="/assets/icon/search.svg" alt="" className="header__icon" />
                             </button>
-                            <button className="header__icon-wrap dfbetween hiddenMobile">
+                            <button
+                                className="header__icon-wrap dfbetween hiddenMobile"
+                                onClick={() => setIsCartOpen(true)}
+                            >
                                 <img src="/assets/icon/cart.svg" alt="" className="header__icon" />
                             </button>
                             <Counter />
@@ -169,6 +174,7 @@ export default function Header() {
                     </div>
                 </div>
             </header>
+            <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
         </>
     );
 }

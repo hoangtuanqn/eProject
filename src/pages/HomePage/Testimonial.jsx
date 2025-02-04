@@ -17,7 +17,13 @@ export default function Testimonial() {
     return (
         <section className="testimonial" data-aos="zoom-in">
             <div className="container">
-                <h2 className="section-title">Testimonial</h2>
+                <div className="section-top">
+                    <h2 className="section-title">Testimonial</h2>
+                    <p className="section-subtitle">
+                        Read customer testimonials sharing how our school uniforms combine comfort, style, and
+                        durability for everyday wear.
+                    </p>
+                </div>
                 <div className="testimonial__list">
                     <Swiper
                         modules={[Navigation, Pagination, Autoplay]}
@@ -40,7 +46,8 @@ export default function Testimonial() {
                                         alt={testimonial.name}
                                         className="testimonial__avatar"
                                     />
-                                    <p className="testimonial__role">{testimonial.role}</p>
+                                    <p className="testimonial__role">{testimonial.name}</p>
+                                    <span className="testimonial__desc">{testimonial.role}</span>
                                     <div className="testimonial__stars">{renderStars(testimonial.stars)}</div>
                                     <p className="testimonial__text">{testimonial.text}</p>
                                     <p className="testimonial__name">{testimonial.name}</p>

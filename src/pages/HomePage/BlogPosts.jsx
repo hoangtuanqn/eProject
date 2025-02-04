@@ -6,8 +6,13 @@ export default function BlogPosts() {
         <>
             <section className="blog-posts">
                 <div className="container">
-                    <h2 className="section-title">Check Our Blog Posts</h2>
-                    <p className="section-subtitle">These blogs provide information</p>
+                    <div className="section-top">
+                        <h2 className="section-title">Check Our Blog Posts</h2>
+                        <p className="section-subtitle">
+                            Explore our latest blog posts for helpful tips, trends, and insights on school uniforms,
+                            fashion, and more!
+                        </p>
+                    </div>
 
                     <div className="blog-posts__grid">
                         {/* Blog 1 */}

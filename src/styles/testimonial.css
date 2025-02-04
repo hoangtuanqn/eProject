@@ -16,7 +16,12 @@
     -ms-user-select: none;
     user-select: none;
 }
-
+.testimonial__desc {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: rgba(18, 18, 18, 0.4);
+    margin: 5px 0;
+}
 .testimonial__avatar {
     width: 70px;
     height: 70px;
