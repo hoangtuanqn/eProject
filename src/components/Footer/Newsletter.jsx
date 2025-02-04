@@ -107,9 +107,9 @@ export default function Newsletter() {
                         />
                         <label className="footer__label">Enter your email</label>
                     </div>
-                    <button type="submit" className="footer__submit" disabled={loading}>
+                    <button type="submit" className="btn footer__submit" disabled={loading}>
                         {loading ? (
-                            <img src="/assets/icon/loading.gif" alt="Loading..." className="footer__loading" />
+                            <img src="/assets/icon/loading.gif" alt="Loading..." className="loading-spinner" />
                         ) : (
                             "SUBSCRIBE"
                         )}

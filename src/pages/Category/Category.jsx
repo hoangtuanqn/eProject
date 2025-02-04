@@ -28,9 +28,9 @@ export default function Category({ nameCategory }) {
     });
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
-    const [priceRange, setPriceRange] = useState({ min: 10, max: 999 });
+    const [priceRange, setPriceRange] = useState({ min: 1, max: 999 });
     const [priceInputs, setPriceInputs] = useState({
-        min: 10,
+        min: 1,
         max: 999,
     });
     const [priceRangeSlider, setPriceRangeSlider] = useState(999);
@@ -376,7 +376,7 @@ export default function Category({ nameCategory }) {
 
             // Đồng bộ với thanh trượt
             if (name === "min") {
-                const validMin = Math.min(Math.max(10, newValue), priceRange.max);
+                const validMin = Math.min(Math.max(1, newValue), priceRange.max);
                 setPriceRange((prev) => ({ ...prev, min: validMin }));
             } else {
                 const validMax = Math.max(Math.min(999, newValue), priceRange.min);
@@ -391,11 +391,11 @@ export default function Category({ nameCategory }) {
         (e) => {
             const { name, value } = e.target;
 
-            // Nếu input trống, đặt lại giá trị mặc định
+            // If input is empty, set default value
             if (value === "") {
                 if (name === "min") {
-                    setPriceInputs((prev) => ({ ...prev, min: 10 }));
-                    setPriceRange((prev) => ({ ...prev, min: 10 }));
+                    setPriceInputs((prev) => ({ ...prev, min: 1 }));
+                    setPriceRange((prev) => ({ ...prev, min: 1 }));
                 } else {
                     setPriceInputs((prev) => ({ ...prev, max: 999 }));
                     setPriceRange((prev) => ({ ...prev, max: 999 }));
@@ -406,12 +406,12 @@ export default function Category({ nameCategory }) {
             const newValue = parseInt(value);
 
             if (name === "min") {
-                // Đảm bảo min không vượt quá max và nằm trong khoảng cho phép
-                const validMin = Math.min(Math.max(10, newValue), priceRange.max);
+                // Ensure min is not less than 1 and not greater than max
+                const validMin = Math.min(Math.max(1, newValue), priceRange.max);
                 setPriceInputs((prev) => ({ ...prev, min: validMin }));
                 setPriceRange((prev) => ({ ...prev, min: validMin }));
             } else {
-                // Đảm bảo max không nhỏ hơn min và nằm trong khoảng cho phép
+                // Ensure max is not less than min and not greater than 999
                 const validMax = Math.max(Math.min(999, newValue), priceRange.min);
                 setPriceInputs((prev) => ({ ...prev, max: validMax }));
                 setPriceRange((prev) => ({ ...prev, max: validMax }));
@@ -544,13 +544,13 @@ export default function Category({ nameCategory }) {
     }, [tempMobileFilters, slug, navigate]);
 
     return (
-        <section className="collections">
+        <section className="category">
             <div className="container">
-                <div className="collections__header">
-                    <div className="collections__filter-icon">
-                        <span className="collections__product-col" onClick={() => handleColumnChange(2)}>
+                <div className="category__header">
+                    <div className="category__filter-icon">
+                        <span className="category__product-col" onClick={() => handleColumnChange(2)}>
                             <svg
-                                className={displayColumns === 2 ? "collections__product--opcity" : undefined}
+                                className={displayColumns === 2 ? "category__product--opcity" : undefined}
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -561,9 +561,9 @@ export default function Category({ nameCategory }) {
                                 <rect x="7" y="4" width="2" height="15" fill="black" />
                             </svg>
                         </span>
-                        <span className="collections__product-col" onClick={() => handleColumnChange(3)}>
+                        <span className="category__product-col" onClick={() => handleColumnChange(3)}>
                             <svg
-                                className={displayColumns === 3 ? "collections__product--opcity" : undefined}
+                                className={displayColumns === 3 ? "category__product--opcity" : undefined}
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -575,9 +575,9 @@ export default function Category({ nameCategory }) {
                                 <rect x="10" y="4" width="2" height="15" fill="black" />
                             </svg>
                         </span>
-                        <span className="collections__product-col" onClick={() => handleColumnChange(4)}>
+                        <span className="category__product-col" onClick={() => handleColumnChange(4)}>
                             <svg
-                                className={displayColumns === 4 ? "collections__product--opcity" : undefined}
+                                className={displayColumns === 4 ? "category__product--opcity" : undefined}
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -591,7 +591,7 @@ export default function Category({ nameCategory }) {
                             </svg>
                         </span>
                     </div>
-                    <div className="collections__sort dfbetween">
+                    <div className="category__sort dfbetween">
                         <label className="sort__name">Sort by:</label>
                         <select name="sort__by" className="sort__by" onChange={handleSortChange} value={sortOption}>
                             <option value="newest">Newest</option>
@@ -719,7 +719,7 @@ export default function Category({ nameCategory }) {
                                                 )
                                             }
                                             onBlur={handlePriceInputBlur}
-                                            min="10"
+                                            min="1"
                                             max="999"
                                         />
                                     </div>
@@ -738,7 +738,7 @@ export default function Category({ nameCategory }) {
                                                 )
                                             }
                                             onBlur={handlePriceInputBlur}
-                                            min="10"
+                                            min="1"
                                             max="999"
                                         />
                                     </div>
@@ -748,16 +748,16 @@ export default function Category({ nameCategory }) {
                                     <div
                                         className="price-range__progress"
                                         style={{
-                                            left: `${((tempMobileFilters.priceRange.min - 10) / (999 - 10)) * 100}%`,
+                                            left: `${((tempMobileFilters.priceRange.min - 1) / (999 - 1)) * 100}%`,
                                             right: `${
-                                                100 - ((tempMobileFilters.priceRange.max - 10) / (999 - 10)) * 100
+                                                100 - ((tempMobileFilters.priceRange.max - 1) / (999 - 1)) * 100
                                             }%`,
                                         }}
                                     ></div>
                                     <input
                                         type="range"
                                         name="min"
-                                        min="10"
+                                        min="1"
                                         max="999"
                                         value={tempMobileFilters.priceRange.min}
                                         onChange={(e) =>
@@ -768,7 +768,7 @@ export default function Category({ nameCategory }) {
                                     <input
                                         type="range"
                                         name="max"
-                                        min="10"
+                                        min="1"
                                         max="999"
                                         value={tempMobileFilters.priceRange.max}
                                         onChange={(e) =>
@@ -834,8 +834,8 @@ export default function Category({ nameCategory }) {
                     </div>
                 </div>
 
-                <div className="collections__body">
-                    <aside className="collections__filter">
+                <div className="category__body">
+                    <aside className="category__filter">
                         {/* Search Filter - Quan trọng nhất vì người dùng thường tìm kiếm trực tiếp */}
                         <div className="filter__group">
                             <div className="filter__header" onClick={() => toggleCategory("search")}>
@@ -920,7 +920,7 @@ export default function Category({ nameCategory }) {
                                                 value={priceInputs.min}
                                                 onChange={handlePriceInputChange}
                                                 onBlur={handlePriceInputBlur}
-                                                min="10"
+                                                min="1"
                                                 max="999"
                                             />
                                         </div>
@@ -934,7 +934,7 @@ export default function Category({ nameCategory }) {
                                                 value={priceInputs.max}
                                                 onChange={handlePriceInputChange}
                                                 onBlur={handlePriceInputBlur}
-                                                min="10"
+                                                min="1"
                                                 max="999"
                                             />
                                         </div>
@@ -944,14 +944,14 @@ export default function Category({ nameCategory }) {
                                         <div
                                             className="price-range__progress"
                                             style={{
-                                                left: `${((priceRange.min - 10) / (999 - 10)) * 100}%`,
-                                                right: `${100 - ((priceRange.max - 10) / (999 - 10)) * 100}%`,
+                                                left: `${((priceRange.min - 1) / (999 - 1)) * 100}%`,
+                                                right: `${100 - ((priceRange.max - 1) / (999 - 1)) * 100}%`,
                                             }}
                                         ></div>
                                         <input
                                             type="range"
                                             name="min"
-                                            min="10"
+                                            min="1"
                                             max="999"
                                             value={priceRange.min}
                                             onChange={handlePriceRangeChange}
@@ -960,7 +960,7 @@ export default function Category({ nameCategory }) {
                                         <input
                                             type="range"
                                             name="max"
-                                            min="10"
+                                            min="1"
                                             max="999"
                                             value={priceRange.max}
                                             onChange={handlePriceRangeChange}
@@ -1090,10 +1090,10 @@ export default function Category({ nameCategory }) {
                             )}
                         </div>
                     </aside>
-                    <div className="collections__product">
+                    <div className="category__product">
                         {filteredProducts.length === 0 && <NotData />}
 
-                        <div className={`collections__product-grid columns-${displayColumns} responsive-grid`}>
+                        <div className={`category__product-grid columns-${displayColumns} responsive-grid`}>
                             <AnimatePresence>
                                 {getVisibleItems().map((item) => {
                                     const minPrice = getMinPrice(item);
@@ -1105,7 +1105,7 @@ export default function Category({ nameCategory }) {
                                     return (
                                         <motion.article
                                             key={item.slug}
-                                            className="collections__product-item"
+                                            className="category__product-item"
                                             layout
                                             initial={{ opacity: 0, scale: 0.8 }}
                                             animate={{ opacity: 1, scale: 1 }}
@@ -1113,7 +1113,7 @@ export default function Category({ nameCategory }) {
                                             whileHover={{ scale: 1.05 }}
                                         >
                                             <Link to={`/product/${item.slug}`}>
-                                                <figure className="collections-product__wrapper">
+                                                <figure className="category-product__wrapper">
                                                     {item.quantity > 0 ? (
                                                         item.sale > 0 && (
                                                             <span className="badge__sale">{item.sale}% OFF</span>
@@ -1125,9 +1125,8 @@ export default function Category({ nameCategory }) {
                                                         src={item.thumbnail || "/placeholder.svg"}
                                                         alt=""
                                                         className={clsx(
-                                                            "collections__product-image",
-                                                            item.quantity === 0 &&
-                                                                "collections__product-image--opacity",
+                                                            "category__product-image",
+                                                            item.quantity === 0 && "category__product-image--opacity",
                                                         )}
                                                     />
                                                     <div className="product-actions">
@@ -1163,12 +1162,12 @@ export default function Category({ nameCategory }) {
                                                         </button>
                                                     </div>
                                                 </figure>
-                                                <div className="collections__product-details">
-                                                    <h3 className="collections__product-name">{item.name}</h3>
-                                                    <span className="collections__product-price dfcenter">
+                                                <div className="category__product-details">
+                                                    <h3 className="category__product-name">{item.name}</h3>
+                                                    <span className="category__product-price dfcenter">
                                                         ${Math.round(finalPrice)}
                                                         {item.sale > 0 && (
-                                                            <span className="collections__product-price--old">
+                                                            <span className="category__product-price--old">
                                                                 ${Math.round(originalPrice)}
                                                             </span>
                                                         )}
@@ -1183,13 +1182,21 @@ export default function Category({ nameCategory }) {
 
                         {/* Thay thế ReactPaginate bằng nút Load More */}
                         {filteredProducts.length > visibleItems && (
-                            <div className="dfcenter">
+                            <div className="dfcenter category__load-more">
                                 <button
                                     className={`btn ${isLoading ? "loading" : ""}`}
                                     onClick={handleLoadMore}
                                     disabled={isLoading}
                                 >
-                                    {isLoading ? <span className="loading-spinner"></span> : "Show More Products"}
+                                    {isLoading ? (
+                                        <img
+                                            src="/assets/icon/loading.gif"
+                                            alt="Loading..."
+                                            className="loading-spinner"
+                                        />
+                                    ) : (
+                                        "Show More Products"
+                                    )}
                                 </button>
                             </div>
                         )}

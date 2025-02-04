@@ -73,6 +73,7 @@ img {
 .btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     padding: 10px 20px;
     background-color: #333;
@@ -179,12 +180,18 @@ strong {
 
 /* Loading spinner styles */
 .loading-spinner {
+    display: block;
+    width: 20px;
+    height: 100%;
+    object-fit: cover;
+}
+/* .loading-spinner {
     display: inline-block;
     width: 20px;
     height: 20px;
     border: 3px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    border-top-color: #fff;
+    border-top-color: #bf2525;
     animation: spin 1s ease-in-out infinite;
     position: absolute;
     left: 50%;
@@ -196,7 +203,7 @@ strong {
     to {
         transform: translate(-50%, -50%) rotate(360deg);
     }
-}
+} */
 
 /* Responsive */
 

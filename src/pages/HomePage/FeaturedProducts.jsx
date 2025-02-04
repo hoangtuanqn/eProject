@@ -27,9 +27,9 @@ export default function FeaturedProducts() {
 
                             return (
                                 <article key={id} className="product-card" data-aos="zoom-in">
-                                    <figure className="collections-product__wrapper">
+                                    <figure className="category-product__wrapper">
                                         {sale > 0 && <span className="badge__sale">{`${sale}% OFF`}</span>}
-                                        <img src={thumbnail} alt={name} className="collections__product-image" />
+                                        <img src={thumbnail} alt={name} className="category__product-image" />
                                         <div className="product-actions">
                                             <button className="product-action-btn" title="Add to cart">
                                                 <ShoppingCartIcon size={20} />
@@ -42,13 +42,13 @@ export default function FeaturedProducts() {
                                             </button>
                                         </div>
                                     </figure>
-                                    {/* Tái sử dụng collections bên Category.css */}
-                                    <div className="collections__product-details">
-                                        <h3 className="collections__product-name">{name}</h3>
-                                        <p className="collections__product-price">
+                                    {/* Tái sử dụng category bên Category.css */}
+                                    <div className="category__product-details">
+                                        <h3 className="category__product-name">{name}</h3>
+                                        <p className="category__product-price">
                                             ${Math.round(salePrice)}
                                             {sale > 0 && (
-                                                <span className="collections__product-price--old">
+                                                <span className="category__product-price--old">
                                                     ${Math.round(originalPrice)}
                                                 </span>
                                             )}

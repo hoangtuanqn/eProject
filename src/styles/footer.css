@@ -151,6 +151,7 @@
 }
 
 .footer__submit {
+    margin: 0;
     padding: 12px 20px;
     border: none;
     border-radius: 3px;
@@ -200,12 +201,6 @@
 .footer__payment-img {
     height: 24px;
     width: auto;
-}
-.footer__loading {
-    display: block;
-    width: 20px;
-    height: 100%;
-    object-fit: cover;
 }
 .footer__message {
     margin-top: 10px;
