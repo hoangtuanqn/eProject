@@ -66,6 +66,9 @@ a {
     overflow: hidden;
     position: relative;
 }
+.main2 {
+    position: relative;
+}
 img {
     max-width: 100%;
     height: auto;
@@ -107,6 +110,7 @@ textarea {
 /* Scroll Top BTN */
 .scrollToTopBtn {
     position: fixed;
+    z-index: 999;
     bottom: 110px;
     right: 25px;
     outline: none;
@@ -185,25 +189,6 @@ strong {
     height: 100%;
     object-fit: cover;
 }
-/* .loading-spinner {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: #bf2525;
-    animation: spin 1s ease-in-out infinite;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-@keyframes spin {
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-} */
 
 /* Responsive */
 

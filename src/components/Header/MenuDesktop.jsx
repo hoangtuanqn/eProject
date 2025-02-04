@@ -4,7 +4,7 @@ import categoriesData from "../../data/categories.json";
 export default function MenuDesktop() {
     const { pathname } = useLocation(); // lấy url hiện tại
     return (
-        <nav className="hiddenMobile">
+        <nav className="hiddenMobile hiddenPClow">
             <ul className="header__nav dfbetween">
                 <li>
                     <Link

@@ -8,6 +8,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 40px;
+    align-items: flex-start;
 }
 
 .policies__title {
@@ -91,11 +92,11 @@
 }
 
 .policies__summary {
+    position: sticky;
+    top: 90px;
     background-color: #f9f9f9;
     padding: 30px;
     border-radius: 8px;
-    position: sticky;
-    top: 20px;
 }
 
 .policies__summary-title {
@@ -111,6 +112,7 @@
 }
 
 .policies__summary-item {
+    line-height: 1.4;
     margin-bottom: 15px;
     padding-left: 20px;
     position: relative;
@@ -124,7 +126,11 @@
 }
 
 /* Responsive */
-
+@media screen and (max-width: 749px) {
+    .policies__section {
+        margin-bottom: 20px;
+    }
+}
 @media screen and (max-width: 968px) {
     .policies__wrapper {
         grid-template-columns: 1fr;

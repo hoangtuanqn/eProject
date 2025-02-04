@@ -159,6 +159,13 @@
     }
 }
 
+/* PC Low Resolution */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .featured-products__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 /* Desktop */
 @media screen and (min-width: 1025px) {
     /* Preserve existing desktop styles */

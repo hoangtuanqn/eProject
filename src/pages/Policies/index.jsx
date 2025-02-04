@@ -10,7 +10,7 @@ export default function Index() {
     ];
     return (
         <>
-            <main className="main">
+            <main className="main2">
                 <Breadcrumb title="Shipping & Returns Policy" items={breadcrumbItems} />
                 <Policies />
             </main>

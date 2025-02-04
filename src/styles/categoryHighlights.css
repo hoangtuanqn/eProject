@@ -129,3 +129,9 @@
 @media screen and (min-width: 1025px) {
     /* Preserve existing desktop styles */
 }
+/* PC Low Resolution */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    .category-highlights__list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
