@@ -3,15 +3,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { closeWithAnimation, handleClickOutside } from "../../utils/menuHelpers";
 import "../../styles/headerCart.css";
 import { Trash2, X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import products from "../../data/product.json";
 import clsx from "clsx";
-import { useCartActions } from "../../utils/handleCart";
 
 const Cart = forwardRef(({ isOpen, onClose }, ref) => {
     const [cartItems, setCartItems] = useState([]);
     const navigate = useNavigate();
-    const { handleCartAction } = useCartActions();
+    const pathname = useLocation();
 
     // Load cart items from localStorage and match with product data
     useEffect(() => {
@@ -24,14 +23,14 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
                           ...productDetails,
                           size: item.size,
                           color: item.color,
-                          quantity: item.quantity || 1, // Use stored quantity or default to 1
+                          quantity: 1, // Default quantity
                       }
                     : null;
             })
-            .filter((item) => item);
+            .filter((item) => item); // Remove any null items
 
         setCartItems(cartWithDetails);
-    }, []);
+    }, [pathname]);
 
     const handleClose = () => {
         closeWithAnimation(ref);
@@ -62,24 +61,14 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
         localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
 
-    const handleRemoveItem = async (product) => {
-        await handleCartAction(product);
-        // Refresh cart items after removal
+    const handleRemoveItem = (id) => {
+        // Remove from state
+        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+
+        // Remove from localStorage
         const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
-        const cartWithDetails = cartStorage
-            .map((item) => {
-                const productDetails = products.find((p) => p.id === item.id);
-                return productDetails
-                    ? {
-                          ...productDetails,
-                          size: item.size,
-                          color: item.color,
-                          quantity: item.quantity || 1,
-                      }
-                    : null;
-            })
-            .filter((item) => item);
-        setCartItems(cartWithDetails);
+        const updatedCart = cartStorage.filter((item) => item.id !== id);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
 
     const calculateSubtotal = () => {
@@ -173,7 +162,7 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
                                                 +
                                             </button>
                                         </div>
-                                        <button className="cart-item__remove" onClick={() => handleRemoveItem(item)}>
+                                        <button className="cart-item__remove" onClick={() => handleRemoveItem(item.id)}>
                                             <Trash2 size={16} />
                                         </button>
                                     </div>

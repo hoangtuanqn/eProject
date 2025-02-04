@@ -146,6 +146,7 @@
     color: rgba(18, 18, 18);
 }
 .header__icon-wrap {
+    position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -158,6 +159,21 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+.cart-badge {
+    position: absolute;
+    top: -3px;
+    right: 7px;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.2rem;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
 }
 /* Menu Mobile */
 .mobile-menu {
@@ -525,7 +541,6 @@
 @media screen and (min-width: 768px) and (max-width: 991px) {
     .hiddenPClow {
         display: none;
-
     }
     .mobile-menu-toggle {
         display: block;
@@ -534,5 +549,3 @@
 /* Tablet */
 @media screen and (min-width: 750px) and (max-width: 1024px) {
 }
-
-

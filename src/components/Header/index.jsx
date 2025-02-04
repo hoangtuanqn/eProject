@@ -111,6 +111,7 @@ export default function Header() {
                                 onClick={() => openMenu(cartRef)}
                             >
                                 <img src="/assets/icon/cart.svg" alt="" className="header__icon" />
+                                <span className="cart-badge">1</span>
                             </button>
                             <Counter />
                         </div>
