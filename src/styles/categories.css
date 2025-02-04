@@ -4,7 +4,7 @@
 .categories__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    gap: 50px;
 }
 .categories__imgs {
     overflow: hidden;

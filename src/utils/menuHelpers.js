@@ -8,15 +8,14 @@ export const openMenu = (target) => {
 
 // Hàm đóng menu/search với animation
 export const closeWithAnimation = (target) => {
-    
     if (target.current) {
         target.current.classList.add("closing");
+        document.body.style.overflow = ""; // Reset overflow ngay lập tức
         setTimeout(() => {
             if (target.current) {
                 target.current.classList.remove("active", "closing");
-                document.body.style.overflow = ""; // Cho phép cuộn trang
             }
-        }, 500); // Thời gian animation: 0.5s
+        }, 500);
     }
 };
 

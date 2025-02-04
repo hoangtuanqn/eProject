@@ -276,7 +276,6 @@
 }
 @media screen and (max-width: 1024px) {
     .category__body {
-
         grid-template-columns: 1fr;
     }
 
@@ -858,7 +857,8 @@
     height: 35px;
     border-radius: 50%;
     background: white;
-    border: none;
+    /* border: none; */
+    border: 1px solid #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -879,8 +879,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    /* width: 100%;
+    height: 100%; */
     background: rgba(0, 0, 0, 0.1);
     opacity: 0;
     transition: all 0.3s ease;

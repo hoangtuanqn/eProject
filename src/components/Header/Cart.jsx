@@ -1,7 +1,193 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useEffect, useState, forwardRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { closeWithAnimation, handleClickOutside } from "../../utils/menuHelpers";
 import "../../styles/headerCart.css";
+import { Trash2, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import products from "../../data/product.json";
+import clsx from "clsx";
 
-export default function Cart() {
-   
-}
+const Cart = forwardRef(({ isOpen, onClose }, ref) => {
+    const [cartItems, setCartItems] = useState([]);
+    const navigate = useNavigate();
+
+    // Load cart items from localStorage and match with product data
+    useEffect(() => {
+        const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartWithDetails = cartStorage
+            .map((item) => {
+                const productDetails = products.find((p) => p.id === item.id);
+                return productDetails
+                    ? {
+                          ...productDetails,
+                          size: item.size,
+                          color: item.color,
+                          quantity: 1, // Default quantity
+                      }
+                    : null;
+            })
+            .filter((item) => item); // Remove any null items
+
+        setCartItems(cartWithDetails);
+    }, []);
+
+    const handleClose = () => {
+        closeWithAnimation(ref);
+        onClose();
+    };
+
+    const handleQuantityInput = (id, value) => {
+        const newQuantity = Math.max(1, parseInt(value) || 1);
+        setCartItems((prevItems) =>
+            prevItems.map((item) => {
+                if (item.id === id) {
+                    return { ...item, quantity: newQuantity };
+                }
+                return item;
+            }),
+        );
+    };
+
+    const handleRemoveItem = (id) => {
+        // Remove from state
+        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+
+        // Remove from localStorage
+        const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
+        const updatedCart = cartStorage.filter((item) => item.id !== id);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    };
+
+    const calculateSubtotal = () => {
+        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    };
+
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+        }).format(amount);
+    };
+
+    return (
+        <div
+            ref={ref}
+            className={clsx("cart", { active: isOpen })}
+            onClick={(e) => handleClickOutside(e, ref, onClose)}
+        >
+            <div className="cart__list">
+                <div className="cart__header">
+                    <h2 className="cart__title">Shopping Cart</h2>
+                    <button className="cart__close" onClick={handleClose}>
+                        <X size={24} />
+                    </button>
+                </div>
+
+                <div className="cart__items-container">
+                    <AnimatePresence mode="popLayout">
+                        {cartItems.length > 0 ? (
+                            cartItems.map((item) => (
+                                <motion.article
+                                    key={item.id}
+                                    className="cart-item"
+                                    layout
+                                    initial={{ opacity: 1 }}
+                                    exit={{
+                                        opacity: 0,
+                                        height: 0,
+                                        marginBottom: 0,
+                                        transition: {
+                                            opacity: { duration: 0.2 },
+                                            height: { duration: 0.3, delay: 0.1 },
+                                        },
+                                    }}
+                                >
+                                    <div className="cart-item__top">
+                                        <img src={item.thumbnail} alt={item.name} className="cart-item__img" />
+                                        <div className="cart-item__info">
+                                            <span className="cart-item__category">{item.category}</span>
+                                            <h3 className="cart-item__name">{item.name}</h3>
+                                            <div className="cart-item__details">
+                                                <div className="cart-item__detail">
+                                                    <span className="cart-item__label">Size:</span>
+                                                    <span className="cart-item__value">{item.size}</span>
+                                                </div>
+                                                <div className="cart-item__detail">
+                                                    <span className="cart-item__label">Color:</span>
+                                                    <span className="cart-item__value">{item.color}</span>
+                                                </div>
+                                            </div>
+                                            <div className="cart-item__price">
+                                                <span className="cart-item__current-price">
+                                                    {formatCurrency(item.price * item.quantity)}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="cart-item__actions">
+                                        <div className="product__quantity-input">
+                                            <button
+                                                className="product__quantity-button"
+                                                onClick={() => handleQuantityInput(item.id, item.quantity - 1)}
+                                            >
+                                                -
+                                            </button>
+                                            <input
+                                                type="number"
+                                                value={item.quantity}
+                                                className="product__quantity-number"
+                                                onChange={(e) => handleQuantityInput(item.id, e.target.value)}
+                                                min="1"
+                                            />
+                                            <button
+                                                className="product__quantity-button"
+                                                onClick={() => handleQuantityInput(item.id, item.quantity + 1)}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                        <button className="cart-item__remove" onClick={() => handleRemoveItem(item.id)}>
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </div>
+                                </motion.article>
+                            ))
+                        ) : (
+                            <div className="cart__empty">
+                                <img
+                                    src="https://beehomegroup.vn/assets/images/cart_empty.png"
+                                    alt="Empty cart"
+                                    className="cart__empty-img"
+                                />
+                                <p className="cart__empty-text">Your cart is empty</p>
+                                <button
+                                    className="btn cart__empty-button"
+                                    onClick={() => {
+                                        handleClose();
+                                        navigate("/categories");
+                                    }}
+                                >
+                                    Start Shopping
+                                </button>
+                            </div>
+                        )}
+                    </AnimatePresence>
+                </div>
+
+                <div className="cart__footer">
+                    <div className="cart__subtotal">
+                        <span className="cart__subtotal-label">Subtotal</span>
+                        <span className="cart__subtotal-amount">{formatCurrency(calculateSubtotal())}</span>
+                    </div>
+
+                    <div className="cart__buttons">
+                        <button className="cart__button cart__button--outline">View Cart</button>
+                        <button className="cart__button cart__button--filled">Check Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+});
+
+export default Cart;

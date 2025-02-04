@@ -161,8 +161,9 @@ export default function Category({ nameCategory }) {
                 // Kiểm tra xem category được click có phải là category hiện tại không
                 const currentCategory = categoriesData.find((cat) => cat.slug === slug);
                 if (currentCategory && currentCategory.name === categoryName) {
-                    // Nếu đúng là category hiện tại, chỉ cần bỏ chọn nó
+                    // Nếu đúng là category hiện tại, chỉ cần bỏ chọn nó và chuyển sangt rang all-product
                     setSelectedCategories((prev) => prev.filter((c) => c !== categoryName));
+                    navigate("/category/all-product");
                     return;
                 }
 
@@ -835,6 +836,7 @@ export default function Category({ nameCategory }) {
                 </div>
 
                 <div className="category__body">
+                    {/* Menu Filter PC */}
                     <aside className="category__filter">
                         {/* Search Filter - Quan trọng nhất vì người dùng thường tìm kiếm trực tiếp */}
                         <div className="filter__group">

@@ -90,7 +90,8 @@
 
 .best-sales-item__button {
     background: none;
-    border: 1px solid var(--color-grey-7);
+
+    border: 1px solid #ccc;
     border-radius: 50%;
     width: 35px;
     height: 35px;

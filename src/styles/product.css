@@ -205,7 +205,6 @@
 .product__quantity-input {
     display: flex;
     align-items: center;
-    gap: 10px;
 }
 
 .product__quantity-number {

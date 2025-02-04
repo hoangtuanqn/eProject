@@ -9,6 +9,8 @@
 * {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    scrollbar-width: thin; /* "thin" làm cho scrollbar nhỏ hơn */
+    scrollbar-color: #121212 transparent; /* màu scrollbar và track */
 }
 
 html {
@@ -19,6 +21,20 @@ html {
 body {
     font-family: var(--font-jost);
     font-size: 1.6rem;
+}
+/* Tùy chỉnh scrollbar cho Chrome/Safari */
+::-webkit-scrollbar {
+    width: 8px; /* Chiều rộng của scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: transparent; /* Màu nền của track */
+    border-radius: 10px; /* Bo tròn góc */
+}
+
+::-webkit-scrollbar-thumb {
+    overflow: hidden;
+    background: #121212; /* Màu của thanh scrollbar */
 }
 
 .line-clamp {
@@ -83,7 +99,7 @@ img {
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     margin-top: 20px;
     font-weight: 500;
     font-size: 1.5rem;
@@ -185,9 +201,58 @@ strong {
 /* Loading spinner styles */
 .loading-spinner {
     display: block;
-    width: 20px;
-    height: 100%;
+    aspect-ratio: 1 / 1;
+    width: 80%;
+    max-width: 20px;
     object-fit: cover;
+}
+
+/* Cart Button Styles */
+.cart-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.cart-btn:hover {
+    box-shadow: 0 5px 10px rgba(18, 18, 18, 0.15);
+}
+
+.cart-btn.loading {
+    background-color: #f3f3f3;
+    cursor: not-allowed;
+}
+
+.cart-btn.in-cart {
+    background-color: #f8f8f8;
+    border-color: #ff0000;
+}
+
+.cart-btn.in-cart svg {
+    color: #ff0000;
+}
+
+.cart-btn.in-cart::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 2px;
+    background-color: #ff0000;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cart-btn.in-cart:hover {
+    background-color: #ffe6e6;
 }
 
 /* Responsive */
@@ -206,7 +271,18 @@ strong {
     }
     .btn {
         width: 100%;
-        max-width: 300px;
+        /* min-width: 300px; */
+    }
+
+    /* Update Toast */
+    .Toastify__toast-container {
+        padding: 20px !important;
+    }
+    .Toastify__toast:first-child {
+        margin-top: 0;
+    }
+    .Toastify__toast {
+        margin-top: 10px;
     }
 }
 

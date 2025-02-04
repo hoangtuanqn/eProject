@@ -32,10 +32,22 @@
     line-height: 1.8;
     margin-bottom: 15px;
 }
-
-.footer__link {
+.footer__link-wrap {
     margin-top: 15px;
-    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.footer__link-wrap > .footer__link {
+    margin: 0;
+}
+.footer__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
     color: rgba(255, 255, 255, 0.7);
     font-size: 1.5rem;
     line-height: 1.8;
@@ -43,7 +55,6 @@
     -o-transition: color 0.3s ease;
     transition: color 0.3s ease;
 }
-
 .footer__link:hover {
     color: #fff;
 }
@@ -167,7 +178,7 @@
 }
 
 .footer__submit:hover {
-    opacity: 0.9;
+    color: #fff;
 }
 
 .footer__bottom {
@@ -202,21 +213,13 @@
     height: 24px;
     width: auto;
 }
-.footer__message {
-    margin-top: 10px;
-    font-size: 1.5rem;
-}
-
-.footer__message.success {
-    color: green;
-}
-
-.footer__message.error {
-    color: red;
+.footer__input.error {
+    border-color: red;
 }
 
 /* Ticker styles */
 .footer__ticker-container {
+
     position: fixed;
     bottom: 0;
     z-index: 2;

@@ -6,8 +6,8 @@ export default function CategoryHighlights() {
         <>
             {/* Category Highlights Section */}
             <section className="category-highlights">
-                <div className="category-highlights__list" data-aos="flip-up">
-                    <article className="category-highlights__item">
+                <div className="category-highlights__list">
+                    <article className="category-highlights__item" data-aos="fade-right">
                         <div
                             className="category-highlights__background"
                             style={{ background: "url('./assets/imgs/banner-1.png') center/cover no-repeat" }}
@@ -21,7 +21,7 @@ export default function CategoryHighlights() {
                         </div>
                     </article>
 
-                    <article className="category-highlights__item">
+                    <article className="category-highlights__item" data-aos="fade-down">
                         <div
                             className="category-highlights__background"
                             style={{ background: "url('./assets/imgs/banner-2.png') center/cover no-repeat" }}
@@ -35,7 +35,7 @@ export default function CategoryHighlights() {
                         </div>
                     </article>
 
-                    <article className="category-highlights__item">
+                    <article className="category-highlights__item" data-aos="fade-left">
                         <div
                             className="category-highlights__background"
                             style={{ background: "url('./assets/imgs/banner-3.png') center/cover no-repeat" }}

@@ -1,10 +1,11 @@
 import React, { useState, useRef, useCallback } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // Component này sử dụng CSS chung với Footer
 export default function Newsletter() {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
-    const [messageType, setMessageType] = useState(""); // success or error
     const [loading, setLoading] = useState(false);
     const emailInputRef = useRef(null);
 
@@ -13,7 +14,7 @@ export default function Newsletter() {
             const { data } = await axios.get("https://679c74f887618946e65240bb.mockapi.io/api/v1/news");
             return data.some((entry) => entry.email === email);
         } catch (error) {
-            console.error("Error checking email:", error);
+            toast.error("Error checking email:");
             throw error;
         }
     };
@@ -36,48 +37,44 @@ export default function Newsletter() {
     const handleSubmit = useCallback(
         async (e) => {
             e.preventDefault();
-            setMessage(""); // Clear previous message
+            setMessage("");
+            emailInputRef.current.classList.remove("error"); // Reset error state before validation
 
             if (!isValidEmail(email)) {
-                setMessage("Invalid email format.");
-                setMessageType("error");
-                emailInputRef.current.classList.add("error"); // Highlight the input field
-                emailInputRef.current.focus(); // Focus lại ô input
+                toast.error("Invalid email format.");
+                emailInputRef.current.classList.add("error");
+                emailInputRef.current.focus();
                 return;
             }
 
-            setLoading(true); // Set loading to true
+            setLoading(true);
 
             try {
                 const emailExists = await checkEmailExists(email);
 
                 if (emailExists) {
-                    setMessage("Email already subscribed.");
-                    setMessageType("error");
-                    emailInputRef.current.classList.add("error"); // Highlight the input field
-                    emailInputRef.current.focus(); // Focus lại ô input
+                    toast.error("Email already subscribed.");
+                    emailInputRef.current.classList.add("error");
+                    emailInputRef.current.focus();
                 } else {
                     const success = await subscribeEmail(email);
 
                     if (success) {
-                        setMessage("Subscription successful!");
-                        setMessageType("success");
-                        setEmail(""); // Clear the input field
-                        emailInputRef.current.classList.remove("error"); // Reset border
+                        toast.success("Subscription successful!");
+                        setEmail("");
+                        emailInputRef.current.classList.remove("error");
                     } else {
-                        setMessage("Subscription failed. Please try again.");
-                        setMessageType("error");
-                        emailInputRef.current.classList.add("error"); // Highlight the input field
-                        emailInputRef.current.focus(); // Focus lại ô input
+                        toast.error("Subscription failed. Please try again.");
+                        emailInputRef.current.classList.add("error");
+                        emailInputRef.current.focus();
                     }
                 }
             } catch (error) {
-                setMessage("An error occurred. Please try again.");
-                setMessageType("error");
-                emailInputRef.current.classList.add("error"); // Highlight the input field
-                emailInputRef.current.focus(); // Focus lại ô input
+                toast.error("An error occurred. Please try again.");
+                emailInputRef.current.classList.add("error");
+                emailInputRef.current.focus();
             } finally {
-                setLoading(false); // Set loading to false
+                setLoading(false);
             }
         },
         [email],
@@ -90,33 +87,47 @@ export default function Newsletter() {
     }, []);
 
     return (
-        <div className="footer__column">
-            <h3 className="footer__heading">Sign Up for Email</h3>
-            <p className="footer__desc">Subscribe to our newsletter to receive news on update.</p>
-            <form className="footer__form" onSubmit={handleSubmit}>
-                <div className="footer__form-group">
-                    <div className="footer__input-wrapper">
-                        <input
-                            type="email"
-                            placeholder=" "
-                            className="footer__input"
-                            value={email}
-                            onChange={handleInputChange}
-                            required
-                            ref={emailInputRef}
-                        />
-                        <label className="footer__label">Enter your email</label>
+        <>
+            <div className="footer__column">
+                <h3 className="footer__heading">Sign Up for Email</h3>
+                <p className="footer__desc">Subscribe to our newsletter to receive news on update.</p>
+                <form className="footer__form" onSubmit={handleSubmit}>
+                    <div className="footer__form-group">
+                        <div className="footer__input-wrapper">
+                            <input
+                                type="email"
+                                placeholder=" "
+                                className="footer__input"
+                                value={email}
+                                onChange={handleInputChange}
+                                required
+                                ref={emailInputRef}
+                            />
+                            <label className="footer__label">Enter your email</label>
+                        </div>
+                        <button type="submit" className="btn footer__submit" disabled={loading}>
+                            {loading ? (
+                                <img src="/assets/icon/loading.gif" alt="Loading..." className="loading-spinner" />
+                            ) : (
+                                "SUBSCRIBE"
+                            )}
+                        </button>
                     </div>
-                    <button type="submit" className="btn footer__submit" disabled={loading}>
-                        {loading ? (
-                            <img src="/assets/icon/loading.gif" alt="Loading..." className="loading-spinner" />
-                        ) : (
-                            "SUBSCRIBE"
-                        )}
-                    </button>
-                </div>
-            </form>
-            {message && <p className={`footer__message ${messageType}`}>{message}</p>}
-        </div>
+                </form>
+            </div>
+
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+        </>
     );
 }

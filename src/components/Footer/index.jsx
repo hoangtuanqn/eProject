@@ -3,6 +3,8 @@ import "../../styles/footer.css";
 import Newsletter from "./Newsletter";
 import { initTicker } from "./ticker";
 import { initScrollToTop } from "../../utils/scrollToTop";
+import stores from "../../data/stores.json";
+import { Mail, Phone, Bath, Scissors, Stethoscope, LogIn, User, Heart, ShoppingCart, MapPin } from "lucide-react";
 
 export default function Footer() {
     useEffect(() => {
@@ -23,16 +25,29 @@ export default function Footer() {
                         {/* Contact Info */}
                         <div className="footer__column">
                             <h3 className="footer__heading">Contact Info</h3>
-                            <address className="footer__address">
-                                70 Washington Square South, New York, NY 10012, United States
-                            </address>
-                            <a href="mailto:support@maverickdresses.com" className="footer__link">
-                                Email: support@maverickdresses.com
-                            </a>
-                            <a href="tel:0812665001" className="footer__link">
-                                {" "}
-                                Phone: 0812.665.001{" "}
-                            </a>
+                            {stores.map((store, index) => (
+                                <address className="footer__address" key={store.id}>
+                                    <MapPin size={18} style={{ marginRight: "8px" }} />
+                                    {store.address}
+                                </address>
+
+                            ))}
+
+                            <p className="footer__link-wrap">
+                                <Mail size={18} />
+                                Email:
+                                <a href="mailto:support@maverickdresses.com" className="footer__link">
+                                    support@maverickdresses.com
+                                </a>
+                            </p>
+
+                            <p className="footer__link-wrap">
+                                <Phone size={18} />
+                                Phone:
+                                <a href="tel:0812665001" className="footer__link">
+                                    0812.665.001
+                                </a>
+                            </p>
                         </div>
 
                         {/* Our Store */}
@@ -41,22 +56,22 @@ export default function Footer() {
                             <ul className="footer__list">
                                 <li>
                                     <a href="#!" className="footer__link">
-                                        Full Grooming
+                                        <Scissors size={18} /> Full Grooming
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#!" className="footer__link">
-                                        Bath and Dry
+                                        <Bath size={18} /> Bath and Dry
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#!" className="footer__link">
-                                        Styling
+                                        <Scissors size={18} /> Styling
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#!" className="footer__link">
-                                        Medical Bath
+                                        <Stethoscope size={18} /> Medical Bath
                                     </a>
                                 </li>
                             </ul>
@@ -68,22 +83,22 @@ export default function Footer() {
                             <ul className="footer__list">
                                 <li>
                                     <a href="#!" className="footer__link">
-                                        Login
+                                        <LogIn size={18} /> Login
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#!" className="footer__link">
-                                        My account
+                                        <User size={18} /> My account
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#!" className="footer__link">
-                                        Wishlist
+                                        <Heart size={18} /> Wishlist
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#!" className="footer__link">
-                                        Checkout
+                                        <ShoppingCart size={18} /> Checkout
                                     </a>
                                 </li>
                             </ul>
@@ -118,7 +133,6 @@ export default function Footer() {
                             <path d="M12 4l-8 8h5v8h6v-8h5z" />
                         </svg>
                     </button>
-                    
                 </div>
             </footer>
         </>

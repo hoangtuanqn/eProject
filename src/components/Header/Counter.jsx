@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { User as IconUser } from "lucide-react";
+import { Users } from "lucide-react";
 import axios from "axios";
 
 export default function Counter() {
@@ -44,7 +44,7 @@ export default function Counter() {
         };
 
         // Xóa Comment là hoạt động lại
-        // handleVisit(); // Gọi hàm xử lý khi trang load
+        handleVisit(); // Gọi hàm xử lý khi trang load
     }, []);
 
     // Hàm cập nhật số người dùng mới nhất khi click vào .header__counter
@@ -58,7 +58,7 @@ export default function Counter() {
     };
     return (
         <button className="header__icon-wrap dfbetween">
-            <IconUser className="header__icon" size={36} />
+            <Users className="header__icon" size={36} />
             {loading ? (
                 <img src="/assets/icon/loading.gif" className="header__loading" alt="Loading..." />
             ) : (

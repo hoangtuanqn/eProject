@@ -32,8 +32,11 @@
     transition: var(--transition);
     cursor: pointer;
 }
-
+.category-highlights__item {
+    aspect-ratio: 2 / 1;
+}
 .category-highlights__background {
+
     position: absolute;
     inset: 0;
     background-size: cover;

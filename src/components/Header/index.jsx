@@ -13,23 +13,31 @@ import Cart from "./Cart";
 export default function Header() {
     const mobileMenuRef = useRef(null);
     const searchRef = useRef(null);
+    const cartRef = useRef(null);
     const [isCartOpen, setIsCartOpen] = useState(false);
 
-    // Tái sử dụng hàm đóng menu/search
+    // Tái sử dụng hàm đóng menu/search/cart
     const closeMenuWithAnimation = () => closeWithAnimation(mobileMenuRef);
     const closeSearchWithAnimation = () => closeWithAnimation(searchRef);
+    const closeCartWithAnimation = () => {
+        closeWithAnimation(cartRef);
+        setIsCartOpen(false);
+    };
 
     useEffect(() => {
-        // Xử lý đóng menu/search khi click outside
+        // Xử lý đóng menu/search/cart khi click outside
         const handleMenuOutside = (e) => handleClickOutside(e, mobileMenuRef, closeMenuWithAnimation);
         const handleSearchOutside = (e) => handleClickOutside(e, searchRef, closeSearchWithAnimation);
+        const handleCartOutside = (e) => handleClickOutside(e, cartRef, closeCartWithAnimation);
 
         document.addEventListener("click", handleMenuOutside);
         document.addEventListener("click", handleSearchOutside);
+        document.addEventListener("click", handleCartOutside);
 
         return () => {
             document.removeEventListener("click", handleMenuOutside);
             document.removeEventListener("click", handleSearchOutside);
+            document.removeEventListener("click", handleCartOutside);
         };
     }, []);
 
@@ -100,7 +108,7 @@ export default function Header() {
                             </button>
                             <button
                                 className="header__icon-wrap dfbetween hiddenMobile"
-                                onClick={() => setIsCartOpen(true)}
+                                onClick={() => openMenu(cartRef)}
                             >
                                 <img src="/assets/icon/cart.svg" alt="" className="header__icon" />
                             </button>
@@ -174,7 +182,7 @@ export default function Header() {
                     </div>
                 </div>
             </header>
-            <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+            <Cart ref={cartRef} isOpen={isCartOpen} onClose={closeCartWithAnimation} />
         </>
     );
 }
