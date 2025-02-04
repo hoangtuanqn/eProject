@@ -1,7 +1,6 @@
 import React, { useState, useRef, useCallback } from "react";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast from "react-hot-toast";
 // Component này sử dụng CSS chung với Footer
 export default function Newsletter() {
     const [email, setEmail] = useState("");
@@ -14,7 +13,7 @@ export default function Newsletter() {
             const { data } = await axios.get("https://679c74f887618946e65240bb.mockapi.io/api/v1/news");
             return data.some((entry) => entry.email === email);
         } catch (error) {
-            toast.error("Error checking email:");
+            toast.error("Error checking email");
             throw error;
         }
     };
@@ -41,7 +40,7 @@ export default function Newsletter() {
             emailInputRef.current.classList.remove("error"); // Reset error state before validation
 
             if (!isValidEmail(email)) {
-                toast.error("Invalid email format.");
+                toast.error("Invalid email format");
                 emailInputRef.current.classList.add("error");
                 emailInputRef.current.focus();
                 return;
@@ -53,7 +52,7 @@ export default function Newsletter() {
                 const emailExists = await checkEmailExists(email);
 
                 if (emailExists) {
-                    toast.error("Email already subscribed.");
+                    toast.error("Email already subscribed");
                     emailInputRef.current.classList.add("error");
                     emailInputRef.current.focus();
                 } else {
@@ -64,13 +63,13 @@ export default function Newsletter() {
                         setEmail("");
                         emailInputRef.current.classList.remove("error");
                     } else {
-                        toast.error("Subscription failed. Please try again.");
+                        toast.error("Subscription failed. Please try again");
                         emailInputRef.current.classList.add("error");
                         emailInputRef.current.focus();
                     }
                 }
             } catch (error) {
-                toast.error("An error occurred. Please try again.");
+                toast.error("An error occurred. Please try again");
                 emailInputRef.current.classList.add("error");
                 emailInputRef.current.focus();
             } finally {
@@ -116,18 +115,7 @@ export default function Newsletter() {
                 </form>
             </div>
 
-            <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
+         
         </>
     );
 }

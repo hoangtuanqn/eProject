@@ -44,7 +44,7 @@ export default function Counter() {
         };
 
         // Xóa Comment là hoạt động lại
-        handleVisit(); // Gọi hàm xử lý khi trang load
+        // handleVisit(); // Gọi hàm xử lý khi trang load
     }, []);
 
     // Hàm cập nhật số người dùng mới nhất khi click vào .header__counter

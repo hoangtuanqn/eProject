@@ -4,11 +4,13 @@ import ReactPaginate from "react-paginate";
 import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
 import { DoorClosedIcon as CloseIcon, FilterIcon, Eye, ShoppingCart, Heart } from "lucide-react";
+import toast from "react-hot-toast";
 
 import NotData from "../../components/NotData";
 import "../../styles/category.css";
 import productData from "../../data/product.json";
 import categoriesData from "../../data/categories.json";
+import { useCartActions } from "../../utils/handleCart";
 
 export default function Category({ nameCategory }) {
     const navigate = useNavigate();
@@ -59,6 +61,9 @@ export default function Category({ nameCategory }) {
 
     // Thêm state để quản lý trạng thái loading
     const [isLoading, setIsLoading] = useState(false);
+
+    // Add useCartActions hook
+    const { handleCartAction, isProductInCart, loadingStates } = useCartActions();
 
     // Kiểm tra path và slug
     useEffect(() => {
@@ -339,11 +344,21 @@ export default function Category({ nameCategory }) {
     const handleLoadMore = useCallback(() => {
         setIsLoading(true);
 
-        // Giả lập loading trong 2 giây
-        setTimeout(() => {
-            setVisibleItems((prev) => prev + 20);
-            setIsLoading(false);
-        }, 2000);
+        // Sử dụng toast.promise để hiển thị trạng thái loading
+        toast.promise(
+            new Promise((resolve) => {
+                setTimeout(() => {
+                    setVisibleItems((prev) => prev + 20);
+                    setIsLoading(false);
+                    resolve();
+                }, 2000);
+            }),
+            {
+                loading: "Loading more products...",
+                success: "Successfully loaded more products!",
+                error: "Error loading products.",
+            },
+        );
     }, []);
 
     // Hàm để xử lý thay đổi kích thước cửa sổ
@@ -1143,14 +1158,31 @@ export default function Category({ nameCategory }) {
                                                             <Eye size={18} />
                                                         </button> */}
                                                         <button
-                                                            className="product-action-btn"
-                                                            title="Add to cart"
+                                                            className={`cart-btn ${
+                                                                loadingStates[item.id] ? "loading" : ""
+                                                            } ${isProductInCart(item.id) ? "in-cart" : ""}`}
+                                                            title={
+                                                                isProductInCart(item.id)
+                                                                    ? "Remove from cart"
+                                                                    : "Add to cart"
+                                                            }
                                                             onClick={(e) => {
                                                                 e.preventDefault();
-                                                                // Handle add to cart
+                                                                handleCartAction(item);
                                                             }}
+                                                            disabled={loadingStates[item.id]}
                                                         >
-                                                            <ShoppingCart size={18} />
+                                                            {loadingStates[item.id] ? (
+                                                                <img
+                                                                    src="/assets/icon/loading.gif"
+                                                                    alt="Loading..."
+                                                                    className="loading-spinner"
+                                                                    width={18}
+                                                                    height={18}
+                                                                />
+                                                            ) : (
+                                                                <ShoppingCart size={18} />
+                                                            )}
                                                         </button>
                                                         <button
                                                             className="product-action-btn"

@@ -5,7 +5,7 @@ import { initTicker } from "./ticker";
 import { initScrollToTop } from "../../utils/scrollToTop";
 import stores from "../../data/stores.json";
 import { Mail, Phone, Bath, Scissors, Stethoscope, LogIn, User, Heart, ShoppingCart, MapPin } from "lucide-react";
-
+import { Toaster } from "react-hot-toast";
 export default function Footer() {
     useEffect(() => {
         initTicker();
@@ -19,6 +19,8 @@ export default function Footer() {
     }, []);
     return (
         <>
+        {/* Gọi Toaster 1 file để hiển thị cho toàn bộ */}
+            <Toaster />
             <footer className="footer">
                 <div className="container">
                     <div className="footer__inner">

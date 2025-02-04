@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 export const useCartActions = () => {
     const [loadingStates, setLoadingStates] = useState({});
@@ -34,7 +34,7 @@ export const useCartActions = () => {
                     id: product.id,
                     size: product.sizes[0],
                     color: product.colors[0],
-                    quantity: 1
+                    quantity: 1,
                 };
                 newCart = [...currentCart, newItem];
                 toast.success("Added to cart!");

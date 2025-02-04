@@ -156,6 +156,7 @@
 }
 
 .cart-item__current-price {
+    word-break: break-word;
     display: block;
     color: var(--color-grey-7);
     font-size: 1.5rem;

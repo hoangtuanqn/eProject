@@ -4,8 +4,7 @@ import { motion } from "framer-motion";
 import "../../styles/contact.css";
 import axios from "axios";
 import stores from "../../data/stores.json";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast from "react-hot-toast";
 
 export default function Contact() {
     const [formData, setFormData] = useState({
@@ -84,7 +83,7 @@ export default function Contact() {
             setErrors(newErrors);
             const firstErrorField = Object.keys(newErrors)[0];
             inputRefs[firstErrorField].current.focus();
-            toast.error("Please fill in all fields correctly.");
+            toast.error("Please fill in all fields correctly");
             return;
         }
 
@@ -102,7 +101,7 @@ export default function Contact() {
                 store: stores[0].name,
             });
         } catch (error) {
-            toast.error("Error submitting form. Please try again.");
+            toast.error("Error submitting form. Please try again");
         } finally {
             setLoading(false);
         }
@@ -324,18 +323,7 @@ export default function Contact() {
                     </motion.div>
                 </div>
             </motion.section>
-            <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
+           
         </>
     );
 }

@@ -6,10 +6,12 @@ import { Trash2, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import products from "../../data/product.json";
 import clsx from "clsx";
+import { useCartActions } from "../../utils/handleCart";
 
 const Cart = forwardRef(({ isOpen, onClose }, ref) => {
     const [cartItems, setCartItems] = useState([]);
     const navigate = useNavigate();
+    const { handleCartAction } = useCartActions();
 
     // Load cart items from localStorage and match with product data
     useEffect(() => {
@@ -22,11 +24,11 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
                           ...productDetails,
                           size: item.size,
                           color: item.color,
-                          quantity: 1, // Default quantity
+                          quantity: item.quantity || 1, // Use stored quantity or default to 1
                       }
                     : null;
             })
-            .filter((item) => item); // Remove any null items
+            .filter((item) => item);
 
         setCartItems(cartWithDetails);
     }, []);
@@ -38,6 +40,8 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
 
     const handleQuantityInput = (id, value) => {
         const newQuantity = Math.max(1, parseInt(value) || 1);
+
+        // Update state
         setCartItems((prevItems) =>
             prevItems.map((item) => {
                 if (item.id === id) {
@@ -46,16 +50,36 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
                 return item;
             }),
         );
+
+        // Update localStorage
+        const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
+        const updatedCart = cartStorage.map((item) => {
+            if (item.id === id) {
+                return { ...item, quantity: newQuantity };
+            }
+            return item;
+        });
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
 
-    const handleRemoveItem = (id) => {
-        // Remove from state
-        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-
-        // Remove from localStorage
+    const handleRemoveItem = async (product) => {
+        await handleCartAction(product);
+        // Refresh cart items after removal
         const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
-        const updatedCart = cartStorage.filter((item) => item.id !== id);
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        const cartWithDetails = cartStorage
+            .map((item) => {
+                const productDetails = products.find((p) => p.id === item.id);
+                return productDetails
+                    ? {
+                          ...productDetails,
+                          size: item.size,
+                          color: item.color,
+                          quantity: item.quantity || 1,
+                      }
+                    : null;
+            })
+            .filter((item) => item);
+        setCartItems(cartWithDetails);
     };
 
     const calculateSubtotal = () => {
@@ -118,7 +142,10 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
                                                 </div>
                                             </div>
                                             <div className="cart-item__price">
-                                                <span className="cart-item__current-price">
+                                                <span
+                                                    className="cart-item__current-price line-clamp"
+                                                    style={{ "--line-clamp": 4 }}
+                                                >
                                                     {formatCurrency(item.price * item.quantity)}
                                                 </span>
                                             </div>
@@ -146,7 +173,7 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
                                                 +
                                             </button>
                                         </div>
-                                        <button className="cart-item__remove" onClick={() => handleRemoveItem(item.id)}>
+                                        <button className="cart-item__remove" onClick={() => handleRemoveItem(item)}>
                                             <Trash2 size={16} />
                                         </button>
                                     </div>

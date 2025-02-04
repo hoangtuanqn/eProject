@@ -3,8 +3,6 @@ import "../../styles/bestSales.css"; // Import CSS Module
 import productData from "../../data/product.json";
 import { ShoppingCartIcon } from "lucide-react";
 import { useCartActions } from "../../utils/handleCart";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function BestSales() {
     const { handleCartAction, isProductInCart, loadingStates } = useCartActions();
@@ -13,18 +11,7 @@ export default function BestSales() {
 
     return (
         <section className="best-sales">
-            <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
+           
             <div className="container">
                 <div className="section-top">
                     <h2 className="section-title">Best Sales</h2>

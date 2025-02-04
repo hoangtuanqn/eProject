@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, Minus, Plus, Share2, Facebook, Twitter, PinIcon } from "lucide-react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast, { Toaster } from "react-hot-toast";
 import productData from "../../data/product.json";
 import { useParams } from "react-router-dom";
 import "../../styles/product.css";
@@ -60,26 +59,23 @@ export default function Product() {
             name: product.name,
         };
 
-        // Lấy giỏ hàng từ localStorage
+        // Get cart from localStorage
         const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-        // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+        // Check if product already exists in cart
         const existingItemIndex = cart.findIndex(
             (item) =>
                 item.productId === cartItem.productId && item.model === cartItem.model && item.size === cartItem.size,
         );
 
         if (existingItemIndex !== -1) {
-            // Nếu sản phẩm đã tồn tại, tăng số lượng
             cart[existingItemIndex].quantity += quantity;
             toast.success("Updated quantity in cart!");
         } else {
-            // Nếu sản phẩm chưa tồn tại, thêm mới
             cart.push(cartItem);
             toast.success("Added to cart!");
         }
 
-        // Lưu giỏ hàng mới vào localStorage
         localStorage.setItem("cart", JSON.stringify(cart));
     };
 
@@ -132,7 +128,6 @@ export default function Product() {
                 console.log("Error sharing:", error);
             }
         } else {
-            // Fallback cho các trình duyệt không hỗ trợ Web Share API
             const url = window.location.href;
             navigator.clipboard.writeText(url);
             toast.success("Link copied!");
@@ -141,18 +136,16 @@ export default function Product() {
 
     return (
         <section className="product">
-            <ToastContainer
+            {/* <Toaster
                 position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
+                toastOptions={{
+                    duration: 3000,
+                    style: {
+                        background: "#fff",
+                        color: "#363636",
+                    },
+                }}
+            /> */}
             <div className="container">
                 <div className="product__grid">
                     <div className="product__images">
