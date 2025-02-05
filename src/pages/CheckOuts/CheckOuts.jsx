@@ -14,11 +14,15 @@ import {
     Mailbox,
     StickyNote,
 } from "lucide-react";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import PaypalCheckout from "./Paypal";
 import "../../styles/checkOuts.css";
 import products from "../../data/product.json";
+import { useNavigate } from "react-router-dom";
+import { handleOrder } from "./handleOrder";
 
 export default function CheckOut() {
+    const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
     const [formData, setFormData] = useState({
         firstName: "",
@@ -38,7 +42,11 @@ export default function CheckOut() {
 
     useEffect(() => {
         const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
+        if (!cartStorage.length) {
+            navigate("/categories");
+        }
         const cartWithDetails = cartStorage
+
             .map((item) => {
                 const productDetails = products.find((p) => p.id === item.id);
                 return productDetails
@@ -76,64 +84,13 @@ export default function CheckOut() {
         }).format(amount);
     };
 
-    const handlePayPalOrder = () => {
-        return {
-            purchase_units: [
-                {
-                    amount: {
-                        currency_code: "USD",
-                        value: total.toFixed(2),
-                        breakdown: {
-                            item_total: {
-                                currency_code: "USD",
-                                value: calculateSubtotal().toFixed(2),
-                            },
-                            shipping: {
-                                currency_code: "USD",
-                                value: shippingCost.toFixed(2),
-                            },
-                        },
-                    },
-                    items: cartItems.map((item) => ({
-                        name: item.name,
-                        unit_amount: {
-                            currency_code: "USD",
-                            value: item.price.toFixed(2),
-                        },
-                        quantity: item.quantity,
-                    })),
-                },
-            ],
-        };
-    };
-
-    const handlePayPalApprove = async (data, actions) => {
-        try {
-            setIsProcessing(true);
-            const order = await actions.order.capture();
-            // Handle successful payment
-            console.log("Payment successful:", order);
-            // Clear cart and redirect to success page
-            localStorage.removeItem("cart");
-            window.location.href = "/order-success";
-        } catch (error) {
-            console.error("Payment failed:", error);
-            // Handle payment failure
-        } finally {
-            setIsProcessing(false);
-        }
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.paymentMethod === "cod") {
             setIsProcessing(true);
             try {
-                // Handle COD order submission
-                console.log("Order submitted:", { formData, items: cartItems });
-                // Clear cart and redirect to success page
-                localStorage.removeItem("cart");
-                window.location.href = "/order-success";
+                const orderId = await handleOrder(formData, cartItems, calculateSubtotal, shippingCost, total);
+                window.location.href = `/order-success/${orderId}`;
             } catch (error) {
                 console.error("Order failed:", error);
             } finally {
@@ -145,8 +102,14 @@ export default function CheckOut() {
     return (
         <PayPalScriptProvider
             options={{
-                "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
+                "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID,
+                "enable-funding": "venmo",
+                "disable-funding": "",
+                "buyer-country": "US",
                 currency: "USD",
+                "data-page-type": "product-details",
+                components: "buttons",
+                "data-sdk-integration-source": "developer-studio",
             }}
         >
             <section className="checkout">
@@ -409,14 +372,13 @@ export default function CheckOut() {
                                 </div>
 
                                 {formData.paymentMethod === "paypal" && (
-                                    <div className="checkout__paypal-container">
-                                        <PayPalButtons
-                                            createOrder={handlePayPalOrder}
-                                            onApprove={handlePayPalApprove}
-                                            style={{ layout: "horizontal" }}
-                                            disabled={isProcessing}
-                                        />
-                                    </div>
+                                    <PaypalCheckout
+                                        total={total}
+                                        cartItems={cartItems}
+                                        formData={formData}
+                                        isProcessing={isProcessing}
+                                        setIsProcessing={setIsProcessing}
+                                    />
                                 )}
                             </motion.div>
                         </div>

@@ -25,6 +25,7 @@ import Partners from "./pages/Partners";
 import WishList from "./pages/WishList";
 import Cart from "./pages/Cart";
 import CheckOuts from "./pages/CheckOuts";
+import OrderSuccess from "./pages/OrderSuccess";
 
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
@@ -77,6 +78,11 @@ const App = () => {
 
                 {/* Trang giỏ hàng */}
                 <Route path="/cart" element={<Cart />} exact />
+
+                {/* Trang giỏ hàng */}
+                <Route path="/order-success/:order" element={<OrderSuccess />} exact />
+
+
 
                 {/* Trang thanh toán */}
                 <Route path="/checkouts" element={<CheckOuts />} exact />

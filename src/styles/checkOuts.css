@@ -10,13 +10,18 @@
     gap: 30px;
     align-items: start;
 }
-
+.buttons-container {
+    display: flex !important;
+    justify-content: center !important;
+}
 .checkout__form {
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
-
+.checkout__paypal {
+    margin-top: 20px;
+}
 .checkout__section {
     padding: 32px;
     background: white;
@@ -363,7 +368,7 @@
     .MuiStepper-root {
         padding: 16px 0;
     }
-    
+
     .MuiStepLabel-label {
         font-size: 1.2rem !important;
     }

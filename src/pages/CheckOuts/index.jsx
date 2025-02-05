@@ -7,7 +7,7 @@ export default function Index() {
 
     return (
         <>
-            <main className="main">
+            <main className="main2">
                 <CheckOuts />
             </main>
         </>
