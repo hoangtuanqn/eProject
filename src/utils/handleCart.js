@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import products from "../data/product.json";
 
 export const useCartActions = () => {
     const [loadingStates, setLoadingStates] = useState({});
@@ -10,6 +11,23 @@ export const useCartActions = () => {
         const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
         setCartItems(savedCart);
     }, []);
+
+    const getUpdatedCartItems = (cart, includeNotes = false) => {
+        return cart
+            .map((item) => {
+                const productDetails = products.find((p) => p.id === item.id);
+                return productDetails
+                    ? {
+                          ...productDetails,
+                          size: item.size,
+                          color: item.color,
+                          quantity: item.quantity || 1,
+                          ...(includeNotes && { note: item.note || "" }),
+                      }
+                    : null;
+            })
+            .filter((item) => item);
+    };
 
     const handleCartAction = async (product) => {
         const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -64,5 +82,6 @@ export const useCartActions = () => {
         isProductInCart,
         loadingStates,
         cartItems,
+        getUpdatedCartItems,
     };
 };

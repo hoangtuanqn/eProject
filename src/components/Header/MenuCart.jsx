@@ -1,16 +1,19 @@
 import React, { useRef, useEffect, useState, forwardRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { closeWithAnimation, handleClickOutside } from "../../utils/menuHelpers";
-import "../../styles/headerCart.css";
+import "../../styles/menuCart.css";
 import { Trash2, X } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import products from "../../data/product.json";
 import clsx from "clsx";
+import { useCartActions } from "../../utils/handleCart";
 
-const Cart = forwardRef(({ isOpen, onClose }, ref) => {
+const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
     const [cartItems, setCartItems] = useState([]);
+    const [deletingItemId, setDeletingItemId] = useState(null);
     const navigate = useNavigate();
     const pathname = useLocation();
+    const { handleCartAction, getUpdatedCartItems } = useCartActions();
 
     // Load cart items from localStorage and match with product data
     useEffect(() => {
@@ -61,20 +64,20 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
         localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
 
-    const handleRemoveItem = (id) => {
-        // Remove from state
-        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-
-        // Remove from localStorage
-        const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
-        const updatedCart = cartStorage.filter((item) => item.id !== id);
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    const handleRemoveItem = async (id) => {
+        setDeletingItemId(id);
+        const product = products.find((p) => p.id === id);
+        const updatedCart = await handleCartAction(product);
+        if (updatedCart) {
+            setCartItems(getUpdatedCartItems(updatedCart));
+        }
+        setDeletingItemId(null);
     };
 
     const calculateSubtotal = () => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     };
-
+    const numberTotal = calculateSubtotal();
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat("en-US", {
             style: "currency",
@@ -109,6 +112,7 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
                                         opacity: 0,
                                         height: 0,
                                         marginBottom: 0,
+                                        marginLeft: -200,
                                         transition: {
                                             opacity: { duration: 0.2 },
                                             height: { duration: 0.3, delay: 0.1 },
@@ -162,19 +166,27 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
                                                 +
                                             </button>
                                         </div>
-                                        <button className="cart-item__remove" onClick={() => handleRemoveItem(item.id)}>
-                                            <Trash2 size={16} />
+                                        <button
+                                            className="cart-page__remove-btn"
+                                            onClick={() => handleRemoveItem(item.id)}
+                                            disabled={deletingItemId === item.id}
+                                        >
+                                            {deletingItemId === item.id ? (
+                                                <img
+                                                    src="/assets/icon/loading.gif"
+                                                    alt="Loading..."
+                                                    className="loading-spinner"
+                                                />
+                                            ) : (
+                                                <Trash2 size={16} />
+                                            )}
                                         </button>
                                     </div>
                                 </motion.article>
                             ))
                         ) : (
                             <div className="cart__empty">
-                                <img
-                                    src="https://beehomegroup.vn/assets/images/cart_empty.png"
-                                    alt="Empty cart"
-                                    className="cart__empty-img"
-                                />
+                                <img src="/assets/imgs/cart_empty.png" alt="Empty cart" className="cart__empty-img" />
                                 <p className="cart__empty-text">Your cart is empty</p>
                                 <button
                                     className="btn cart__empty-button"
@@ -183,7 +195,7 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
                                         navigate("/categories");
                                     }}
                                 >
-                                    Start Shopping
+                                    Continue Shopping
                                 </button>
                             </div>
                         )}
@@ -193,12 +205,25 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
                 <div className="cart__footer">
                     <div className="cart__subtotal">
                         <span className="cart__subtotal-label">Subtotal</span>
-                        <span className="cart__subtotal-amount">{formatCurrency(calculateSubtotal())}</span>
+                        <span className="cart__subtotal-amount">{formatCurrency(numberTotal)}</span>
                     </div>
 
                     <div className="cart__buttons">
-                        <button className="cart__button cart__button--outline">View Cart</button>
-                        <button className="cart__button cart__button--filled">Check Out</button>
+                        {numberTotal > 0 ? (
+                            <>
+                                <Link to="/cart" onClick={handleClose} className="cart__button cart__button--outline">
+                                    View Cart
+                                </Link>
+                                <Link to="/cart" onClick={handleClose} className="cart__button cart__button--filled">
+                                    Check Out
+                                </Link>
+                            </>
+                        ) : (
+                            <>
+                                <span className="cart__button cart__button--outline disabled">View Cart</span>
+                                <span className="cart__button cart__button--filled disabled">Check Out</span>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
@@ -206,4 +231,4 @@ const Cart = forwardRef(({ isOpen, onClose }, ref) => {
     );
 });
 
-export default Cart;
+export default MenuCart;

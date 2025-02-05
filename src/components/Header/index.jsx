@@ -8,7 +8,7 @@ import Counter from "../Header/Counter";
 import { openMenu, closeWithAnimation, handleClickOutside, toggleSubmenu } from "../../utils/menuHelpers";
 import MenuDesktop from "./MenuDesktop";
 import MenuMobile from "./MenuMobile";
-import Cart from "./Cart";
+import Cart from "./MenuCart";
 
 export default function Header() {
     const mobileMenuRef = useRef(null);

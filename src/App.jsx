@@ -23,6 +23,8 @@ import AboutUs from "./pages/AboutUs";
 import Gallery from "./pages/Gallery";
 import Partners from "./pages/Partners";
 import WishList from "./pages/WishList";
+import Cart from "./pages/Cart";
+import CheckOuts from "./pages/CheckOuts";
 
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
@@ -67,16 +69,22 @@ const App = () => {
                 {/* Danh mục product*/}
                 <Route path="/categories" element={<Categories />} exact />
 
-
                 {/* Sản phẩm product theo từng danh mục*/}
                 <Route path="/category/:slug" element={<Category />} exact />
 
                 {/* Hiển thị 1 sản phẩm */}
                 <Route path="/product/:slug" element={<Product />} exact />
 
+                {/* Trang giỏ hàng */}
+                <Route path="/cart" element={<Cart />} exact />
+
+                {/* Trang thanh toán */}
+                <Route path="/checkouts" element={<CheckOuts />} exact />
+
                 {/* Page Error - 404 */}
                 <Route path="*" element={<NotFound />} exact />
             </Routes>
+
             <Footer />
         </>
     );

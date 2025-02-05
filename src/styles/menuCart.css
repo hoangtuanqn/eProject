@@ -174,11 +174,6 @@
     border-radius: 8px;
 }
 
-.product__quantity-input {
-    display: flex;
-    align-items: center;
-}
-
 .product__quantity-button {
     width: 32px;
     height: 32px;
@@ -285,6 +280,9 @@
 }
 
 .cart__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex: 1;
     padding: 12px;
     border-radius: 8px;
@@ -312,6 +310,12 @@
 
 .cart__button--filled:hover {
     background: #333;
+}
+
+.cart__button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 /* Animations */

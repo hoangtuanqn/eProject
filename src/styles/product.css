@@ -201,12 +201,6 @@
     font-family: "Jost", sans-serif;
     font-size: 1.4rem;
 }
-
-.product__quantity-input {
-    display: flex;
-    align-items: center;
-}
-
 .product__quantity-number {
     width: 80px;
     height: 44px;

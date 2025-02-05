@@ -18,7 +18,7 @@ import AOS from "aos";
 import "aos/dist/aos.css"; // Import file CSS của AOS
 
 const App = () => {
-    useTitle("HomePage");
+    useTitle("Home");
     useEffect(() => {
         AOS.init({
             duration: 2500,
