@@ -10,7 +10,7 @@ export default function Newsletter() {
 
     const checkEmailExists = async (email) => {
         try {
-            const { data } = await axios.get("https://679c74f887618946e65240bb.mockapi.io/api/v1/news");
+            const { data } = await axios.get("https://679c74f887618946e65240bb.mockapi.io/api/v1/subscribers");
             return data.some((entry) => entry.email === email);
         } catch (error) {
             toast.error("Error checking email");
@@ -20,7 +20,9 @@ export default function Newsletter() {
 
     const subscribeEmail = async (email) => {
         try {
-            const { data } = await axios.post("https://679c74f887618946e65240bb.mockapi.io/api/v1/news", { email });
+            const { data } = await axios.post("https://679c74f887618946e65240bb.mockapi.io/api/v1/subscribers", {
+                email,
+            });
             return data;
         } catch (error) {
             console.error("Error subscribing email:", error);

@@ -25,6 +25,7 @@ import products from "../../data/product.json";
 import countries from "../../data/countries.json";
 import "../../styles/checkOuts.css";
 import toast from "react-hot-toast";
+// import Momo from "./Momo";
 
 export default function CheckOut() {
     const navigate = useNavigate();
@@ -54,7 +55,7 @@ export default function CheckOut() {
         country: Yup.string().required("Country is required"),
         paymentMethod: Yup.string()
             .required("Payment method is required")
-            .oneOf(["cod", "paypal"], "Invalid payment method"),
+            .oneOf(["cod", "paypal", "momo"], "Invalid payment method"),
     });
 
     // Formik hook
@@ -455,17 +456,54 @@ export default function CheckOut() {
                                             />
                                         </label>
                                     </div>
-                                </div>
+                                    {formik.values.paymentMethod === "paypal" && (
+                                        <PaypalCheckout
+                                            total={total}
+                                            cartItems={cartItems}
+                                            formData={formik.values}
+                                            isProcessing={isProcessing}
+                                            setIsProcessing={setIsProcessing}
+                                        />
+                                    )}
 
-                                {formik.values.paymentMethod === "paypal" && (
-                                    <PaypalCheckout
-                                        total={total}
-                                        cartItems={cartItems}
-                                        formData={formik.values}
-                                        isProcessing={isProcessing}
-                                        setIsProcessing={setIsProcessing}
-                                    />
-                                )}
+                                    <div className="checkout__payment-option"  style={{ opacity: 0.6 }}>
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            value="momo"
+                                            disabled={true}
+                                            checked={formik.values.paymentMethod === "momo"}
+                                            onChange={formik.handleChange}
+                                            className="checkout__payment-radio"
+                                            id="momo"
+                                        />
+                                        <label className="checkout__payment-label" htmlFor="momo">
+                                            <span className="checkout__payment-check"></span>
+                                            <div className="checkout__payment-content">
+                                                <div className="checkout__payment-title">Momo (Coming Soon)</div>
+                                                <div className="checkout__payment-description">
+                                                    Pay with your Momo wallet
+                                                </div>
+                                            </div>
+                                            <img
+                                                src="/assets/icon/momo.svg"
+                                                alt="Momo"
+                                                className="checkout__payment-icon"
+                                            
+                                            />
+                                        </label>
+                                    </div>
+                                    {/* {formik.values.paymentMethod === "momo" && (
+                                        <Momo
+                                            total={total}
+                                            cartItems={cartItems}
+                                            formData={formik.values}
+                                            isProcessing={isProcessing}
+                                            setIsProcessing={setIsProcessing}
+
+                                        />
+                                    )} */}
+                                </div>
                             </motion.div>
                         </div>
 

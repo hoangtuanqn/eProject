@@ -1,60 +1,58 @@
 import { useState, useEffect } from "react";
-import "../../styles/wishList.css";
-import productsData from "../../data/product.json";
 import { ShoppingCartIcon, Eye, Heart, Trash2Icon } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-
+import { motion, AnimatePresence } from "framer-motion";
+import { useCartActions } from "../../utils/handleCart";
+import "../../styles/wishList.css";
+import products from "../../data/product.json";
 export default function WishList() {
-    const [wishlist, setWishlist] = useState([]);
+    const [wishlist, setWishlist] = useState(() => {
+        const savedWishlist = localStorage.getItem("wishlist");
+        return savedWishlist ? JSON.parse(savedWishlist) : [];
+    });
+    const [deletingItemId, setDeletingItemId] = useState(null);
+    const { handleCartAction, isProductInCart, loadingStates: cartLoadingStates } = useCartActions();
 
-    useEffect(() => {
-        // Lấy các sản phẩm có sale > 0 làm ví dụ
-        const initialWishlist = productsData
-            .filter((product) => product.sale > 0)
-            .slice(0, 4)
-            .map((product) => product.id);
-        setWishlist(initialWishlist);
-    }, []);
-
-    const removeFromWishlist = (id) => {
-        setWishlist(wishlist.filter((itemId) => itemId !== id));
-    };
-
-    const formatPrice = (price) => {
-        return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(price);
-    };
-
-    const getDiscountedPrice = (price, salePercent) => {
-        return price - (price * salePercent) / 100;
+    const removeFromWishlist = async (index) => {
+        setDeletingItemId(index);
+        // Simulate delay for animation
+        await new Promise((resolve) => setTimeout(resolve, 300));
+        const newWishlist = wishlist.filter((itemIndex) => itemIndex !== index);
+        setWishlist(newWishlist);
+        localStorage.setItem("wishlist", JSON.stringify(newWishlist));
+        setDeletingItemId(null);
     };
 
     return (
         <section className="wish-list">
             <div className="container">
                 {wishlist.length > 0 ? (
-                    <motion.div
-                        className="wish-list__grid"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <AnimatePresence>
-                            {wishlist.map((itemId, index) => {
-                                const product = productsData.find((p) => p.id === itemId);
+                    <div className="wish-list__grid">
+                        <AnimatePresence mode="popLayout">
+                            {wishlist.map((index) => {
+                                // Check if product exists at this index
+                                if (!products[index]) return null;
+
+                                const product = products[index - 1];
                                 return (
                                     <motion.article
-                                        key={product.id}
+                                        key={index}
                                         className="wish-list-item"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -20 }}
-                                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        layout
+                                        initial={{ opacity: 1 }}
+                                        exit={{
+                                            opacity: 0,
+                                            height: 0,
+                                            marginBottom: 0,
+                                            marginLeft: -200,
+                                            transition: {
+                                                opacity: { duration: 0.2 },
+                                                height: { duration: 0.3, delay: 0.1 },
+                                            },
+                                        }}
                                     >
                                         <figure className="wish-list-item__image">
-                                            {product.sale > 0 && (
-                                                <span className="badge__sale">SALE {product.sale}%</span>
-                                            )}
+                                            {product.sale !== 0 && <span className="badge__sale">SALE</span>}
                                             <img src={product.thumbnail || "/placeholder.svg"} alt={product.name} />
                                             <div className="wish-list-item__actions">
                                                 <Link
@@ -64,43 +62,63 @@ export default function WishList() {
                                                 >
                                                     <Eye size={20} />
                                                 </Link>
-                                                <button className="action-btn" title="Add to cart">
-                                                    <ShoppingCartIcon size={20} />
+                                                <button
+                                                    className={`cart-btn action-btn ${
+                                                        cartLoadingStates[product.id] ? "loading" : ""
+                                                    } ${isProductInCart(product.id) ? "in-cart" : ""}`}
+                                                    onClick={() => handleCartAction(product)}
+                                                    disabled={cartLoadingStates[product.id]}
+                                                    title={
+                                                        isProductInCart(product.id) ? "Remove from cart" : "Add to cart"
+                                                    }
+                                                >
+                                                    {cartLoadingStates[product.id] ? (
+                                                        <img
+                                                            src="/assets/icon/loading.gif"
+                                                            alt="Loading..."
+                                                            className="loading-spinner"
+                                                        />
+                                                    ) : (
+                                                        <ShoppingCartIcon size={20} />
+                                                    )}
                                                 </button>
                                                 <button
                                                     className="action-btn"
                                                     title="Remove from wishlist"
-                                                    onClick={() => removeFromWishlist(product.id)}
+                                                    onClick={() => removeFromWishlist(index)}
+                                                    disabled={deletingItemId === index}
                                                 >
-                                                    <Trash2Icon size={20} />
+                                                    {deletingItemId === index ? (
+                                                        <img
+                                                            src="/assets/icon/loading.gif"
+                                                            alt="Loading..."
+                                                            className="loading-spinner"
+                                                        />
+                                                    ) : (
+                                                        <Trash2Icon size={20} />
+                                                    )}
                                                 </button>
                                             </div>
                                         </figure>
                                         <h3 className="wish-list-item__name">{product.name}</h3>
-                                        <p className="wish-list-item__price">
+                                        <p className="category__product-price">
+                                            ${Math.round(product.discounted_price || product.price)}
                                             {product.sale > 0 && (
-                                                <span className="wish-list-item__price--old">
-                                                    {formatPrice(product.price)}
+                                                <span className="category__product-price--old">
+                                                    ${Math.round(product.price)}
                                                 </span>
                                             )}
-                                            {formatPrice(getDiscountedPrice(product.price, product.sale))}
                                         </p>
                                     </motion.article>
                                 );
                             })}
                         </AnimatePresence>
-                    </motion.div>
+                    </div>
                 ) : (
-                    <motion.div
-                        className="wish-list__empty"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        style={{ height: "30vh" }}
-                    >
+                    <div className="wish-list__empty">
                         <Heart className="wish-list__empty-icon" />
                         <p className="wish-list__empty-text">Your wishlist is empty</p>
-                    </motion.div>
+                    </div>
                 )}
             </div>
         </section>

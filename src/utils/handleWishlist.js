@@ -28,6 +28,7 @@ export const useWishlistActions = () => {
         setLoadingStates((prev) => ({ ...prev, [product.id]: true }));
 
         try {
+            await new Promise((resolve) => setTimeout(resolve, 500));
             let newWishlist;
             if (isInWishlist) {
                 newWishlist = currentWishlist.filter((id) => id !== product.id);
@@ -38,7 +39,6 @@ export const useWishlistActions = () => {
             }
 
             // Simulate network delay
-            await new Promise((resolve) => setTimeout(resolve, 500));
 
             localStorage.setItem("wishlist", JSON.stringify(newWishlist));
             setWishlistItems(newWishlist);

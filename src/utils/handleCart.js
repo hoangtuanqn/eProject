@@ -43,6 +43,7 @@ export const useCartActions = () => {
         setLoadingStates((prev) => ({ ...prev, [product.id]: true }));
 
         try {
+            await new Promise((resolve) => setTimeout(resolve, 500));
             let newCart;
             if (isInCart) {
                 newCart = currentCart.filter((item) => item.id !== product.id);
@@ -59,7 +60,6 @@ export const useCartActions = () => {
             }
 
             // Simulate network delay
-            await new Promise((resolve) => setTimeout(resolve, 500));
 
             localStorage.setItem("cart", JSON.stringify(newCart));
             setCartItems(newCart);

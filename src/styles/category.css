@@ -21,6 +21,9 @@
 .category__load-more {
     margin-top: 50px;
 }
+.category__load-more button {
+    font-size: 1.4rem;
+}
 .sort__name,
 .sort__count-product {
     font-weight: 500;

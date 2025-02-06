@@ -7,7 +7,6 @@ import "../../styles/contact.css";
 import axios from "axios";
 import stores from "../../data/stores.json";
 import toast from "react-hot-toast";
-import { isValidEmail } from "../../utils/menuHelpers";
 
 export default function Contact() {
     const [selectedStore, setSelectedStore] = useState(stores[0]);
