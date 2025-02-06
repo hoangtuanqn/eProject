@@ -53,3 +53,27 @@ export const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 };
+
+// Lấy access token paypal
+export const handleGetAccessTokenPaypal = async () => {
+    const url = "https://api-m.sandbox.paypal.com/v1/oauth2/token";
+
+    const options = {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Accept-Language": "en_US",
+            Authorization:
+                "Basic " + btoa(process.env.REACT_APP_PAYPAL_CLIENT_ID + ":" + process.env.REACT_APP_PAYPAL_SECRET_ID), // Cung cấp thông tin xác thực Base64
+        },
+        body: new URLSearchParams({
+            grant_type: "client_credentials",
+        }),
+    };
+
+    // Gửi yêu cầu fetch
+    const response = await fetch(url, options); // Sử dụng await để chờ phản hồi
+    const data = await response.json(); // Chờ dữ liệu JSON
+
+    return data.access_token ?? ""; // Trả về access token
+};

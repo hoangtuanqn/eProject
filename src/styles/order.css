@@ -267,6 +267,10 @@
     background: #000;
     border-color: #000;
 }
+.order-error__btn {
+    margin: 0 auto;
+    width: fit-content;
+}
 
 /* Responsive */
 @media screen and (max-width: 749px) {

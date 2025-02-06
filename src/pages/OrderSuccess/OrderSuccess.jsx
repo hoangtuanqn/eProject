@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import { CheckCircle, Package, MapPin, Clock, ArrowRight, Printer } from "lucide-react";
-import "../../styles/orderSuccess.css";
+import "../../styles/order.css";
 import axios from "axios";
 import productData from "../../data/product.json";
 import { CircularProgress, Box } from "@mui/material";
@@ -84,11 +84,11 @@ export default function OrderSuccess() {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                minHeight="100vh"
-                fontSize="1.2rem"
+                minHeight="50vh"
+                fontSize="1.6rem"
                 color="#666"
             >
-                Order not found
+                Order information not found
             </Box>
         );
 
@@ -209,7 +209,6 @@ export default function OrderSuccess() {
             printWindow.close();
         }, 500);
     };
-    console.log(productData[0].thumbnail);
 
     return (
         <div className="order-success">
