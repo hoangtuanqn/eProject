@@ -42,10 +42,11 @@ export function initTicker() {
                     axios
                         .get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
                         .then(({ data }) => {
-                            // Lấy tên thành phố/thị trấn/tiểu bang từ kết quả
-                            const location = data.address.city || data.address.town || data.address.state;
-                            // Hiển thị tên địa điểm với biểu tượng định vị
-                            locationElement.textContent = `📍 ${location}`;
+                            // Lấy tên thành phố/thị trấn/tiểu bang và quốc gia
+                            const city = data.address.city || data.address.town || data.address.state;
+                            const country = data.address.country;
+                            // Hiển thị tên địa điểm và quốc gia với biểu tượng định vị
+                            locationElement.textContent = `📍 ${city}, ${country}`;
                         })
                         .catch(() => {
                             // Nếu không lấy được tên địa điểm, hiển thị thông báo lỗi
