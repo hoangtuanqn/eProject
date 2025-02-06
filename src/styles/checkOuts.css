@@ -76,12 +76,18 @@
     border-radius: 12px;
     transition: all 0.3s ease;
     background-color: #fff;
+    width: 100%;
 }
 
 .checkout__input:focus {
     border-color: var(--color-grey-7);
     outline: none;
     box-shadow: 0 0 0 2px rgba(18, 18, 18, 0.1);
+}
+
+.checkout__input.error:focus {
+    border-color: #ff4d4f;
+    box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
 }
 
 .checkout__input--textarea {
@@ -242,12 +248,14 @@
 }
 
 .checkout__item-meta {
+    margin-top: 10px;
     font-size: 1.3rem;
     color: #666;
     margin-bottom: 8px;
 }
 
 .checkout__item-price {
+    margin-top: 10px;
     font-size: 1.4rem;
     font-weight: 500;
     color: var(--color-grey-7);
@@ -372,4 +380,19 @@
     .MuiStepLabel-label {
         font-size: 1.2rem !important;
     }
+}
+
+/* Form validation styles */
+.checkout__input.error {
+    border-color: #ff4d4f;
+}
+
+.error-message {
+    color: #ff4d4f;
+    font-size: 1.2rem;
+    margin-top: 4px;
+}
+
+.checkout__field {
+    margin-bottom: 8px;
 }

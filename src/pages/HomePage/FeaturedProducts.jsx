@@ -3,15 +3,17 @@ import { Eye, Heart, ShoppingCartIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import productData from "../../data/product.json";
 import { useCartActions } from "../../utils/handleCart";
+import { useWishlistActions } from "../../utils/handleWishlist";
 import "../../styles/featuredProducts.css";
 
 export default function FeaturedProducts() {
-    const { handleCartAction, isProductInCart, loadingStates } = useCartActions();
+    const { handleCartAction, isProductInCart, loadingStates: cartLoadingStates } = useCartActions();
+    const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
+
     const featuredProducts = productData.filter((product) => product.feature).slice(0, 8);
 
     return (
         <>
-           
             <section className="featured-products">
                 <div className="container">
                     <div className="section-top">
@@ -27,7 +29,6 @@ export default function FeaturedProducts() {
                             const { id, name, price, sale, thumbnail, slug } = product;
                             const originalPrice = price;
                             const salePrice = sale > 0 ? price * (1 - sale / 100) : price;
-                            const inCart = isProductInCart(id);
 
                             return (
                                 <article key={id} className="product-card" data-aos="zoom-in">
@@ -39,17 +40,17 @@ export default function FeaturedProducts() {
                                             </Link>
                                             <div className="product-actions" onClick={(e) => e.preventDefault()}>
                                                 <button
-                                                    className={`cart-btn ${loadingStates[id] ? "loading" : ""} ${
-                                                        inCart ? "in-cart" : ""
+                                                    className={`cart-btn ${cartLoadingStates[id] ? "loading" : ""} ${
+                                                        isProductInCart(id) ? "in-cart" : ""
                                                     }`}
-                                                    title={inCart ? "Remove from cart" : "Add to cart"}
+                                                    title={isProductInCart(id) ? "Remove from cart" : "Add to cart"}
                                                     onClick={(e) => {
                                                         e.preventDefault();
                                                         handleCartAction(product);
                                                     }}
-                                                    disabled={loadingStates[id]}
+                                                    disabled={cartLoadingStates[id]}
                                                 >
-                                                    {loadingStates[id] ? (
+                                                    {cartLoadingStates[id] ? (
                                                         <img
                                                             src="/assets/icon/loading.gif"
                                                             alt="Loading..."
@@ -60,11 +61,29 @@ export default function FeaturedProducts() {
                                                     )}
                                                 </button>
                                                 <button
-                                                    className="product-action-btn"
-                                                    title="Add to wishlist"
-                                                    onClick={(e) => e.preventDefault()}
+                                                    className={`cart-btn ${
+                                                        wishlistLoadingStates[id] ? "loading" : ""
+                                                    } ${isProductInWishlist(id) ? "in-cart" : ""}`}
+                                                    title={
+                                                        isProductInWishlist(id)
+                                                            ? "Remove from wishlist"
+                                                            : "Add to wishlist"
+                                                    }
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleWishlistAction(product);
+                                                    }}
+                                                    disabled={wishlistLoadingStates[id]}
                                                 >
-                                                    <Heart size={20} />
+                                                    {wishlistLoadingStates[id] ? (
+                                                        <img
+                                                            src="/assets/icon/loading.gif"
+                                                            alt="Loading..."
+                                                            className="loading-spinner"
+                                                        />
+                                                    ) : (
+                                                        <Heart size={20} />
+                                                    )}
                                                 </button>
                                             </div>
                                         </div>

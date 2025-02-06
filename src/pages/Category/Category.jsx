@@ -11,6 +11,7 @@ import "../../styles/category.css";
 import productData from "../../data/product.json";
 import categoriesData from "../../data/categories.json";
 import { useCartActions } from "../../utils/handleCart";
+import { useWishlistActions } from "../../utils/handleWishlist";
 
 export default function Category({ nameCategory }) {
     const navigate = useNavigate();
@@ -64,6 +65,9 @@ export default function Category({ nameCategory }) {
 
     // Add useCartActions hook
     const { handleCartAction, isProductInCart, loadingStates } = useCartActions();
+
+    // Add wishlist hooks
+    const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
 
     // Kiểm tra path và slug
     useEffect(() => {
@@ -1185,14 +1189,31 @@ export default function Category({ nameCategory }) {
                                                             )}
                                                         </button>
                                                         <button
-                                                            className="product-action-btn"
-                                                            title="Add to wishlist"
+                                                            className={`cart-btn ${
+                                                                wishlistLoadingStates[item.id] ? "loading" : ""
+                                                            } ${isProductInWishlist(item.id) ? "in-cart" : ""}`}
+                                                            title={
+                                                                isProductInWishlist(item.id)
+                                                                    ? "Remove from wishlist"
+                                                                    : "Add to wishlist"
+                                                            }
                                                             onClick={(e) => {
                                                                 e.preventDefault();
-                                                                // Handle add to wishlist
+                                                                handleWishlistAction(item);
                                                             }}
+                                                            disabled={wishlistLoadingStates[item.id]}
                                                         >
-                                                            <Heart size={18} />
+                                                            {wishlistLoadingStates[item.id] ? (
+                                                                <img
+                                                                    src="/assets/icon/loading.gif"
+                                                                    alt="Loading..."
+                                                                    className="loading-spinner"
+                                                                    width={18}
+                                                                    height={18}
+                                                                />
+                                                            ) : (
+                                                                <Heart size={18} />
+                                                            )}
                                                         </button>
                                                     </div>
                                                 </figure>

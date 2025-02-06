@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import "../../styles/partners.css";
 import { Link } from "react-router-dom";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 const partners = [
     { id: 1, name: "Partner 1", logo: "/assets/imgs/brand-logo-1.webp" },
@@ -14,6 +16,10 @@ const partners = [
 
 export default function Partners() {
     const [hoveredPartner, setHoveredPartner] = useState(null);
+    const gridRef = useRef(null);
+    const ctaRef = useRef(null);
+    const isGridInView = useInView(gridRef, { once: true, margin: "-100px" });
+    const isCtaInView = useInView(ctaRef, { once: true, margin: "-100px" });
 
     return (
         <section className="partners">
@@ -21,17 +27,21 @@ export default function Partners() {
                 <header className="partners__header">
                     <motion.h1
                         className="partners__title"
-                        initial={{ opacity: 0, y: -20 }}
+                        initial={{ opacity: 0, y: -50 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{
+                            duration: 0.7,
+                            type: "spring",
+                            bounce: 0.4,
+                        }}
                     >
                         Our Collaborative Partners
                     </motion.h1>
                     <motion.p
                         className="partners__subtitle"
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.7, delay: 0.2 }}
                     >
                         We partner with leading schools, manufacturers, and suppliers to deliver high-quality school
                         uniforms that meet the needs of students and educators alike. Together, we strive to create
@@ -39,42 +49,51 @@ export default function Partners() {
                     </motion.p>
                 </header>
                 <motion.div
+                    ref={gridRef}
                     className="partners__grid"
-                    initial="hidden"
-                    animate="visible"
-                    variants={{
-                        hidden: { opacity: 0 },
-                        visible: {
-                            opacity: 1,
-                            transition: {
-                                staggerChildren: 0.1,
-                            },
-                        },
-                    }}
+                    initial={{ opacity: 0, y: 100 }}
+                    animate={isGridInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.7 }}
                 >
-                    {partners.map((partner) => (
+                    {partners.map((partner, index) => (
                         <motion.div
                             key={partner.id}
                             className="partners__item"
-                            variants={{
-                                hidden: { opacity: 0, y: 20 },
-                                visible: { opacity: 1, y: 0 },
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={isGridInView ? { opacity: 1, scale: 1 } : {}}
+                            transition={{
+                                duration: 0.5,
+                                delay: index * 0.1,
+                                type: "spring",
+                                bounce: 0.4,
                             }}
-                            whileHover={{ scale: 1.05 }}
+                            whileHover={{
+                                scale: 1.05,
+                                rotate: [0, -2, 2, 0],
+                                transition: {
+                                    rotate: {
+                                        duration: 0.3,
+                                        repeat: 0,
+                                    },
+                                },
+                            }}
                             onHoverStart={() => setHoveredPartner(partner.id)}
                             onHoverEnd={() => setHoveredPartner(null)}
                         >
-                            <img
+                            <motion.img
                                 src={partner.logo || "/placeholder.svg"}
                                 alt={partner.name}
                                 className="partners__logo"
+                                whileHover={{ scale: 1.1 }}
+                                transition={{ duration: 0.3 }}
                             />
                             {hoveredPartner === partner.id && (
                                 <motion.div
                                     className="partners__info"
-                                    initial={{ opacity: 0, y: 10 }}
+                                    initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 10 }}
+                                    exit={{ opacity: 0, y: 20 }}
+                                    transition={{ duration: 0.3 }}
                                 >
                                     <h3>{partner.name}</h3>
                                     <p>Trusted partner since 2020</p>
@@ -84,17 +103,45 @@ export default function Partners() {
                     ))}
                 </motion.div>
                 <motion.div
+                    ref={ctaRef}
                     className="partners__cta"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={
+                        isCtaInView
+                            ? {
+                                  opacity: 1,
+                                  y: 0,
+                                  transition: {
+                                      duration: 0.7,
+                                      type: "spring",
+                                      bounce: 0.4,
+                                  },
+                              }
+                            : {}
+                    }
                 >
-                    <h2>Interested in becoming a partner?</h2>
-                    <p>Join our network of industry-leading companies and grow your business with us.</p>
+                    <motion.h2
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={isCtaInView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.7, delay: 0.2 }}
+                    >
+                        Interested in becoming a partner?
+                    </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={isCtaInView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.7, delay: 0.4 }}
+                    >
+                        Join our network of industry-leading companies and grow your business with us.
+                    </motion.p>
                     <Link to="/pages/contact">
                         <motion.button
                             className="partners__cta-button"
-                            whileHover={{ scale: 1.05 }}
+                            whileHover={{
+                                scale: 1.05,
+                                backgroundColor: "#000",
+                                boxShadow: "0 5px 15px rgba(0,0,0,0.2)",
+                            }}
                             whileTap={{ scale: 0.95 }}
                         >
                             Apply Now

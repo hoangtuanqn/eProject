@@ -1,27 +1,47 @@
 import { useState, useRef } from "react";
 import { Phone, Mail, MapPin, Clock, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 import "../../styles/contact.css";
 import axios from "axios";
 import stores from "../../data/stores.json";
 import toast from "react-hot-toast";
+import { isValidEmail } from "../../utils/menuHelpers";
 
 export default function Contact() {
-    const [formData, setFormData] = useState({
+    const [selectedStore, setSelectedStore] = useState(stores[0]);
+    const [loading, setLoading] = useState(false);
+
+    // Define validation schema
+    const validationSchema = Yup.object({
+        name: Yup.string().required("Name is required"),
+        email: Yup.string().email("Invalid email address").required("Email is required"),
+        phone: Yup.string().required("Phone number is required"),
+        message: Yup.string().required("Message is required"),
+        store: Yup.string().required("Please select a store"),
+    });
+
+    const initialValues = {
         name: "",
         email: "",
         phone: "",
         message: "",
         store: stores[0].name,
-    });
-    const [selectedStore, setSelectedStore] = useState(stores[0]);
-    const [errors, setErrors] = useState({});
-    const [loading, setLoading] = useState(false);
-    const inputRefs = {
-        name: useRef(null),
-        email: useRef(null),
-        phone: useRef(null),
-        message: useRef(null),
+    };
+
+    const handleSubmit = async (values, { resetForm, setSubmitting }) => {
+        setLoading(true);
+        try {
+            await axios.post("https://679c72d387618946e65238ce.mockapi.io/api/v1/contacts", values);
+            toast.success("Form submitted successfully!");
+            resetForm();
+        } catch (error) {
+            toast.error("Error submitting form. Please try again");
+        } finally {
+            setLoading(false);
+            setSubmitting(false);
+        }
     };
 
     // Thêm các variants cho animation
@@ -42,69 +62,6 @@ export default function Contact() {
             y: 0,
             opacity: 1,
         },
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-
-        if (name === "store") {
-            const selectedStoreData = stores.find((store) => store.name === value);
-            setSelectedStore(selectedStoreData);
-        }
-
-        setErrors((prev) => ({
-            ...prev,
-            [name]: false,
-        }));
-    };
-
-    const isValidEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
-
-    const validateForm = () => {
-        const newErrors = {};
-        if (!formData.name) newErrors.name = true;
-        if (!formData.email || !isValidEmail(formData.email)) newErrors.email = true;
-        if (!formData.phone) newErrors.phone = true;
-        if (!formData.message) newErrors.message = true;
-        return newErrors;
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const newErrors = validateForm();
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-            const firstErrorField = Object.keys(newErrors)[0];
-            inputRefs[firstErrorField].current.focus();
-            toast.error("Please fill in all fields correctly");
-            return;
-        }
-
-        setLoading(true);
-
-        try {
-            const { data } = await axios.post("https://679c72d387618946e65238ce.mockapi.io/api/v1/contacts", formData);
-
-            toast.success("Form submitted successfully!");
-            setFormData({
-                name: "",
-                email: "",
-                phone: "",
-                message: "",
-                store: stores[0].name,
-            });
-        } catch (error) {
-            toast.error("Error submitting form. Please try again");
-        } finally {
-            setLoading(false);
-        }
     };
 
     const handleStoreSelect = (store) => {
@@ -190,115 +147,123 @@ export default function Contact() {
                         {/* Form Contact */}
                         <motion.div className="contact__form-wrapper" variants={itemVariants}>
                             <h2 className="contact__form-title">Contact</h2>
-                            <motion.form
-                                className="contact__form"
+                            <Formik
+                                initialValues={initialValues}
+                                validationSchema={validationSchema}
                                 onSubmit={handleSubmit}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5 }}
                             >
-                                <div className="contact__form-group">
-                                    <label htmlFor="store" className="contact__form-label">
-                                        Select Store:
-                                    </label>
-                                    <select
-                                        id="store"
-                                        name="store"
-                                        className="contact__form-input"
-                                        value={formData.store}
-                                        onChange={handleChange}
-                                        required
-                                    >
-                                        {stores.map((store) => (
-                                            <option key={store.id} value={store.name}>
-                                                {store.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
+                                {({ errors, touched, isSubmitting }) => (
+                                    <Form className="contact__form">
+                                        <div className="contact__form-group">
+                                            <label htmlFor="store" className="contact__form-label">
+                                                Select Store:
+                                            </label>
+                                            <Field
+                                                as="select"
+                                                id="store"
+                                                name="store"
+                                                className={`contact__form-input ${
+                                                    errors.store && touched.store ? "error" : ""
+                                                }`}
+                                            >
+                                                {stores.map((store) => (
+                                                    <option key={store.id} value={store.name}>
+                                                        {store.name}
+                                                    </option>
+                                                ))}
+                                            </Field>
+                                            {errors.store && touched.store && (
+                                                <div className="error-message">{errors.store}</div>
+                                            )}
+                                        </div>
 
-                                <div className="contact__form-group">
-                                    <label htmlFor="name" className="contact__form-label">
-                                        Name:
-                                    </label>
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        className={`contact__form-input ${errors.name ? "error" : ""}`}
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        ref={inputRefs.name}
-                                        required
-                                    />
-                                </div>
+                                        <div className="contact__form-group">
+                                            <label htmlFor="name" className="contact__form-label">
+                                                Name:
+                                            </label>
+                                            <Field
+                                                type="text"
+                                                id="name"
+                                                name="name"
+                                                className={`contact__form-input ${
+                                                    errors.name && touched.name ? "error" : ""
+                                                }`}
+                                            />
+                                            {errors.name && touched.name && (
+                                                <div className="error-message">{errors.name}</div>
+                                            )}
+                                        </div>
 
-                                <div className="contact__form-group">
-                                    <label htmlFor="email" className="contact__form-label">
-                                        Email:
-                                    </label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        className={`contact__form-input ${errors.email ? "error" : ""}`}
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        ref={inputRefs.email}
-                                        required
-                                    />
-                                </div>
+                                        <div className="contact__form-group">
+                                            <label htmlFor="email" className="contact__form-label">
+                                                Email:
+                                            </label>
+                                            <Field
+                                                type="email"
+                                                id="email"
+                                                name="email"
+                                                className={`contact__form-input ${
+                                                    errors.email && touched.email ? "error" : ""
+                                                }`}
+                                            />
+                                            {errors.email && touched.email && (
+                                                <div className="error-message">{errors.email}</div>
+                                            )}
+                                        </div>
 
-                                <div className="contact__form-group">
-                                    <label htmlFor="phone" className="contact__form-label">
-                                        Phone number:
-                                    </label>
-                                    <input
-                                        type="tel"
-                                        id="phone"
-                                        name="phone"
-                                        className={`contact__form-input ${errors.phone ? "error" : ""}`}
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        ref={inputRefs.phone}
-                                        required
-                                    />
-                                </div>
+                                        <div className="contact__form-group">
+                                            <label htmlFor="phone" className="contact__form-label">
+                                                Phone number:
+                                            </label>
+                                            <Field
+                                                type="tel"
+                                                id="phone"
+                                                name="phone"
+                                                className={`contact__form-input ${
+                                                    errors.phone && touched.phone ? "error" : ""
+                                                }`}
+                                            />
+                                            {errors.phone && touched.phone && (
+                                                <div className="error-message">{errors.phone}</div>
+                                            )}
+                                        </div>
 
-                                <div className="contact__form-group">
-                                    <label htmlFor="message" className="contact__form-label">
-                                        Message:
-                                    </label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        className={`contact__form-input contact__form-textarea ${
-                                            errors.message ? "error" : ""
-                                        }`}
-                                        value={formData.message}
-                                        onChange={handleChange}
-                                        ref={inputRefs.message}
-                                        required
-                                    />
-                                </div>
+                                        <div className="contact__form-group">
+                                            <label htmlFor="message" className="contact__form-label">
+                                                Message:
+                                            </label>
+                                            <Field
+                                                as="textarea"
+                                                id="message"
+                                                name="message"
+                                                className={`contact__form-input contact__form-textarea ${
+                                                    errors.message && touched.message ? "error" : ""
+                                                }`}
+                                            />
+                                            {errors.message && touched.message && (
+                                                <div className="error-message">{errors.message}</div>
+                                            )}
+                                        </div>
 
-                                <motion.button
-                                    type="submit"
-                                    className="btn contact__form-submit"
-                                    disabled={loading}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    {loading ? (
-                                        <img
-                                            src="/assets/icon/loading.gif"
-                                            className="contact__loading"
-                                            alt="Loading..."
-                                        />
-                                    ) : (
-                                        "Send Now"
-                                    )}
-                                </motion.button>
-                            </motion.form>
+                                        <motion.button
+                                            type="submit"
+                                            className="btn contact__form-submit"
+                                            disabled={loading || isSubmitting}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            {loading ? (
+                                                <img
+                                                    src="/assets/icon/loading.gif"
+                                                    className="contact__loading"
+                                                    alt="Loading..."
+                                                />
+                                            ) : (
+                                                "Send Now"
+                                            )}
+                                        </motion.button>
+                                    </Form>
+                                )}
+                            </Formik>
                         </motion.div>
                     </motion.div>
 
@@ -323,7 +288,6 @@ export default function Contact() {
                     </motion.div>
                 </div>
             </motion.section>
-           
         </>
     );
 }

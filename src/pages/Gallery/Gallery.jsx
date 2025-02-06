@@ -67,7 +67,7 @@ export default function Gallery() {
                                 whileHover={{ scale: 1.05 }}
                                 onClick={() => setSelectedImage(item)}
                             >
-                                <img src={item.src || "/placeholder.svg"} alt={`${item.category} uniform`} />
+                                <img src={item.src || "/placeholder.svg"} alt={item.category} />
                                 <div className="gallery__item-overlay">
                                     <Zoom size={24} />
                                 </div>

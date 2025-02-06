@@ -48,3 +48,8 @@ export const toggleSubmenu = (e) => {
     // Toggle active class cho menu item hiện tại
     menuItem.classList.toggle("active");
 };
+
+export const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+};

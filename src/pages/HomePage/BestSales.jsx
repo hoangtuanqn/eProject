@@ -1,17 +1,18 @@
 import React from "react";
 import "../../styles/bestSales.css"; // Import CSS Module
 import productData from "../../data/product.json";
-import { ShoppingCartIcon } from "lucide-react";
+import { ShoppingCartIcon, Heart } from "lucide-react";
 import { useCartActions } from "../../utils/handleCart";
+import { useWishlistActions } from "../../utils/handleWishlist";
 
 export default function BestSales() {
-    const { handleCartAction, isProductInCart, loadingStates } = useCartActions();
+    const { handleCartAction, isProductInCart, loadingStates: cartLoadingStates } = useCartActions();
+    const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
     // Sắp xếp sản phẩm theo salesCount giảm dần và lấy 6 sản phẩm đầu tiên
     const bestSellingProducts = productData.sort((a, b) => b.salesCount - a.salesCount).slice(0, 6);
 
     return (
         <section className="best-sales">
-           
             <div className="container">
                 <div className="section-top">
                     <h2 className="section-title">Best Sales</h2>
@@ -46,13 +47,13 @@ export default function BestSales() {
                                     {/* Nút thêm vào giỏ hàng và yêu thích */}
                                     <div className="best-sales-item__actions">
                                         <button
-                                            className={`cart-btn ${loadingStates[id] ? "loading" : ""} ${
+                                            className={`cart-btn ${cartLoadingStates[id] ? "loading" : ""} ${
                                                 inCart ? "in-cart" : ""
                                             }`}
                                             onClick={() => handleCartAction(productData.find((p) => p.id === id))}
-                                            disabled={loadingStates[id]}
+                                            disabled={cartLoadingStates[id]}
                                         >
-                                            {loadingStates[id] ? (
+                                            {cartLoadingStates[id] ? (
                                                 <img
                                                     src="/assets/icon/loading.gif"
                                                     alt="Loading..."
@@ -62,12 +63,22 @@ export default function BestSales() {
                                                 <ShoppingCartIcon className="best-sales-item__icon" />
                                             )}
                                         </button>
-                                        <button className="best-sales-item__button">
-                                            <img
-                                                src="/assets/icon/favorite.svg"
-                                                alt="Favorite"
-                                                className="best-sales-item__icon"
-                                            />
+                                        <button
+                                            className={`cart-btn ${wishlistLoadingStates[id] ? "loading" : ""} ${
+                                                isProductInWishlist(id) ? "in-cart" : ""
+                                            }`}
+                                            onClick={() => handleWishlistAction(productData.find((p) => p.id === id))}
+                                            disabled={wishlistLoadingStates[id]}
+                                        >
+                                            {wishlistLoadingStates[id] ? (
+                                                <img
+                                                    src="/assets/icon/loading.gif"
+                                                    alt="Loading..."
+                                                    className="loading-spinner"
+                                                />
+                                            ) : (
+                                                <Heart className="best-sales-item__icon" />
+                                            )}
                                         </button>
                                     </div>
                                     {/* Hiển thị giá và giá cũ nếu có giảm giá */}
