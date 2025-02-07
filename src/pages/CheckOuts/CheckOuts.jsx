@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import * as Yup from "yup";
@@ -16,6 +16,7 @@ import {
     StickyNote,
     Truck,
     User,
+    ArrowLeft,
 } from "lucide-react";
 
 import { handleOrder } from "./handleOrder";
@@ -34,6 +35,7 @@ export default function CheckOut() {
     const [cartItems, setCartItems] = useState([]);
     const [isProcessing, setIsProcessing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [appliedCoupon, setAppliedCoupon] = useState(null);
 
     // Validation Schema với Yup
     const validationSchema = Yup.object({
@@ -133,6 +135,8 @@ export default function CheckOut() {
 
     useEffect(() => {
         const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
+        const savedCoupon = JSON.parse(localStorage.getItem("appliedCoupon"));
+        setAppliedCoupon(savedCoupon);
         if (!cartStorage.length) {
             navigate("/categories");
         }
@@ -154,10 +158,24 @@ export default function CheckOut() {
     }, []);
 
     const calculateSubtotal = () => {
-        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        const rawSubtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+        if (!appliedCoupon) return rawSubtotal;
+
+        let discountableAmount = 0;
+        if (appliedCoupon.valid_categories.length === 0) {
+            discountableAmount = rawSubtotal;
+        } else {
+            discountableAmount = cartItems
+                .filter((item) => appliedCoupon.valid_categories.includes(item.category))
+                .reduce((total, item) => total + item.price * item.quantity, 0);
+        }
+
+        const discount = (discountableAmount * appliedCoupon.discount) / 100;
+        return rawSubtotal - discount;
     };
 
-    const shippingCost = 2;
+    const shippingCost = 5;
     const total = calculateSubtotal() + shippingCost;
 
     const formatCurrency = (amount) => {
@@ -572,6 +590,20 @@ export default function CheckOut() {
                                     <span>Subtotal</span>
                                     <span>{formatCurrency(calculateSubtotal())}</span>
                                 </div>
+                                {appliedCoupon && (
+                                    <div className="checkout__total-row checkout__total-row--discount">
+                                        <span>Discount ({appliedCoupon.discount}%)</span>
+                                        <span>
+                                            -
+                                            {formatCurrency(
+                                                cartItems.reduce(
+                                                    (total, item) => total + item.price * item.quantity,
+                                                    0,
+                                                ) - calculateSubtotal(),
+                                            )}
+                                        </span>
+                                    </div>
+                                )}
                                 <div className="checkout__total-row">
                                     <span>Shipping</span>
                                     <span>{formatCurrency(shippingCost)}</span>
@@ -585,6 +617,10 @@ export default function CheckOut() {
                             <button type="submit" className="checkout__submit" disabled={isProcessing}>
                                 {isProcessing ? "Processing..." : "Place Order"}
                             </button>
+                            <Link to="/cart" className="checkout__back-btn">
+                                <ArrowLeft size={16} />
+                                <span>Quay lại</span>
+                            </Link>
                         </motion.div>
                     </div>
                 </form>

@@ -26,11 +26,7 @@ export default function BestSales() {
                         const inCart = isProductInCart(id);
 
                         return (
-                            <article
-                                key={id}
-                                className="best-sales-item"
-                                data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
-                            >
+                            <article key={id} className="best-sales-item" data-aos="zoom-in">
                                 <figure className="best-sales-item__image">
                                     {/* Hiển thị SALE nếu sản phẩm đang giảm giá */}
                                     {sale > 0 && <span className="badge__sale">SALE {sale}%</span>}

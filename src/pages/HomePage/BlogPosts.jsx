@@ -16,7 +16,7 @@ export default function BlogPosts() {
 
                     <div className="blog-posts__grid">
                         {/* Blog 1 */}
-                        <article className="blog-posts__item" data-aos="flip-left">
+                        <article className="blog-posts__item">
                             <figure>
                                 <a href="#!">
                                     <img
@@ -36,7 +36,7 @@ export default function BlogPosts() {
                         </article>
 
                         {/* Blog 2 */}
-                        <article className="blog-posts__item" data-aos="fade-down">
+                        <article className="blog-posts__item">
                             <figure>
                                 <a href="#!">
                                     <img
@@ -56,7 +56,7 @@ export default function BlogPosts() {
                         </article>
 
                         {/* Blog 3 */}
-                        <article className="blog-posts__item" data-aos="fade-up">
+                        <article className="blog-posts__item">
                             <figure>
                                 <a href="#!">
                                     <img

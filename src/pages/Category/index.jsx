@@ -24,7 +24,7 @@ export default function IndexPage() {
 
     return (
         <>
-            <main className="main">
+            <main className="main2">
                 <Breadcrumb title={nameCategory} items={breadcrumbItems} style={{ alignItems: "flex-start" }} />
                 <Category nameCategory={nameCategory} />
             </main>

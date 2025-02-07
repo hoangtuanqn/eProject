@@ -1,24 +1,28 @@
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trash2, Calculator } from "lucide-react";
+import { Trash2, BadgePercent, Trash2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import "../../styles/cart.css";
 import products from "../../data/product.json";
 import { useCartActions } from "../../utils/handleCart";
+import coupons from "../../data/coupons.json";
+import toast from "react-hot-toast";
+import { Box, CircularProgress } from "@mui/material";
 
 export default function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const [notes, setNotes] = useState({});
     const [postalCode, setPostalCode] = useState("");
     const [isCalculating, setIsCalculating] = useState(false);
-    const [shippingCost, setShippingCost] = useState(0);
+    const [shippingCost, setShippingCost] = useState(process.env.REACT_APP_SHIPPING_COST);
     const [deletingItemId, setDeletingItemId] = useState(null);
     const { handleCartAction, getUpdatedCartItems } = useCartActions();
-
+    const [couponCode, setCouponCode] = useState("");
+    const [appliedCoupon, setAppliedCoupon] = useState(null);
     useEffect(() => {
         const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
         const cartWithDetails = cartStorage
+
             .map((item) => {
                 const productDetails = products.find((p) => p.id === item.id);
                 return productDetails
@@ -70,11 +74,90 @@ export default function Cart() {
         }));
     };
 
-    const calculateShipping = async () => {
+    const validateCoupon = (code, subtotal, items) => {
+        const coupon = coupons.find((c) => c.code === code.toUpperCase());
+
+        if (!coupon) {
+            toast.error("Invalid coupon code");
+            return null;
+        }
+
+        // Check expiry date
+        if (new Date(coupon.expiry_date) < new Date()) {
+            toast.error("Coupon has expired");
+
+            return null;
+        }
+
+        // Check minimum purchase
+        if (subtotal < coupon.min_purchase) {
+            toast.error(`Minimum purchase amount of $${coupon.min_purchase} required`);
+            return null;
+        }
+
+        // If valid_categories is empty, coupon applies to all categories
+        if (coupon.valid_categories.length > 0) {
+            const hasValidItem = items.some((item) => coupon.valid_categories.includes(item.category));
+
+            if (!hasValidItem) {
+                toast.error("Coupon is not valid for any items in your cart");
+                return null;
+            }
+        }
+
+        return coupon;
+    };
+
+    const calculateDiscountedTotal = (items, coupon) => {
+        if (!coupon) return calculateSubtotal();
+
+        let discountableAmount = 0;
+
+        if (coupon.valid_categories.length === 0) {
+            // If no specific categories, apply to total
+            discountableAmount = calculateSubtotal();
+        } else {
+            // Sum up only items from valid categories
+            discountableAmount = items
+                .filter((item) => coupon.valid_categories.includes(item.category))
+                .reduce((total, item) => total + item.price * item.quantity, 0);
+        }
+
+        const discount = (discountableAmount * coupon.discount) / 100;
+        return calculateSubtotal() - discount;
+    };
+
+    const applyCoupon = async () => {
         setIsCalculating(true);
         await new Promise((resolve) => setTimeout(resolve, 1500));
-        setShippingCost(50000);
-        setIsCalculating(false);
+        try {
+            const subtotal = calculateSubtotal();
+            const validCoupon = validateCoupon(couponCode, subtotal, cartItems);
+
+            if (validCoupon) {
+                setAppliedCoupon(validCoupon);
+                setCouponCode(couponCode.toUpperCase());
+                toast.success(`Coupon applied! ${validCoupon.discount}% off`);
+
+                // Save discounted price to localStorage
+                const discountedTotal = calculateDiscountedTotal(cartItems, validCoupon);
+                localStorage.setItem("appliedCoupon", JSON.stringify(validCoupon));
+                localStorage.setItem("discountedTotal", discountedTotal);
+            }
+        } finally {
+            setIsCalculating(false);
+        }
+    };
+    const removeCoupon = async () => {
+        if (window.confirm("Are you sure you want to remove the coupon?")) {
+            setIsCalculating(true);
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+            setAppliedCoupon(null);
+            localStorage.removeItem("appliedCoupon");
+            localStorage.removeItem("discountedTotal");
+            setIsCalculating(false);
+            toast.success("Coupon removed successfully");
+        }
     };
 
     const calculateSubtotal = () => {
@@ -89,157 +172,202 @@ export default function Cart() {
     };
 
     return (
-        <section className="cart-page">
-            <div className="container">
-                {/* <h1 className="section-title">Shopping Cart</h1>
+        <>
+            <section className="cart-page">
+                <div className="container">
+                    {/* <h1 className="section-title">Shopping Cart</h1>
                 <p className="section-subtitle">Review your items and checkout</p> */}
 
-                {cartItems.length > 0 ? (
-                    <div className="cart-page__layout">
-                        <div className="cart-page__items">
-                            <AnimatePresence mode="popLayout">
-                                {cartItems.map((item) => (
-                                    <motion.article
-                                        key={item.id}
-                                        className="cart-page__item"
-                                        layout
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{
-                                            opacity: 0,
-                                            height: 0,
-                                            marginBottom: 0,
-                                            marginLeft: -200,
-                                            transition: {
-                                                opacity: { duration: 0.2 },
-                                                height: { duration: 0.3, delay: 0.1 },
-                                            },
-                                        }}
-                                        transition={{ duration: 0.8 }}
-                                    >
-                                        <div className="cart-page__item-image">
-                                            <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
-                                        </div>
-                                        <div className="cart-page__item-details">
-                                            <div className="cart-page__item-info">
-                                                <span className="cart-page__item-category">{item.category}</span>
-                                                <h3 className="cart-page__item-name">{item.name}</h3>
-                                                <div className="cart-item__details">
-                                                    <div className="cart-item__detail">
-                                                        <span className="cart-item__label">Size:</span>
-                                                        <span className="cart-item__value">{item.size}</span>
-                                                    </div>
-                                                    <div className="cart-item__detail">
-                                                        <span className="cart-item__label">Color:</span>
-                                                        <span className="cart-item__value">{item.color}</span>
-                                                    </div>
-                                                </div>
-                                                <span className="cart-item__current-price">
-                                                    {formatCurrency(item.price * item.quantity)}
-                                                </span>
+                    {cartItems.length > 0 ? (
+                        <div className="cart-page__layout">
+                            <div className="cart-page__items">
+                                <AnimatePresence mode="popLayout">
+                                    {cartItems.map((item) => (
+                                        <motion.article
+                                            key={item.id}
+                                            className="cart-page__item"
+                                            layout
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{
+                                                opacity: 0,
+                                                height: 0,
+                                                marginBottom: 0,
+                                                marginLeft: -200,
+                                                transition: {
+                                                    opacity: { duration: 0.2 },
+                                                    height: { duration: 0.3, delay: 0.1 },
+                                                },
+                                            }}
+                                            transition={{ duration: 0.8 }}
+                                        >
+                                            <div className="cart-page__item-image">
+                                                <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
                                             </div>
-
-                                            <div className="cart-page__item-actions">
-                                                <div className="product__quantity-input">
-                                                    <button
-                                                        className="product__quantity-button"
-                                                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                                                    >
-                                                        -
-                                                    </button>
-                                                    <input
-                                                        type="number"
-                                                        value={item.quantity}
-                                                        className="product__quantity-number"
-                                                        onChange={(e) =>
-                                                            handleQuantityChange(
-                                                                item.id,
-                                                                Number.parseInt(e.target.value),
-                                                            )
-                                                        }
-                                                        min="1"
-                                                    />
-                                                    <button
-                                                        className="product__quantity-button"
-                                                        onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                                                    >
-                                                        +
-                                                    </button>
+                                            <div className="cart-page__item-details">
+                                                <div className="cart-page__item-info">
+                                                    <span className="cart-page__item-category">{item.category}</span>
+                                                    <h3 className="cart-page__item-name">{item.name}</h3>
+                                                    <div className="cart-item__details">
+                                                        <div className="cart-item__detail">
+                                                            <span className="cart-item__label">Size:</span>
+                                                            <span className="cart-item__value">{item.size}</span>
+                                                        </div>
+                                                        <div className="cart-item__detail">
+                                                            <span className="cart-item__label">Color:</span>
+                                                            <span className="cart-item__value">{item.color}</span>
+                                                        </div>
+                                                    </div>
+                                                    <span className="cart-item__current-price">
+                                                        {formatCurrency(item.price * item.quantity)}
+                                                    </span>
                                                 </div>
-                                                <button
-                                                    className="cart-page__remove-btn"
-                                                    onClick={() => handleRemoveItem(item.id)}
-                                                    disabled={deletingItemId === item.id}
-                                                >
-                                                    {deletingItemId === item.id ? (
-                                                        <img
-                                                            src="/assets/icon/loading.gif"
-                                                            alt="Loading..."
-                                                            className="loading-spinner"
+
+                                                <div className="cart-page__item-actions">
+                                                    <div className="product__quantity-input">
+                                                        <button
+                                                            className="product__quantity-button"
+                                                            onClick={() =>
+                                                                handleQuantityChange(item.id, item.quantity - 1)
+                                                            }
+                                                        >
+                                                            -
+                                                        </button>
+                                                        <input
+                                                            type="number"
+                                                            value={item.quantity}
+                                                            className="product__quantity-number"
+                                                            onChange={(e) =>
+                                                                handleQuantityChange(
+                                                                    item.id,
+                                                                    Number.parseInt(e.target.value),
+                                                                )
+                                                            }
+                                                            min="1"
                                                         />
-                                                    ) : (
-                                                        <Trash2 size={16} />
-                                                    )}
-                                                </button>
+                                                        <button
+                                                            className="product__quantity-button"
+                                                            onClick={() =>
+                                                                handleQuantityChange(item.id, item.quantity + 1)
+                                                            }
+                                                        >
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                    <button
+                                                        className="cart-page__remove-btn"
+                                                        onClick={() => handleRemoveItem(item.id)}
+                                                        disabled={deletingItemId === item.id}
+                                                    >
+                                                        {deletingItemId === item.id ? (
+                                                            <img
+                                                                src="/assets/icon/loading.gif"
+                                                                alt="Loading..."
+                                                                className="loading-spinner"
+                                                            />
+                                                        ) : (
+                                                            <Trash2 size={16} />
+                                                        )}
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="cart-page__item-note">
-                                            <textarea
-                                                placeholder="Add note about this item"
-                                                value={notes[item.id] || ""}
-                                                onChange={(e) => handleNoteChange(item.id, e.target.value)}
-                                                rows="2"
-                                            />
-                                        </div>
-                                    </motion.article>
-                                ))}
-                            </AnimatePresence>
-                        </div>
-
-                        <div className="cart-page__summary">
-                            <div className="cart-page__shipping">
-                                <h3>Estimate Shipping</h3>
-                                <div className="cart-page__shipping-form">
-                                    <input
-                                        type="text"
-                                        placeholder="Enter postal code"
-                                        value={postalCode}
-                                        onChange={(e) => setPostalCode(e.target.value)}
-                                    />
-                                    <button
-                                        className="cart-page__calculate-btn"
-                                        onClick={calculateShipping}
-                                        disabled={isCalculating || !postalCode}
-                                    >
-                                        {isCalculating ? (
-                                            <img
-                                                src="/assets/icon/loading.gif"
-                                                alt="Loading..."
-                                                className="loading-spinner"
-                                            />
-                                        ) : (
-                                            <>
-                                                <Calculator size={16} />
-                                                Calculate
-                                            </>
-                                        )}
-                                    </button>
-                                </div>
+                                            <div className="cart-page__item-note">
+                                                <textarea
+                                                    placeholder="Add note about this item"
+                                                    value={notes[item.id] || ""}
+                                                    onChange={(e) => handleNoteChange(item.id, e.target.value)}
+                                                    rows="2"
+                                                />
+                                            </div>
+                                        </motion.article>
+                                    ))}
+                                </AnimatePresence>
                             </div>
 
-                            <div className="cart-page__totals">
-                                <div className="cart-page__totals-row">
-                                    <span>Subtotal</span>
-                                    <span>{formatCurrency(calculateSubtotal())}</span>
+                            <div className="cart-page__summary">
+                                <div className="cart-page__totals">
+                                    <div className="cart-page__totals-row">
+                                        <span>Subtotal</span>
+                                        <span>{formatCurrency(calculateSubtotal())}</span>
+                                    </div>
+                                    {appliedCoupon && (
+                                        <div className="cart-page__totals-row cart-page__totals-row--discount checkout__total-row--discount">
+                                            <span>Discount ({appliedCoupon.discount}%)</span>
+                                            <span>
+                                                -
+                                                {formatCurrency(
+                                                    calculateSubtotal() -
+                                                        calculateDiscountedTotal(cartItems, appliedCoupon),
+                                                )}
+                                            </span>
+                                        </div>
+                                    )}
+                                    <div className="cart-page__totals-row">
+                                        <span>Shipping</span>
+                                        <span>{formatCurrency(shippingCost)}</span>
+                                    </div>
+                                    <div className="cart-page__totals-row cart-page__totals-row--total">
+                                        <span>Total</span>
+                                        <span>
+                                            {formatCurrency(
+                                                (appliedCoupon
+                                                    ? calculateDiscountedTotal(cartItems, appliedCoupon)
+                                                    : calculateSubtotal()) + shippingCost,
+                                            )}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div className="cart-page__totals-row">
-                                    <span>Shipping</span>
-                                    <span>{shippingCost ? formatCurrency(shippingCost) : "Calculate above"}</span>
-                                </div>
-                                <div className="cart-page__totals-row cart-page__totals-row--total">
-                                    <span>Total</span>
-                                    <span>{formatCurrency(calculateSubtotal() + shippingCost)}</span>
+
+                                <div className="cart-page__shipping">
+                                    <h3>Coupon Code</h3>
+                                    <div className="cart-page__shipping-form">
+                                        <input
+                                            type="text"
+                                            placeholder="Enter coupon code"
+                                            value={couponCode}
+                                            onChange={(e) => setCouponCode(e.target.value)}
+                                            disabled={appliedCoupon !== null}
+                                        />
+                                        {appliedCoupon ? (
+                                            <button
+                                                className="cart-page__calculate-btn cart-page__remove-coupon-btn"
+                                                onClick={removeCoupon}
+                                            >
+                                                {isCalculating ? (
+                                                    <img
+                                                        src="/assets/icon/loading.gif"
+                                                        alt="Loading..."
+                                                        className="loading-spinner"
+                                                    />
+                                                ) : (
+                                                    <>
+                                                        <Trash2Icon size={16} />
+                                                        Remove
+                                                    </>
+                                                )}
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="cart-page__calculate-btn"
+                                                onClick={applyCoupon}
+                                                disabled={isCalculating || !couponCode}
+                                            >
+                                                {isCalculating ? (
+                                                    <img
+                                                        src="/assets/icon/loading.gif"
+                                                        alt="Loading..."
+                                                        className="loading-spinner"
+                                                    />
+                                                ) : (
+                                                    <>
+                                                        <BadgePercent size={16} />
+                                                        Apply
+                                                    </>
+                                                )}
+                                            </button>
+                                        )}
+                                    </div>
                                 </div>
 
                                 <Link to="/checkouts" className="cart-page__checkout-btn">
@@ -247,22 +375,44 @@ export default function Cart() {
                                 </Link>
                             </div>
                         </div>
-                    </div>
-                ) : (
-                    <motion.div
-                        className="cart-page__empty"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                    >
-                        <img src="/assets/imgs/cart_empty.png" alt="Empty cart" />
-                        <h2>Your cart is empty</h2>
-                        <p>Looks like you haven't added any items to your cart yet.</p>
-                        <Link to="/categories" className="btn cart__btn">
-                            Continue Shopping
-                        </Link>
-                    </motion.div>
-                )}
-            </div>
-        </section>
+                    ) : (
+                        <motion.div
+                            className="cart-page__empty"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                        >
+                            <img src="/assets/imgs/cart_empty.png" alt="Empty cart" />
+                            <h2>Your cart is empty</h2>
+                            <p>Looks like you haven't added any items to your cart yet.</p>
+                            <Link to="/categories" className="btn cart__btn">
+                                Continue Shopping
+                            </Link>
+                        </motion.div>
+                    )}
+                </div>
+            </section>
+            {isCalculating && (
+                <Box
+                    position="fixed"
+                    top={0}
+                    left={0}
+                    right={0}
+                    bottom={0}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    bgcolor="rgba(255, 255, 255, 0.7)"
+                    zIndex={9999}
+                >
+                    <CircularProgress
+                        size={60}
+                        thickness={4}
+                        sx={{
+                            color: "#2c3e50",
+                        }}
+                    />
+                </Box>
+            )}
+        </>
     );
 }

@@ -15,7 +15,7 @@ export default function Testimonial() {
     };
 
     return (
-        <section className="testimonial" data-aos="zoom-in">
+        <section className="testimonial">
             <div className="container">
                 <div className="section-top">
                     <h2 className="section-title">Testimonial</h2>
