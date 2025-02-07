@@ -404,6 +404,7 @@
 
 .checkout__back-btn {
     display: inline-flex;
+    cursor: pointer;
     align-items: center;
     gap: 8px;
     color: #666;

@@ -617,10 +617,21 @@ export default function CheckOut() {
                             <button type="submit" className="checkout__submit" disabled={isProcessing}>
                                 {isProcessing ? "Processing..." : "Place Order"}
                             </button>
-                            <Link to="/cart" className="checkout__back-btn">
+                            <span
+                                className="checkout__back-btn"
+                                onClick={() => {
+                                    if (
+                                        window.confirm(
+                                            "Note: When you go back, you will lose the discount code you entered earlier?",
+                                        )
+                                    ) {
+                                        navigate("/cart");
+                                    }
+                                }}
+                            >
                                 <ArrowLeft size={16} />
-                                <span>Quay lại</span>
-                            </Link>
+                                <span>Back</span>
+                            </span>
                         </motion.div>
                     </div>
                 </form>

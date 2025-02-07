@@ -11,7 +11,7 @@ export default function Index() {
     ];
     return (
         <>
-            <main className="main">
+            <main className="main2">
                 <Breadcrumb title="Shopping Cart" items={breadcrumbItems} />
                 <Cart />
             </main>

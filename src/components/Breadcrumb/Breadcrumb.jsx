@@ -7,7 +7,7 @@ export default function Breadcrumb({ title, items, style = {} }) {
         <section className="breadcrumb">
             <div className="container">
                 <div className="beardcumb__inner" style={style}>
-                    <h1 className="breadcrumb__title">{title}</h1>
+                    {title && <h1 className="breadcrumb__title">{title}</h1>}
                     {/* Style tùy chỉnh bên ngoài nếu có */}
                     <div className="breadcrumb__list">
                         {items.map((item, index) => (

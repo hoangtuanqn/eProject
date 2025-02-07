@@ -114,16 +114,16 @@ export default function Cart() {
         let discountableAmount = 0;
 
         if (coupon.valid_categories.length === 0) {
-            // If no specific categories, apply to total
+            // Nếu không có category cụ thể, áp dụng giảm giá cho toàn bộ giỏ hàng
             discountableAmount = calculateSubtotal();
         } else {
-            // Sum up only items from valid categories
+            // Chỉ tính tổng các sản phẩm thuộc category hợp lệ
             discountableAmount = items
                 .filter((item) => coupon.valid_categories.includes(item.category))
                 .reduce((total, item) => total + item.price * item.quantity, 0);
         }
 
-        const discount = (discountableAmount * coupon.discount) / 100;
+        const discount = Math.min((discountableAmount * coupon.discount) / 100, discountableAmount); // Thêm Math.min để đảm bảo giảm giá không vượt quá tổng tiền
         return calculateSubtotal() - discount;
     };
 
@@ -171,6 +171,20 @@ export default function Cart() {
         }).format(amount);
     };
 
+    const getSuggestedCoupons = () => {
+        const subtotal = calculateSubtotal();
+        const validCoupons = coupons
+            .filter((coupon) => {
+                return coupon.visible && new Date(coupon.expiry_date) > new Date() && subtotal >= coupon.min_purchase;
+            })
+            .sort((a, b) => b.discount - a.discount);
+        return validCoupons.filter(
+            (coupon) =>
+                coupon.valid_categories.length === 0 ||
+                coupon.valid_categories.some((category) => cartItems.some((item) => item.category === category)),
+        );
+    };
+    const listCoupons = getSuggestedCoupons();
     return (
         <>
             <section className="cart-page">
@@ -305,7 +319,7 @@ export default function Cart() {
                                     )}
                                     <div className="cart-page__totals-row">
                                         <span>Shipping</span>
-                                        <span>{formatCurrency(shippingCost)}</span>
+                                        <span>{formatCurrency(Number(shippingCost))}</span>
                                     </div>
                                     <div className="cart-page__totals-row cart-page__totals-row--total">
                                         <span>Total</span>
@@ -313,7 +327,7 @@ export default function Cart() {
                                             {formatCurrency(
                                                 (appliedCoupon
                                                     ? calculateDiscountedTotal(cartItems, appliedCoupon)
-                                                    : calculateSubtotal()) + shippingCost,
+                                                    : calculateSubtotal()) + Number(shippingCost),
                                             )}
                                         </span>
                                     </div>
@@ -368,6 +382,42 @@ export default function Cart() {
                                             </button>
                                         )}
                                     </div>
+
+                                    {!appliedCoupon && (
+                                        <div className="cart-page__coupon-suggestions">
+                                            <div className="dfbetween">
+                                                <h4>
+                                                    {listCoupons.length !== 0 ||
+                                                        "Haven't found a suitable discount code for you"}
+                                                </h4>
+                                                {listCoupons.length > 0 && <h4>{listCoupons.length} coupons found</h4>}
+                                            </div>
+                                            <div className="coupon-list">
+                                                {listCoupons.map((coupon) => (
+                                                    <div
+                                                        key={coupon.code}
+                                                        className="coupon-item"
+                                                        onClick={() => setCouponCode(coupon.code)}
+                                                    >
+                                                        <div className="coupon-info">
+                                                            <span className="coupon-code">{coupon.code}</span>
+                                                            <span className="coupon-discount">
+                                                                {coupon.discount}% OFF
+                                                            </span>
+                                                        </div>
+                                                        <div className="coupon-details">
+                                                            <span>Min. purchase: ${coupon.min_purchase}</span>
+                                                            {coupon.valid_categories.length > 0 && (
+                                                                <span>
+                                                                    Valid for: {coupon.valid_categories.join(", ")}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <Link to="/checkouts" className="cart-page__checkout-btn">
