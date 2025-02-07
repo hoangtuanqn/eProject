@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Copy, Check } from "lucide-react";
 import coupons from "../../data/coupons.json";
 import "../../styles/coupons.css";
 import toast from "react-hot-toast";
 
-export default function CouponPage() {
+const CouponPage = () => {
     const [copiedCode, setCopiedCode] = useState(null);
+
 
     const copyToClipboard = (code) => {
         try {
@@ -103,4 +104,5 @@ export default function CouponPage() {
             </div>
         </section>
     );
-}
+};
+export default memo(CouponPage);

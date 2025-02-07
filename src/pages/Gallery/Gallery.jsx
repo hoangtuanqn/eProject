@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ZoomInIcon as Zoom, X } from "lucide-react";
 import "../../styles/gallery.css";
@@ -11,10 +11,11 @@ const categories = [
     "University Uniforms",
 ];
 
-export default function Gallery() {
+const Gallery = () => {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [filteredItems, setFilteredItems] = useState(galleryItems);
     const [selectedImage, setSelectedImage] = useState(null);
+
 
     useEffect(() => {
         setFilteredItems(
@@ -103,4 +104,5 @@ export default function Gallery() {
             </AnimatePresence>
         </section>
     );
-}
+};
+export default memo(Gallery);

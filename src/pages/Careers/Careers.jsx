@@ -175,11 +175,12 @@ export default function CareersPage() {
                     >
                         <h2>Don't See Your Perfect Role?</h2>
                         <p>We're always looking for talented people to join our team.</p>
-                        <button className="btn careers__apply-btn careers__footer-btn">Send Your CV</button>
+                        <button className="btn careers__apply-btn careers__footer-btn" onClick={handleApplyNow}>
+                            Send Your CV
+                        </button>
                     </motion.div>
                 </div>
             </div>
-
         </section>
     );
 }

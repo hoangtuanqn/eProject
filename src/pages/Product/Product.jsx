@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, Minus, Plus, Share2, Facebook, Twitter, PinIcon } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
-import productData from "../../data/product.json";
+import productData from "../../data/products.json";
 import { useParams } from "react-router-dom";
 import "../../styles/product.css";
 

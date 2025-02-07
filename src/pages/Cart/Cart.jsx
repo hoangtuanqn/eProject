@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Trash2, BadgePercent, Trash2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import "../../styles/cart.css";
-import products from "../../data/product.json";
+import products from "../../data/products.json";
 import { useCartActions } from "../../utils/handleCart";
 import coupons from "../../data/coupons.json";
 import toast from "react-hot-toast";

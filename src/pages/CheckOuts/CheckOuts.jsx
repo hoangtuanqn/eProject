@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
@@ -20,17 +20,15 @@ import {
 } from "lucide-react";
 
 import { handleOrder } from "./handleOrder";
-import products from "../../data/product.json";
+import products from "../../data/products.json";
 import countries from "../../data/countries.json";
 import "../../styles/checkOuts.css";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { handlePaypalCheckout } from "./handlePaypal";
 import handleGooglePayCheckout from "./handleGooglePay";
 import { Box, CircularProgress } from "@mui/material";
-// import Momo from "./Momo";
 
-export default function CheckOut() {
+const CheckOut = () => {
     const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -188,9 +186,6 @@ export default function CheckOut() {
     return (
         <section className="checkout">
             <div className="container">
-                {/* <h1 className="section-title">Checkout</h1>
-                    <p className="section-subtitle">Complete your order</p> */}
-
                 <form className="checkout__layout" onSubmit={formik.handleSubmit}>
                     <div className="checkout__form">
                         <motion.div
@@ -660,4 +655,5 @@ export default function CheckOut() {
             )}
         </section>
     );
-}
+};
+export default memo(CheckOut);

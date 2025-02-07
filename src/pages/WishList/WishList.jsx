@@ -1,25 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { ShoppingCartIcon, Eye, Heart, Trash2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartActions } from "../../utils/handleCart";
 import "../../styles/wishList.css";
-import products from "../../data/product.json";
+import products from "../../data/products.json";
+import { useWishlistActions } from "../../utils/handleWishlist";
 export default function WishList() {
-    const [wishlist, setWishlist] = useState(() => {
+    const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
+    const handleGetWishlist = () => {
         const savedWishlist = localStorage.getItem("wishlist");
         return savedWishlist ? JSON.parse(savedWishlist) : [];
-    });
+    };
+    const [wishlist, setWishlist] = useState(handleGetWishlist);
     const [deletingItemId, setDeletingItemId] = useState(null);
     const { handleCartAction, isProductInCart, loadingStates: cartLoadingStates } = useCartActions();
 
-    const removeFromWishlist = async (index) => {
-        setDeletingItemId(index);
-        // Simulate delay for animation
+    const removeFromWishlist = async (product) => {
+        setDeletingItemId(product.id);
+        // Đợi animation hoàn thành (300ms) trước khi xóa
         await new Promise((resolve) => setTimeout(resolve, 300));
-        const newWishlist = wishlist.filter((itemIndex) => itemIndex !== index);
-        setWishlist(newWishlist);
-        localStorage.setItem("wishlist", JSON.stringify(newWishlist));
+        await handleWishlistAction(product);
+        setWishlist(handleGetWishlist());
         setDeletingItemId(null);
     };
 
@@ -85,10 +87,10 @@ export default function WishList() {
                                                 <button
                                                     className="action-btn"
                                                     title="Remove from wishlist"
-                                                    onClick={() => removeFromWishlist(index)}
-                                                    disabled={deletingItemId === index}
+                                                    onClick={() => removeFromWishlist(product)}
+                                                    disabled={deletingItemId === product.id}
                                                 >
-                                                    {deletingItemId === index ? (
+                                                    {deletingItemId === product.id ? (
                                                         <img
                                                             src="/assets/icon/loading.gif"
                                                             alt="Loading..."

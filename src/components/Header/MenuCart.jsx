@@ -1,18 +1,18 @@
-import React, { useRef, useEffect, useState, forwardRef } from "react";
+import React, { useRef, useEffect, useState, forwardRef, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { closeWithAnimation, handleClickOutside } from "../../utils/menuHelpers";
 import "../../styles/menuCart.css";
 import { Trash2, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import products from "../../data/product.json";
+import products from "../../data/products.json";
 import clsx from "clsx";
 import { useCartActions } from "../../utils/handleCart";
-
+import { useGlobalState } from "../../context/GlobalContext";
 const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
+    const { cartQuantity, setCartQuantity, wishlistQuantity, setWishlistQuantity } = useGlobalState();
     const [cartItems, setCartItems] = useState([]);
     const [deletingItemId, setDeletingItemId] = useState(null);
     const navigate = useNavigate();
-    const pathname = useLocation();
     const { handleCartAction, getUpdatedCartItems } = useCartActions();
 
     // Load cart items from localStorage and match with product data
@@ -33,7 +33,13 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
             .filter((item) => item); // Remove any null items
 
         setCartItems(cartWithDetails);
-    }, [pathname]);
+    }, [cartQuantity]);
+    useLayoutEffect(() => {
+        setCartQuantity(cartItems.length);
+    }, [cartItems]);
+    useLayoutEffect(() => {
+        setWishlistQuantity(JSON.parse(localStorage?.getItem("wishlist")).length || 0);
+    }, [wishlistQuantity]);
 
     const handleClose = () => {
         closeWithAnimation(ref);

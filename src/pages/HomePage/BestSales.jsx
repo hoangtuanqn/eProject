@@ -1,13 +1,13 @@
-import React from "react";
+import React, { memo } from "react";
 import "../../styles/bestSales.css"; // Import CSS Module
-import productData from "../../data/product.json";
+import productData from "../../data/products.json";
 import { ShoppingCartIcon, Heart } from "lucide-react";
 import { useCartActions } from "../../utils/handleCart";
 import { useWishlistActions } from "../../utils/handleWishlist";
-
-export default function BestSales() {
+const BestSales = () => {
     const { handleCartAction, isProductInCart, loadingStates: cartLoadingStates } = useCartActions();
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
+
     // Sắp xếp sản phẩm theo salesCount giảm dần và lấy 6 sản phẩm đầu tiên
     const bestSellingProducts = productData.sort((a, b) => b.salesCount - a.salesCount).slice(0, 6);
 
@@ -94,4 +94,5 @@ export default function BestSales() {
             </div>
         </section>
     );
-}
+};
+export default memo(BestSales);

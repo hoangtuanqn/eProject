@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import data from "../../data/categories.json";
-import product from "../../data/product.json";
+import product from "../../data/products.json";
 import "../../styles/categories.css";
 import { Link } from "react-router-dom";
 

@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import products from "../data/product.json";
+import products from "../data/products.json";
+import { useGlobalState } from "../context/GlobalContext";
 
 export const useCartActions = () => {
+    const { cartQuantity, setCartQuantity } = useGlobalState();
     const [loadingStates, setLoadingStates] = useState({});
     const [cartItems, setCartItems] = useState([]);
 
@@ -10,7 +12,7 @@ export const useCartActions = () => {
     useEffect(() => {
         const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
         setCartItems(savedCart);
-    }, []);
+    }, [cartQuantity]);
 
     const getUpdatedCartItems = (cart, includeNotes = false) => {
         return cart
@@ -61,6 +63,7 @@ export const useCartActions = () => {
 
             // Simulate network delay
 
+            setCartQuantity(newCart.length);
             localStorage.setItem("cart", JSON.stringify(newCart));
             setCartItems(newCart);
             return newCart;

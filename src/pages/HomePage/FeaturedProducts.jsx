@@ -1,12 +1,13 @@
-import React from "react";
-import { Eye, Heart, ShoppingCartIcon } from "lucide-react";
+import React, { memo } from "react";
+import { Heart, ShoppingCartIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import productData from "../../data/product.json";
+import productData from "../../data/products.json";
 import { useCartActions } from "../../utils/handleCart";
 import { useWishlistActions } from "../../utils/handleWishlist";
 import "../../styles/featuredProducts.css";
 
-export default function FeaturedProducts() {
+const FeaturedProducts = () => {
+
     const { handleCartAction, isProductInCart, loadingStates: cartLoadingStates } = useCartActions();
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
 
@@ -109,4 +110,5 @@ export default function FeaturedProducts() {
             </section>
         </>
     );
-}
+};
+export default memo(FeaturedProducts);

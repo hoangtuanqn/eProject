@@ -9,8 +9,11 @@ import { openMenu, closeWithAnimation, handleClickOutside, toggleSubmenu } from 
 import MenuDesktop from "./MenuDesktop";
 import MenuMobile from "./MenuMobile";
 import Cart from "./MenuCart";
+import { useGlobalState } from "../../context/GlobalContext";
+import { Link } from "react-router-dom";
 
 export default function Header() {
+    const { cartQuantity, wishlistQuantity } = useGlobalState();
     const mobileMenuRef = useRef(null);
     const searchRef = useRef(null);
     const cartRef = useRef(null);
@@ -53,6 +56,7 @@ export default function Header() {
     return (
         <>
             {/* Gradient */}
+
             <Gradient />
             {/* Header */}
             <header className="header">
@@ -106,12 +110,18 @@ export default function Header() {
                             >
                                 <img src="/assets/icon/search.svg" alt="" className="header__icon" />
                             </button>
+                            <Link to="/pages/wishlist">
+                                <button className="header__icon-wrap dfbetween hiddenMobile">
+                                    <img src="/assets/icon/tym.svg" alt="" className="header__icon" />
+                                    <span className="cart-badge">{wishlistQuantity}</span>
+                                </button>
+                            </Link>
                             <button
                                 className="header__icon-wrap dfbetween hiddenMobile"
                                 onClick={() => openMenu(cartRef)}
                             >
                                 <img src="/assets/icon/cart.svg" alt="" className="header__icon" />
-                                <span className="cart-badge">1</span>
+                                <span className="cart-badge">{cartQuantity}</span>
                             </button>
                             <Counter />
                         </div>

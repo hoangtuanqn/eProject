@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 import NotData from "../../components/NotData";
 import "../../styles/category.css";
-import productData from "../../data/product.json";
+import productData from "../../data/products.json";
 import categoriesData from "../../data/categories.json";
 import { useCartActions } from "../../utils/handleCart";
 import { useWishlistActions } from "../../utils/handleWishlist";

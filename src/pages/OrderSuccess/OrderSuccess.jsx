@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { CheckCircle, Package, MapPin, Clock, ArrowRight, Printer } from "lucide-react";
 import "../../styles/order.css";
 import axios from "axios";
-import productData from "../../data/product.json";
+import productData from "../../data/products.json";
 import { CircularProgress, Box } from "@mui/material";
 
 export default function OrderSuccess() {
