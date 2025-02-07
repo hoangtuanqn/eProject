@@ -26,7 +26,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                           ...productDetails,
                           size: item.size,
                           color: item.color,
-                          quantity: 1, // Default quantity
+                          quantity: item.quantity, // Default quantity
                       }
                     : null;
             })

@@ -25,6 +25,7 @@ import "../../styles/checkOuts.css";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { handlePaypalCheckout } from "./handlePaypal";
+import handleGooglePayCheckout from "./handleGooglePay";
 import { Box, CircularProgress } from "@mui/material";
 // import Momo from "./Momo";
 
@@ -109,7 +110,20 @@ export default function CheckOut() {
                         window.location.href = `/order-error`;
                     }
                     break;
-
+                case "googlepay":
+                    try {
+                        await handleGooglePayCheckout({
+                            total,
+                            calculateSubtotal,
+                            shippingCost,
+                            cartItems,
+                            setIsLoading,
+                            formData: values,
+                        });
+                    } catch (error) {
+                        // window.location.href = `/order-error`;
+                    }
+                    break;
                 default:
                     toast.error("Invalid payment method");
                     break;

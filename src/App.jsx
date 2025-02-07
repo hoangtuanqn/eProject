@@ -28,6 +28,7 @@ import CheckOuts from "./pages/CheckOuts";
 import OrderSuccess from "./pages/OrderSuccess";
 import OrderError from "./pages/OrderError/OrderError";
 import HandleReturnPaypal from "./pages/CheckOuts/HandleReturnPaypal";
+import Coupons from "./pages/Coupons";
 
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
@@ -68,6 +69,9 @@ const App = () => {
 
                 {/* Page WishList */}
                 <Route path="/pages/wishlist" element={<WishList />} exact />
+
+                {/* Page coupons */}
+                <Route path="/pages/coupons" element={<Coupons />} exact />
 
                 {/* Danh mục product*/}
                 <Route path="/categories" element={<Categories />} exact />

@@ -328,7 +328,20 @@ export default function OrderSuccess() {
                                 </div>
                                 <div className="order-success__payment">
                                     <h3>Payment Method</h3>
-                                    <p>{paymentMethod === "cod" ? "Cash on Delivery" : "Paid via PayPal"}</p>
+                                    <p>
+                                        {(() => {
+                                            switch (paymentMethod) {
+                                                case "cod":
+                                                    return "Cash on Delivery";
+                                                case "paypal":
+                                                    return "Paid via PayPal";
+                                                case "googlepay":
+                                                    return "Paid via Google Pay";
+                                                default:
+                                                    return "Unknown";
+                                            }
+                                        })()}
+                                    </p>
                                 </div>
                             </div>
                         </div>
