@@ -29,6 +29,7 @@ import OrderSuccess from "./pages/OrderSuccess";
 import OrderError from "./pages/OrderError/OrderError";
 import HandleReturnPaypal from "./pages/CheckOuts/HandleReturnPaypal";
 import Coupons from "./pages/Coupons";
+import Careers from "./pages/Careers";
 
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
@@ -72,6 +73,9 @@ const App = () => {
 
                 {/* Page coupons */}
                 <Route path="/pages/coupons" element={<Coupons />} exact />
+
+                {/* Page Careers */}
+                <Route path="/pages/careers" element={<Careers />} exact />
 
                 {/* Danh mục product*/}
                 <Route path="/categories" element={<Categories />} exact />
