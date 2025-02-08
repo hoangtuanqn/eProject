@@ -77,8 +77,6 @@ const App = () => {
                 {/* Page Careers */}
                 <Route path="/pages/careers" element={<Careers />} exact />
 
-                
-
                 {/* Danh mục product*/}
                 <Route path="/categories" element={<Categories />} exact />
 

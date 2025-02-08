@@ -38,7 +38,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
         setCartQuantity(cartItems.length);
     }, [cartItems]);
     useLayoutEffect(() => {
-        setWishlistQuantity(JSON.parse(localStorage?.getItem("wishlist")).length || 0);
+        setWishlistQuantity(JSON.parse(localStorage?.getItem("wishlist"))?.length || 0);
     }, [wishlistQuantity]);
 
     const handleClose = () => {
