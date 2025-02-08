@@ -185,6 +185,21 @@ export default function Cart() {
         );
     };
     const listCoupons = getSuggestedCoupons();
+
+    const handleClearCart = async () => {
+        if (window.confirm("Are you sure you want to clear your cart?")) {
+            setIsCalculating(true);
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            localStorage.setItem("cart", "[]");
+            setCartItems([]);
+            setAppliedCoupon(null);
+            localStorage.removeItem("appliedCoupon");
+            localStorage.removeItem("discountedTotal");
+            setIsCalculating(false);
+            toast.success("Cart cleared successfully");
+        }
+    };
+
     return (
         <>
             <section className="cart-page">
@@ -300,6 +315,25 @@ export default function Cart() {
                             </div>
 
                             <div className="cart-page__summary">
+                                <button
+                                    className="cart-page__clear-btn"
+                                    onClick={handleClearCart}
+                                    disabled={isCalculating}
+                                >
+                                    {isCalculating ? (
+                                        <img
+                                            src="/assets/icon/loading.gif"
+                                            alt="Loading..."
+                                            className="loading-spinner"
+                                        />
+                                    ) : (
+                                        <>
+                                            <Trash2 size={16} />
+                                            Clear Cart
+                                        </>
+                                    )}
+                                </button>
+
                                 <div className="cart-page__totals">
                                     <div className="cart-page__totals-row">
                                         <span>Subtotal</span>

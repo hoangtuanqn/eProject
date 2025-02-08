@@ -33,6 +33,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Tooltip from "../../components/Tooltip";
+import { Rating } from "@mui/material";
 
 export default function Product() {
     const { slug } = useParams();
@@ -179,11 +180,19 @@ export default function Product() {
                             <h1 className="product__title">{product.name}</h1>
                             <div className="product__meta">
                                 <span className="product__category">{product.category}</span>
-                                <div className="product__rating">
-                                    {[...Array(5)].map((_, i) => (
-                                        <Star key={i} size={16} fill="#FFD700" color="#FFD700" />
-                                    ))}
-                                    <span>(50 reviews)</span>
+                                <div className="best-sales-item__rating-wrap">
+                                    <Rating
+                                        name="read-only"
+                                        value={product.rating}
+                                        precision={0.1}
+                                        readOnly
+                                        size="small"
+                                        sx={{
+                                            fontSize: "1.8rem",
+                                            color: "#ffd700",
+                                        }}
+                                    />
+                                    <span className="best-sales-item__rating-value">({product.rating.toFixed(1)})</span>
                                 </div>
                             </div>
                         </div>

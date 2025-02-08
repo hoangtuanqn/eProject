@@ -121,16 +121,8 @@
     letter-spacing: 1px;
 }
 
-.product__rating {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.product__rating span {
-    font-size: 1.4rem;
-    color: var(--color-text);
-    margin-left: 5px;
+.product__info .best-sales-item__rating-wrap {
+    margin-bottom: 0;
 }
 
 .product__price {

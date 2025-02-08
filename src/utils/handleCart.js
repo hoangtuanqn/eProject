@@ -33,9 +33,15 @@ export const useCartActions = () => {
 
     const handleCartAction = async (product, remove = true) => {
         const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
-        let isInCart = false;
 
-        if (!remove && (isInCart = currentCart.some((item) => item.id === product.id))) {
+        // Kiểm tra sản phẩm trong giỏ hàng với cùng id, size và color
+        const existingItemIndex = currentCart.findIndex(
+            (item) => item.id === product.id && item.size === product.size && item.color === product.color,
+        );
+
+        const isInCart = existingItemIndex !== -1;
+
+        if (!remove && isInCart) {
             const confirmDelete = window.confirm("Do you want to remove this item from cart?");
             if (!confirmDelete) {
                 return;
@@ -47,21 +53,36 @@ export const useCartActions = () => {
         try {
             await new Promise((resolve) => setTimeout(resolve, 500));
             let newCart;
+
             if (isInCart) {
-                newCart = currentCart.filter((item) => item.id !== product.id);
-                toast.success("Removed from cart!");
+                if (remove) {
+                    // Nếu sản phẩm đã tồn tại và remove=true, tăng số lượng
+                    newCart = currentCart.map((item, index) => {
+                        if (index === existingItemIndex) {
+                            return {
+                                ...item,
+                                quantity: (item.quantity || 1) + (product.quantity || 1),
+                            };
+                        }
+                        return item;
+                    });
+                    toast.success("Updated quantity in cart!");
+                } else {
+                    // Nếu remove=false, xóa sản phẩm
+                    newCart = currentCart.filter((_, index) => index !== existingItemIndex);
+                    toast.success("Removed from cart!");
+                }
             } else {
+                // Thêm sản phẩm mới vào giỏ hàng
                 const newItem = {
                     id: product.id,
                     size: product.size ?? product.sizes[0],
                     color: product.color ?? product.colors[0],
-                    quantity: 1,
+                    quantity: product.quantity || 1,
                 };
                 newCart = [...currentCart, newItem];
                 toast.success("Added to cart!");
             }
-
-            // Simulate network delay
 
             setCartQuantity(newCart.length);
             localStorage.setItem("cart", JSON.stringify(newCart));

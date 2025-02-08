@@ -8,10 +8,13 @@ import products from "../../data/products.json";
 import clsx from "clsx";
 import { useCartActions } from "../../utils/handleCart";
 import { useGlobalState } from "../../context/GlobalContext";
+import { toast } from "react-hot-toast";
+
 const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
     const { cartQuantity, setCartQuantity, wishlistQuantity, setWishlistQuantity } = useGlobalState();
     const [cartItems, setCartItems] = useState([]);
     const [deletingItemId, setDeletingItemId] = useState(null);
+    const [isClearing, setIsClearing] = useState(false);
     const navigate = useNavigate();
     const { handleCartAction, getUpdatedCartItems } = useCartActions();
 
@@ -91,6 +94,17 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
         }).format(amount);
     };
 
+    const handleClearCart = async () => {
+        if (window.confirm("Are you sure you want to clear your cart?")) {
+            setIsClearing(true);
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            localStorage.setItem("cart", "[]");
+            setCartItems([]);
+            setIsClearing(false);
+            toast.success("Cart cleared successfully");
+        }
+    };
+
     return (
         <div
             ref={ref}
@@ -106,6 +120,19 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                 </div>
 
                 <div className="cart__items-container">
+                    {cartItems.length > 0 && (
+                        <button className="cart-page__clear-btn" onClick={handleClearCart} disabled={isClearing}>
+                            {isClearing ? (
+                                <img src="/assets/icon/loading.gif" alt="Loading..." className="loading-spinner" />
+                            ) : (
+                                <>
+                                    <Trash2 size={16} />
+                                    Clear Cart
+                                </>
+                            )}
+                        </button>
+                    )}
+
                     <AnimatePresence mode="popLayout">
                         {cartItems.length > 0 ? (
                             cartItems.map((item) => (

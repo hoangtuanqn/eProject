@@ -367,3 +367,9 @@
         gap: 8px;
     }
 }
+
+/* Reuse clear cart button styles from cart.css */
+.cart-page__clear-btn {
+    margin: 0 20px 20px;
+    width: calc(100% - 40px); /* Adjust for the margins */
+}
