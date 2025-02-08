@@ -1,15 +1,30 @@
 import React, { memo } from "react";
 import "../../styles/bestSales.css"; // Import CSS Module
 import productData from "../../data/products.json";
-import { ShoppingCartIcon, Heart } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useCartActions } from "../../utils/handleCart";
 import { useWishlistActions } from "../../utils/handleWishlist";
+import { Rating } from "@mui/material";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import { Link } from "react-router-dom";
 const BestSales = () => {
-    const { handleCartAction, isProductInCart, loadingStates: cartLoadingStates } = useCartActions();
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
-
-    // Sắp xếp sản phẩm theo salesCount giảm dần và lấy 6 sản phẩm đầu tiên
-    const bestSellingProducts = productData.sort((a, b) => b.salesCount - a.salesCount).slice(0, 6);
+    /*Sản phẩm được sắp xếp theo tiêu chí => Rating và doanh thu cao*/
+    // Tính toán doanh thu và sắp xếp sản phẩm
+    const bestSellingProducts = productData
+        .map((product) => ({
+            ...product,
+            revenue: product.price * product.soldQuantity, // Tính doanh thu để sắp xếp
+        }))
+        .sort((a, b) => {
+            // Sắp xếp theo doanh thu giảm dần
+            if (b.revenue !== a.revenue) {
+                return b.revenue - a.revenue;
+            }
+            // Nếu doanh thu bằng nhau, sắp xếp theo số lượng bán
+            return b.soldQuantity - a.soldQuantity;
+        })
+        .slice(0, 6); // Lấy 6 sản phẩm đầu tiên
 
     return (
         <section className="best-sales">
@@ -17,79 +32,150 @@ const BestSales = () => {
                 <div className="section-top">
                     <h2 className="section-title">Best Sales</h2>
                     <p className="section-subtitle">
-                        Discover our most popular school uniforms - trusted by parents and loved by students. These
-                        best-selling items combine comfort, durability and style for the perfect school attire.
+                        Our top-performing products based on total sales and revenue. These items showcase the best in
+                        terms of sales volume and revenue generation within our school uniform collection
                     </p>
                 </div>
                 <div className="best-sales__grid">
-                    {bestSellingProducts.map(({ id, name, price, sale, thumbnail }, index) => {
-                        const inCart = isProductInCart(id);
+                    {bestSellingProducts.map(
+                        ({ id, name, price, sale, thumbnail, soldQuantity, rating, slug }, index) => {
+                            return (
+                                <article key={id} className="best-sales-item" data-aos="zoom-in">
+                                    <figure className="best-sales-item__image">
+                                        {/* Hiển thị SALE nếu sản phẩm đang giảm giá */}
+                                        {sale > 0 && <span className="badge__sale">SALE {sale}%</span>}
+                                        <Link to={`/product/${slug}`}>
+                                            <img
+                                                src={thumbnail}
+                                                alt={name}
+                                                width="100%"
+                                                className="best-sale-item__thumb"
+                                            />
+                                        </Link>
+                                        <div className="product-actions" onClick={(e) => e.preventDefault()}>
+                                            {/* <button
+                                                    className={`cart-btn ${cartLoadingStates[id] ? "loading" : ""} ${
+                                                        isProductInCart(id) ? "in-cart" : ""
+                                                    }`}
+                                                    title={isProductInCart(id) ? "Remove from cart" : "Add to cart"}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        handleCartAction(product);
+                                                    }}
+                                                    disabled={cartLoadingStates[id]}
+                                                >
+                                                    {cartLoadingStates[id] ? (
+                                                        <img
+                                                            src="/assets/icon/loading.gif"
+                                                            alt="Loading..."
+                                                            className="loading-spinner"
+                                                        />
+                                                    ) : (
+                                                        <ShoppingCartIcon size={20} />
+                                                    )}
+                                                </button> */}
+                                            <button
+                                                className={`cart-btn ${wishlistLoadingStates[id] ? "loading" : ""} ${
+                                                    isProductInWishlist(id) ? "in-cart" : ""
+                                                }`}
+                                                onClick={() =>
+                                                    handleWishlistAction(productData.find((p) => p.id === id))
+                                                }
+                                                disabled={wishlistLoadingStates[id]}
+                                            >
+                                                {wishlistLoadingStates[id] ? (
+                                                    <img
+                                                        src="/assets/icon/loading.gif"
+                                                        alt="Loading..."
+                                                        className="loading-spinner"
+                                                    />
+                                                ) : (
+                                                    <Heart className="best-sales-item__icon" />
+                                                )}
+                                            </button>
+                                        </div>
+                                    </figure>
 
-                        return (
-                            <article key={id} className="best-sales-item" data-aos="zoom-in">
-                                <figure className="best-sales-item__image">
-                                    {/* Hiển thị SALE nếu sản phẩm đang giảm giá */}
-                                    {sale > 0 && <span className="badge__sale">SALE {sale}%</span>}
-                                    <a href="#!">
-                                        <img src={thumbnail} alt={name} width="100%" />
-                                    </a>
-                                </figure>
-                                <div className="best-sales-item__info">
-                                    <h3 className="best-sales-item__name">
-                                        <a href="" className="best-sales-item__name">
-                                            {name}
-                                        </a>
-                                    </h3>
-                                    {/* Nút thêm vào giỏ hàng và yêu thích */}
-                                    <div className="best-sales-item__actions">
-                                        <button
-                                            className={`cart-btn ${cartLoadingStates[id] ? "loading" : ""} ${
-                                                inCart ? "in-cart" : ""
-                                            }`}
-                                            onClick={() => handleCartAction(productData.find((p) => p.id === id))}
-                                            disabled={cartLoadingStates[id]}
-                                        >
-                                            {cartLoadingStates[id] ? (
-                                                <img
-                                                    src="/assets/icon/loading.gif"
-                                                    alt="Loading..."
-                                                    className="loading-spinner"
-                                                />
-                                            ) : (
-                                                <ShoppingCartIcon className="best-sales-item__icon" />
-                                            )}
-                                        </button>
-                                        <button
-                                            className={`cart-btn ${wishlistLoadingStates[id] ? "loading" : ""} ${
-                                                isProductInWishlist(id) ? "in-cart" : ""
-                                            }`}
-                                            onClick={() => handleWishlistAction(productData.find((p) => p.id === id))}
-                                            disabled={wishlistLoadingStates[id]}
-                                        >
-                                            {wishlistLoadingStates[id] ? (
-                                                <img
-                                                    src="/assets/icon/loading.gif"
-                                                    alt="Loading..."
-                                                    className="loading-spinner"
-                                                />
-                                            ) : (
-                                                <Heart className="best-sales-item__icon" />
-                                            )}
-                                        </button>
-                                    </div>
-                                    {/* Hiển thị giá và giá cũ nếu có giảm giá */}
-                                    <p className="best-sales-item__price">
-                                        ${price}
-                                        {sale > 0 && (
-                                            <span className="best-sales-item__price--old">
-                                                ${Math.round(price * (1 + sale / 100))}
+                                    <div className="best-sales-item__info">
+                                        <h3 className="best-sales-item__name">
+                                            <Link to={`/product/${slug}`} className="best-sales-item__name">
+                                                {name}
+                                            </Link>
+                                        </h3>
+
+                                        <div className="best-sales-item__rating-wrap">
+                                            <Rating
+                                                name="read-only"
+                                                value={rating}
+                                                precision={0.1}
+                                                readOnly
+                                                size="small"
+                                                sx={{
+                                                    fontSize: "1.8rem",
+                                                    color: "#ffd700",
+                                                }}
+                                            />
+                                            <span className="best-sales-item__rating-value">({rating.toFixed(1)})</span>
+                                        </div>
+                                        <div className="best-sales-item__sold-wrap">
+                                            <TrendingUpIcon sx={{ fontSize: 16 }} />
+                                            <span className="best-sales-item__sold">
+                                                {soldQuantity.toLocaleString()} sold
                                             </span>
+                                        </div>
+                                        {/* Nút thêm vào giỏ hàng và yêu thích */}
+                                        <div className="best-sales-item__actions">
+                                            {/* <button
+                                        className={`cart-btn ${cartLoadingStates[id] ? "loading" : ""} ${
+                                            inCart ? "in-cart" : ""
+                                        }`}
+                                        onClick={() => handleCartAction(productData.find((p) => p.id === id))}
+                                        disabled={cartLoadingStates[id]}
+                                    >
+                                        {cartLoadingStates[id] ? (
+                                            <img
+                                                src="/assets/icon/loading.gif"
+                                                alt="Loading..."
+                                                className="loading-spinner"
+                                            />
+                                        ) : (
+                                            <ShoppingCartIcon className="best-sales-item__icon" />
                                         )}
-                                    </p>
-                                </div>
-                            </article>
-                        );
-                    })}
+                                    </button> */}
+                                            {/* <button
+                                                className={`cart-btn ${wishlistLoadingStates[id] ? "loading" : ""} ${
+                                                    isProductInWishlist(id) ? "in-cart" : ""
+                                                }`}
+                                                onClick={() =>
+                                                    handleWishlistAction(productData.find((p) => p.id === id))
+                                                }
+                                                disabled={wishlistLoadingStates[id]}
+                                            >
+                                                {wishlistLoadingStates[id] ? (
+                                                    <img
+                                                        src="/assets/icon/loading.gif"
+                                                        alt="Loading..."
+                                                        className="loading-spinner"
+                                                    />
+                                                ) : (
+                                                    <Heart className="best-sales-item__icon" />
+                                                )}
+                                            </button> */}
+                                        </div>
+                                        {/* Hiển thị giá và giá cũ nếu có giảm giá */}
+                                        <p className="best-sales-item__price">
+                                            ${price}
+                                            {sale > 0 && (
+                                                <span className="best-sales-item__price--old">
+                                                    ${Math.round(price * (1 + sale / 100))}
+                                                </span>
+                                            )}
+                                        </p>
+                                    </div>
+                                </article>
+                            );
+                        },
+                    )}
                 </div>
             </div>
         </section>

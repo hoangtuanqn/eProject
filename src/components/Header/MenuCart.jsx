@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { closeWithAnimation, handleClickOutside } from "../../utils/menuHelpers";
 import "../../styles/menuCart.css";
 import { Trash2, X } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import products from "../../data/products.json";
 import clsx from "clsx";
 import { useCartActions } from "../../utils/handleCart";
@@ -38,7 +38,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
         setCartQuantity(cartItems.length);
     }, [cartItems]);
     useLayoutEffect(() => {
-        setWishlistQuantity(JSON.parse(localStorage?.getItem("wishlist"))?.length || 0);
+        setWishlistQuantity(JSON.parse(localStorage.getItem("wishlist") ?? "[]").length || 0);
     }, [wishlistQuantity]);
 
     const handleClose = () => {

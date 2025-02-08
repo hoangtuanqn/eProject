@@ -219,7 +219,6 @@
 
 /* Ticker styles */
 .footer__ticker-container {
-
     position: fixed;
     bottom: 0;
     z-index: 100;

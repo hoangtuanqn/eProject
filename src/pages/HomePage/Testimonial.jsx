@@ -7,13 +7,9 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "../../styles/testimonial.css"; // Import CSS Module
 
 import testimonials from "../../data/testimonials.json"; // Import file JSON
+import { Rating } from "@mui/material";
 
 export default function Testimonial() {
-    // Hàm render sao dựa trên số lượng sao
-    const renderStars = (stars) => {
-        return "★".repeat(stars) + "☆".repeat(5 - stars);
-    };
-
     return (
         <section className="testimonial">
             <div className="container">
@@ -48,7 +44,19 @@ export default function Testimonial() {
                                     />
                                     <p className="testimonial__role">{testimonial.name}</p>
                                     <span className="testimonial__desc">{testimonial.role}</span>
-                                    <div className="testimonial__stars">{renderStars(testimonial.stars)}</div>
+                                    <div className="testimonial__stars">
+                                        <Rating
+                                            name="read-only"
+                                            value={testimonial.stars}
+                                            precision={0.1}
+                                            readOnly
+                                            size="small"
+                                            sx={{
+                                                fontSize: "1.8rem",
+                                                color: "#ffd700",
+                                            }}
+                                        />
+                                    </div>
                                     <p className="testimonial__text">{testimonial.text}</p>
                                     <p className="testimonial__name">{testimonial.name}</p>
                                     <p className="testimonial__address">{testimonial.address}</p>

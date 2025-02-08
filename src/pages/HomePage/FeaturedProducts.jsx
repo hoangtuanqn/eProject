@@ -5,13 +5,23 @@ import productData from "../../data/products.json";
 import { useCartActions } from "../../utils/handleCart";
 import { useWishlistActions } from "../../utils/handleWishlist";
 import "../../styles/featuredProducts.css";
+import { Rating } from "@mui/material";
 
 const FeaturedProducts = () => {
-
     const { handleCartAction, isProductInCart, loadingStates: cartLoadingStates } = useCartActions();
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
 
-    const featuredProducts = productData.filter((product) => product.feature).slice(0, 8);
+    const featuredProducts = productData
+        .filter((product) => product.feature)
+        .sort((a, b) => {
+            // Sắp xếp theo rating (đánh giá) giảm dần
+            if (b.rating !== a.rating) {
+                return b.rating - a.rating;
+            }
+            // Nếu rating bằng nhau, sắp xếp theo id giảm dần (sản phẩm mới có id cao hơn)
+            return b.id - a.id;
+        })
+        .slice(0, 8);
 
     return (
         <>
@@ -39,8 +49,9 @@ const FeaturedProducts = () => {
                                             <Link to={`/product/${slug}`}>
                                                 <img src={thumbnail} alt={name} className="category__product-image" />
                                             </Link>
+
                                             <div className="product-actions" onClick={(e) => e.preventDefault()}>
-                                                <button
+                                                {/* <button
                                                     className={`cart-btn ${cartLoadingStates[id] ? "loading" : ""} ${
                                                         isProductInCart(id) ? "in-cart" : ""
                                                     }`}
@@ -60,7 +71,7 @@ const FeaturedProducts = () => {
                                                     ) : (
                                                         <ShoppingCartIcon size={20} />
                                                     )}
-                                                </button>
+                                                </button> */}
                                                 <button
                                                     className={`cart-btn ${
                                                         wishlistLoadingStates[id] ? "loading" : ""
@@ -91,6 +102,22 @@ const FeaturedProducts = () => {
                                     </figure>
                                     <Link to={`/product/${slug}`}>
                                         <div className="category__product-details">
+                                            <div className="product-card__rating-wrap">
+                                                <Rating
+                                                    name="read-only"
+                                                    value={product.rating}
+                                                    precision={0.1}
+                                                    readOnly
+                                                    size="small"
+                                                    sx={{
+                                                        fontSize: "1.8rem",
+                                                        color: "#ffd700",
+                                                    }}
+                                                />
+                                                <span className="best-sales-item__rating-value">
+                                                    ({product.rating.toFixed(1)})
+                                                </span>
+                                            </div>
                                             <h3 className="category__product-name">{name}</h3>
                                             <p className="category__product-price">
                                                 ${Math.round(salePrice)}

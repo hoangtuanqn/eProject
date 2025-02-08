@@ -31,11 +31,11 @@ export const useCartActions = () => {
             .filter((item) => item);
     };
 
-    const handleCartAction = async (product) => {
+    const handleCartAction = async (product, remove = true) => {
         const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
-        const isInCart = currentCart.some((item) => item.id === product.id);
+        let isInCart = false;
 
-        if (isInCart) {
+        if (!remove && (isInCart = currentCart.some((item) => item.id === product.id))) {
             const confirmDelete = window.confirm("Do you want to remove this item from cart?");
             if (!confirmDelete) {
                 return;
@@ -53,8 +53,8 @@ export const useCartActions = () => {
             } else {
                 const newItem = {
                     id: product.id,
-                    size: product.sizes[0],
-                    color: product.colors[0],
+                    size: product.size ?? product.sizes[0],
+                    color: product.color ?? product.colors[0],
                     quantity: 1,
                 };
                 newCart = [...currentCart, newItem];

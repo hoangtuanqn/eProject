@@ -852,6 +852,7 @@
     flex-direction: column;
     gap: 10px;
     opacity: 0;
+    visibility: hidden;
     transition: all 0.3s ease;
     z-index: 2;
 }
@@ -895,6 +896,7 @@
 }
 
 .category-product__wrapper:hover .product-actions {
+    visibility: visible;
     opacity: 1;
     transform: translate(-10px, -50%); /* Điều chỉnh animation */
 }
@@ -906,6 +908,7 @@
         top: 10px; /* Đặt ở góc trên thay vì giữa */
         right: 10px;
         transform: none;
+        visibility: visible;
         opacity: 1;
     }
 

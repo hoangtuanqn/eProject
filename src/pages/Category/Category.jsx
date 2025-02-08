@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import ReactPaginate from "react-paginate";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
-import { DoorClosedIcon as CloseIcon, FilterIcon, Eye, ShoppingCart, Heart } from "lucide-react";
+import { DoorClosedIcon as CloseIcon, FilterIcon, ShoppingCart, Heart } from "lucide-react";
 import toast from "react-hot-toast";
 
 import NotData from "../../components/NotData";

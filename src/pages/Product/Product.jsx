@@ -1,224 +1,233 @@
 import { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp, Minus, Plus, Share2, Facebook, Twitter, PinIcon } from "lucide-react";
-import toast, { Toaster } from "react-hot-toast";
-import productData from "../../data/products.json";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { useCartActions } from "../../utils/handleCart";
 import "../../styles/product.css";
+import { useWishlistActions } from "../../utils/handleWishlist";
+
+import {
+    Heart,
+    ShoppingBag,
+    Share2,
+    ChevronRight,
+    Truck,
+    Shield,
+    RefreshCw,
+    Ruler,
+    Star,
+    ChevronDown,
+    ChevronUp,
+    Facebook,
+    Twitter,
+    // Pinterest,
+    MoreHorizontal,
+    ShoppingCart,
+    ExternalLink,
+} from "lucide-react";
+import productsData from "../../data/products.json";
+import toast from "react-hot-toast";
+import clsx from "clsx";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import Tooltip from "../../components/Tooltip";
 
 export default function Product() {
     const { slug } = useParams();
+    const navigate = useNavigate();
     const [product, setProduct] = useState(null);
-    const [selectedModel, setSelectedModel] = useState("");
     const [selectedSize, setSelectedSize] = useState("");
+    const [selectedColor, setSelectedColor] = useState("");
     const [quantity, setQuantity] = useState(1);
     const [selectedImage, setSelectedImage] = useState(0);
-    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
-    const [availableSizes, setAvailableSizes] = useState([]);
+    const [isZoomed, setIsZoomed] = useState(false);
+    const [showSizeGuide, setShowSizeGuide] = useState(false);
+    const [showDescription, setShowDescription] = useState(true);
+    const [relatedProducts, setRelatedProducts] = useState([]);
+    const [showShareMenu, setShowShareMenu] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    // Find product based on slug
+    const { handleCartAction, isProductInCart } = useCartActions();
+    const { handleWishlistAction, isProductInWishlist } = useWishlistActions();
+
     useEffect(() => {
-        const foundProduct = productData.find((p) => p.slug === slug);
-        if (foundProduct) {
-            setProduct(foundProduct);
-            // Set first model as default
-            const firstModel = Object.keys(foundProduct.models)[0];
-            setSelectedModel(firstModel);
-            setAvailableSizes(foundProduct.models[firstModel].sizes);
-            setSelectedSize(foundProduct.models[firstModel].sizes[0]);
-        }
-    }, [slug]);
-
-    // Update sizes when model changes
-    useEffect(() => {
-        if (product && selectedModel) {
-            setAvailableSizes(product.models[selectedModel].sizes);
-            setSelectedSize(product.models[selectedModel].sizes[0]);
-        }
-    }, [selectedModel, product]);
-
-    const handleQuantityChange = (value) => {
-        const newQuantity = quantity + value;
-        if (newQuantity >= 1) {
-            setQuantity(newQuantity);
-        }
-    };
-
-    const addToCart = () => {
-        if (!selectedModel || !selectedSize) {
-            toast.error("Please select model and size!");
+        const foundProduct = productsData.find((p) => p.slug === slug);
+        if (!foundProduct) {
+            navigate("/404");
             return;
         }
+        setProduct(foundProduct);
+        setSelectedSize(foundProduct.sizes[0]);
+        setSelectedColor(foundProduct.colors[0]);
+    }, [slug, navigate]);
 
-        const cartItem = {
-            productId: product.id,
-            model: selectedModel,
-            size: selectedSize,
-            quantity: quantity,
-            price: product.models[selectedModel].price,
-            thumbnail: product.models[selectedModel].thumbnail,
-            name: product.name,
+    useEffect(() => {
+        if (product) {
+            const related = productsData
+                .filter((p) => p.category === product.category && p.id !== product.id)
+                .slice(0, 8);
+            setRelatedProducts(related);
+        }
+    }, [product]);
+
+    if (!product) return null;
+
+    const originalPrice = product.price;
+    const salePrice = product.sale > 0 ? product.price * (1 - product.sale / 100) : null;
+
+    const handleAddToCart = async () => {
+        if (!selectedSize) {
+            toast.error("Please select a size");
+            return;
+        }
+        if (!selectedColor) {
+            toast.error("Please select a color");
+            return;
+        }
+        setIsLoading(true);
+        console.log(selectedSize);
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        await handleCartAction({ ...product, size: selectedSize, color: selectedColor, quantity });
+        setIsLoading(false);
+    };
+
+    const handleBuyNow = async () => {
+        if (!selectedSize || !selectedColor) {
+            toast.error("Please select size and color");
+            return;
+        }
+        await handleCartAction({ ...product, size: selectedSize, color: selectedColor, quantity }, false);
+        navigate("/checkout");
+    };
+
+    const handleSocialShare = (platform) => {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent(`Check out this ${product.name}!`);
+
+        const shareUrls = {
+            facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+            twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+            pinterest: `https://pinterest.com/pin/create/button/?url=${url}&description=${text}&media=${encodeURIComponent(
+                product.images[0],
+            )}`,
         };
 
-        // Get cart from localStorage
-        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-
-        // Check if product already exists in cart
-        const existingItemIndex = cart.findIndex(
-            (item) =>
-                item.productId === cartItem.productId && item.model === cartItem.model && item.size === cartItem.size,
-        );
-
-        if (existingItemIndex !== -1) {
-            cart[existingItemIndex].quantity += quantity;
-            toast.success("Updated quantity in cart!");
-        } else {
-            cart.push(cartItem);
-            toast.success("Added to cart!");
-        }
-
-        localStorage.setItem("cart", JSON.stringify(cart));
+        window.open(shareUrls[platform], "_blank", "width=600,height=400");
     };
 
-    if (!product) return <div>Loading...</div>;
-
-    const calculateFinalPrice = () => {
-        const originalPrice = product.models[selectedModel]?.price || 0;
-        if (product.sale > 0) {
-            return originalPrice * (1 - product.sale / 100);
-        }
-        return originalPrice;
-    };
-
-    // Thêm các hàm xử lý chia sẻ
-    const handleFacebookShare = () => {
-        const url = window.location.href;
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, "_blank");
-    };
-
-    const handleTwitterShare = () => {
-        const url = window.location.href;
-        const text = `Check out ${product.name}!`;
-        window.open(
-            `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
-            "_blank",
-        );
-    };
-
-    const handlePinterestShare = () => {
-        const url = window.location.href;
-        const media = product.images[0]; // Sử dụng ảnh đầu tiên
-        const description = product.name;
-        window.open(
-            `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&media=${encodeURIComponent(
-                media,
-            )}&description=${encodeURIComponent(description)}`,
-            "_blank",
-        );
-    };
-
-    const handleShare = async () => {
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: product.name,
-                    text: `Check out ${product.name}!`,
-                    url: window.location.href,
-                });
-            } catch (error) {
-                console.log("Error sharing:", error);
-            }
-        } else {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url);
-            toast.success("Link copied!");
-        }
+    const handleShare = () => {
+        navigator
+            .share({
+                title: product.name,
+                text: `Check out this ${product.name}!`,
+                url: window.location.href,
+            })
+            .catch(() => {
+                navigator.clipboard.writeText(window.location.href);
+                toast.success("Link copied to clipboard!");
+            });
     };
 
     return (
-        <section className="product">
-            {/* <Toaster
-                position="top-right"
-                toastOptions={{
-                    duration: 3000,
-                    style: {
-                        background: "#fff",
-                        color: "#363636",
-                    },
-                }}
-            /> */}
+        <motion.section
+            className="product"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+        >
             <div className="container">
+                {/* Breadcrumb */}
+                <nav className="product__breadcrumb">
+                    <Link to="/">Home</Link>
+                    <ChevronRight size={16} />
+                    <Link to="/category/all-product">Shop</Link>
+                    <ChevronRight size={16} />
+                    <span>{product.name}</span>
+                </nav>
+
                 <div className="product__grid">
+                    {/* Images Section */}
                     <div className="product__images">
-                        <div className="product__image-main">
+                        <motion.div
+                            className={clsx("product__image-main", isZoomed && "zoomed")}
+                            onHoverStart={() => setIsZoomed(true)}
+                            onHoverEnd={() => setIsZoomed(false)}
+                        >
+                            {product.sale > 0 && <span className="product__sale-badge">-{product.sale}%</span>}
                             <img src={product.images[selectedImage]} alt={product.name} />
-                        </div>
+                        </motion.div>
                         <div className="product__image-gallery">
                             {product.images.map((image, index) => (
-                                <div
+                                <motion.div
                                     key={index}
-                                    className={`product__image-thumbnail ${selectedImage === index ? "active" : ""}`}
+                                    className={clsx("product__image-thumbnail", selectedImage === index && "active")}
                                     onClick={() => setSelectedImage(index)}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
                                 >
-                                    <img src={image} alt={`${product.name} ${index + 1}`} />
-                                </div>
+                                    <img src={image} alt={`${product.name} view ${index + 1}`} />
+                                </motion.div>
                             ))}
                         </div>
                     </div>
 
-                    <div className="product__body">
-                        <div className="product__breadcrumb">
-                            <a href="/">Home</a>
-                            <span>/</span>
-                            <span>{product.name}</span>
+                    {/* Product Info */}
+                    <div className="product__info">
+                        <div className="product__header">
+                            <h1 className="product__title">{product.name}</h1>
+                            <div className="product__meta">
+                                <span className="product__category">{product.category}</span>
+                                <div className="product__rating">
+                                    {[...Array(5)].map((_, i) => (
+                                        <Star key={i} size={16} fill="#FFD700" color="#FFD700" />
+                                    ))}
+                                    <span>(50 reviews)</span>
+                                </div>
+                            </div>
                         </div>
 
-                        <h2 className="product__title">{product.name}</h2>
-
-                        <div className="product__price-wrapper">
-                            <span className="product__price">
-                                {new Intl.NumberFormat("vi-VN", {
-                                    style: "currency",
-                                    currency: "VND",
-                                }).format(calculateFinalPrice())}
-                            </span>
-                            {product.sale > 0 && (
-                                <span className="product__price--old">
-                                    {new Intl.NumberFormat("vi-VN", {
-                                        style: "currency",
-                                        currency: "VND",
-                                    }).format(product.models[selectedModel]?.price)}
-                                </span>
+                        <div className="product__price">
+                            {salePrice ? (
+                                <>
+                                    <span className="product__price-sale">${salePrice.toFixed(2)}</span>
+                                    <span className="product__price-original">${originalPrice.toFixed(2)}</span>
+                                </>
+                            ) : (
+                                <span className="product__price-regular">${originalPrice.toFixed(2)}</span>
                             )}
                         </div>
 
-                        <div className="product__variant">
-                            <div className="product__variant-label">
-                                <span>Model:</span>
-                                <span>{selectedModel}</span>
+                        {/* Size Selection */}
+                        <div className="product__sizes">
+                            <div className="product__option-header">
+                                <h3>Select Size</h3>
+                                <button
+                                    className="product__size-guide"
+                                    onClick={() => setShowSizeGuide(!showSizeGuide)}
+                                >
+                                    <Ruler size={18} />
+                                    Size Guide
+                                </button>
                             </div>
-                            <div className="product__model-options">
-                                {Object.keys(product.models).map((model) => (
-                                    <button
-                                        key={model}
-                                        className={`product__model-option ${selectedModel === model ? "active" : ""}`}
-                                        onClick={() => setSelectedModel(model)}
+                            <AnimatePresence>
+                                {showSizeGuide && (
+                                    <motion.div
+                                        className="product__size-guide-content"
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
                                     >
-                                        {model}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="product__variant">
-                            <div className="product__variant-label">
-                                <span>Size:</span>
-                                <span>{selectedSize}</span>
-                            </div>
+                                        {/* Size guide content */}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                             <div className="product__size-options">
-                                {availableSizes.map((size) => (
+                                {product.sizes.map((size) => (
                                     <button
                                         key={size}
-                                        className={`product__size-option ${selectedSize === size ? "active" : ""}`}
+                                        className={clsx("product__size-option", selectedSize === size && "active")}
                                         onClick={() => setSelectedSize(size)}
                                     >
                                         {size}
@@ -227,96 +236,238 @@ export default function Product() {
                             </div>
                         </div>
 
+                        {/* Color Selection */}
+                        <div className="product__colors">
+                            <h3>Select Color</h3>
+                            <div className="product__color-options">
+                                {product.colors.map((color) => (
+                                    <Tooltip content={color}>
+                                        <button
+                                            key={color}
+                                            className={clsx(
+                                                "product__color-option",
+                                                selectedColor === color && "active",
+                                            )}
+                                            onClick={() => setSelectedColor(color)}
+                                            style={{ backgroundColor: color.toLowerCase() }}
+                                        ></button>
+                                    </Tooltip>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Quantity */}
                         <div className="product__quantity">
-                            <label className="product__quantity-label">Quantity</label>
-                            <div className="product__quantity-input">
-                                <button
-                                    className="product__quantity-button"
-                                    onClick={() => handleQuantityChange(-1)}
-                                    disabled={quantity <= 1}
-                                >
-                                    <Minus size={16} />
-                                </button>
-                                <input
-                                    type="number"
-                                    className="product__quantity-number"
-                                    value={quantity}
-                                    onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                                    min="1"
-                                />
-                                <button className="product__quantity-button" onClick={() => handleQuantityChange(1)}>
-                                    <Plus size={16} />
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="product__buttons">
-                            <button
-                                className="product__add-to-cart"
-                                onClick={addToCart}
-                                disabled={product.quantity === 0}
-                            >
-                                {product.quantity === 0 ? "Out of Stock" : "Add to Cart"}
-                            </button>
-                            <button className="product__buy-now" onClick={addToCart} disabled={product.quantity === 0}>
-                                {product.quantity === 0 ? "Out of Stock" : "Buy Now"}
-                            </button>
-                        </div>
-
-                        <div className="product__secure">Guaranteed safe checkout</div>
-                        <div className="product__payment">
-                            <img src="/assets/icon/visa.svg" alt="Visa" className="footer__payment-img" />
-                            <img src="/assets/icon/mastercard.svg" alt="Mastercard" className="footer__payment-img" />
-                            <img src="/assets/icon/amex.svg" alt="American Express" className="footer__payment-img" />
-                            <img src="/assets/icon/paypal.svg" alt="PayPal" className="footer__payment-img" />
-                            <img src="/assets/icon/diners.svg" alt="Diners Club" className="dinersclub-img" />
-                            <img src="/assets/icon/discover.svg" alt="Discover" className="footer__payment-img" />
-                        </div>
-
-                        <div className="product__details">
-                            <div className="product__details-header" onClick={() => setIsDetailsOpen(!isDetailsOpen)}>
-                                <h3 className="product__details-title">Details</h3>
-                                {isDetailsOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                            </div>
-                            {isDetailsOpen && (
-                                <div className="product__details-content">
-                                    <p>
-                                        Our Slim-Fit Formal Suit Blazer is crafted from premium materials for a
-                                        sophisticated look. Features include:
-                                    </p>
-                                    <ul>
-                                        <li>Slim fit design</li>
-                                        <li>Notched lapels</li>
-                                        <li>Two-button closure</li>
-                                        <li>Front flap pockets</li>
-                                        <li>Four-button cuffs</li>
-                                        <li>Center back vent</li>
-                                    </ul>
+                            <h3>Quantity</h3>
+                            <div className="product__quantity-wrap">
+                                <div className="product__quantity-input">
+                                    <button
+                                        className="product__quantity-button"
+                                        onClick={() => quantity > 1 && setQuantity((q) => q - 1)}
+                                    >
+                                        -
+                                    </button>
+                                    <input
+                                        type="number"
+                                        className="product__quantity-number"
+                                        value={quantity}
+                                        onChange={(e) => {
+                                            const val = parseInt(e.target.value);
+                                            if (val > 0 && val <= product.quantity) {
+                                                setQuantity(val);
+                                            }
+                                        }}
+                                        min="1"
+                                        max={product.quantity}
+                                    />
+                                    <button
+                                        className="product__quantity-button"
+                                        onClick={() => quantity < product.quantity && setQuantity((q) => q + 1)}
+                                    >
+                                        +
+                                    </button>
                                 </div>
-                            )}
+                                <motion.button
+                                    className="btn btn--primary product__add-to-cart"
+                                    onClick={handleAddToCart}
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    {isLoading ? (
+                                        <img
+                                            src="/assets/icon/loading.gif"
+                                            alt="Loading..."
+                                            className="loading-spinner"
+                                        />
+                                    ) : (
+                                        <>
+                                            <ShoppingCart size={20} />
+                                            Add to Cart
+                                        </>
+                                    )}
+                                </motion.button>
+                            </div>
                         </div>
 
-                        <div className="product__share">
-                            <button className="product__share-button" onClick={handleFacebookShare}>
-                                <Facebook size={16} />
-                                Facebook
+                        {/* Action Buttons */}
+                        <div className="product__buttons">
+                            {/* <motion.button
+                                className="btn btn--primary product__add-to-cart"
+                                onClick={handleAddToCart}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                <ShoppingCart size={20} />
+                                Add to Cart
+                            </motion.button> */}
+
+                            <motion.button
+                                className="btn btn--secondary product__buy-now"
+                                onClick={handleBuyNow}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                <ExternalLink size={20} />
+                                Buy Now
+                            </motion.button>
+
+                            <motion.button
+                                className={clsx(
+                                    "btn btn--secondary product__add-to-wishlist",
+                                    isProductInWishlist(product.id) && "active",
+                                )}
+                                onClick={() => handleWishlistAction(product)}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <Heart size={20} style={{ color: "currentColor" }} />
+                            </motion.button>
+
+                            <div className="product__share-container">
+                                <motion.button
+                                    className="btn btn--secondary product__share"
+                                    onClick={() => setShowShareMenu(!showShareMenu)}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <Share2 size={20} />
+                                </motion.button>
+
+                                {showShareMenu && (
+                                    <div className="product__share-menu">
+                                        <button onClick={() => handleSocialShare("facebook")}>
+                                            <Facebook size={20} /> Facebook
+                                        </button>
+                                        <button onClick={() => handleSocialShare("twitter")}>
+                                            <Twitter size={20} /> Twitter
+                                        </button>
+                                        {/* <button onClick={() => handleSocialShare("pinterest")}>
+                                            <Pinterest size={20} /> Pinterest
+                                        </button> */}
+                                        <button onClick={handleShare}>
+                                            <MoreHorizontal size={20} /> More
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Features */}
+                        <div className="product__features">
+                            <div className="product__feature">
+                                <Truck size={24} />
+                                <div>
+                                    <h4>Free Shipping</h4>
+                                    <p>On orders over $100</p>
+                                </div>
+                            </div>
+                            <div className="product__feature">
+                                <Shield size={24} />
+                                <div>
+                                    <h4>Secure Payment</h4>
+                                    <p>100% secure payment</p>
+                                </div>
+                            </div>
+                            <div className="product__feature">
+                                <RefreshCw size={24} />
+                                <div>
+                                    <h4>Easy Returns</h4>
+                                    <p>14 day return policy</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Product Details */}
+                        <div className="product__details">
+                            <button
+                                className="product__details-toggle"
+                                onClick={() => setShowDescription(!showDescription)}
+                            >
+                                <h3>Product Details</h3>
+                                {showDescription ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                             </button>
-                            <button className="product__share-button" onClick={handleTwitterShare}>
-                                <Twitter size={16} />
-                                Twitter
-                            </button>
-                            <button className="product__share-button" onClick={handlePinterestShare}>
-                                <PinIcon size={16} />
-                                Pin it
-                            </button>
-                            <button className="product__share-button" onClick={handleShare}>
-                                <Share2 size={16} />
-                                Share more
-                            </button>
+                            <AnimatePresence>
+                                {showDescription && (
+                                    <motion.div
+                                        className="product__details-content"
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                    >
+                                        <div className="product__details-grid">
+                                            <div className="product__detail-item">
+                                                <span>Category</span>
+                                                <strong>{product.category}</strong>
+                                            </div>
+                                            <div className="product__detail-item">
+                                                <span>Education Level</span>
+                                                <strong>{product.education_levels}</strong>
+                                            </div>
+                                            <div className="product__detail-item">
+                                                <span>Gender</span>
+                                                <strong>{product.gender}</strong>
+                                            </div>
+                                            <div className="product__detail-item">
+                                                <span>Available Colors</span>
+                                                <strong>{product.colors.join(", ")}</strong>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </div>
                 </div>
+
+                {/* Related Products */}
+                <section className="related-products">
+                    <h2>Related Products</h2>
+                    <Swiper
+                        modules={[Navigation, Pagination]}
+                        spaceBetween={20}
+                        slidesPerView={4}
+                        navigation
+                        breakpoints={{
+                            320: { slidesPerView: 1 },
+                            640: { slidesPerView: 2 },
+                            768: { slidesPerView: 3 },
+                            1024: { slidesPerView: 4 },
+                        }}
+                    >
+                        {relatedProducts.map((product) => (
+                            <SwiperSlide key={product.id}>
+                                <Link to={`/product/${product.slug}`} className="related-product">
+                                    <div className="related-product__image">
+                                        <img src={product.thumbnail} alt={product.name} />
+                                    </div>
+                                    <h3>{product.name}</h3>
+                                    <p>${product.price.toFixed(2)}</p>
+                                </Link>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </section>
             </div>
-        </section>
+        </motion.section>
     );
 }

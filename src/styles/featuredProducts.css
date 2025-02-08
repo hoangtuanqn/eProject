@@ -29,6 +29,15 @@
     -o-object-fit: cover;
     object-fit: cover;
 }
+.product-card__rating-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
 
 .product-card__name {
     display: block;
@@ -90,18 +99,6 @@
     transform: translateX(-3px);
 }
 
-.product-card__wrapper::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
 .product-card__wrapper:hover::after {
     opacity: 1;
 }
@@ -124,7 +121,7 @@
 }
 
 .product-actions {
-    z-index: 2;  /* Đảm bảo nút action hiển thị trên cùng */
+    z-index: 2; /* Đảm bảo nút action hiển thị trên cùng */
 }
 
 /* Responsive */

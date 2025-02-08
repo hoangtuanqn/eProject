@@ -27,9 +27,11 @@
     width: 100%;
     object-fit: cover;
 }
-
+.wish-list-wrap {
+    padding: 15px 0 10px;
+}
 .wish-list-item:hover .wish-list-item__image img {
-    transform: scale(1.05);
+    transform: scale(1.2);
 }
 
 .wish-list-item__name {
@@ -58,8 +60,8 @@
 }
 
 .action-btn {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     border: none;
     background: white;
