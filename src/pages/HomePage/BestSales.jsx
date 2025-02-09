@@ -1,14 +1,16 @@
 import React, { memo } from "react";
 import "../../styles/bestSales.css"; // Import CSS Module
 import productData from "../../data/products.json";
-import { Heart } from "lucide-react";
+import { Heart, HeartOff } from "lucide-react";
 import { useCartActions } from "../../utils/handleCart";
 import { useWishlistActions } from "../../utils/handleWishlist";
 import { Rating } from "@mui/material";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { Link } from "react-router-dom";
+import { calculateOriginalPrice } from "../../utils/helpers";
 const BestSales = () => {
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
+
     /*Sản phẩm được sắp xếp theo tiêu chí => Rating và doanh thu cao*/
     // Tính toán doanh thu và sắp xếp sản phẩm
     const bestSellingProducts = productData
@@ -90,7 +92,11 @@ const BestSales = () => {
                                                         className="loading-spinner"
                                                     />
                                                 ) : (
-                                                    <Heart className="best-sales-item__icon" />
+                                                    isProductInWishlist(id) ? (
+                                                        <HeartOff size={20} />
+                                                    ) : (
+                                                        <Heart size={20} />
+                                                    )
                                                 )}
                                             </button>
                                         </div>
@@ -118,56 +124,19 @@ const BestSales = () => {
                                             <span className="best-sales-item__rating-value">({rating.toFixed(1)})</span>
                                         </div>
                                         <div className="best-sales-item__sold-wrap">
-                                            <TrendingUpIcon sx={{ fontSize: 16 }} />
                                             <span className="best-sales-item__sold">
-                                                {soldQuantity.toLocaleString()} sold
+                                                {soldQuantity.toLocaleString()} purchases
                                             </span>
+                                            <TrendingUpIcon sx={{ fontSize: 16 }} />
                                         </div>
                                         {/* Nút thêm vào giỏ hàng và yêu thích */}
-                                        <div className="best-sales-item__actions">
-                                            {/* <button
-                                        className={`cart-btn ${cartLoadingStates[id] ? "loading" : ""} ${
-                                            inCart ? "in-cart" : ""
-                                        }`}
-                                        onClick={() => handleCartAction(productData.find((p) => p.id === id))}
-                                        disabled={cartLoadingStates[id]}
-                                    >
-                                        {cartLoadingStates[id] ? (
-                                            <img
-                                                src="/assets/icon/loading.gif"
-                                                alt="Loading..."
-                                                className="loading-spinner"
-                                            />
-                                        ) : (
-                                            <ShoppingCartIcon className="best-sales-item__icon" />
-                                        )}
-                                    </button> */}
-                                            {/* <button
-                                                className={`cart-btn ${wishlistLoadingStates[id] ? "loading" : ""} ${
-                                                    isProductInWishlist(id) ? "in-cart" : ""
-                                                }`}
-                                                onClick={() =>
-                                                    handleWishlistAction(productData.find((p) => p.id === id))
-                                                }
-                                                disabled={wishlistLoadingStates[id]}
-                                            >
-                                                {wishlistLoadingStates[id] ? (
-                                                    <img
-                                                        src="/assets/icon/loading.gif"
-                                                        alt="Loading..."
-                                                        className="loading-spinner"
-                                                    />
-                                                ) : (
-                                                    <Heart className="best-sales-item__icon" />
-                                                )}
-                                            </button> */}
-                                        </div>
+                                        <div className="best-sales-item__actions"></div>
                                         {/* Hiển thị giá và giá cũ nếu có giảm giá */}
                                         <p className="best-sales-item__price">
                                             ${price}
                                             {sale > 0 && (
                                                 <span className="best-sales-item__price--old">
-                                                    ${Math.round(price * (1 + sale / 100))}
+                                                    ${calculateOriginalPrice(price, sale)}
                                                 </span>
                                             )}
                                         </p>

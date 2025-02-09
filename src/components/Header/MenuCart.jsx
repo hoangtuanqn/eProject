@@ -1,16 +1,16 @@
-import React, { useRef, useEffect, useState, forwardRef, useLayoutEffect, useCallback } from "react";
+import React, { forwardRef, useCallback, useEffect, useLayoutEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { closeWithAnimation, handleClickOutside } from "../../utils/menuHelpers";
-import "../../styles/menuCart.css";
 import { Trash2, X } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import clsx from "clsx";
+import { closeWithAnimation, handleClickOutside } from "../../utils/menuHelpers";
+import { useCartActions, handleCheckQuantity } from "../../utils/handleCart";
+import { useGlobalState } from "../../context/GlobalContext";
 import categories from "../../data/categories.json";
 import products from "../../data/products.json";
-import clsx from "clsx";
-import { useCartActions } from "../../utils/handleCart";
-import { useGlobalState } from "../../context/GlobalContext";
-import { useLocation } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import "../../styles/menuCart.css";
+
 const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
     const {
         cartQuantity,
@@ -71,10 +71,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
 
     const handleQuantityInput = (id, maxQuantity, value) => {
         value = parseInt(value);
-        if (value > maxQuantity) {
-            window.alert("Current store only " + maxQuantity + " products left");
-            return;
-        }
+        if (!handleCheckQuantity(maxQuantity, value)) return;
         const newQuantity = Math.max(1, parseInt(value) || 1);
         // Update state
 
@@ -86,6 +83,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                 return item;
             }),
         );
+        setCartQuantityTemp((prev) => !prev);
 
         // Update localStorage
         const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
@@ -162,7 +160,8 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                     <AnimatePresence mode="popLayout">
                         {cartItems.length > 0 ? (
                             cartItems.map((item) => {
-                                const categoryProduct = categories.find((cate) => cate.name === item.category);
+                                const categoryProduct = categories.find((c) => c.id === item.categoryId);
+                                const itemProductOrigin = products.find((p) => p.id === item.id);
                                 return (
                                     <motion.article
                                         key={`${item.id}-${item.size}-${item.color}`}
@@ -223,7 +222,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                                     onClick={() =>
                                                         handleQuantityInput(
                                                             item.id,
-                                                            categoryProduct?.quantity,
+                                                            itemProductOrigin.quantity,
                                                             item.quantity - 1,
                                                         )
                                                     }
@@ -236,29 +235,29 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                                     className="product__quantity-number"
                                                     onChange={(e) => {
                                                         const val = parseInt(e.target.value);
-                                                        if (val > categoryProduct?.quantity) {
+                                                        if (val > itemProductOrigin.quantity) {
                                                             toast.error(
                                                                 "Current store only " +
-                                                                    categoryProduct?.quantity +
+                                                                    itemProductOrigin.quantity +
                                                                     " products left",
                                                             );
                                                         } else {
                                                             handleQuantityInput(
                                                                 item.id,
-                                                                categoryProduct?.quantity,
+                                                                itemProductOrigin.quantity,
                                                                 e.target.value,
                                                             );
                                                         }
                                                     }}
                                                     min="1"
-                                                    max={categoryProduct?.quantity}
+                                                    max={itemProductOrigin.quantity}
                                                 />
                                                 <button
                                                     className="product__quantity-button"
                                                     onClick={() =>
                                                         handleQuantityInput(
                                                             item.id,
-                                                            categoryProduct?.quantity,
+                                                            itemProductOrigin.quantity,
                                                             item.quantity + 1,
                                                         )
                                                     }

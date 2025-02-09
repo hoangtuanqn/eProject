@@ -69,7 +69,7 @@
 .best-sales-item__price {
     font-size: 1.6rem;
     font-weight: 600;
-    color: var(--color-grey-7);
+    color: #ff4757;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -163,7 +163,6 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    color: #ff4757;
     font-weight: 500;
 }
 

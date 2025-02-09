@@ -3,20 +3,22 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
-import { DoorClosedIcon as CloseIcon, FilterIcon, ShoppingCart, Heart } from "lucide-react";
+import { DoorClosedIcon as CloseIcon, FilterIcon, Heart, HeartOff } from "lucide-react";
 import toast from "react-hot-toast";
 
-import NotData from "../../components/NotData";
 import "../../styles/category.css";
+import NotData from "../../components/NotData";
 import productData from "../../data/products.json";
 import categoriesData from "../../data/categories.json";
 import { useCartActions } from "../../utils/handleCart";
 import { useWishlistActions } from "../../utils/handleWishlist";
+import { calculateOriginalPrice } from "../../utils/helpers";
 
 export default function Category({ nameCategory }) {
     const navigate = useNavigate();
     const { slug } = useParams();
     const [selectedAvailability, setSelectedAvailability] = useState([]);
+    const [isChecking, setIsChecking] = useState(true);
     const [selectedSizes, setSelectedSizes] = useState([]);
     const [selectedEducationLevels, setSelectedEducationLevels] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
@@ -79,8 +81,8 @@ export default function Category({ nameCategory }) {
         if (!categoryExists) {
             navigate("/404", { replace: true });
         }
+        setIsChecking(false);
     }, [slug, navigate]);
-
     // Tự động chọn category dựa trên slug
 
     useEffect(() => {
@@ -133,14 +135,6 @@ export default function Category({ nameCategory }) {
     const getMinPrice = useCallback((product) => {
         if (!product.models) return product.price;
         return Math.min(...Object.values(product.models).map((model) => model.price));
-    }, []);
-
-    // Sửa lại hàm calculateSalePrice và thêm hàm calculateOriginalPrice
-    const calculateOriginalPrice = useCallback((finalPrice, salePercentage) => {
-        if (!salePercentage) return finalPrice;
-        // Ví dụ: finalPrice = 100, sale = 50%
-        // => originalPrice = 100 / (1 - 0.5) = 100 / 0.5 = 200
-        return finalPrice / (1 - salePercentage / 100);
     }, []);
 
     const calculateSalePrice = useCallback((originalPrice, salePercentage) => {
@@ -208,7 +202,7 @@ export default function Category({ nameCategory }) {
 
     useEffect(() => {
         if (slug !== "all-product") {
-            setSelectedCategories([categoriesData.find((cat) => cat.slug === slug).name]);
+            setSelectedCategories([categoriesData.find((cat) => cat.slug === slug)?.name]);
         }
     }, [slug]);
 
@@ -295,14 +289,18 @@ export default function Category({ nameCategory }) {
                 return sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
             case "price_low_high":
                 return sortedProducts.sort((a, b) => {
-                    const priceA = a.sale > 0 ? a.price * (1 - a.sale / 100) : a.price;
-                    const priceB = b.sale > 0 ? b.price * (1 - b.sale / 100) : b.price;
+                    // const priceA = a.sale > 0 ? a.price * (1 - a.sale / 100) : a.price;
+                    // const priceB = b.sale > 0 ? b.price * (1 - b.sale / 100) : b.price;
+                    const priceA = a.price;
+                    const priceB = b.price;
                     return priceA - priceB;
                 });
             case "price_high_low":
                 return sortedProducts.sort((a, b) => {
-                    const priceA = a.sale > 0 ? a.price * (1 - a.sale / 100) : a.price;
-                    const priceB = b.sale > 0 ? b.price * (1 - b.sale / 100) : b.price;
+                    // const priceA = a.sale > 0 ? a.price * (1 - a.sale / 100) : a.price;
+                    // const priceB = b.sale > 0 ? b.price * (1 - b.sale / 100) : b.price;
+                    const priceA = a.price;
+                    const priceB = b.price;
                     return priceB - priceA;
                 });
             default:
@@ -578,372 +576,166 @@ export default function Category({ nameCategory }) {
     }, [tempMobileFilters, slug, navigate]);
 
     return (
-        <section className="category">
-            <div className="container">
-                <div className="category__header">
-                    <div className="category__filter-icon">
-                        <span className="category__product-col" onClick={() => handleColumnChange(2)}>
-                            <svg
-                                className={displayColumns === 2 ? "category__product--opcity" : undefined}
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <rect x="3" y="4" width="2" height="15" fill="black" />
-                                <rect x="7" y="4" width="2" height="15" fill="black" />
-                            </svg>
+        <>
+            <section className="category">
+                <div className="container">
+                    <div className="category__header">
+                        <div className="category__filter-icon">
+                            <span className="category__product-col" onClick={() => handleColumnChange(2)}>
+                                <svg
+                                    className={displayColumns === 2 ? "category__product--opcity" : undefined}
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect x="3" y="4" width="2" height="15" fill="black" />
+                                    <rect x="7" y="4" width="2" height="15" fill="black" />
+                                </svg>
+                            </span>
+                            <span className="category__product-col" onClick={() => handleColumnChange(3)}>
+                                <svg
+                                    className={displayColumns === 3 ? "category__product--opcity" : undefined}
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect x="2" y="4" width="2" height="15" fill="black" />
+                                    <rect x="6" y="4" width="2" height="15" fill="black" />
+                                    <rect x="10" y="4" width="2" height="15" fill="black" />
+                                </svg>
+                            </span>
+                            <span className="category__product-col" onClick={() => handleColumnChange(4)}>
+                                <svg
+                                    className={displayColumns === 4 ? "category__product--opcity" : undefined}
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect x="2" y="4" width="2" height="15" fill="black" />
+                                    <rect x="6" y="4" width="2" height="15" fill="black" />
+                                    <rect x="10" y="4" width="2" height="15" fill="black" />
+                                    <rect x="14" y="4" width="2" height="15" fill="black" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div className="category__sort dfbetween">
+                            <label className="sort__name">Sort by:</label>
+                            <select name="sort__by" className="sort__by" onChange={handleSortChange} value={sortOption}>
+                                <option value="newest">Newest</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="az">Alphabetically, A-Z</option>
+                                <option value="za">Alphabetically, Z-A</option>
+                                <option value="price_low_high">Price, low to high</option>
+                                <option value="price_high_low">Price, high to low</option>
+                            </select>
+                            <span className="sort__count-product">{filteredProducts.length} products</span>
+                        </div>
+                    </div>
+
+                    <button className="mobile-filter-toggle" onClick={toggleMobileFilter}>
+                        <span>
+                            <FilterIcon size={16} />
+                            Filter and sort
                         </span>
-                        <span className="category__product-col" onClick={() => handleColumnChange(3)}>
-                            <svg
-                                className={displayColumns === 3 ? "category__product--opcity" : undefined}
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <rect x="2" y="4" width="2" height="15" fill="black" />
-                                <rect x="6" y="4" width="2" height="15" fill="black" />
-                                <rect x="10" y="4" width="2" height="15" fill="black" />
-                            </svg>
-                        </span>
-                        <span className="category__product-col" onClick={() => handleColumnChange(4)}>
-                            <svg
-                                className={displayColumns === 4 ? "category__product--opcity" : undefined}
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <rect x="2" y="4" width="2" height="15" fill="black" />
-                                <rect x="6" y="4" width="2" height="15" fill="black" />
-                                <rect x="10" y="4" width="2" height="15" fill="black" />
-                                <rect x="14" y="4" width="2" height="15" fill="black" />
-                            </svg>
-                        </span>
-                    </div>
-                    <div className="category__sort dfbetween">
-                        <label className="sort__name">Sort by:</label>
-                        <select name="sort__by" className="sort__by" onChange={handleSortChange} value={sortOption}>
-                            <option value="newest">Newest</option>
-                            <option value="oldest">Oldest</option>
-                            <option value="az">Alphabetically, A-Z</option>
-                            <option value="za">Alphabetically, Z-A</option>
-                            <option value="price_low_high">Price, low to high</option>
-                            <option value="price_high_low">Price, high to low</option>
-                        </select>
-                        <span className="sort__count-product">{filteredProducts.length} products</span>
-                    </div>
-                </div>
+                    </button>
 
-                <button className="mobile-filter-toggle" onClick={toggleMobileFilter}>
-                    <span>
-                        <FilterIcon size={16} />
-                        Filter and sort
-                    </span>
-                </button>
-
-                <div className={`mobile-filter-drawer ${isMobileFilterOpen ? "active" : ""}`}>
-                    <div className="mobile-filter-header">
-                        <h2 className="mobile-filter-title">Filter and sort</h2>
-                        <button className="mobile-filter-close" onClick={toggleMobileFilter}>
-                            <CloseIcon size={24} />
-                        </button>
-                    </div>
-                    <div className="mobile-filter-content">
-                        {/* Search - Updated with tempMobileFilters */}
-                        <div className="filter__category">
-                            <div className="filter__category-top">
-                                <h3>Search Products</h3>
-                            </div>
-                            <div className="filter__content">
-                                <div className="filter__search">
-                                    <input
-                                        type="text"
-                                        className="price-range__input-field"
-                                        placeholder="Search products..."
-                                        value={tempMobileFilters.searchTerm}
-                                        onChange={(e) => handleMobileSearchChange(e.target.value)}
-                                    />
+                    <div className={`mobile-filter-drawer ${isMobileFilterOpen ? "active" : ""}`}>
+                        <div className="mobile-filter-header">
+                            <h2 className="mobile-filter-title">Filter and sort</h2>
+                            <button className="mobile-filter-close" onClick={toggleMobileFilter}>
+                                <CloseIcon size={24} />
+                            </button>
+                        </div>
+                        <div className="mobile-filter-content">
+                            {/* Search - Updated with tempMobileFilters */}
+                            <div className="filter__category">
+                                <div className="filter__category-top">
+                                    <h3>Search Products</h3>
                                 </div>
-                            </div>
-                        </div>
-
-                        {/* Categories */}
-                        <div className="filter__category">
-                            <div className="filter__category-top">
-                                <h3>Categories</h3>
-                            </div>
-                            <div className="filter__content">
-                                {categoriesData.map((category) => (
-                                    <label key={category.id} className="checkbox-label">
-                                        <input
-                                            type="checkbox"
-                                            checked={tempMobileFilters.categories.includes(category.name)}
-                                            onChange={() => handleMobileCategoryChange(category.name)}
-                                        />
-                                        <span className="checkbox-custom"></span>
-                                        {category.name}
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Sizes */}
-                        <div className="filter__category">
-                            <div className="filter__category-top">
-                                <h3>Sizes</h3>
-                            </div>
-                            <div className="filter__content">
-                                {sizeOptions.map((size) => (
-                                    <label key={size} className="checkbox-label">
-                                        <input
-                                            type="checkbox"
-                                            checked={tempMobileFilters.sizes.includes(size)}
-                                            onChange={() => handleMobileSizeChange(size)}
-                                        />
-                                        <span className="checkbox-custom"></span>
-                                        {size}
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Education Levels */}
-                        <div className="filter__category">
-                            <div className="filter__category-top">
-                                <h3>Education Levels</h3>
-                            </div>
-                            <div className="filter__content">
-                                {educationOptions.map((level) => (
-                                    <label key={level} className="checkbox-label">
-                                        <input
-                                            type="checkbox"
-                                            checked={tempMobileFilters.educationLevels.includes(level)}
-                                            onChange={() => handleMobileEducationChange(level)}
-                                        />
-                                        <span className="checkbox-custom"></span>
-                                        {level}
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Price Range */}
-                        <div className="filter__category">
-                            <div className="filter__category-top">
-                                <h3>Price Range</h3>
-                            </div>
-                            <div className="price-range">
-                                <div className="price-range__inputs">
-                                    <div className="price-range__input-group">
-                                        <span className="price-range__currency">$</span>
-                                        <input
-                                            type="number"
-                                            name="min"
-                                            className="price-range__input-field"
-                                            value={tempMobileFilters.priceRange.min}
-                                            onChange={(e) =>
-                                                handleMobilePriceChange(
-                                                    e.target.value,
-                                                    tempMobileFilters.priceRange.max,
-                                                )
-                                            }
-                                            onBlur={handlePriceInputBlur}
-                                            min="1"
-                                            max="999"
-                                        />
-                                    </div>
-                                    <span className="price-range__separator">to</span>
-                                    <div className="price-range__input-group">
-                                        <span className="price-range__currency">$</span>
-                                        <input
-                                            type="number"
-                                            name="max"
-                                            className="price-range__input-field"
-                                            value={tempMobileFilters.priceRange.max}
-                                            onChange={(e) =>
-                                                handleMobilePriceChange(
-                                                    tempMobileFilters.priceRange.min,
-                                                    e.target.value,
-                                                )
-                                            }
-                                            onBlur={handlePriceInputBlur}
-                                            min="1"
-                                            max="999"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="price-range__slider">
-                                    <div className="price-range__track"></div>
-                                    <div
-                                        className="price-range__progress"
-                                        style={{
-                                            left: `${((tempMobileFilters.priceRange.min - 1) / (999 - 1)) * 100}%`,
-                                            right: `${
-                                                100 - ((tempMobileFilters.priceRange.max - 1) / (999 - 1)) * 100
-                                            }%`,
-                                        }}
-                                    ></div>
-                                    <input
-                                        type="range"
-                                        name="min"
-                                        min="1"
-                                        max="999"
-                                        value={tempMobileFilters.priceRange.min}
-                                        onChange={(e) =>
-                                            handleMobilePriceChange(e.target.value, tempMobileFilters.priceRange.max)
-                                        }
-                                        className="price-range__input price-range__input--left"
-                                    />
-                                    <input
-                                        type="range"
-                                        name="max"
-                                        min="1"
-                                        max="999"
-                                        value={tempMobileFilters.priceRange.max}
-                                        onChange={(e) =>
-                                            handleMobilePriceChange(tempMobileFilters.priceRange.min, e.target.value)
-                                        }
-                                        className="price-range__input price-range__input--right"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Sale Status */}
-                        <div className="filter__category">
-                            <div className="filter__category-top">
-                                <h3>Sale Status</h3>
-                            </div>
-                            <div className="filter__content">
-                                <label className="checkbox-label">
-                                    <input
-                                        type="checkbox"
-                                        checked={tempMobileFilters.sale.includes("On Sale")}
-                                        onChange={() => handleMobileSaleChange("On Sale")}
-                                    />
-                                    <span className="checkbox-custom"></span>
-                                    On Sale
-                                </label>
-                                <label className="checkbox-label">
-                                    <input
-                                        type="checkbox"
-                                        checked={tempMobileFilters.sale.includes("Regular Price")}
-                                        onChange={() => handleMobileSaleChange("Regular Price")}
-                                    />
-                                    <span className="checkbox-custom"></span>
-                                    Regular Price
-                                </label>
-                            </div>
-                        </div>
-
-                        {/* Gender */}
-                        <div className="filter__category">
-                            <div className="filter__category-top">
-                                <h3>Gender</h3>
-                            </div>
-                            <div className="filter__content">
-                                {genderOptions.map((gender) => (
-                                    <label key={gender} className="checkbox-label">
-                                        <input
-                                            type="checkbox"
-                                            checked={tempMobileFilters.genders.includes(gender)}
-                                            onChange={() => handleMobileGenderChange(gender)}
-                                        />
-                                        <span className="checkbox-custom"></span>
-                                        {gender}
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="mobile-filter-footer">
-                        <button className="mobile-filter-apply" onClick={handleApplyMobileFilters}>
-                            Apply
-                        </button>
-                    </div>
-                </div>
-
-                <div className="category__body">
-                    {/* Menu Filter PC */}
-                    <aside className="category__filter">
-                        {/* Search Filter - Quan trọng nhất vì người dùng thường tìm kiếm trực tiếp */}
-                        <div className="filter__group">
-                            <div className="filter__header" onClick={() => toggleCategory("search")}>
-                                <h3>Search Products</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={clsx("filter__icon", {
-                                        "filter__icon--active": openCategories.search,
-                                    })}
-                                />
-                            </div>
-                            {openCategories.search && (
                                 <div className="filter__content">
                                     <div className="filter__search">
                                         <input
                                             type="text"
                                             className="price-range__input-field"
                                             placeholder="Search products..."
-                                            value={searchTerm}
-                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            value={tempMobileFilters.searchTerm}
+                                            onChange={(e) => handleMobileSearchChange(e.target.value)}
                                         />
                                     </div>
                                 </div>
-                            )}
-                        </div>
-
-                        {/* Categories Filter - Quan trọng thứ hai vì phân loại chính của sản phẩm */}
-                        <div className="filter__group">
-                            <div className="filter__header" onClick={() => toggleCategory("category")}>
-                                <h3>Categories</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={clsx("filter__icon", {
-                                        "filter__icon--active": openCategories.category,
-                                    })}
-                                />
                             </div>
-                            {openCategories.category && (
+
+                            {/* Categories */}
+                            <div className="filter__category">
+                                <div className="filter__category-top">
+                                    <h3>Categories</h3>
+                                </div>
                                 <div className="filter__content">
-                                    {/* Categories checkboxes */}
                                     {categoriesData.map((category) => (
-                                        <label
-                                            key={category.id}
-                                            className={clsx("checkbox-label", {
-                                                active: selectedCategories.includes(category.name),
-                                            })}
-                                        >
+                                        <label key={category.id} className="checkbox-label">
                                             <input
                                                 type="checkbox"
-                                                checked={selectedCategories.includes(category.name)}
-                                                onChange={() => handleCategoryChange(category.name)}
+                                                checked={tempMobileFilters.categories.includes(category.name)}
+                                                onChange={() => handleMobileCategoryChange(category.name)}
                                             />
                                             <span className="checkbox-custom"></span>
                                             {category.name}
                                         </label>
                                     ))}
                                 </div>
-                            )}
-                        </div>
-
-                        {/* Price Range - Yếu tố quan trọng trong quyết định mua hàng */}
-                        <div className="filter__group">
-                            <div className="filter__header" onClick={() => toggleCategory("price")}>
-                                <h3>Price Range</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={clsx("filter__icon", { "filter__icon--active": openCategories.price })}
-                                />
                             </div>
-                            {openCategories.price && (
+
+                            {/* Sizes */}
+                            <div className="filter__category">
+                                <div className="filter__category-top">
+                                    <h3>Sizes</h3>
+                                </div>
+                                <div className="filter__content">
+                                    {sizeOptions.map((size) => (
+                                        <label key={size} className="checkbox-label">
+                                            <input
+                                                type="checkbox"
+                                                checked={tempMobileFilters.sizes.includes(size)}
+                                                onChange={() => handleMobileSizeChange(size)}
+                                            />
+                                            <span className="checkbox-custom"></span>
+                                            {size}
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Education Levels */}
+                            <div className="filter__category">
+                                <div className="filter__category-top">
+                                    <h3>Education Levels</h3>
+                                </div>
+                                <div className="filter__content">
+                                    {educationOptions.map((level) => (
+                                        <label key={level} className="checkbox-label">
+                                            <input
+                                                type="checkbox"
+                                                checked={tempMobileFilters.educationLevels.includes(level)}
+                                                onChange={() => handleMobileEducationChange(level)}
+                                            />
+                                            <span className="checkbox-custom"></span>
+                                            {level}
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Price Range */}
+                            <div className="filter__category">
+                                <div className="filter__category-top">
+                                    <h3>Price Range</h3>
+                                </div>
                                 <div className="price-range">
                                     <div className="price-range__inputs">
                                         <div className="price-range__input-group">
@@ -952,8 +744,13 @@ export default function Category({ nameCategory }) {
                                                 type="number"
                                                 name="min"
                                                 className="price-range__input-field"
-                                                value={priceInputs.min}
-                                                onChange={handlePriceInputChange}
+                                                value={tempMobileFilters.priceRange.min}
+                                                onChange={(e) =>
+                                                    handleMobilePriceChange(
+                                                        e.target.value,
+                                                        tempMobileFilters.priceRange.max,
+                                                    )
+                                                }
                                                 onBlur={handlePriceInputBlur}
                                                 min="1"
                                                 max="999"
@@ -966,8 +763,13 @@ export default function Category({ nameCategory }) {
                                                 type="number"
                                                 name="max"
                                                 className="price-range__input-field"
-                                                value={priceInputs.max}
-                                                onChange={handlePriceInputChange}
+                                                value={tempMobileFilters.priceRange.max}
+                                                onChange={(e) =>
+                                                    handleMobilePriceChange(
+                                                        tempMobileFilters.priceRange.min,
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 onBlur={handlePriceInputBlur}
                                                 min="1"
                                                 max="999"
@@ -979,8 +781,10 @@ export default function Category({ nameCategory }) {
                                         <div
                                             className="price-range__progress"
                                             style={{
-                                                left: `${((priceRange.min - 1) / (999 - 1)) * 100}%`,
-                                                right: `${100 - ((priceRange.max - 1) / (999 - 1)) * 100}%`,
+                                                left: `${((tempMobileFilters.priceRange.min - 1) / (999 - 1)) * 100}%`,
+                                                right: `${
+                                                    100 - ((tempMobileFilters.priceRange.max - 1) / (999 - 1)) * 100
+                                                }%`,
                                             }}
                                         ></div>
                                         <input
@@ -988,8 +792,13 @@ export default function Category({ nameCategory }) {
                                             name="min"
                                             min="1"
                                             max="999"
-                                            value={priceRange.min}
-                                            onChange={handlePriceRangeChange}
+                                            value={tempMobileFilters.priceRange.min}
+                                            onChange={(e) =>
+                                                handleMobilePriceChange(
+                                                    e.target.value,
+                                                    tempMobileFilters.priceRange.max,
+                                                )
+                                            }
                                             className="price-range__input price-range__input--left"
                                         />
                                         <input
@@ -997,117 +806,30 @@ export default function Category({ nameCategory }) {
                                             name="max"
                                             min="1"
                                             max="999"
-                                            value={priceRange.max}
-                                            onChange={handlePriceRangeChange}
+                                            value={tempMobileFilters.priceRange.max}
+                                            onChange={(e) =>
+                                                handleMobilePriceChange(
+                                                    tempMobileFilters.priceRange.min,
+                                                    e.target.value,
+                                                )
+                                            }
                                             className="price-range__input price-range__input--right"
                                         />
                                     </div>
                                 </div>
-                            )}
-                        </div>
-
-                        {/* Education Level - Quan trọng vì liên quan đến mục đích sử dụng */}
-                        <div className="filter__group">
-                            <div className="filter__header" onClick={() => toggleCategory("education")}>
-                                <h3>Education Level</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={clsx("filter__icon", {
-                                        "filter__icon--active": openCategories.education,
-                                    })}
-                                />
                             </div>
-                            {openCategories.education && (
-                                <div className="filter__content">
-                                    {educationOptions.map((level) => (
-                                        <label key={level} className="checkbox-label">
-                                            <input
-                                                type="checkbox"
-                                                checked={selectedEducationLevels.includes(level)}
-                                                onChange={() => handleEducationChange(level)}
-                                            />
-                                            <span className="checkbox-custom"></span>
-                                            {level}
-                                        </label>
-                                    ))}
+
+                            {/* Sale Status */}
+                            <div className="filter__category">
+                                <div className="filter__category-top">
+                                    <h3>Sale Status</h3>
                                 </div>
-                            )}
-                        </div>
-
-                        {/* Gender - Quan trọng vì ảnh hưởng trực tiếp đến việc lựa chọn */}
-                        <div className="filter__group">
-                            <div className="filter__header" onClick={() => toggleCategory("gender")}>
-                                <h3>Gender</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={clsx("filter__icon", {
-                                        "filter__icon--active": openCategories.gender,
-                                    })}
-                                />
-                            </div>
-                            {openCategories.gender && (
-                                <div className="filter__content">
-                                    {genderOptions.map((gender) => (
-                                        <label key={gender} className="checkbox-label">
-                                            <input
-                                                type="checkbox"
-                                                checked={selectedGenders.includes(gender)}
-                                                onChange={() => handleGenderChange(gender)}
-                                            />
-                                            <span className="checkbox-custom"></span>
-                                            {gender}
-                                        </label>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Sizes - Thông tin kỹ thuật của sản phẩm */}
-                        <div className="filter__group">
-                            <div className="filter__header" onClick={() => toggleCategory("sizes")}>
-                                <h3>Sizes</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={clsx("filter__icon", { "filter__icon--active": openCategories.sizes })}
-                                />
-                            </div>
-                            {openCategories.sizes && (
-                                <div className="filter__content">
-                                    {sizeOptions.map((size) => (
-                                        <label key={size} className="checkbox-label">
-                                            <input
-                                                type="checkbox"
-                                                checked={selectedSizes.includes(size)}
-                                                onChange={() => handleSizeChange(size)}
-                                            />
-                                            <span className="checkbox-custom"></span>
-                                            {size}
-                                        </label>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Sale Status - Đặt cuối cùng vì là thông tin bổ sung */}
-                        <div className="filter__group">
-                            <div className="filter__header" onClick={() => toggleCategory("sale")}>
-                                <h3>Sale Status</h3>
-                                <img
-                                    src="/assets/icon/chevron-top.svg"
-                                    alt=""
-                                    className={clsx("filter__icon", { "filter__icon--active": openCategories.sale })}
-                                />
-                            </div>
-                            {openCategories.sale && (
                                 <div className="filter__content">
                                     <label className="checkbox-label">
                                         <input
                                             type="checkbox"
-                                            checked={selectedSale.includes("On Sale")}
-                                            onChange={() => handleSelectSale("On Sale")}
+                                            checked={tempMobileFilters.sale.includes("On Sale")}
+                                            onChange={() => handleMobileSaleChange("On Sale")}
                                         />
                                         <span className="checkbox-custom"></span>
                                         On Sale
@@ -1115,163 +837,423 @@ export default function Category({ nameCategory }) {
                                     <label className="checkbox-label">
                                         <input
                                             type="checkbox"
-                                            checked={selectedSale.includes("Regular Price")}
-                                            onChange={() => handleSelectSale("Regular Price")}
+                                            checked={tempMobileFilters.sale.includes("Regular Price")}
+                                            onChange={() => handleMobileSaleChange("Regular Price")}
                                         />
                                         <span className="checkbox-custom"></span>
                                         Regular Price
                                     </label>
                                 </div>
-                            )}
+                            </div>
+
+                            {/* Gender */}
+                            <div className="filter__category">
+                                <div className="filter__category-top">
+                                    <h3>Gender</h3>
+                                </div>
+                                <div className="filter__content">
+                                    {genderOptions.map((gender) => (
+                                        <label key={gender} className="checkbox-label">
+                                            <input
+                                                type="checkbox"
+                                                checked={tempMobileFilters.genders.includes(gender)}
+                                                onChange={() => handleMobileGenderChange(gender)}
+                                            />
+                                            <span className="checkbox-custom"></span>
+                                            {gender}
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
-                    </aside>
-                    <div className="category__product">
-                        {filteredProducts.length === 0 && <NotData />}
+                        <div className="mobile-filter-footer">
+                            <button className="mobile-filter-apply" onClick={handleApplyMobileFilters}>
+                                Apply
+                            </button>
+                        </div>
+                    </div>
 
-                        <div className={`category__product-grid columns-${displayColumns} responsive-grid`}>
-                            <AnimatePresence>
-                                {getVisibleItems().map((item) => {
-                                    const minPrice = getMinPrice(item);
-                                    // Nếu có sale thì minPrice là giá đã giảm, cần tính ngược lại giá gốc
-                                    const originalPrice =
-                                        item.sale > 0 ? calculateOriginalPrice(minPrice, item.sale) : minPrice;
-                                    const finalPrice = minPrice; // Giá hiển thị chính là minPrice (đã bao gồm giảm giá)
+                    <div className="category__body">
+                        {/* Menu Filter PC */}
+                        <aside className="category__filter">
+                            {/* Search Filter - Quan trọng nhất vì người dùng thường tìm kiếm trực tiếp */}
+                            <div className="filter__group">
+                                <div className="filter__header" onClick={() => toggleCategory("search")}>
+                                    <h3>Search Products</h3>
+                                    <img
+                                        src="/assets/icon/chevron-top.svg"
+                                        alt=""
+                                        className={clsx("filter__icon", {
+                                            "filter__icon--active": openCategories.search,
+                                        })}
+                                    />
+                                </div>
+                                {openCategories.search && (
+                                    <div className="filter__content">
+                                        <div className="filter__search">
+                                            <input
+                                                type="text"
+                                                className="price-range__input-field"
+                                                placeholder="Search products..."
+                                                value={searchTerm}
+                                                onChange={(e) => setSearchTerm(e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
 
-                                    return (
-                                        <motion.article
-                                            key={item.slug}
-                                            className="category__product-item"
-                                            layout
-                                            initial={{ opacity: 0, scale: 0.8 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 0.8 }}
-                                            whileHover={{ scale: 1.05 }}
-                                        >
-                                            <Link to={`/product/${item.slug}`}>
-                                                <figure className="category-product__wrapper">
-                                                    {item.quantity > 0 ? (
-                                                        item.sale > 0 && (
-                                                            <span className="badge__sale">{item.sale}% OFF</span>
-                                                        )
-                                                    ) : (
-                                                        <span className="badge__sale">Sold Out</span>
-                                                    )}
-                                                    <img
-                                                        src={item.thumbnail || "/placeholder.svg"}
-                                                        alt=""
-                                                        className={clsx(
-                                                            "category__product-image",
-                                                            item.quantity === 0 && "category__product-image--opacity",
-                                                        )}
-                                                    />
-                                                    <div className="product-actions">
-                                                        {/* <button
-                                                            className="product-action-btn"
-                                                            title="Quick view"
-                                                            onClick={(e) => {
-                                                                e.preventDefault();
-                                                                // Handle quick view
-                                                            }}
-                                                        >
-                                                            <Eye size={18} />
-                                                        </button> */}
-                                                        {/* <button
-                                                            className={`cart-btn ${
-                                                                loadingStates[item.id] ? "loading" : ""
-                                                            } ${isProductInCart(item.id) ? "in-cart" : ""}`}
-                                                            title={
-                                                                isProductInCart(item.id)
-                                                                    ? "Remove from cart"
-                                                                    : "Add to cart"
-                                                            }
-                                                            onClick={(e) => {
-                                                                e.preventDefault();
-                                                                handleCartAction(item);
-                                                            }}
-                                                            disabled={loadingStates[item.id]}
-                                                        >
-                                                            {loadingStates[item.id] ? (
-                                                                <img
-                                                                    src="/assets/icon/loading.gif"
-                                                                    alt="Loading..."
-                                                                    className="loading-spinner"
-                                                                    width={18}
-                                                                    height={18}
-                                                                />
+                            {/* Categories Filter - Quan trọng thứ hai vì phân loại chính của sản phẩm */}
+                            <div className="filter__group">
+                                <div className="filter__header" onClick={() => toggleCategory("category")}>
+                                    <h3>Categories</h3>
+                                    <img
+                                        src="/assets/icon/chevron-top.svg"
+                                        alt=""
+                                        className={clsx("filter__icon", {
+                                            "filter__icon--active": openCategories.category,
+                                        })}
+                                    />
+                                </div>
+                                {openCategories.category && (
+                                    <div className="filter__content">
+                                        {/* Categories checkboxes */}
+                                        {categoriesData.map((category) => (
+                                            <label
+                                                key={category.id}
+                                                className={clsx("checkbox-label", {
+                                                    active: selectedCategories.includes(category.name),
+                                                })}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedCategories.includes(category.name)}
+                                                    onChange={() => handleCategoryChange(category.name)}
+                                                />
+                                                <span className="checkbox-custom"></span>
+                                                {category.name}
+                                            </label>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Price Range - Yếu tố quan trọng trong quyết định mua hàng */}
+                            <div className="filter__group">
+                                <div className="filter__header" onClick={() => toggleCategory("price")}>
+                                    <h3>Price Range</h3>
+                                    <img
+                                        src="/assets/icon/chevron-top.svg"
+                                        alt=""
+                                        className={clsx("filter__icon", {
+                                            "filter__icon--active": openCategories.price,
+                                        })}
+                                    />
+                                </div>
+                                {openCategories.price && (
+                                    <div className="price-range">
+                                        <div className="price-range__inputs">
+                                            <div className="price-range__input-group">
+                                                <span className="price-range__currency">$</span>
+                                                <input
+                                                    type="number"
+                                                    name="min"
+                                                    className="price-range__input-field"
+                                                    value={priceInputs.min}
+                                                    onChange={handlePriceInputChange}
+                                                    onBlur={handlePriceInputBlur}
+                                                    min="1"
+                                                    max="999"
+                                                />
+                                            </div>
+                                            <span className="price-range__separator">to</span>
+                                            <div className="price-range__input-group">
+                                                <span className="price-range__currency">$</span>
+                                                <input
+                                                    type="number"
+                                                    name="max"
+                                                    className="price-range__input-field"
+                                                    value={priceInputs.max}
+                                                    onChange={handlePriceInputChange}
+                                                    onBlur={handlePriceInputBlur}
+                                                    min="1"
+                                                    max="999"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="price-range__slider">
+                                            <div className="price-range__track"></div>
+                                            <div
+                                                className="price-range__progress"
+                                                style={{
+                                                    left: `${((priceRange.min - 1) / (999 - 1)) * 100}%`,
+                                                    right: `${100 - ((priceRange.max - 1) / (999 - 1)) * 100}%`,
+                                                }}
+                                            ></div>
+                                            <input
+                                                type="range"
+                                                name="min"
+                                                min="1"
+                                                max="999"
+                                                value={priceRange.min}
+                                                onChange={handlePriceRangeChange}
+                                                className="price-range__input price-range__input--left"
+                                            />
+                                            <input
+                                                type="range"
+                                                name="max"
+                                                min="1"
+                                                max="999"
+                                                value={priceRange.max}
+                                                onChange={handlePriceRangeChange}
+                                                className="price-range__input price-range__input--right"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Education Level - Quan trọng vì liên quan đến mục đích sử dụng */}
+                            <div className="filter__group">
+                                <div className="filter__header" onClick={() => toggleCategory("education")}>
+                                    <h3>Education Level</h3>
+                                    <img
+                                        src="/assets/icon/chevron-top.svg"
+                                        alt=""
+                                        className={clsx("filter__icon", {
+                                            "filter__icon--active": openCategories.education,
+                                        })}
+                                    />
+                                </div>
+                                {openCategories.education && (
+                                    <div className="filter__content">
+                                        {educationOptions.map((level) => (
+                                            <label key={level} className="checkbox-label">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedEducationLevels.includes(level)}
+                                                    onChange={() => handleEducationChange(level)}
+                                                />
+                                                <span className="checkbox-custom"></span>
+                                                {level}
+                                            </label>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Gender - Quan trọng vì ảnh hưởng trực tiếp đến việc lựa chọn */}
+                            <div className="filter__group">
+                                <div className="filter__header" onClick={() => toggleCategory("gender")}>
+                                    <h3>Gender</h3>
+                                    <img
+                                        src="/assets/icon/chevron-top.svg"
+                                        alt=""
+                                        className={clsx("filter__icon", {
+                                            "filter__icon--active": openCategories.gender,
+                                        })}
+                                    />
+                                </div>
+                                {openCategories.gender && (
+                                    <div className="filter__content">
+                                        {genderOptions.map((gender) => (
+                                            <label key={gender} className="checkbox-label">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedGenders.includes(gender)}
+                                                    onChange={() => handleGenderChange(gender)}
+                                                />
+                                                <span className="checkbox-custom"></span>
+                                                {gender}
+                                            </label>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Sizes - Thông tin kỹ thuật của sản phẩm */}
+                            <div className="filter__group">
+                                <div className="filter__header" onClick={() => toggleCategory("sizes")}>
+                                    <h3>Sizes</h3>
+                                    <img
+                                        src="/assets/icon/chevron-top.svg"
+                                        alt=""
+                                        className={clsx("filter__icon", {
+                                            "filter__icon--active": openCategories.sizes,
+                                        })}
+                                    />
+                                </div>
+                                {openCategories.sizes && (
+                                    <div className="filter__content">
+                                        {sizeOptions.map((size) => (
+                                            <label key={size} className="checkbox-label">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedSizes.includes(size)}
+                                                    onChange={() => handleSizeChange(size)}
+                                                />
+                                                <span className="checkbox-custom"></span>
+                                                {size}
+                                            </label>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Sale Status - Đặt cuối cùng vì là thông tin bổ sung */}
+                            <div className="filter__group">
+                                <div className="filter__header" onClick={() => toggleCategory("sale")}>
+                                    <h3>Sale Status</h3>
+                                    <img
+                                        src="/assets/icon/chevron-top.svg"
+                                        alt=""
+                                        className={clsx("filter__icon", {
+                                            "filter__icon--active": openCategories.sale,
+                                        })}
+                                    />
+                                </div>
+                                {openCategories.sale && (
+                                    <div className="filter__content">
+                                        <label className="checkbox-label">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedSale.includes("On Sale")}
+                                                onChange={() => handleSelectSale("On Sale")}
+                                            />
+                                            <span className="checkbox-custom"></span>
+                                            On Sale
+                                        </label>
+                                        <label className="checkbox-label">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedSale.includes("Regular Price")}
+                                                onChange={() => handleSelectSale("Regular Price")}
+                                            />
+                                            <span className="checkbox-custom"></span>
+                                            Regular Price
+                                        </label>
+                                    </div>
+                                )}
+                            </div>
+                        </aside>
+                        {!isChecking && (
+                            <div className="category__product">
+                                {filteredProducts.length === 0 && <NotData />}
+
+                                <div className={`category__product-grid columns-${displayColumns} responsive-grid`}>
+                                    <AnimatePresence>
+                                        {getVisibleItems().map((item) => {
+                                            const minPrice = getMinPrice(item);
+                                            // Nếu có sale thì minPrice là giá đã giảm, cần tính ngược lại giá gốc
+                                            const originalPrice =
+                                                item.sale > 0 ? calculateOriginalPrice(minPrice, item.sale) : minPrice;
+                                            const finalPrice = minPrice; // Giá hiển thị chính là minPrice (đã bao gồm giảm giá)
+
+                                            return (
+                                                <motion.article
+                                                    key={item.slug}
+                                                    className="category__product-item"
+                                                    layout
+                                                    initial={{ opacity: 0, scale: 0.8 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.8 }}
+                                                    whileHover={{ scale: 1.05 }}
+                                                >
+                                                    <Link to={`/product/${item.slug}`}>
+                                                        <figure className="category-product__wrapper">
+                                                            {item.quantity > 0 ? (
+                                                                item.sale > 0 && (
+                                                                    <span className="badge__sale">
+                                                                        {item.sale}% OFF
+                                                                    </span>
+                                                                )
                                                             ) : (
-                                                                <ShoppingCart size={18} />
+                                                                <span className="badge__sale">Sold Out</span>
                                                             )}
-                                                        </button> */}
-                                                        <button
-                                                            className={`cart-btn ${
-                                                                wishlistLoadingStates[item.id] ? "loading" : ""
-                                                            } ${isProductInWishlist(item.id) ? "in-cart" : ""}`}
-                                                            title={
-                                                                isProductInWishlist(item.id)
-                                                                    ? "Remove from wishlist"
-                                                                    : "Add to wishlist"
-                                                            }
-                                                            onClick={(e) => {
-                                                                e.preventDefault();
-                                                                handleWishlistAction(item);
-                                                            }}
-                                                            disabled={wishlistLoadingStates[item.id]}
-                                                        >
-                                                            {wishlistLoadingStates[item.id] ? (
-                                                                <img
-                                                                    src="/assets/icon/loading.gif"
-                                                                    alt="Loading..."
-                                                                    className="loading-spinner"
-                                                                    width={18}
-                                                                    height={18}
-                                                                />
-                                                            ) : (
-                                                                <Heart size={18} />
-                                                            )}
-                                                        </button>
-                                                    </div>
-                                                </figure>
-                                                <div className="category__product-details">
-                                                    <h3 className="category__product-name">{item.name}</h3>
-                                                    <span className="category__product-price dfcenter">
-                                                        ${Math.round(finalPrice)}
-                                                        {item.sale > 0 && (
-                                                            <span className="category__product-price--old">
-                                                                ${Math.round(originalPrice)}
+                                                            <img
+                                                                src={item.thumbnail || "/placeholder.svg"}
+                                                                alt=""
+                                                                className={clsx(
+                                                                    "category__product-image",
+                                                                    item.quantity === 0 &&
+                                                                        "category__product-image--opacity",
+                                                                )}
+                                                            />
+                                                            <div className="product-actions">
+                                                                <button
+                                                                    className={`cart-btn ${
+                                                                        wishlistLoadingStates[item.id] ? "loading" : ""
+                                                                    } ${isProductInWishlist(item.id) ? "in-cart" : ""}`}
+                                                                    title={
+                                                                        isProductInWishlist(item.id)
+                                                                            ? "Remove from wishlist"
+                                                                            : "Add to wishlist"
+                                                                    }
+                                                                    onClick={(e) => {
+                                                                        e.preventDefault();
+                                                                        handleWishlistAction(item);
+                                                                    }}
+                                                                    disabled={wishlistLoadingStates[item.id]}
+                                                                >
+                                                                    {wishlistLoadingStates[item.id] ? (
+                                                                        <img
+                                                                            src="/assets/icon/loading.gif"
+                                                                            alt="Loading..."
+                                                                            className="loading-spinner"
+                                                                            width={18}
+                                                                            height={18}
+                                                                        />
+                                                                    ) : isProductInWishlist(item.id) ? (
+                                                                        <HeartOff size={18} />
+                                                                    ) : (
+                                                                        <Heart size={18} />
+                                                                    )}
+                                                                </button>
+                                                            </div>
+                                                        </figure>
+                                                        <div className="category__product-details">
+                                                            <h3 className="category__product-name">{item.name}</h3>
+                                                            <span className="category__product-price dfcenter">
+                                                                ${Math.round(finalPrice)}
+                                                                {item.sale > 0 && (
+                                                                    <span className="category__product-price--old">
+                                                                        ${Math.round(originalPrice)}
+                                                                    </span>
+                                                                )}
                                                             </span>
-                                                        )}
-                                                    </span>
-                                                </div>
-                                            </Link>
-                                        </motion.article>
-                                    );
-                                })}
-                            </AnimatePresence>
-                        </div>
+                                                        </div>
+                                                    </Link>
+                                                </motion.article>
+                                            );
+                                        })}
+                                    </AnimatePresence>
+                                </div>
 
-                        {/* Thay thế ReactPaginate bằng nút Load More */}
-                        {filteredProducts.length > visibleItems && (
-                            <div className="dfcenter category__load-more">
-                                <button
-                                    className={`btn ${isLoading ? "loading" : ""}`}
-                                    onClick={handleLoadMore}
-                                    disabled={isLoading}
-                                >
-                                    {isLoading ? (
-                                        <img
-                                            src="/assets/icon/loading.gif"
-                                            alt="Loading..."
-                                            className="loading-spinner"
-                                        />
-                                    ) : (
-                                        "Show More Products"
-                                    )}
-                                </button>
+                                {/* Thay thế ReactPaginate bằng nút Load More */}
+                                {filteredProducts.length > visibleItems && (
+                                    <div className="dfcenter category__load-more">
+                                        <button
+                                            className={`btn ${isLoading ? "loading" : ""}`}
+                                            onClick={handleLoadMore}
+                                            disabled={isLoading}
+                                        >
+                                            {isLoading ? (
+                                                <img
+                                                    src="/assets/icon/loading.gif"
+                                                    alt="Loading..."
+                                                    className="loading-spinner"
+                                                />
+                                            ) : (
+                                                "Show More Products"
+                                            )}
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }

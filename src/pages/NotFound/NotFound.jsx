@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import "../../styles/notFound.css";
 import { Link } from "react-router-dom";
+import "../../styles/notFound.css";
 // Library aos
 import AOS from "aos";
 import "aos/dist/aos.css"; // Import file CSS của AOS

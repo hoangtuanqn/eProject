@@ -1,15 +1,19 @@
-import React from "react";
+import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { Rating } from "@mui/material";
-import { Heart } from "lucide-react";
+import { Heart, HeartOff } from "lucide-react";
+import { calculateOriginalPrice } from "../../utils/helpers";
+import { useWishlistActions } from "../../utils/handleWishlist";
 
-export default function RelatedProducts({ relatedProducts, handleWishlistAction }) {
+const RelatedProducts = memo(({ relatedProducts }) => {
+    const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
     return (
         <section className="related-products">
             <h2>Related Products</h2>
+
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={20}
@@ -37,9 +41,20 @@ export default function RelatedProducts({ relatedProducts, handleWishlistAction 
                                     </Link>
                                     <div className="product-card__actions">
                                         <button className="action-btn" onClick={() => handleWishlistAction(product)}>
-                                            <Heart size={20} />
+                                            {wishlistLoadingStates[product.id] ? (
+                                                <img
+                                                    src="/assets/icon/loading.gif"
+                                                    alt="Loading..."
+                                                    className="loading-spinner"
+                                                />
+                                            ) : isProductInWishlist(product.id) ? (
+                                                <HeartOff size={20} />
+                                            ) : (
+                                                <Heart size={20} />
+                                            )}
                                         </button>
                                     </div>
+
                                 </div>
                             </figure>
                             <div className="category__product-details">
@@ -59,10 +74,10 @@ export default function RelatedProducts({ relatedProducts, handleWishlistAction 
                                 </div>
                                 <h3 className="category__product-name">{product.name}</h3>
                                 <p className="category__product-price">
-                                    ${Math.round(product.discounted_price || product.price)}
+                                    ${product.price}
                                     {product.sale > 0 && (
                                         <span className="category__product-price--old">
-                                            ${Math.round(product.price)}
+                                            ${calculateOriginalPrice(product.price, product.sale)}
                                         </span>
                                     )}
                                 </p>
@@ -73,4 +88,6 @@ export default function RelatedProducts({ relatedProducts, handleWishlistAction 
             </Swiper>
         </section>
     );
-}
+});
+
+export default RelatedProducts;

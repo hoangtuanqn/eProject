@@ -1,12 +1,12 @@
 import React, { memo } from "react";
-import { Heart, ShoppingCartIcon } from "lucide-react";
+import { Heart, HeartOff, ShoppingCartIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import productData from "../../data/products.json";
 import { useCartActions } from "../../utils/handleCart";
 import { useWishlistActions } from "../../utils/handleWishlist";
 import "../../styles/featuredProducts.css";
 import { Rating } from "@mui/material";
-
+import { calculateOriginalPrice } from "../../utils/helpers";
 const FeaturedProducts = () => {
     const { handleCartAction, isProductInCart, loadingStates: cartLoadingStates } = useCartActions();
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
@@ -51,27 +51,6 @@ const FeaturedProducts = () => {
                                             </Link>
 
                                             <div className="product-actions" onClick={(e) => e.preventDefault()}>
-                                                {/* <button
-                                                    className={`cart-btn ${cartLoadingStates[id] ? "loading" : ""} ${
-                                                        isProductInCart(id) ? "in-cart" : ""
-                                                    }`}
-                                                    title={isProductInCart(id) ? "Remove from cart" : "Add to cart"}
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleCartAction(product);
-                                                    }}
-                                                    disabled={cartLoadingStates[id]}
-                                                >
-                                                    {cartLoadingStates[id] ? (
-                                                        <img
-                                                            src="/assets/icon/loading.gif"
-                                                            alt="Loading..."
-                                                            className="loading-spinner"
-                                                        />
-                                                    ) : (
-                                                        <ShoppingCartIcon size={20} />
-                                                    )}
-                                                </button> */}
                                                 <button
                                                     className={`cart-btn ${
                                                         wishlistLoadingStates[id] ? "loading" : ""
@@ -93,6 +72,8 @@ const FeaturedProducts = () => {
                                                             alt="Loading..."
                                                             className="loading-spinner"
                                                         />
+                                                    ) : isProductInWishlist(id) ? (
+                                                        <HeartOff size={20} />
                                                     ) : (
                                                         <Heart size={20} />
                                                     )}
@@ -123,7 +104,7 @@ const FeaturedProducts = () => {
                                                 ${Math.round(salePrice)}
                                                 {sale > 0 && (
                                                     <span className="category__product-price--old">
-                                                        ${Math.round(originalPrice)}
+                                                        ${calculateOriginalPrice(price, sale)}
                                                     </span>
                                                 )}
                                             </p>

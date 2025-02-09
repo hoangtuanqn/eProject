@@ -83,7 +83,7 @@ eproject_react/
 -   **Hệ thống tìm kiếm:**
     -   Sử dụng thuật toán tìm kiếm theo từ khóa và bộ lọc (lọc theo danh mục, giá, thương hiệu,...).
 -   **Hệ thống thanh toán:**
-    -   Hỗ trợ thanh toán thông qua **PayPal API**.
+    -   Hỗ trợ thanh toán thông qua **PayPal API**, **Google Pay**.
     -   Xác nhận giao dịch và cập nhật trạng thái đơn hàng trong hệ thống.
 
 ## Tính năng chính
@@ -108,7 +108,7 @@ eproject_react/
 
 ### 💳 Thanh toán
 
--   Tích hợp cổng thanh toán PayPal
+-   Tích hợp cổng thanh toán trực tuyến PayPal, Google Pay
 -   Xử lý đơn hàng nhanh chóng
 -   Thông báo trạng thái đơn hàng
 

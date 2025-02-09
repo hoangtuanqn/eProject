@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo } from "react";
-import { Heart, Trash2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCartActions } from "../../utils/handleCart";
+import { Heart, Trash2Icon } from "lucide-react";
+import { Rating } from "@mui/material";
 import "../../styles/wishList.css";
 import products from "../../data/products.json";
 import { useWishlistActions } from "../../utils/handleWishlist";
-import { Rating } from "@mui/material";
+import { calculateOriginalPrice } from "../../utils/helpers";
 export default function WishList() {
     const { handleWishlistAction } = useWishlistActions();
     const handleGetWishlist = () => {
@@ -66,35 +66,6 @@ export default function WishList() {
                                                     />
                                                 </Link>
                                                 <div className="product-card__actions">
-                                                    {/* <Link
-                                                        to={`/product/${product.id}`}
-                                                        className="action-btn"
-                                                        title="View product"
-                                                    >
-                                                        <Eye size={20} />
-                                                    </Link> */}
-                                                    {/* <button
-                                                        className={`action-btn ${
-                                                            cartLoadingStates[product.id] ? "loading" : ""
-                                                        } ${isProductInCart(product.id) ? "in-cart" : ""}`}
-                                                        onClick={() => handleCartAction(product)}
-                                                        disabled={cartLoadingStates[product.id]}
-                                                        title={
-                                                            isProductInCart(product.id)
-                                                                ? "Remove from cart"
-                                                                : "Add to cart"
-                                                        }
-                                                    >
-                                                        {cartLoadingStates[product.id] ? (
-                                                            <img
-                                                                src="/assets/icon/loading.gif"
-                                                                alt="Loading..."
-                                                                className="loading-spinner"
-                                                            />
-                                                        ) : (
-                                                            <ShoppingCartIcon size={20} />
-                                                        )}
-                                                    </button> */}
                                                     <button
                                                         className="action-btn"
                                                         title="Remove from wishlist"
@@ -133,10 +104,10 @@ export default function WishList() {
                                             </div>
                                             <h3 className="category__product-name">{product.name}</h3>
                                             <p className="category__product-price">
-                                                ${Math.round(product.discounted_price || product.price)}
+                                                ${Math.round(product.price)}
                                                 {product.sale > 0 && (
                                                     <span className="category__product-price--old">
-                                                        ${Math.round(product.price)}
+                                                        ${calculateOriginalPrice(product.price, product.sale)}
                                                     </span>
                                                 )}
                                             </p>

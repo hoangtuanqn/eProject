@@ -1,24 +1,28 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trash2, BadgePercent, Trash2Icon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/cart.css";
 import products from "../../data/products.json";
 import { useCartActions } from "../../utils/handleCart";
 import coupons from "../../data/coupons.json";
 import toast from "react-hot-toast";
 import { Box, CircularProgress } from "@mui/material";
+import { useGlobalState } from "../../context/GlobalContext";
+import categories from "../../data/categories.json";
 
 export default function Cart() {
+    const navigate = useNavigate();
+
     const [cartItems, setCartItems] = useState([]);
     const [notes, setNotes] = useState({});
-    const [postalCode, setPostalCode] = useState("");
     const [isCalculating, setIsCalculating] = useState(false);
     const [shippingCost, setShippingCost] = useState(process.env.REACT_APP_SHIPPING_COST);
     const [deletingItemId, setDeletingItemId] = useState(null);
     const { handleCartAction, getUpdatedCartItems } = useCartActions();
     const [couponCode, setCouponCode] = useState("");
     const [appliedCoupon, setAppliedCoupon] = useState(null);
+    const { cartQuantityTemp, setCartQuantityTemp } = useGlobalState();
     useEffect(() => {
         const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
         const cartWithDetails = cartStorage
@@ -37,7 +41,8 @@ export default function Cart() {
             })
             .filter((item) => item);
         setCartItems(cartWithDetails);
-    }, [notes]);
+    }, [notes, cartQuantityTemp]);
+    // setCartQuantityTemp((prev) => !prev);
 
     const handleQuantityChange = (id, newQuantity) => {
         const updatedCart = cartItems.map((item) =>
@@ -55,6 +60,7 @@ export default function Cart() {
                 })),
             ),
         );
+        setCartQuantityTemp((prev) => !prev);
     };
 
     const handleRemoveItem = async (id) => {
@@ -138,11 +144,6 @@ export default function Cart() {
                 setAppliedCoupon(validCoupon);
                 setCouponCode(couponCode.toUpperCase());
                 toast.success(`Coupon applied! ${validCoupon.discount}% off`);
-
-                // Save discounted price to localStorage
-                const discountedTotal = calculateDiscountedTotal(cartItems, validCoupon);
-                localStorage.setItem("appliedCoupon", JSON.stringify(validCoupon));
-                localStorage.setItem("discountedTotal", discountedTotal);
             }
         } finally {
             setIsCalculating(false);
@@ -153,8 +154,6 @@ export default function Cart() {
             setIsCalculating(true);
             await new Promise((resolve) => setTimeout(resolve, 1500));
             setAppliedCoupon(null);
-            localStorage.removeItem("appliedCoupon");
-            localStorage.removeItem("discountedTotal");
             setIsCalculating(false);
             toast.success("Coupon removed successfully");
         }
@@ -193,13 +192,10 @@ export default function Cart() {
             localStorage.setItem("cart", "[]");
             setCartItems([]);
             setAppliedCoupon(null);
-            localStorage.removeItem("appliedCoupon");
-            localStorage.removeItem("discountedTotal");
             setIsCalculating(false);
             toast.success("Cart cleared successfully");
         }
     };
-
     return (
         <>
             <section className="cart-page">
@@ -231,12 +227,31 @@ export default function Cart() {
                                             transition={{ duration: 0.8 }}
                                         >
                                             <div className="cart-page__item-image">
-                                                <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
+                                                <Link to={`/product/${item.slug}`}>
+                                                    <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
+                                                </Link>
                                             </div>
                                             <div className="cart-page__item-details">
                                                 <div className="cart-page__item-info">
-                                                    <span className="cart-page__item-category">{item.category}</span>
-                                                    <h3 className="cart-page__item-name">{item.name}</h3>
+                                                    <Link
+                                                        to={`/category/${(() => {
+                                                            const category = categories.find(
+                                                                (cate) => cate.name === item.category,
+                                                            );
+                                                            return category?.slug;
+                                                        })()}`}
+                                                        className="cart-page__item-category"
+                                                    >
+                                                        {item.category}
+                                                    </Link>
+                                                    <h3>
+                                                        <Link
+                                                            to={`/product/${item.slug}`}
+                                                            className="cart-page__item-name"
+                                                        >
+                                                            {item.name}
+                                                        </Link>
+                                                    </h3>
                                                     <div className="cart-item__details">
                                                         <div className="cart-item__detail">
                                                             <span className="cart-item__label">Size:</span>
@@ -456,9 +471,16 @@ export default function Cart() {
                                     )}
                                 </div>
 
-                                <Link to="/checkouts" className="cart-page__checkout-btn">
+                                <button
+                                    onClick={() =>
+                                        navigate("/checkouts", {
+                                            state: { appliedCoupon: appliedCoupon },
+                                        })
+                                    }
+                                    className="cart-page__checkout-btn"
+                                >
                                     Proceed to Checkout
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     ) : (

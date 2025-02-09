@@ -1,16 +1,21 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, memo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Rating } from "@mui/material";
-import { Heart } from "lucide-react";
+import { Heart, HeartOff } from "lucide-react";
 import products from "../../data/products.json";
+import { calculateOriginalPrice } from "../../utils/helpers";
+import { useWishlistActions } from "../../utils/handleWishlist";
 
-export default function SuggestedProducts({ idCategory, handleWishlistAction }) {
+const SuggestedProducts = ({ idCategory }) => {
     const [sortedProducts, setSortedProducts] = useState([]);
+    const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
+
     const sortedProductsMemo = useMemo(() => {
         return products
+
             .filter((product) => product.category !== idCategory)
             .sort((a, b) => b.rating - a.rating)
             .slice(0, 10);
@@ -50,7 +55,17 @@ export default function SuggestedProducts({ idCategory, handleWishlistAction }) 
                                     </Link>
                                     <div className="product-card__actions">
                                         <button className="action-btn" onClick={() => handleWishlistAction(product)}>
-                                            <Heart size={20} />
+                                            {wishlistLoadingStates[product.id] ? (
+                                                <img
+                                                    src="/assets/icon/loading.gif"
+                                                    alt="Loading..."
+                                                    className="loading-spinner"
+                                                />
+                                            ) : isProductInWishlist(product.id) ? (
+                                                <HeartOff size={20} />
+                                            ) : (
+                                                <Heart size={20} />
+                                            )}
                                         </button>
                                     </div>
                                 </div>
@@ -72,10 +87,10 @@ export default function SuggestedProducts({ idCategory, handleWishlistAction }) 
                                 </div>
                                 <h3 className="category__product-name">{product.name}</h3>
                                 <p className="category__product-price">
-                                    ${Math.round(product.discounted_price || product.price)}
+                                    ${product.price}
                                     {product.sale > 0 && (
                                         <span className="category__product-price--old">
-                                            ${Math.round(product.price)}
+                                            ${calculateOriginalPrice(product.price, product.sale)}
                                         </span>
                                     )}
                                 </p>
@@ -86,4 +101,6 @@ export default function SuggestedProducts({ idCategory, handleWishlistAction }) 
             </Swiper>
         </section>
     );
-}
+};
+
+export default memo(SuggestedProducts);

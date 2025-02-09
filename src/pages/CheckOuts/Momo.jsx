@@ -1,7 +1,7 @@
 import React from "react";
 import "../../styles/momo.css";
 import axios from "axios";
-
+// Đang phát triển bởi Tuấn Ori
 export default function Momo() {
     const execPostRequest = async (url, data) => {
         try {

@@ -1,5 +1,5 @@
 import { useState, useEffect, memo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import * as Yup from "yup";
@@ -30,10 +30,15 @@ import { Box, CircularProgress } from "@mui/material";
 
 const CheckOut = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [cartItems, setCartItems] = useState([]);
     const [isProcessing, setIsProcessing] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [appliedCoupon, setAppliedCoupon] = useState(null);
+    const [appliedCoupon, setAppliedCoupon] = useState(() => {
+        // Chỉ lấy coupon từ location.state khi khởi tạo lần đầu
+        return location.state?.appliedCoupon || null;
+    });
+    console.log(location.state?.appliedCoupon);
 
     // Validation Schema với Yup
     const validationSchema = Yup.object({
@@ -133,13 +138,14 @@ const CheckOut = () => {
 
     useEffect(() => {
         const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
-        const savedCoupon = JSON.parse(localStorage.getItem("appliedCoupon"));
-        setAppliedCoupon(savedCoupon);
+
+        // Kiểm tra nếu không có cart items, redirect về trang categories
         if (!cartStorage.length) {
             navigate("/categories");
+            return;
         }
-        const cartWithDetails = cartStorage
 
+        const cartWithDetails = cartStorage
             .map((item) => {
                 const productDetails = products.find((p) => p.id === item.id);
                 return productDetails
@@ -153,7 +159,7 @@ const CheckOut = () => {
             })
             .filter((item) => item);
         setCartItems(cartWithDetails);
-    }, []);
+    }, [navigate]); // Chỉ phụ thuộc vào navigate
 
     const calculateSubtotal = () => {
         const rawSubtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);

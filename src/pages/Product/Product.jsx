@@ -1,12 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCartActions } from "../../utils/handleCart";
-import "../../styles/product.css";
+import { handleCheckQuantity, useCartActions } from "../../utils/handleCart";
 import { useWishlistActions } from "../../utils/handleWishlist";
-import PinterestIcon from "@mui/icons-material/Pinterest";
+import "../../styles/product.css";
 import useTitle from "../../hooks/useTitle";
 import SuggestedProducts from "./SuggestedProducts";
+import RelatedProducts from "./RelatedProducts";
+import productsData from "../../data/products.json";
+import categories from "../../data/categories.json";
+import { calculateOriginalPrice } from "../../utils/helpers";
+import toast from "react-hot-toast";
+import clsx from "clsx";
+import Tooltip from "../../components/Tooltip";
+import { Rating } from "@mui/material";
+import PinterestIcon from "@mui/icons-material/Pinterest";
 
 import {
     Heart,
@@ -21,17 +29,12 @@ import {
     MoreHorizontal,
     ShoppingCart,
     ExternalLink,
+    HeartOff,
 } from "lucide-react";
-import productsData from "../../data/products.json";
-import toast from "react-hot-toast";
-import clsx from "clsx";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Tooltip from "../../components/Tooltip";
-import { Rating } from "@mui/material";
-import RelatedProducts from "./RelatedProducts";
 
 export default function Product() {
     const { slug } = useParams();
@@ -43,14 +46,14 @@ export default function Product() {
     const [selectedImage, setSelectedImage] = useState(0);
     const [isZoomed, setIsZoomed] = useState(false);
     const [showSizeGuide, setShowSizeGuide] = useState(false);
-    const [showDescription, setShowDescription] = useState(true);
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [activeTab, setActiveTab] = useState("details");
 
     const { handleCartAction, isProductInCart } = useCartActions();
-    const { handleWishlistAction, isProductInWishlist } = useWishlistActions();
+    const { handleWishlistAction } = useCallback(useWishlistActions(), []);
+    const { isProductInWishlist } = useWishlistActions();
 
     useEffect(() => {
         const foundProduct = productsData.find((p) => p.slug === slug);
@@ -91,7 +94,6 @@ export default function Product() {
             return;
         }
         setIsLoading(true);
-        console.log(selectedSize);
         await new Promise((resolve) => setTimeout(resolve, 500));
         await handleCartAction({ ...product, size: selectedSize, color: selectedColor, quantity });
         setIsLoading(false);
@@ -283,6 +285,7 @@ export default function Product() {
         }
     };
 
+    const slugCategory = categories.find((c) => c.name === product.category)?.slug;
     return (
         <motion.section
             className="product"
@@ -297,7 +300,7 @@ export default function Product() {
                     <ChevronRight size={16} />
                     <Link to="/categories">Categories</Link>
                     <ChevronRight size={16} />
-                    <Link to={`/category/${product.category}`}>{product.category}</Link>
+                    <Link to={`/category/${slugCategory}`}>{product.category}</Link>
                     <ChevronRight size={16} />
                     <span>{product.name}</span>
                 </nav>
@@ -310,7 +313,7 @@ export default function Product() {
                             onHoverStart={() => setIsZoomed(true)}
                             onHoverEnd={() => setIsZoomed(false)}
                         >
-                            {product.sale > 0 && <span className="product__sale-badge">-{product.sale}%</span>}
+                            {product.sale > 0 && <span className="product__sale-badge">{product.sale}% OFF</span>}
                             <img src={product.images[selectedImage]} alt={product.name} />
                         </motion.div>
                         <div className="product__image-gallery">
@@ -333,7 +336,9 @@ export default function Product() {
                         <div className="product__header">
                             <h1 className="product__title">{product.name}</h1>
                             <div className="product__meta">
-                                <span className="product__category">{product.category}</span>
+                                <Link to={`/category/${slugCategory}`} className="product__category">
+                                    {product.category}
+                                </Link>
                                 <div className="best-sales-item__rating-wrap">
                                     <Rating
                                         name="read-only"
@@ -354,11 +359,13 @@ export default function Product() {
                         <div className="product__price">
                             {salePrice ? (
                                 <>
-                                    <span className="product__price-sale">${salePrice.toFixed(2)}</span>
-                                    <span className="product__price-original">${originalPrice.toFixed(2)}</span>
+                                    <span className="product__price-sale">${originalPrice}</span>
+                                    <span className="product__price-original">
+                                        ${calculateOriginalPrice(originalPrice, product.sale)}
+                                    </span>
                                 </>
                             ) : (
-                                <span className="product__price-regular">${originalPrice.toFixed(2)}</span>
+                                <span className="product__price-regular">${originalPrice}</span>
                             )}
                         </div>
 
@@ -409,9 +416,8 @@ export default function Product() {
                             <h3>Select Color</h3>
                             <div className="product__color-options">
                                 {product.colors.map((color) => (
-                                    <Tooltip content={color}>
+                                    <Tooltip content={color} key={color}>
                                         <button
-                                            key={color}
                                             className={clsx(
                                                 "product__color-option",
                                                 selectedColor === color && "active",
@@ -436,6 +442,16 @@ export default function Product() {
                                     ? `${product.quantity} products available in stock`
                                     : "Out of stock"}
                             </span>
+                            {product.quantity > 0 && (
+                                <p className="product__stock-status-text">
+                                    If you're a business owner, school representative, or need to place a bulk order,
+                                    feel free to{" "}
+                                    <a href="/pages/contact" target="_blank">
+                                        contact us for a consultation
+                                    </a>
+                                    . Let’s make something great together!
+                                </p>
+                            )}
                         </div>
 
                         {/* Quantity */}
@@ -445,23 +461,22 @@ export default function Product() {
                                 <div className="product__quantity-input">
                                     <button
                                         className="product__quantity-button"
-                                        onClick={() => quantity > 1 && setQuantity((q) => q - 1)}
+                                        onClick={() => {
+                                            if (handleCheckQuantity(product.quantity, quantity - 1)) {
+                                                setQuantity((q) => q - 1);
+                                            }
+                                        }}
                                     >
                                         -
                                     </button>
+
                                     <input
                                         type="number"
                                         className="product__quantity-number"
                                         value={quantity}
                                         onChange={(e) => {
-                                            const val = parseInt(e.target.value);
-                                            if (val > product.quantity) {
-                                                toast.error(
-                                                    "Currently store only " + product.quantity + " products left",
-                                                );
-                                            }
-                                            if (val > 0 && val <= product.quantity) {
-                                                setQuantity(val);
+                                            if (handleCheckQuantity(product.quantity, e.target.value)) {
+                                                setQuantity(parseInt(e.target.value));
                                             }
                                         }}
                                         min="1"
@@ -469,11 +484,16 @@ export default function Product() {
                                     />
                                     <button
                                         className="product__quantity-button"
-                                        onClick={() => quantity < product.quantity && setQuantity((q) => q + 1)}
+                                        onClick={() => {
+                                            if (handleCheckQuantity(product.quantity, quantity + 1)) {
+                                                setQuantity((q) => q + 1);
+                                            }
+                                        }}
                                     >
                                         +
                                     </button>
                                 </div>
+
                                 <motion.button
                                     className="btn btn--primary product__add-to-cart"
                                     onClick={handleAddToCart}
@@ -519,27 +539,37 @@ export default function Product() {
                                 Buy Now
                             </motion.button>
 
-                            <motion.button
-                                className={clsx(
-                                    "btn btn--secondary product__add-to-wishlist",
-                                    isProductInWishlist(product.id) && "active",
-                                )}
-                                onClick={() => handleWishlistAction(product)}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                            <Tooltip
+                                content={isProductInWishlist(product.id) ? "Remove from wishlist" : "Add to wishlist"}
                             >
-                                <Heart size={20} style={{ color: "currentColor" }} />
-                            </motion.button>
-
-                            <div className="product__share-container">
                                 <motion.button
-                                    className="btn btn--secondary product__share"
-                                    onClick={() => setShowShareMenu(!showShareMenu)}
+                                    className={clsx(
+                                        "btn btn--secondary product__add-to-wishlist",
+                                        isProductInWishlist(product.id) && "active",
+                                    )}
+                                    onClick={() => handleWishlistAction(product)}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                 >
-                                    <Share2 size={20} />
+                                    {isProductInWishlist(product.id) ? (
+                                        <HeartOff size={20} style={{ color: "currentColor" }} />
+                                    ) : (
+                                        <Heart size={20} style={{ color: "currentColor" }} />
+                                    )}
                                 </motion.button>
+                            </Tooltip>
+
+                            <div className="product__share-container">
+                                <Tooltip content={"Share"}>
+                                    <motion.button
+                                        className="btn btn--secondary product__share"
+                                        onClick={() => setShowShareMenu(!showShareMenu)}
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        <Share2 size={20} />
+                                    </motion.button>
+                                </Tooltip>
 
                                 {showShareMenu && (
                                     <div className="product__share-menu">

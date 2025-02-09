@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
+import { Mail, Phone, Bath, Scissors, Stethoscope, LogIn, User, Heart, ShoppingCart, MapPin } from "lucide-react";
 import "../../styles/footer.css";
 import Newsletter from "./Newsletter";
 import { initTicker } from "./ticker";
 import { initScrollToTop } from "../../utils/scrollToTop";
 import stores from "../../data/stores.json";
-import { Mail, Phone, Bath, Scissors, Stethoscope, LogIn, User, Heart, ShoppingCart, MapPin } from "lucide-react";
-import { Toaster } from "react-hot-toast";
 export default function Footer() {
     useEffect(() => {
         initTicker();

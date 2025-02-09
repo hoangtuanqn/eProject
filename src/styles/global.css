@@ -231,30 +231,14 @@ strong {
     background-color: #f3f3f3;
     cursor: not-allowed;
 }
-
 .cart-btn.in-cart {
-    background-color: #f8f8f8;
-    border-color: #ff0000;
+    background-color: #121212;
 }
 
 .cart-btn.in-cart svg {
-    color: #ff0000;
+    color: #f8f8f8;
 }
 
-.cart-btn.in-cart::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 24px;
-    height: 2px;
-    background-color: #ff0000;
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.cart-btn.in-cart:hover {
-    background-color: #ffe6e6;
-}
 /* Tăng/ giảm số lượng đơn hàng */
 .product__quantity-input {
     display: flex;

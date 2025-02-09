@@ -4,7 +4,7 @@ import products from "../data/products.json";
 import { useGlobalState } from "../context/GlobalContext";
 
 export const useCartActions = () => {
-    const {setCartQuantity, setCartQuantityTemp } = useGlobalState();
+    const { setCartQuantity, setCartQuantityTemp } = useGlobalState();
     const [loadingStates, setLoadingStates] = useState({});
     const [cartItems, setCartItems] = useState([]);
 
@@ -49,18 +49,30 @@ export const useCartActions = () => {
 
             if (isInCart) {
                 if (!remove) {
+                    let success = true;
                     // Nếu sản phẩm đã tồn tại và remove=false, tăng số lượng
                     newCart = currentCart.map((item, index) => {
                         if (index === existingItemIndex) {
-                            return {
-                                ...item,
-                                quantity: (item.quantity || 1) + (product.quantity || 1),
-                            };
+                            const productDetails = products.find((p) => p.id === item.id);
+
+                            const quantity = (item.quantity || 1) + (product.quantity || 1);
+                            if (quantity <= productDetails.quantity) {
+                                return {
+                                    ...item,
+                                    quantity: quantity,
+                                };
+                            } else {
+                                success = false;
+                                toast.error("The quantity in your cart is about to exceed the available stock!");
+                            }
                         }
+
                         return item;
                     });
-                    setCartQuantityTemp(prev => !prev)
-                    toast.success("Updated quantity in cart!");
+                    if (success) {
+                        setCartQuantityTemp((prev) => !prev);
+                        toast.success("Updated quantity in cart!");
+                    }
                 } else {
                     // Nếu remove=true, xóa sản phẩm
                     newCart = currentCart.filter((_, index) => index !== existingItemIndex);
@@ -82,13 +94,16 @@ export const useCartActions = () => {
                     return currentCart;
                 }
             }
+            if (newCart) {
+                setCartQuantity(newCart.length);
 
-            setCartQuantity(newCart.length);
-            localStorage.setItem("cart", JSON.stringify(newCart));
-            setCartItems(newCart);
+                localStorage.setItem("cart", JSON.stringify(newCart));
+                setCartItems(newCart);
+            }
             return newCart;
         } catch (error) {
             console.error("Error handling cart action:", error);
+
             toast.error("Error occurred!");
             return null;
         } finally {
@@ -107,4 +122,19 @@ export const useCartActions = () => {
         cartItems,
         getUpdatedCartItems,
     };
+};
+export const handleCheckQuantity = (quantity, value) => {
+    const val = parseInt(value);
+    if (value < 1) {
+        toast.error("Minimum quantity is 1");
+        return false;
+    }
+    if (val > quantity) {
+        toast.error("Currently store only " + quantity + " products left");
+        return false;
+    }
+
+    if (val > 0 && val <= quantity) {
+        return val;
+    }
 };
