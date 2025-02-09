@@ -11,6 +11,8 @@ import MenuMobile from "./MenuMobile";
 import Cart from "./MenuCart";
 import { useGlobalState } from "../../context/GlobalContext";
 import { Link } from "react-router-dom";
+import { Heart, Search, ShoppingCart } from "lucide-react";
+import CartHover from "./CartHover";
 
 export default function Header() {
     const { cartQuantity, wishlistQuantity } = useGlobalState();
@@ -52,6 +54,11 @@ export default function Header() {
             }
         };
     }, []);
+    function dongMenu() {
+        console.log(mobileMenuRef);
+
+        return mobileMenuRef;
+    }
 
     return (
         <>
@@ -63,11 +70,7 @@ export default function Header() {
                 <div className="container">
                     <div className="header__inner dfbetween">
                         {/* Mobile Menu Toggle Button */}
-                        <button
-                            className="mobile-menu-toggle"
-                            aria-label="Toggle menu"
-                            onClick={() => openMenu(mobileMenuRef)}
-                        >
+                        <button className="mobile-menu-toggle" aria-label="Toggle menu">
                             <svg
                                 width="24"
                                 height="24"
@@ -101,37 +104,40 @@ export default function Header() {
 
                         {/* Desktop Navigation */}
                         <MenuDesktop />
-                        <img src="/assets/imgs/logo.png" alt="Maverick Dresses" className="header__logo" />
-
+                        <img
+                            src="/assets/imgs/logo.png"
+                            alt={process.env.REACT_APP_BRAND_NAME}
+                            className="header__logo"
+                        />
+                        {/* Search */}
                         <div className="dfbetween">
                             <button
                                 className="header__icon-wrap dfbetween hiddenMobile"
                                 onClick={() => openMenu(searchRef)}
                             >
-                                <img src="/assets/icon/search.svg" alt="" className="header__icon" />
+                                <Search className="header__icon" />
                             </button>
+                            {/* Wishlist */}
                             <Link to="/pages/wishlist">
                                 <button className="header__icon-wrap dfbetween hiddenMobile">
-                                    <img src="/assets/icon/tym.svg" alt="" className="header__icon" />
+                                    <Heart className="header__icon" />
                                     <span className="cart-badge">{wishlistQuantity}</span>
                                 </button>
                             </Link>
+                            {/* Cart */}
                             <button
-                                className="header__icon-wrap dfbetween hiddenMobile"
+                                className="header__icon-wrap dfbetween hiddenMobile header__icon-cart"
                                 onClick={() => openMenu(cartRef)}
                             >
-                                <img src="/assets/icon/cart.svg" alt="" className="header__icon" />
+                                <ShoppingCart className="header__icon" />
                                 <span className="cart-badge">{cartQuantity}</span>
+                                {/* <CartHover /> */}
                             </button>
                             <Counter />
                         </div>
 
                         {/* Mobile Menu */}
-                        <MenuMobile
-                            mobileMenuRef={mobileMenuRef}
-                            closeMenuWithAnimation={closeMenuWithAnimation}
-                            toggleSubmenu={toggleSubmenu}
-                        />
+                        <MenuMobile toggleSubmenu={toggleSubmenu} />
 
                         {/* Search */}
                         <div className="search" ref={searchRef}>

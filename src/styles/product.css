@@ -34,6 +34,7 @@
 /* Images Section */
 .product__images {
     position: relative;
+    width: fit-content;
 }
 
 .product__image-main {
@@ -226,13 +227,22 @@
 
 .product__color-options {
     display: flex;
-    gap: 15px;
+    gap: 18px;
     flex-wrap: wrap;
+}
+.product__size-guide-image {
+    border: 1px solid #ccc;
+    height: 500px;
+    object-fit: contain;
+    aspect-ratio: 2 / 1;
+    border-radius: 12px;
+    box-shadow: 0 0 0px 1px rgb(0 0 0 / 1%);
+    margin-bottom: 15px;
 }
 
 .product__color-option {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     border: 1px solid #ccc;
     cursor: pointer;
@@ -251,6 +261,29 @@
     border-radius: 50%;
     border: 2px solid var(--color-grey-7);
     border-color: var(--color-grey-7);
+}
+
+/* Stock Status */
+.product__stock-status {
+    margin-bottom: 20px;
+}
+
+.product__stock-badge {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.product__stock-badge.in-stock {
+    background-color: #e6f4ea;
+    color: #1e7e34;
+}
+
+.product__stock-badge.out-of-stock {
+    background-color: #fde8e8;
+    color: #e53e3e;
 }
 
 /* Quantity */
@@ -273,12 +306,8 @@
 }
 
 .product__quantity-number {
-    width: 80px;
     height: 44px;
-    border: 1px solid #e5e5e5;
     border-radius: 4px;
-    text-align: center;
-    font-size: 1.4rem;
     -moz-appearance: textfield; /* Firefox */
 }
 
@@ -306,6 +335,7 @@
 
 .product__buttons {
     display: flex;
+
     gap: 10px;
     margin-bottom: 20px;
 }
@@ -329,7 +359,6 @@
     background: #121212;
     color: #fff;
 }
-
 .product__add-to-wishlist,
 .product__share {
     width: 50px;
@@ -357,12 +386,12 @@
 
 /* Buy Now Button */
 .product__buy-now {
-    flex: 1;
     background: #e53e3e;
     color: white;
     font-size: 1.6rem;
     padding: 15px 30px;
     border-radius: 8px;
+    flex: 1;
     transition: var(--transition);
 }
 
@@ -495,6 +524,7 @@
 
 .related-products h2 {
     font-size: 2.4rem;
+    font-weight: 500;
     margin-bottom: 30px;
     color: var(--color-grey-7);
 }
@@ -579,10 +609,13 @@
 
 @media screen and (max-width: 768px) {
     .product__grid {
+        display: unset;
         grid-template-columns: 1fr;
         gap: 30px;
     }
-
+    .btn--secondary {
+        width: 100%;
+    }
     .product__image-main {
         aspect-ratio: 1;
     }
@@ -601,17 +634,29 @@
     }
 
     .product__buttons {
-        flex-wrap: wrap;
+        /* flex-direction: column;
+        flex: 1;
+        flex-wrap: wrap; */
+
+        display: grid;
+        grid-auto-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 15px;
+        grid-template-areas:
+            "buy buy"
+            "wish share";
+    }
+    .product__add-to-wishlist {
+        grid-area: wish;
+    }
+    .product__buy-now {
+        grid-area: buy;
     }
 
     .product__add-to-cart,
     .product__buy-now {
         width: 100%;
-    }
-
-    .product__add-to-wishlist,
-    .product__share {
-        width: 48px;
     }
 
     .product__features {
@@ -720,6 +765,7 @@
 
 .product__tab-buttons {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
     margin-bottom: 30px;
     border-bottom: 1px solid #eee;
@@ -767,7 +813,7 @@
 .product__spec-item {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .product__spec-item span {
@@ -861,7 +907,7 @@
 
 .product__rating-fill {
     height: 100%;
-    background: var(--color-grey-7);
+    background: #ffd700eb;
     border-radius: 4px;
 }
 
@@ -943,9 +989,20 @@
 
 /* Responsive adjustments */
 @media screen and (max-width: 768px) {
+    .product__tab-button {
+        font-size: 1.4rem;
+        padding: 15px 5px;
+    }
     .product__review-header {
         flex-direction: column;
         gap: 10px;
+    }
+    .product__features {
+        gap: 35px;
+    }
+    .product__reviews-summary {
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
 
     .product__review-user {

@@ -293,25 +293,7 @@
     line-height: 1.4;
 }
 
-.cart-item__details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
 
-.cart-item__detail {
-    display: inline-block;
-    margin-right: 20px;
-}
-
-.cart-item__label {
-    color: rgba(18, 18, 18, 0.5);
-    margin-right: 4px;
-}
-
-.cart-item__value {
-    color: var(--color-grey-7);
-}
 
 /* Responsive */
 @media screen and (max-width: 749px) {
@@ -357,11 +339,7 @@
         position: static;
     }
 
-    .cart-item__details {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
+   
 }
 
 /* Tablet */

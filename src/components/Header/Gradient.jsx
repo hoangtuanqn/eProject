@@ -10,13 +10,14 @@ export default function Gradient() {
                         <div className="gradient__info dfbetween hiddenMobile">
                             <a href="tel:0812665001" className="gradient__phone dfcenter">
                                 <img src="/assets/icon/phone.svg" alt="Phone" className="gradient__icon" />
-                                0812665001
+                                {process.env.REACT_APP_BRAND_PHONE}
                             </a>
-                            <a href="mailto:support@maverickdresses.com" className="gradient__email dfcenter">
+                            <a href="mailto:{process.env.REACT_APP_BRAND_EMAIL}" className="gradient__email dfcenter">
                                 <img src="/assets/icon/email.svg" alt="Email" className="gradient__icon" />
-                                support@maverickdresses.com
+                                {process.env.REACT_APP_BRAND_EMAIL}
                             </a>
                         </div>
+
                         <p className="gradient__message">
                             Free Delivery on <strong className="bold">orders</strong> over $260
                         </p>

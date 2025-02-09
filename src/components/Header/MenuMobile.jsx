@@ -1,26 +1,32 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import categoriesData from "../../data/categories.json";
 
-const MenuMobile = forwardRef(function MenuMobile({ closeMenuWithAnimation, toggleSubmenu }, ref) {
+const MenuMobile = ({ toggleSubmenu }) => {
     const { pathname } = useLocation();
 
     const handleSubmenuClick = (e) => {
-        // Kiểm tra xem element được click có phải là thẻ Link không
-        const linkElement = e.target.closest('a[href^="/"]');
-        if (linkElement) {
-            closeMenuWithAnimation();
-        }
+        const menu = document.querySelector(".mobile-menu");
+        menu.classList.add("closing");
+        setTimeout(() => {
+            menu.classList.remove("active", "closing");
+            document.body.style.overflow = "";
+        }, 500);
     };
 
+    useEffect(() => {
+        handleSubmenuClick();
+    }, [pathname]);
+
     return (
-        <div className="mobile-menu" ref={ref}>
-            <div className="mobile-menu__overlay" onClick={closeMenuWithAnimation}></div>
-            <div className="mobile-menu__content" onClick={handleSubmenuClick}>
+        <div className="mobile-menu">
+            <div className="mobile-menu__overlay"></div>
+
+            <div className="mobile-menu__content">
                 <div className="mobile-menu__header">
                     <h2 className="mobile-menu__title">Maverick Dresses</h2>
                     {/* Button close Menu */}
-                    <button className="mobile-menu__close" aria-label="Close menu" onClick={closeMenuWithAnimation}>
+                    <button className="mobile-menu__close" aria-label="Close menu">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M18 6L6 18M6 6l12 12"
@@ -38,7 +44,6 @@ const MenuMobile = forwardRef(function MenuMobile({ closeMenuWithAnimation, togg
                                 to="/"
                                 className="mobile-menu__link"
                                 onClick={() => {
-                                    closeMenuWithAnimation();
                                     pathname === "/" && window.scrollTo({ top: 0, behavior: "smooth" });
                                 }}
                             >
@@ -269,6 +274,6 @@ const MenuMobile = forwardRef(function MenuMobile({ closeMenuWithAnimation, togg
             </div>
         </div>
     );
-});
+};
 
 export default MenuMobile;

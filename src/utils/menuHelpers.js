@@ -26,8 +26,9 @@ export const handleClickOutside = (e, target, closeCallback) => {
     }
 };
 
-// Hàm xử lý submenu
+// Hàm xử lý đóng menu khác trước khi mở menu mới
 export const toggleSubmenu = (e) => {
+
     e.preventDefault();
     e.stopPropagation();
 
@@ -35,7 +36,6 @@ export const toggleSubmenu = (e) => {
     if (!menuItem) return;
 
     const parentUl = menuItem.closest("ul");
-    const isMainMenu = parentUl.classList.contains("mobile-menu__list");
 
     // Đóng tất cả submenu cùng cấp
     const siblings = parentUl.children;

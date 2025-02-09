@@ -19,7 +19,7 @@ export default function Footer() {
     }, []);
     return (
         <>
-        {/* Gọi Toaster 1 file để hiển thị cho toàn bộ */}
+            {/* Gọi Toaster 1 file để hiển thị cho toàn bộ */}
             <Toaster />
             <footer className="footer">
                 <div className="container">
@@ -32,24 +32,24 @@ export default function Footer() {
                                     <MapPin size={18} style={{ marginRight: "8px" }} />
                                     {store.address}
                                 </address>
-
                             ))}
 
                             <p className="footer__link-wrap">
                                 <Mail size={18} />
                                 Email:
-                                <a href="mailto:support@maverickdresses.com" className="footer__link">
-                                    support@maverickdresses.com
+                                <a href="mailto:{process.env.REACT_APP_BRAND_EMAIL}" className="footer__link">
+                                    {process.env.REACT_APP_BRAND_EMAIL}
                                 </a>
                             </p>
 
                             <p className="footer__link-wrap">
                                 <Phone size={18} />
                                 Phone:
-                                <a href="tel:0812665001" className="footer__link">
-                                    0812.665.001
+                                <a href="tel:{process.env.REACT_APP_BRAND_PHONE}" className="footer__link">
+                                    {process.env.REACT_APP_BRAND_PHONE}
                                 </a>
                             </p>
+
                         </div>
 
                         {/* Our Store */}

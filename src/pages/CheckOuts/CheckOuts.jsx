@@ -615,11 +615,15 @@ const CheckOut = () => {
                             <span
                                 className="checkout__back-btn"
                                 onClick={() => {
-                                    if (
-                                        window.confirm(
-                                            "Note: When you go back, you will lose the discount code you entered earlier?",
-                                        )
-                                    ) {
+                                    if (appliedCoupon) {
+                                        if (
+                                            window.confirm(
+                                                "Note: When you go back, you will lose the discount code you entered earlier?",
+                                            )
+                                        ) {
+                                            navigate("/cart");
+                                        }
+                                    } else {
                                         navigate("/cart");
                                     }
                                 }}

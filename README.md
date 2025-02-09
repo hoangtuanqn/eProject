@@ -1,70 +1,147 @@
-# Getting Started with Create React App
+# Maverick Dresses - Website Cung Cấp Đồng Phục Học Sinh Trên Toàn Nước
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Giới thiệu
 
-## Available Scripts
+Maverick Dresses là một trong những nhà sản xuất đồng phục hàng đầu tại Việt Nam. Chúng tôi cung cấp đồng phục chất lượng cao cho nhiều trường học với mức giá phải chăng. Sản phẩm bao gồm đồng phục học sinh nam và nữ, đảm bảo sự vừa vặn và chất liệu vải bền đẹp.
 
-In the project directory, you can run:
+Website **Maverick Dresses** được phát triển nhằm mang đến trải nghiệm mua sắm tiện lợi, chuyên nghiệp, giúp khách hàng dễ dàng tìm kiếm, đặt hàng và theo dõi đơn hàng một cách nhanh chóng.
 
-### `npm start`
+## Cài đặt và Chạy Dự Án
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Yêu cầu hệ thống
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-   **Node.js** (phiên bản 14.0.0 trở lên)
+-   **npm** hoặc **yarn**
 
-### `npm test`
+### Các bước cài đặt
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone dự án từ GitHub:**
+    ```sh
+    git clone https://github.com/hoangtuanqn/eProject
+    cd eProject
+    ```
+2. **Cài đặt dependencies:**
+    ```sh
+    npm install
+    ```
+3. **Chạy dự án ở môi trường development:**
+    ```sh
+    npm start
+    ```
+4. **Triển khai production:**
+    ```sh
+    npm run build
+    ```
 
-### `npm run build`
+## Cấu trúc dự án
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+eproject_react/
+├── public/
+│   ├── assets/
+│   │   ├── icon/
+│   │   └── imgs/
+│   └── index.html
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── context/
+│   ├── data/
+│   ├── pages/
+│   ├── styles/
+│   ├── utils/
+│   ├── App.jsx
+│   └── index.js
+└── package.json
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Công nghệ sử dụng
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-   **React.js** - Xây dựng giao diện người dùng
+-   **React Router DOM** - Điều hướng trang
+-   **Axios** - Gửi yêu cầu HTTP
+-   **Framer Motion** - Hiệu ứng động
+-   **Swiper** - Hiển thị slider sản phẩm
+-   **React Hot Toast** - Hiển thị thông báo
+-   **Lucide React** - Bộ icon hiện đại
 
-### `npm run eject`
+## Xử lý dữ liệu và vận hành hệ thống
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Cách thức vận hành
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+-   Hệ thống được phát triển dưới dạng **Single Page Application (SPA)** giúp tăng tốc độ tải trang và cải thiện trải nghiệm người dùng.
+-   Mọi dữ liệu sản phẩm, giỏ hàng và danh sách yêu thích được quản lý thông qua **React Context API** để đảm bảo hiệu suất tối ưu.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Lưu trữ và xử lý dữ liệu
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+-   **Dữ liệu sản phẩm:** Được lưu trữ trong các JSON files hoặc từ API backend.
+-   **Quản lý giỏ hàng:**
+    -   Khi người dùng thêm sản phẩm vào giỏ hàng, dữ liệu được lưu trữ trong **LocalStorage** để duy trì trạng thái ngay cả khi tải lại trang.
+    -   Khi thanh toán, hệ thống gửi thông tin giỏ hàng đến API PayPal để xử lý giao dịch.
+-   **Danh sách yêu thích:**
+    -   Được lưu trữ tại LocalStorage để giữ trạng thái ngay cả khi thoát trình duyệt.
+-   **Hệ thống tìm kiếm:**
+    -   Sử dụng thuật toán tìm kiếm theo từ khóa và bộ lọc (lọc theo danh mục, giá, thương hiệu,...).
+-   **Hệ thống thanh toán:**
+    -   Hỗ trợ thanh toán thông qua **PayPal API**.
+    -   Xác nhận giao dịch và cập nhật trạng thái đơn hàng trong hệ thống.
 
-## Learn More
+## Tính năng chính
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 🌟 Quản lý giỏ hàng
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   Thêm/xóa sản phẩm vào giỏ hàng
+-   Cập nhật số lượng sản phẩm
+-   Tính tổng tiền đơn hàng
+-   Lưu giỏ hàng trong Local Storage
 
-### Code Splitting
+### ❤️ Danh sách yêu thích (Wishlist)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+-   Thêm/xóa sản phẩm vào danh sách yêu thích
+-   Quản lý danh sách dễ dàng
 
-### Analyzing the Bundle Size
+### 🔎 Tìm kiếm và lọc sản phẩm
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+-   Tìm kiếm theo tên sản phẩm
+-   Lọc sản phẩm theo danh mục
+-   Sắp xếp theo giá
 
-### Making a Progressive Web App
+### 💳 Thanh toán
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+-   Tích hợp cổng thanh toán PayPal
+-   Xử lý đơn hàng nhanh chóng
+-   Thông báo trạng thái đơn hàng
 
-### Advanced Configuration
+### 📦 Theo dõi đơn hàng
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+-   Kiểm tra trạng thái đơn hàng theo mã đơn
+-   Xem chi tiết đơn hàng
+-   In hóa đơn sau khi thanh toán
 
-### Deployment
+### 🔥 Tính năng khác
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+-   **Thiết kế responsive**: Hiển thị tốt trên mọi thiết bị
+-   **Hỗ trợ đăng ký nhận newsletter**
+-   **Tích hợp bản đồ Google Maps để tìm cửa hàng**
+-   **Tương thích với nhiều trình duyệt**
 
-### `npm run build` fails to minify
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Website có thể được deploy lên các nền tảng như:
+
+-   **Vercel**
+-   **Netlify**
+-   **GitHub Pages**
+-   **Firebase Hosting**
+
+## Đóng góp
+
+### Thành viên nhóm:
+
+1. **Phạm Hoàng Tuấn** - Student1614869
+2. **Hồ Đức Anh** - Student1614883
+3. **Lâm Hoàng An** - Student1614870
+
+## Ghi chú
+
+📌 Đây là dự án học tập và thực hành, không sử dụng cho mục đích thương mại.

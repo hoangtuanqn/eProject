@@ -82,6 +82,7 @@ export default function Category({ nameCategory }) {
     }, [slug, navigate]);
 
     // Tự động chọn category dựa trên slug
+
     useEffect(() => {
         if (slug === "all-product") {
             // Không reset selected categories khi chuyển sang all-product
@@ -95,6 +96,7 @@ export default function Category({ nameCategory }) {
                         return prev;
                     }
                     // Nếu category chưa có, thêm vào danh sách hiện tại
+
                     return [...prev, category.name];
                 });
             }
@@ -166,37 +168,49 @@ export default function Category({ nameCategory }) {
 
     const handleCategoryChange = useCallback(
         (categoryName) => {
+            // Không đứng ở trang all-product
             if (slug !== "all-product") {
                 // Kiểm tra xem category được click có phải là category hiện tại không
                 const currentCategory = categoriesData.find((cat) => cat.slug === slug);
                 if (currentCategory && currentCategory.name === categoryName) {
-                    // Nếu đúng là category hiện tại, chỉ cần bỏ chọn nó và chuyển sangt rang all-product
-                    setSelectedCategories((prev) => prev.filter((c) => c !== categoryName));
+                    // Nếu đúng là category hiện tại, chỉ cần bỏ chọn nó và chuyển sang trang all-product
+                    setSelectedCategories([]);
                     navigate("/category/all-product");
                     return;
                 }
 
                 // Nếu không phải category hiện tại, chuyển về all-product
-                navigate("/category/all-product");
-                setTimeout(() => {
-                    setSelectedCategories((prev) => {
-                        if (prev.includes(categoryName)) {
-                            return prev;
-                        }
-                        return [...prev, categoryName];
-                    });
-                }, 0);
+                setSelectedCategories((prev) => {
+                    if (prev.includes(categoryName)) {
+                        return prev;
+                    }
+                    // console.log([prev, categoryName]);
 
-                // Hiển thị 20 sản phẩm
+                    return [...prev, categoryName];
+                });
+                navigate("/category/all-product");
             } else {
                 // Nếu đã ở all-product, xử lý toggle như bình thường
-                setSelectedCategories((prev) =>
-                    prev.includes(categoryName) ? prev.filter((c) => c !== categoryName) : [...prev, categoryName],
-                );
+                setSelectedCategories((prev) => {
+                    const categoriesNew = prev.includes(categoryName)
+                        ? prev.filter((c) => c !== categoryName)
+                        : [...prev, categoryName];
+                    if (categoriesNew.length === 1) {
+                        const slugNew = categoriesData.find((cat) => cat.name === categoriesNew[0]).slug;
+                        navigate(`/category/${slugNew}`);
+                    }
+                    return categoriesNew;
+                });
             }
         },
         [slug, navigate, categoriesData],
     );
+
+    useEffect(() => {
+        if (slug !== "all-product") {
+            setSelectedCategories([categoriesData.find((cat) => cat.slug === slug).name]);
+        }
+    }, [slug]);
 
     // Thêm hàm xử lý filter sale
     const handleSelectSale = (saleStatus) => {
@@ -1161,7 +1175,7 @@ export default function Category({ nameCategory }) {
                                                         >
                                                             <Eye size={18} />
                                                         </button> */}
-                                                        <button
+                                                        {/* <button
                                                             className={`cart-btn ${
                                                                 loadingStates[item.id] ? "loading" : ""
                                                             } ${isProductInCart(item.id) ? "in-cart" : ""}`}
@@ -1187,7 +1201,7 @@ export default function Category({ nameCategory }) {
                                                             ) : (
                                                                 <ShoppingCart size={18} />
                                                             )}
-                                                        </button>
+                                                        </button> */}
                                                         <button
                                                             className={`cart-btn ${
                                                                 wishlistLoadingStates[item.id] ? "loading" : ""

@@ -14,8 +14,9 @@ export default function Policies() {
                             <h2 className="policies__section-title">Returns & Refunds</h2>
                             <div className="policies__text">
                                 <p>
-                                    At <span className="policies__highlight">Maverick Dresses</span>, we stand behind the
-                                    quality of our products and want you to be completely satisfied with your purchase.
+                                    At <span className="policies__highlight">{process.env.REACT_APP_BRAND_NAME}</span>,
+                                    we stand behind the quality of our products and want you to be completely satisfied
+                                    with your purchase.
                                 </p>
 
                                 <h3>Return Policy Overview</h3>
@@ -57,8 +58,9 @@ export default function Policies() {
                             <div className="policies__text">
                                 <p>
                                     Your privacy is important to us at{" "}
-                                    <span className="policies__highlight">Maverick Dresses</span>. This Privacy Policy
-                                    outlines how we collect, use, and protect your personal information.
+                                    <span className="policies__highlight">{process.env.REACT_APP_BRAND_NAME}</span>.
+                                    This Privacy Policy outlines how we collect, use, and protect your personal
+                                    information.
                                 </p>
 
                                 <h3>Information We Collect</h3>
@@ -97,8 +99,12 @@ export default function Policies() {
                                 <p>
                                     If you have any questions about our Privacy Policy or wish to exercise your rights,
                                     please contact our Data Protection Officer at{" "}
-                                    <a href="mailto:support@maverickdresses.com" className="policies__highlight">support@maverickdresses.com</a>.
+                                    <a href="mailto:{process.env.REACT_APP_BRAND_EMAIL}" className="policies__highlight">
+                                        {process.env.REACT_APP_BRAND_EMAIL}
+                                    </a>
+                                    .
                                 </p>
+
 
                                 <Link to="/pages/contact" className="policies__button">
                                     Contact Us

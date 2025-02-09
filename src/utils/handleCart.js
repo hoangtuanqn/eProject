@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import toast from "react-hot-toast";
 import products from "../data/products.json";
 import { useGlobalState } from "../context/GlobalContext";
 
 export const useCartActions = () => {
-    const { cartQuantity, setCartQuantity } = useGlobalState();
+    const {setCartQuantity, setCartQuantityTemp } = useGlobalState();
     const [loadingStates, setLoadingStates] = useState({});
     const [cartItems, setCartItems] = useState([]);
 
     // Load cart items when component mounts
-    useEffect(() => {
-        const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-        setCartItems(savedCart);
-    }, [cartQuantity]);
+    // useLayoutEffect(() => {
+    //     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    //     setCartItems(savedCart);
+    //     setCartQuantity(savedCart.length);
+    // }, [cartQuantity]);
 
     const getUpdatedCartItems = (cart, includeNotes = false) => {
         return cart
@@ -31,7 +32,7 @@ export const useCartActions = () => {
             .filter((item) => item);
     };
 
-    const handleCartAction = async (product, remove = true) => {
+    const handleCartAction = async (product, remove = false) => {
         const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
 
         // Kiểm tra sản phẩm trong giỏ hàng với cùng id, size và color
@@ -40,14 +41,6 @@ export const useCartActions = () => {
         );
 
         const isInCart = existingItemIndex !== -1;
-
-        if (!remove && isInCart) {
-            const confirmDelete = window.confirm("Do you want to remove this item from cart?");
-            if (!confirmDelete) {
-                return;
-            }
-        }
-
         setLoadingStates((prev) => ({ ...prev, [product.id]: true }));
 
         try {
@@ -55,8 +48,8 @@ export const useCartActions = () => {
             let newCart;
 
             if (isInCart) {
-                if (remove) {
-                    // Nếu sản phẩm đã tồn tại và remove=true, tăng số lượng
+                if (!remove) {
+                    // Nếu sản phẩm đã tồn tại và remove=false, tăng số lượng
                     newCart = currentCart.map((item, index) => {
                         if (index === existingItemIndex) {
                             return {
@@ -66,22 +59,28 @@ export const useCartActions = () => {
                         }
                         return item;
                     });
+                    setCartQuantityTemp(prev => !prev)
                     toast.success("Updated quantity in cart!");
                 } else {
-                    // Nếu remove=false, xóa sản phẩm
+                    // Nếu remove=true, xóa sản phẩm
                     newCart = currentCart.filter((_, index) => index !== existingItemIndex);
                     toast.success("Removed from cart!");
                 }
             } else {
-                // Thêm sản phẩm mới vào giỏ hàng
-                const newItem = {
-                    id: product.id,
-                    size: product.size ?? product.sizes[0],
-                    color: product.color ?? product.colors[0],
-                    quantity: product.quantity || 1,
-                };
-                newCart = [...currentCart, newItem];
-                toast.success("Added to cart!");
+                if (!remove) {
+                    // Thêm sản phẩm mới vào giỏ hàng nếu remove=false
+                    const newItem = {
+                        id: product.id,
+                        size: product.size ?? product.sizes[0],
+                        color: product.color ?? product.colors[0],
+                        quantity: product.quantity || 1,
+                    };
+                    newCart = [...currentCart, newItem];
+                    toast.success("Added to cart!");
+                } else {
+                    // Nếu remove=true nhưng không tìm thấy sản phẩm
+                    return currentCart;
+                }
             }
 
             setCartQuantity(newCart.length);

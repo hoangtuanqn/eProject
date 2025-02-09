@@ -1,23 +1,31 @@
-import React, { useRef, useEffect, useState, forwardRef, useLayoutEffect } from "react";
+import React, { useRef, useEffect, useState, forwardRef, useLayoutEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { closeWithAnimation, handleClickOutside } from "../../utils/menuHelpers";
 import "../../styles/menuCart.css";
 import { Trash2, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import categories from "../../data/categories.json";
 import products from "../../data/products.json";
 import clsx from "clsx";
 import { useCartActions } from "../../utils/handleCart";
 import { useGlobalState } from "../../context/GlobalContext";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
-
 const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
-    const { cartQuantity, setCartQuantity, wishlistQuantity, setWishlistQuantity } = useGlobalState();
+    const {
+        cartQuantity,
+        setCartQuantity,
+        cartQuantityTemp,
+        setCartQuantityTemp,
+        wishlistQuantity,
+        setWishlistQuantity,
+    } = useGlobalState();
     const [cartItems, setCartItems] = useState([]);
     const [deletingItemId, setDeletingItemId] = useState(null);
     const [isClearing, setIsClearing] = useState(false);
     const navigate = useNavigate();
     const { handleCartAction, getUpdatedCartItems } = useCartActions();
-
+    const { pathname } = useLocation();
     // Load cart items from localStorage and match with product data
     useEffect(() => {
         const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
@@ -36,23 +44,40 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
             .filter((item) => item); // Remove any null items
 
         setCartItems(cartWithDetails);
-    }, [cartQuantity]);
+    }, [cartQuantity, cartQuantityTemp]);
+
     useLayoutEffect(() => {
         setCartQuantity(cartItems.length);
-    }, [cartItems]);
+    }, [cartItems, setCartQuantity]);
+
+    // Update wishlist quantity trước khi render
     useLayoutEffect(() => {
         setWishlistQuantity(JSON.parse(localStorage.getItem("wishlist") ?? "[]").length || 0);
-    }, [wishlistQuantity]);
+    }, [wishlistQuantity, setWishlistQuantity]);
 
-    const handleClose = () => {
+    // Update cart quantity trước khi render
+    useLayoutEffect(() => {
+        setCartQuantity(JSON.parse(localStorage.getItem("cart") ?? "[]").length || 0);
+    }, [cartQuantity, setCartQuantity]);
+
+    const handleClose = useCallback(() => {
         closeWithAnimation(ref);
         onClose();
-    };
+    }, [ref, onClose]);
 
-    const handleQuantityInput = (id, value) => {
+    useEffect(() => {
+        handleClose();
+    }, [pathname]);
+
+    const handleQuantityInput = (id, maxQuantity, value) => {
+        value = parseInt(value);
+        if (value > maxQuantity) {
+            window.alert("Current store only " + maxQuantity + " products left");
+            return;
+        }
         const newQuantity = Math.max(1, parseInt(value) || 1);
-
         // Update state
+
         setCartItems((prevItems) =>
             prevItems.map((item) => {
                 if (item.id === id) {
@@ -75,8 +100,9 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
 
     const handleRemoveItem = async (id) => {
         setDeletingItemId(id);
-        const product = products.find((p) => p.id === id);
-        const updatedCart = await handleCartAction(product);
+        // Lấy thông tin đầy đủ của sản phẩm từ cartItems
+        const itemToRemove = cartItems.find((item) => item.id === id);
+        const updatedCart = await handleCartAction(itemToRemove, true);
         if (updatedCart) {
             setCartItems(getUpdatedCartItems(updatedCart));
         }
@@ -135,91 +161,134 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
 
                     <AnimatePresence mode="popLayout">
                         {cartItems.length > 0 ? (
-                            cartItems.map((item) => (
-                                <motion.article
-                                    key={item.id}
-                                    className="cart-item"
-                                    layout
-                                    initial={{ opacity: 1 }}
-                                    exit={{
-                                        opacity: 0,
-                                        height: 0,
-                                        marginBottom: 0,
-                                        marginLeft: -200,
-                                        transition: {
-                                            opacity: { duration: 0.2 },
-                                            height: { duration: 0.3, delay: 0.1 },
-                                        },
-                                    }}
-                                >
-                                    <div className="cart-item__top">
-                                        <img src={item.thumbnail} alt={item.name} className="cart-item__img" />
-                                        <div className="cart-item__info">
-                                            <span className="cart-item__category">{item.category}</span>
-                                            <h3 className="cart-item__name">{item.name}</h3>
-                                            <div className="cart-item__details">
-                                                <div className="cart-item__detail">
-                                                    <span className="cart-item__label">Size:</span>
-                                                    <span className="cart-item__value">{item.size}</span>
-                                                </div>
-                                                <div className="cart-item__detail">
-                                                    <span className="cart-item__label">Color:</span>
-                                                    <span className="cart-item__value">{item.color}</span>
-                                                </div>
-                                            </div>
-                                            <div className="cart-item__price">
-                                                <span
-                                                    className="cart-item__current-price line-clamp"
-                                                    style={{ "--line-clamp": 4 }}
+                            cartItems.map((item) => {
+                                const categoryProduct = categories.find((cate) => cate.name === item.category);
+                                return (
+                                    <motion.article
+                                        key={`${item.id}-${item.size}-${item.color}`}
+                                        className="cart-item"
+                                        layout
+                                        initial={{ opacity: 1 }}
+                                        exit={{
+                                            opacity: 0,
+                                            height: 0,
+                                            marginBottom: 0,
+                                            marginLeft: -200,
+                                            transition: {
+                                                opacity: { duration: 0.2 },
+                                                height: { duration: 0.3, delay: 0.1 },
+                                            },
+                                        }}
+                                    >
+                                        <div className="cart-item__top">
+                                            <Link to={`/product/${item.slug}`}>
+                                                <img src={item.thumbnail} alt={item.name} className="cart-item__img" />
+                                            </Link>
+                                            <div className="cart-item__info">
+                                                <Link
+                                                    className="cart-item__category"
+                                                    to={`/category/${categoryProduct?.slug ?? ""}`}
                                                 >
-                                                    {formatCurrency(item.price * item.quantity)}
-                                                </span>
+                                                    {item.category}
+                                                </Link>
+                                                <h3>
+                                                    <Link to={`/product/${item.slug}`} className="cart-item__name">
+                                                        {item.name}
+                                                    </Link>
+                                                </h3>
+                                                <div className="cart-item__details">
+                                                    <div className="cart-item__detail">
+                                                        <span className="cart-item__label">Size:</span>
+                                                        <span className="cart-item__value">{item.size}</span>
+                                                    </div>
+                                                    <div className="cart-item__detail">
+                                                        <span className="cart-item__label">Color:</span>
+                                                        <span className="cart-item__value">{item.color}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="cart-item__price">
+                                                    <span
+                                                        className="cart-item__current-price line-clamp"
+                                                        style={{ "--line-clamp": 4 }}
+                                                    >
+                                                        {formatCurrency(item.price * item.quantity)}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="cart-item__actions">
-                                        <div className="product__quantity-input">
+                                        <div className="cart-item__actions">
+                                            <div className="product__quantity-input">
+                                                <button
+                                                    className="product__quantity-button"
+                                                    onClick={() =>
+                                                        handleQuantityInput(
+                                                            item.id,
+                                                            categoryProduct?.quantity,
+                                                            item.quantity - 1,
+                                                        )
+                                                    }
+                                                >
+                                                    -
+                                                </button>
+                                                <input
+                                                    type="number"
+                                                    value={item.quantity}
+                                                    className="product__quantity-number"
+                                                    onChange={(e) => {
+                                                        const val = parseInt(e.target.value);
+                                                        if (val > categoryProduct?.quantity) {
+                                                            toast.error(
+                                                                "Current store only " +
+                                                                    categoryProduct?.quantity +
+                                                                    " products left",
+                                                            );
+                                                        } else {
+                                                            handleQuantityInput(
+                                                                item.id,
+                                                                categoryProduct?.quantity,
+                                                                e.target.value,
+                                                            );
+                                                        }
+                                                    }}
+                                                    min="1"
+                                                    max={categoryProduct?.quantity}
+                                                />
+                                                <button
+                                                    className="product__quantity-button"
+                                                    onClick={() =>
+                                                        handleQuantityInput(
+                                                            item.id,
+                                                            categoryProduct?.quantity,
+                                                            item.quantity + 1,
+                                                        )
+                                                    }
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
                                             <button
-                                                className="product__quantity-button"
-                                                onClick={() => handleQuantityInput(item.id, item.quantity - 1)}
+                                                className="cart-page__remove-btn"
+                                                onClick={() => handleRemoveItem(item.id)}
+                                                disabled={deletingItemId === item.id}
                                             >
-                                                -
-                                            </button>
-                                            <input
-                                                type="number"
-                                                value={item.quantity}
-                                                className="product__quantity-number"
-                                                onChange={(e) => handleQuantityInput(item.id, e.target.value)}
-                                                min="1"
-                                            />
-                                            <button
-                                                className="product__quantity-button"
-                                                onClick={() => handleQuantityInput(item.id, item.quantity + 1)}
-                                            >
-                                                +
+                                                {deletingItemId === item.id ? (
+                                                    <img
+                                                        src="/assets/icon/loading.gif"
+                                                        alt="Loading..."
+                                                        className="loading-spinner"
+                                                    />
+                                                ) : (
+                                                    <Trash2 size={16} />
+                                                )}
                                             </button>
                                         </div>
-                                        <button
-                                            className="cart-page__remove-btn"
-                                            onClick={() => handleRemoveItem(item.id)}
-                                            disabled={deletingItemId === item.id}
-                                        >
-                                            {deletingItemId === item.id ? (
-                                                <img
-                                                    src="/assets/icon/loading.gif"
-                                                    alt="Loading..."
-                                                    className="loading-spinner"
-                                                />
-                                            ) : (
-                                                <Trash2 size={16} />
-                                            )}
-                                        </button>
-                                    </div>
-                                </motion.article>
-                            ))
+                                    </motion.article>
+                                );
+                            })
                         ) : (
                             <div className="cart__empty">
                                 <img src="/assets/imgs/cart_empty.png" alt="Empty cart" className="cart__empty-img" />
+
                                 <p className="cart__empty-text">Your cart is empty</p>
                                 <button
                                     className="btn cart__empty-button"
@@ -247,7 +316,11 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                 <Link to="/cart" onClick={handleClose} className="cart__button cart__button--outline">
                                     View Cart
                                 </Link>
-                                <Link to="/cart" onClick={handleClose} className="cart__button cart__button--filled">
+                                <Link
+                                    to="/checkouts"
+                                    onClick={handleClose}
+                                    className="cart__button cart__button--filled"
+                                >
                                     Check Out
                                 </Link>
                             </>

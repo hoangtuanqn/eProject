@@ -86,11 +86,11 @@ export default function Contact() {
                         <motion.div className="contact__info" variants={itemVariants}>
                             <h2 className="contact__title">Let's Collaborate</h2>
                             <p className="contact__text">
-                                At <strong>Maverick Dresses</strong>, we believe in the power of collaboration to drive
-                                innovation and create exceptional experiences. Our mission is to provide the best in
-                                uniform fashion, helping you look and feel your best in every environment. Whether
-                                you're dressing for work, school, or special occasions, we offer high-quality products
-                                designed to meet your needs.
+                                At <strong>{process.env.REACT_APP_BRAND_NAME}</strong>, we believe in the power of
+                                collaboration to drive innovation and create exceptional experiences. Our mission is to
+                                provide the best in uniform fashion, helping you look and feel your best in every
+                                environment. Whether you're dressing for work, school, or special occasions, we offer
+                                high-quality products designed to meet your needs.
                             </p>
                             <p className="contact__text">
                                 We invite you to explore our collection and experience the difference. Let's work

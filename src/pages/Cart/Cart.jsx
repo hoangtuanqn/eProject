@@ -59,8 +59,8 @@ export default function Cart() {
 
     const handleRemoveItem = async (id) => {
         setDeletingItemId(id);
-        const product = products.find((p) => p.id === id);
-        const updatedCart = await handleCartAction(product);
+        const itemToRemove = cartItems.find((item) => item.id === id);
+        const updatedCart = await handleCartAction(itemToRemove, true);
         if (updatedCart) {
             setCartItems(getUpdatedCartItems(updatedCart, true));
         }
@@ -315,24 +315,26 @@ export default function Cart() {
                             </div>
 
                             <div className="cart-page__summary">
-                                <button
-                                    className="cart-page__clear-btn"
-                                    onClick={handleClearCart}
-                                    disabled={isCalculating}
-                                >
-                                    {isCalculating ? (
-                                        <img
-                                            src="/assets/icon/loading.gif"
-                                            alt="Loading..."
-                                            className="loading-spinner"
-                                        />
-                                    ) : (
-                                        <>
-                                            <Trash2 size={16} />
-                                            Clear Cart
-                                        </>
-                                    )}
-                                </button>
+                                {cartItems.length > 1 && (
+                                    <button
+                                        className="cart-page__clear-btn"
+                                        onClick={handleClearCart}
+                                        disabled={isCalculating}
+                                    >
+                                        {isCalculating ? (
+                                            <img
+                                                src="/assets/icon/loading.gif"
+                                                alt="Loading..."
+                                                className="loading-spinner"
+                                            />
+                                        ) : (
+                                            <>
+                                                <Trash2 size={16} />
+                                                Clear Cart
+                                            </>
+                                        )}
+                                    </button>
+                                )}
 
                                 <div className="cart-page__totals">
                                     <div className="cart-page__totals-row">

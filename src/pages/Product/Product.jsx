@@ -6,6 +6,8 @@ import "../../styles/product.css";
 import { useWishlistActions } from "../../utils/handleWishlist";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import useTitle from "../../hooks/useTitle";
+import SuggestedProducts from "./SuggestedProducts";
+
 import {
     Heart,
     Share2,
@@ -14,8 +16,6 @@ import {
     Shield,
     RefreshCw,
     Ruler,
-    ChevronDown,
-    ChevronUp,
     Facebook,
     Twitter,
     MoreHorizontal,
@@ -61,6 +61,8 @@ export default function Product() {
         setProduct(foundProduct);
         setSelectedSize(foundProduct.sizes[0]);
         setSelectedColor(foundProduct.colors[0]);
+        setSelectedImage(0);
+        setActiveTab("details");
     }, [slug, navigate]);
 
     useTitle(product?.name || "Product");
@@ -205,7 +207,7 @@ export default function Product() {
                         <div className="product__reviews">
                             <div className="product__reviews-summary">
                                 <div className="product__reviews-average">
-                                    <h4>{product.rating.toFixed(1)}</h4>
+                                    <h4>{product.rating.toFixed(1)} / 5.0</h4>
                                     <Rating
                                         name="read-only"
                                         value={product.rating}
@@ -384,7 +386,7 @@ export default function Product() {
                                         <img
                                             src="/assets/imgs/size-guide.webp"
                                             alt="Size Guide"
-                                            style={{ height: 500, objectFit: "contain", aspectRatio: 2 / 1 }}
+                                            className="product__size-guide-image"
                                         />
                                     </motion.div>
                                 )}
@@ -422,6 +424,20 @@ export default function Product() {
                             </div>
                         </div>
 
+                        {/* Stock Status */}
+                        <div className="product__stock-status">
+                            <span
+                                className={clsx(
+                                    "product__stock-badge",
+                                    product.quantity > 0 ? "in-stock" : "out-of-stock",
+                                )}
+                            >
+                                {product.quantity > 0
+                                    ? `${product.quantity} products available in stock`
+                                    : "Out of stock"}
+                            </span>
+                        </div>
+
                         {/* Quantity */}
                         <div className="product__quantity">
                             <h3>Quantity</h3>
@@ -439,6 +455,11 @@ export default function Product() {
                                         value={quantity}
                                         onChange={(e) => {
                                             const val = parseInt(e.target.value);
+                                            if (val > product.quantity) {
+                                                toast.error(
+                                                    "Currently store only " + product.quantity + " products left",
+                                                );
+                                            }
                                             if (val > 0 && val <= product.quantity) {
                                                 setQuantity(val);
                                             }
@@ -599,6 +620,7 @@ export default function Product() {
                 </div>
 
                 <RelatedProducts relatedProducts={relatedProducts} handleWishlistAction={handleWishlistAction} />
+                <SuggestedProducts idCategory={product.category} handleWishlistAction={handleWishlistAction} />
             </div>
         </motion.section>
     );

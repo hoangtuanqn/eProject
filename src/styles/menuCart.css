@@ -121,7 +121,7 @@
 
 .cart-item__category {
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--color-grey-7);
     background: transparent;
     padding: 4px 0;
@@ -137,6 +137,7 @@
 }
 
 .cart-item__details {
+    margin-top: 8px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -157,6 +158,7 @@
 }
 
 .cart-item__current-price {
+    margin-top: 10px;
     word-break: break-word;
     display: block;
     color: var(--color-grey-7);
@@ -343,6 +345,9 @@
 
 /* Mobile Responsive */
 @media screen and (max-width: 749px) {
+    .product__header {
+        margin-top: 30px;
+    }
     .cart__list {
         width: 100%;
     }
