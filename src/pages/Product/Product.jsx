@@ -4,22 +4,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCartActions } from "../../utils/handleCart";
 import "../../styles/product.css";
 import { useWishlistActions } from "../../utils/handleWishlist";
-
+import PinterestIcon from "@mui/icons-material/Pinterest";
+import useTitle from "../../hooks/useTitle";
 import {
     Heart,
-    ShoppingBag,
     Share2,
     ChevronRight,
     Truck,
     Shield,
     RefreshCw,
     Ruler,
-    Star,
     ChevronDown,
     ChevronUp,
     Facebook,
     Twitter,
-    // Pinterest,
     MoreHorizontal,
     ShoppingCart,
     ExternalLink,
@@ -27,13 +25,13 @@ import {
 import productsData from "../../data/products.json";
 import toast from "react-hot-toast";
 import clsx from "clsx";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import Tooltip from "../../components/Tooltip";
 import { Rating } from "@mui/material";
+import RelatedProducts from "./RelatedProducts";
 
 export default function Product() {
     const { slug } = useParams();
@@ -49,6 +47,7 @@ export default function Product() {
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [activeTab, setActiveTab] = useState("details");
 
     const { handleCartAction, isProductInCart } = useCartActions();
     const { handleWishlistAction, isProductInWishlist } = useWishlistActions();
@@ -63,6 +62,8 @@ export default function Product() {
         setSelectedSize(foundProduct.sizes[0]);
         setSelectedColor(foundProduct.colors[0]);
     }, [slug, navigate]);
+
+    useTitle(product?.name || "Product");
 
     useEffect(() => {
         if (product) {
@@ -131,6 +132,155 @@ export default function Product() {
             });
     };
 
+    const renderTabContent = () => {
+        switch (activeTab) {
+            case "details":
+                return (
+                    <div className="product__tab-content">
+                        <div className="product__specifications">
+                            <h4>Product Information</h4>
+                            <div className="product__spec-grid">
+                                <div className="product__spec-item">
+                                    <span>Category</span>
+                                    <strong>{product.category}</strong>
+                                </div>
+                                <div className="product__spec-item">
+                                    <span>Gender</span>
+                                    <strong>{product.gender}</strong>
+                                </div>
+                                <div className="product__spec-item">
+                                    <span>Education Level</span>
+                                    <strong>{product.education_levels}</strong>
+                                </div>
+                                <div className="product__spec-item">
+                                    <span>Available Colors</span>
+                                    <strong>{product.colors.join(", ")}</strong>
+                                </div>
+                                <div className="product__spec-item">
+                                    <span>Available Sizes</span>
+                                    <strong>{product.sizes.join(", ")}</strong>
+                                </div>
+                                <div className="product__spec-item">
+                                    <span>Stock Status</span>
+                                    <strong>{product.quantity > 0 ? "In Stock" : "Out of Stock"}</strong>
+                                </div>
+                                <div className="product__spec-item">
+                                    <span>Material</span>
+                                    <strong>Premium Quality Fabric</strong>
+                                </div>
+                                <div className="product__spec-item">
+                                    <span>Care Instructions</span>
+                                    <strong>Machine Washable</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            case "description":
+                return (
+                    <div className="product__tab-content">
+                        <div className="product__description">
+                            <h4>Product Description</h4>
+                            <p>
+                                Our {product.name} is designed with both style and comfort in mind. Perfect for{" "}
+                                {product.education_levels} students, this {product.category.toLowerCase()} features
+                                premium quality materials and expert craftsmanship.
+                            </p>
+                            <div className="product__key-features">
+                                <h5>Key Features:</h5>
+                                <ul>
+                                    <li>Premium quality {product.category.toLowerCase()}</li>
+                                    <li>Perfect for {product.education_levels} students</li>
+                                    <li>Available in multiple colors: {product.colors.join(", ")}</li>
+                                    <li>Comfortable fit for all-day wear</li>
+                                    <li>Easy care and maintenance</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                );
+            case "reviews":
+                return (
+                    <div className="product__tab-content">
+                        <div className="product__reviews">
+                            <div className="product__reviews-summary">
+                                <div className="product__reviews-average">
+                                    <h4>{product.rating.toFixed(1)}</h4>
+                                    <Rating
+                                        name="read-only"
+                                        value={product.rating}
+                                        precision={0.1}
+                                        readOnly
+                                        size="large"
+                                        sx={{
+                                            fontSize: "2.4rem",
+                                            color: "#ffd700",
+                                        }}
+                                    />
+                                    <p>{product.soldQuantity.toLocaleString()} verified ratings</p>
+                                </div>
+                                <div className="product__rating-bars">
+                                    {[5, 4, 3, 2, 1].map((stars) => (
+                                        <div key={stars} className="product__rating-bar">
+                                            <span>{stars} stars</span>
+                                            <div className="product__rating-progress">
+                                                <div
+                                                    className="product__rating-fill"
+                                                    style={{
+                                                        width: `${Math.random() * 100}%`,
+                                                    }}
+                                                ></div>
+                                            </div>
+                                            <span>{Math.floor(Math.random() * 1000)}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Add Review List */}
+                            <div className="product__reviews-list">
+                                {[1, 2, 3].map((review) => (
+                                    <div key={review} className="product__review-item">
+                                        <div className="product__review-header">
+                                            <div className="product__review-user">
+                                                <img
+                                                    src={`/assets/imgs/avatar-${review}.jpg`}
+                                                    alt="User avatar"
+                                                    className="product__review-avatar"
+                                                />
+                                                <div>
+                                                    <h5>John Doe {review}</h5>
+                                                    <Rating
+                                                        value={5}
+                                                        readOnly
+                                                        size="small"
+                                                        sx={{ fontSize: "1.6rem", color: "#ffd700" }}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <span className="product__review-date">2 days ago</span>
+                                        </div>
+                                        <div className="product__review-content">
+                                            <p>
+                                                Great quality uniform! The material is durable and comfortable. Perfect
+                                                for everyday school wear. My child loves it!
+                                            </p>
+                                            <div className="product__review-images">
+                                                <img src="/assets/imgs/product-1.png" alt="Review image" />
+                                                <img src="/assets/imgs/product-2.png" alt="Review image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
     return (
         <motion.section
             className="product"
@@ -143,7 +293,9 @@ export default function Product() {
                 <nav className="product__breadcrumb">
                     <Link to="/">Home</Link>
                     <ChevronRight size={16} />
-                    <Link to="/category/all-product">Shop</Link>
+                    <Link to="/categories">Categories</Link>
+                    <ChevronRight size={16} />
+                    <Link to={`/category/${product.category}`}>{product.category}</Link>
                     <ChevronRight size={16} />
                     <span>{product.name}</span>
                 </nav>
@@ -226,9 +378,14 @@ export default function Product() {
                                         className="product__size-guide-content"
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: "auto", opacity: 1 }}
+                                        transition={{ duration: 0.5, ease: "easeInOut" }}
                                         exit={{ height: 0, opacity: 0 }}
                                     >
-                                        {/* Size guide content */}
+                                        <img
+                                            src="/assets/imgs/size-guide.webp"
+                                            alt="Size Guide"
+                                            style={{ height: 500, objectFit: "contain", aspectRatio: 2 / 1 }}
+                                        />
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -301,6 +458,7 @@ export default function Product() {
                                     onClick={handleAddToCart}
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
+                                    disabled={isLoading}
                                 >
                                     {isLoading ? (
                                         <img
@@ -370,9 +528,9 @@ export default function Product() {
                                         <button onClick={() => handleSocialShare("twitter")}>
                                             <Twitter size={20} /> Twitter
                                         </button>
-                                        {/* <button onClick={() => handleSocialShare("pinterest")}>
-                                            <Pinterest size={20} /> Pinterest
-                                        </button> */}
+                                        <button onClick={() => handleSocialShare("pinterest")}>
+                                            <PinterestIcon sx={{ fontSize: 20 }} /> Pinterest
+                                        </button>
                                         <button onClick={handleShare}>
                                             <MoreHorizontal size={20} /> More
                                         </button>
@@ -407,75 +565,40 @@ export default function Product() {
                         </div>
 
                         {/* Product Details */}
-                        <div className="product__details">
-                            <button
-                                className="product__details-toggle"
-                                onClick={() => setShowDescription(!showDescription)}
+                        <div className="product__tabs">
+                            <div className="product__tab-buttons">
+                                <button
+                                    className={clsx("product__tab-button", activeTab === "details" && "active")}
+                                    onClick={() => setActiveTab("details")}
+                                >
+                                    Specifications
+                                </button>
+                                <button
+                                    className={clsx("product__tab-button", activeTab === "description" && "active")}
+                                    onClick={() => setActiveTab("description")}
+                                >
+                                    Description
+                                </button>
+                                <button
+                                    className={clsx("product__tab-button", activeTab === "reviews" && "active")}
+                                    onClick={() => setActiveTab("reviews")}
+                                >
+                                    Reviews ({product.soldQuantity.toLocaleString()})
+                                </button>
+                            </div>
+                            <motion.div
+                                className="product__tab-content-wrapper"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3 }}
                             >
-                                <h3>Product Details</h3>
-                                {showDescription ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                            </button>
-                            <AnimatePresence>
-                                {showDescription && (
-                                    <motion.div
-                                        className="product__details-content"
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: "auto", opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                    >
-                                        <div className="product__details-grid">
-                                            <div className="product__detail-item">
-                                                <span>Category</span>
-                                                <strong>{product.category}</strong>
-                                            </div>
-                                            <div className="product__detail-item">
-                                                <span>Education Level</span>
-                                                <strong>{product.education_levels}</strong>
-                                            </div>
-                                            <div className="product__detail-item">
-                                                <span>Gender</span>
-                                                <strong>{product.gender}</strong>
-                                            </div>
-                                            <div className="product__detail-item">
-                                                <span>Available Colors</span>
-                                                <strong>{product.colors.join(", ")}</strong>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                                {renderTabContent()}
+                            </motion.div>
                         </div>
                     </div>
                 </div>
 
-                {/* Related Products */}
-                <section className="related-products">
-                    <h2>Related Products</h2>
-                    <Swiper
-                        modules={[Navigation, Pagination]}
-                        spaceBetween={20}
-                        slidesPerView={4}
-                        navigation
-                        breakpoints={{
-                            320: { slidesPerView: 1 },
-                            640: { slidesPerView: 2 },
-                            768: { slidesPerView: 3 },
-                            1024: { slidesPerView: 4 },
-                        }}
-                    >
-                        {relatedProducts.map((product) => (
-                            <SwiperSlide key={product.id}>
-                                <Link to={`/product/${product.slug}`} className="related-product">
-                                    <div className="related-product__image">
-                                        <img src={product.thumbnail} alt={product.name} />
-                                    </div>
-                                    <h3>{product.name}</h3>
-                                    <p>${product.price.toFixed(2)}</p>
-                                </Link>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </section>
+                <RelatedProducts relatedProducts={relatedProducts} handleWishlistAction={handleWishlistAction} />
             </div>
         </motion.section>
     );
