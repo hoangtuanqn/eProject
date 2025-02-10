@@ -32,7 +32,7 @@ export const useCartActions = () => {
             .filter((item) => item);
     };
 
-    const handleCartAction = async (product, remove = false) => {
+    const handleCartAction = async (product, remove = false, buynow = false) => {
         const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
 
         // Kiểm tra sản phẩm trong giỏ hàng với cùng id, size và color
@@ -60,6 +60,7 @@ export const useCartActions = () => {
                                 return {
                                     ...item,
                                     quantity: quantity,
+                                    selected: item.selected || product.selected,
                                 };
                             } else {
                                 success = false;
@@ -71,7 +72,8 @@ export const useCartActions = () => {
                     });
                     if (success) {
                         setCartQuantityTemp((prev) => !prev);
-                        toast.success("Updated quantity in cart!");
+
+                        !buynow && toast.success("Updated quantity in cart!");
                     }
                 } else {
                     // Nếu remove=true, xóa sản phẩm
@@ -86,9 +88,10 @@ export const useCartActions = () => {
                         size: product.size ?? product.sizes[0],
                         color: product.color ?? product.colors[0],
                         quantity: product.quantity || 1,
+                        selected: product.selected || false,
                     };
                     newCart = [...currentCart, newItem];
-                    toast.success("Added to cart!");
+                    !buynow && toast.success("Added to cart!");
                 } else {
                     // Nếu remove=true nhưng không tìm thấy sản phẩm
                     return currentCart;

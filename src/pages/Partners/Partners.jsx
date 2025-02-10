@@ -4,6 +4,7 @@ import "../../styles/partners.css";
 import { Link } from "react-router-dom";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { ArrowUpRight } from "lucide-react";
 
 const partners = [
     { id: 1, name: "Partner 1", logo: "/assets/imgs/brand-logo-1.webp" },
@@ -136,7 +137,7 @@ export default function Partners() {
                     </motion.p>
                     <Link to="/pages/contact">
                         <motion.button
-                            className="partners__cta-button"
+                            className="btn partners__cta-button"
                             whileHover={{
                                 scale: 1.05,
                                 backgroundColor: "#000",
@@ -145,6 +146,7 @@ export default function Partners() {
                             whileTap={{ scale: 0.95 }}
                         >
                             Apply Now
+                            <ArrowUpRight size={20} />
                         </motion.button>
                     </Link>
                 </motion.div>

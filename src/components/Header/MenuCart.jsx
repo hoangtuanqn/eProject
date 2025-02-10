@@ -137,14 +137,14 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
         >
             <div className="cart__list">
                 <div className="cart__header">
-                    <h2 className="cart__title">Shopping Cart</h2>
+                    <h2 className="cart__title">Newly Added Products</h2>
                     <button className="cart__close" onClick={handleClose}>
                         <X size={24} />
                     </button>
                 </div>
 
                 <div className="cart__items-container">
-                    {cartItems.length > 0 && (
+                    {/* {cartItems.length > 0 && (
                         <button className="cart-page__clear-btn" onClick={handleClearCart} disabled={isClearing}>
                             {isClearing ? (
                                 <img src="/assets/icon/loading.gif" alt="Loading..." className="loading-spinner" />
@@ -155,7 +155,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                 </>
                             )}
                         </button>
-                    )}
+                    )} */}
 
                     <AnimatePresence mode="popLayout">
                         {cartItems.length > 0 ? (
@@ -312,16 +312,16 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                     <div className="cart__buttons">
                         {numberTotal > 0 ? (
                             <>
-                                <Link to="/cart" onClick={handleClose} className="cart__button cart__button--outline">
+                                <Link to="/cart" onClick={handleClose} className="cart__button cart__button--filled">
                                     View Cart
                                 </Link>
-                                <Link
+                                {/* <Link
                                     to="/checkouts"
                                     onClick={handleClose}
                                     className="cart__button cart__button--filled"
                                 >
                                     Check Out
-                                </Link>
+                                </Link> */}
                             </>
                         ) : (
                             <>

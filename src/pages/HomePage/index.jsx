@@ -21,7 +21,7 @@ const App = () => {
     useTitle("Home");
     useEffect(() => {
         AOS.init({
-            duration: 2500,
+            duration: 1500,
             anchorPlacement: "top-bottom",
             once: true,
         });

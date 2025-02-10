@@ -23,10 +23,11 @@ export default function Cart() {
     const [couponCode, setCouponCode] = useState("");
     const [appliedCoupon, setAppliedCoupon] = useState(null);
     const { cartQuantityTemp, setCartQuantityTemp } = useGlobalState();
+    const [selectedItems, setSelectedItems] = useState([]);
+    let cartStorage;
     useEffect(() => {
-        const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
+        cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
         const cartWithDetails = cartStorage
-
             .map((item) => {
                 const productDetails = products.find((p) => p.id === item.id);
                 return productDetails
@@ -35,13 +36,24 @@ export default function Cart() {
                           size: item.size,
                           color: item.color,
                           quantity: item.quantity || 1,
-                          note: notes[item.id] || "",
+                          note: notes[`${item.id}-${item.color}-${item.size}`] || "",
+                          selected: item.selected,
                       }
                     : null;
             })
             .filter((item) => item);
         setCartItems(cartWithDetails);
+        setSelectedItems(() => {
+            const selectedItems = [];
+            cartWithDetails.forEach((item) => {
+                if (item.selected) {
+                    selectedItems.push(`${item.id}-${item.color}-${item.size}`);
+                }
+            });
+            return selectedItems;
+        });
     }, [notes, cartQuantityTemp]);
+
     // setCartQuantityTemp((prev) => !prev);
 
     const handleQuantityChange = (id, newQuantity) => {
@@ -52,11 +64,12 @@ export default function Cart() {
         localStorage.setItem(
             "cart",
             JSON.stringify(
-                updatedCart.map(({ id, size, color, quantity }) => ({
+                updatedCart.map(({ id, size, color, quantity, selected }) => ({
                     id,
                     size,
                     color,
                     quantity,
+                    selected,
                 })),
             ),
         );
@@ -73,10 +86,10 @@ export default function Cart() {
         setDeletingItemId(null);
     };
 
-    const handleNoteChange = (id, note) => {
+    const handleNoteChange = (id, color, size, note) => {
         setNotes((prev) => ({
             ...prev,
-            [id]: note,
+            [`${id}-${color}-${size}`]: note,
         }));
     };
 
@@ -160,7 +173,9 @@ export default function Cart() {
     };
 
     const calculateSubtotal = () => {
-        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        return cartItems
+            .filter((item) => selectedItems.includes(`${item.id}-${item.color}-${item.size}`))
+            .reduce((total, item) => total + item.price * item.quantity, 0);
     };
 
     const formatCurrency = (amount) => {
@@ -191,11 +206,96 @@ export default function Cart() {
             await new Promise((resolve) => setTimeout(resolve, 1000));
             localStorage.setItem("cart", "[]");
             setCartItems([]);
+            setSelectedItems([]);
             setAppliedCoupon(null);
             setIsCalculating(false);
             toast.success("Cart cleared successfully");
         }
     };
+
+    const handleSelectItem = (itemId, color, size) => {
+        const key = `${itemId}-${color}-${size}`;
+        setSelectedItems((prev) => {
+            if (prev.includes(key)) {
+                return prev.filter((id) => id !== key);
+            }
+            return [...prev, key];
+        });
+
+        const updatedCart = cartItems.map((item) => {
+            if (item.id === itemId && item.color === color && item.size === size) {
+                return { ...item, selected: !item.selected };
+            }
+            return item;
+        });
+        setCartItems(updatedCart);
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(
+                updatedCart.map(({ id, size, color, quantity, selected }) => ({
+                    id,
+                    size,
+                    color,
+                    quantity,
+                    selected,
+                })),
+            ),
+        );
+    };
+
+    const handleSelectAll = () => {
+        const newSelectedItems =
+            selectedItems.length === cartItems.length
+                ? [] // Bỏ chọn tất cả
+                : cartItems.map((item) => `${item.id}-${item.color}-${item.size}`); // Chọn tất cả
+
+        setSelectedItems(newSelectedItems);
+
+        // Cập nhật trạng thái selected trong cartItems
+        const updatedCart = cartItems.map((item) => ({
+            ...item,
+            selected: newSelectedItems.includes(`${item.id}-${item.color}-${item.size}`), // Cập nhật selected
+        }));
+
+        setCartItems(updatedCart);
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(
+                // Cập nhật localStorage
+                updatedCart.map(({ id, size, color, quantity, selected }) => ({
+                    id,
+                    size,
+                    color,
+                    quantity,
+                    selected,
+                })),
+            ),
+        );
+    };
+
+    const handleDeleteSelected = async () => {
+        if (window.confirm(`Are you sure you want to delete ${selectedItems.length} selected items?`)) {
+            setIsCalculating(true);
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+
+            const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
+            const updatedCart = currentCart.filter(
+                (item) => !selectedItems.includes(`${item.id}-${item.color}-${item.size}`),
+            );
+            localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+            const remainingItems = cartItems.filter(
+                (item) => !selectedItems.includes(`${item.id}-${item.color}-${item.size}`),
+            );
+            setCartItems(remainingItems);
+            setSelectedItems([]);
+            setAppliedCoupon(null);
+
+            setIsCalculating(false);
+            toast.success("Selected items removed successfully");
+        }
+    };
+
     return (
         <>
             <section className="cart-page">
@@ -206,10 +306,31 @@ export default function Cart() {
                     {cartItems.length > 0 ? (
                         <div className="cart-page__layout">
                             <div className="cart-page__items">
+                                <div className="cart-page__items-header">
+                                    <label className="checkbox-wrapper">
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedItems.length === cartItems.length}
+                                            onChange={handleSelectAll}
+                                        />
+                                        <span className="checkmark"></span>
+                                        Select All ({selectedItems.length}/{cartItems.length})
+                                    </label>
+                                    {selectedItems.length > 0 && (
+                                        <button
+                                            className="cart-page__delete-selected-btn"
+                                            onClick={handleDeleteSelected}
+                                        >
+                                            <Trash2 size={16} />
+                                            Delete Selected ({selectedItems.length})
+                                        </button>
+                                    )}
+                                </div>
+
                                 <AnimatePresence mode="popLayout">
                                     {cartItems.map((item) => (
                                         <motion.article
-                                            key={item.id}
+                                            key={`${item.id}-${item.size}-${item.color}`}
                                             className="cart-page__item"
                                             layout
                                             initial={{ opacity: 0, y: 20 }}
@@ -226,6 +347,20 @@ export default function Cart() {
                                             }}
                                             transition={{ duration: 0.8 }}
                                         >
+                                            <div className="cart-page__item-checkbox">
+                                                <label className="checkbox-wrapper">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={selectedItems.includes(
+                                                            `${item.id}-${item.color}-${item.size}`,
+                                                        )}
+                                                        onChange={() =>
+                                                            handleSelectItem(item.id, item.color, item.size)
+                                                        }
+                                                    />
+                                                    <span className="checkmark"></span>
+                                                </label>
+                                            </div>
                                             <div className="cart-page__item-image">
                                                 <Link to={`/product/${item.slug}`}>
                                                     <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
@@ -319,8 +454,10 @@ export default function Cart() {
                                             <div className="cart-page__item-note">
                                                 <textarea
                                                     placeholder="Add note about this item"
-                                                    value={notes[item.id] || ""}
-                                                    onChange={(e) => handleNoteChange(item.id, e.target.value)}
+                                                    value={notes[`${item.id}-${item.color}-${item.size}`] || ""}
+                                                    onChange={(e) =>
+                                                        handleNoteChange(item.id, item.color, item.size, e.target.value)
+                                                    }
                                                     rows="2"
                                                 />
                                             </div>
@@ -330,7 +467,7 @@ export default function Cart() {
                             </div>
 
                             <div className="cart-page__summary">
-                                {cartItems.length > 1 && (
+                                {/* {cartItems.length > 1 && (
                                     <button
                                         className="cart-page__clear-btn"
                                         onClick={handleClearCart}
@@ -349,7 +486,7 @@ export default function Cart() {
                                             </>
                                         )}
                                     </button>
-                                )}
+                                )} */}
 
                                 <div className="cart-page__totals">
                                     <div className="cart-page__totals-row">
@@ -478,6 +615,7 @@ export default function Cart() {
                                         })
                                     }
                                     className="cart-page__checkout-btn"
+                                    disabled={selectedItems.length === 0}
                                 >
                                     Proceed to Checkout
                                 </button>

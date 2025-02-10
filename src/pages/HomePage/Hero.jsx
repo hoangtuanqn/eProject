@@ -44,8 +44,7 @@ export default function Hero() {
                         >
                             <Link to="/categories" className="btn hero__btn">
                                 Shop Now
-                                {/* Icon arrow right top */}
-                                <ArrowUpRight size={20} className="ms-1" />
+                                <ArrowUpRight size={20}/>
                             </Link>
                         </motion.div>
                     </div>

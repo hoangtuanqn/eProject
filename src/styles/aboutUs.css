@@ -74,33 +74,10 @@
 }
 
 .about-us__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
-    background: rgb(18, 18, 18);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    width: fit-content;
+    padding: 15px 36px;
 }
 
-.about-us__cta:hover {
-    background: rgba(18, 18, 18, 0.9);
-    transform: translateY(-2px);
-}
-
-.about-us__cta-icon {
-    width: 18px;
-    height: 18px;
-    transition: transform 0.3s ease;
-}
-
-.about-us__cta:hover .about-us__cta-icon {
-    transform: translateX(5px);
-}
 
 /* Benefits Section */
 .about-us__benefits {

@@ -275,7 +275,7 @@ export default function OrderSuccess() {
                                     const itemProduct = productData.find((p) => p.id === item.id);
                                     const itemCategory = categories.find((c) => c.name === item.category);
                                     return (
-                                        <div key={item.id} className="cart-page__item">
+                                        <div key={`${item.id}-${item.size}-${item.color}`} className="cart-page__item">
                                             <div className="cart-page__item-image">
                                                 <Link to={`/product/${itemProduct.slug}`}>
                                                     <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />

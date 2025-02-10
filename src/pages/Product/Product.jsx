@@ -95,7 +95,7 @@ export default function Product() {
         }
         setIsLoading(true);
         await new Promise((resolve) => setTimeout(resolve, 500));
-        await handleCartAction({ ...product, size: selectedSize, color: selectedColor, quantity });
+        await handleCartAction({ ...product, size: selectedSize, color: selectedColor, quantity, selected: false });
         setIsLoading(false);
     };
 
@@ -104,8 +104,12 @@ export default function Product() {
             toast.error("Please select size and color");
             return;
         }
-        await handleCartAction({ ...product, size: selectedSize, color: selectedColor, quantity }, false);
-        navigate("/checkout");
+        await handleCartAction(
+            { ...product, size: selectedSize, color: selectedColor, quantity, selected: true },
+            false,
+            true,
+        );
+        navigate("/cart");
     };
 
     const handleSocialShare = (platform) => {
@@ -270,8 +274,8 @@ export default function Product() {
                                                 for everyday school wear. My child loves it!
                                             </p>
                                             <div className="product__review-images">
-                                                <img src="/assets/imgs/product-1.png" alt="Review image" />
-                                                <img src="/assets/imgs/product-2.png" alt="Review image" />
+                                                <img src="/assets/imgs/product-1.png" alt="Customer review 1" />
+                                                <img src="/assets/imgs/product-2.png" alt="Customer review 2" />
                                             </div>
                                         </div>
                                     </div>
@@ -449,7 +453,7 @@ export default function Product() {
                                     <a href="/pages/contact" target="_blank">
                                         contact us for a consultation
                                     </a>
-                                    . Let’s make something great together!
+                                    . Let's make something great together!
                                 </p>
                             )}
                         </div>

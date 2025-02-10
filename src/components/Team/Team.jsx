@@ -52,18 +52,36 @@ export default function Team() {
                                             className="creative-team__image"
                                         />
                                         <div className="creative-team__overlay">
-                                            <div className="creative-team__social">
-                                                <a href={member.social.github} className="creative-team__social-link">
+                                            <div className="creative-team__social" onClick={(e) => e.stopPropagation()}>
+                                                <a
+                                                    href={member.social.github}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="creative-team__social-link"
+                                                >
                                                     <Github size={20} />
                                                 </a>
-                                                <a href={member.social.twitter} className="creative-team__social-link">
+                                                <a
+                                                    href={member.social.twitter}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="creative-team__social-link"
+                                                >
                                                     <Twitter size={20} />
                                                 </a>
-                                                <a href={member.social.linkedin} className="creative-team__social-link">
+                                                <a
+                                                    href={member.social.linkedin}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="creative-team__social-link"
+                                                >
                                                     <Linkedin size={20} />
                                                 </a>
+
                                                 <a
                                                     href={member.social.instagram}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
                                                     className="creative-team__social-link"
                                                 >
                                                     <Instagram size={20} />
@@ -82,8 +100,8 @@ export default function Team() {
                 </div>
             </div>
             {selectedMember && (
-                <div className="team-modal">
-                    <div className="team-modal__content">
+                <div className="team-modal" onClick={closeModal}>
+                    <div className="team-modal__content" onClick={(e) => e.stopPropagation()}>
                         <button className="team-modal__close" onClick={closeModal}>
                             <X size={24} />
                         </button>
@@ -105,16 +123,37 @@ export default function Team() {
                             </ul>
                         </div>
                         <div className="team-modal__social">
-                            <a href={selectedMember.social.github} className="team-modal__social-link">
+                            <a
+                                href={selectedMember.social.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="team-modal__social-link"
+                            >
                                 <Github size={24} />
                             </a>
-                            <a href={selectedMember.social.twitter} className="team-modal__social-link">
+
+                            <a
+                                href={selectedMember.social.twitter}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="team-modal__social-link"
+                            >
                                 <Twitter size={24} />
                             </a>
-                            <a href={selectedMember.social.linkedin} className="team-modal__social-link">
+                            <a
+                                href={selectedMember.social.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="team-modal__social-link"
+                            >
                                 <Linkedin size={24} />
                             </a>
-                            <a href={selectedMember.social.instagram} className="team-modal__social-link">
+                            <a
+                                href={selectedMember.social.instagram}
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                className="team-modal__social-link"
+                            >
                                 <Instagram size={24} />
                             </a>
                         </div>

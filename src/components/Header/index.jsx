@@ -12,7 +12,6 @@ import Cart from "./MenuCart";
 import { useGlobalState } from "../../context/GlobalContext";
 import { Link } from "react-router-dom";
 import { Heart, Search, ShoppingCart } from "lucide-react";
-import CartHover from "./CartHover";
 
 export default function Header() {
     const { cartQuantity, wishlistQuantity } = useGlobalState();

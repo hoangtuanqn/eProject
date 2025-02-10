@@ -104,22 +104,8 @@
 }
 
 .partners__cta-button {
-    padding: 15px 30px;
-    font-size: 1.6rem;
-    background-color: rgb(18, 18, 18);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-}
-
-.partners__cta-button:hover {
-    background-color: #000;
-    transform: translateY(-2px);
+    margin: 0 auto;
+    width: fit-content;
 }
 
 @media (max-width: 768px) {

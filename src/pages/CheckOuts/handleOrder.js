@@ -46,7 +46,17 @@ export const handleOrder = async (formData, cartItems, calculateSubtotal, shippi
     await axios.post("https://67a3bb0f31d0d3a6b78479f5.mockapi.io/api/v1/order", orderData);
 
     // Clear cart and return orderId
-    localStorage.removeItem("cart");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const updatedCart = cart
+        .filter((item) => !item.selected)
+        .map(({ id, size, color, quantity, selected }) => ({
+            id,
+            size,
+            color,
+            quantity,
+            selected,
+        }));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
 
     return orderId;
 };

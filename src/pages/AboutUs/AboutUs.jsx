@@ -1,4 +1,4 @@
-import { Check, Truck, Gift, Crown, ArrowRight } from "lucide-react";
+import { Check, Truck, Gift, Crown, ArrowRight, ArrowUpRight } from "lucide-react";
 import "../../styles/aboutUs.css";
 import Team from "../../components/Team"; // Không trỏ vào file index vì nó có BreadCumb
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const features = [
     { id: 1, text: "Latest Technology" },
     { id: 2, text: "Quick Servicing" },
-    { id: 3, text: "Best R&D Team" },  
+    { id: 3, text: "Best R&D Team" },
     { id: 4, text: "Expert Team" },
 ];
 
@@ -99,12 +99,12 @@ export default function AboutUs() {
                             </motion.div>
                             <Link to="/categories">
                                 <motion.button
-                                    className="about-us__cta"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
+                                    className="btn hero__btn about-us__cta"
                                 >
                                     Shop Now
-                                    <ArrowRight className="about-us__cta-icon" />
+                                    <ArrowUpRight size={20} />
                                 </motion.button>
                             </Link>
                         </motion.div>
@@ -191,11 +191,7 @@ export default function AboutUs() {
                             transition={{ duration: 0.6, delay: 1.4 }}
                             whileHover={{ scale: 1.02 }}
                         >
-                            <img
-                                src="/assets/imgs/aboutus-2.jpg"
-                                alt="Fashion models"
-                                className="about-us__image"
-                            />
+                            <img src="/assets/imgs/aboutus-2.jpg" alt="Fashion models" className="about-us__image" />
                             <div className="about-us__image-overlay"></div>
                         </motion.div>
                     </motion.div>

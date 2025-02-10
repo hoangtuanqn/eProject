@@ -38,7 +38,6 @@ const CheckOut = () => {
         // Chỉ lấy coupon từ location.state khi khởi tạo lần đầu
         return location.state?.appliedCoupon || null;
     });
-    console.log(location.state?.appliedCoupon);
 
     // Validation Schema với Yup
     const validationSchema = Yup.object({
@@ -59,7 +58,7 @@ const CheckOut = () => {
         state: Yup.string().required("State is required"),
         postalCode: Yup.string()
             .required("Postal code is required")
-            .matches(/^[0-9]{5}(?:-[0-9]{4})?$/, "Invalid postal code format"),
+            .matches(/^[0-9]{5,}(?:-[0-9]{4})?$/, "Invalid postal code format"),
         country: Yup.string().required("Country is required"),
         // paymentMethod: Yup.string()
         //     .required("Payment method is required")
@@ -137,7 +136,7 @@ const CheckOut = () => {
     });
 
     useEffect(() => {
-        const cartStorage = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartStorage = JSON.parse(localStorage.getItem("cart"))?.filter((item) => item.selected) || [];
 
         // Kiểm tra nếu không có cart items, redirect về trang categories
         if (!cartStorage.length) {
@@ -568,7 +567,7 @@ const CheckOut = () => {
                             </h2>
                             <div className="checkout__items">
                                 {cartItems.map((item) => (
-                                    <div key={item.id} className="checkout__item">
+                                    <div key={`${item.id}-${item.color}-${item.size}`} className="checkout__item">
                                         <div className="checkout__item-image">
                                             <a href={`/product/${item.slug}`} target="_blank" rel="noreferrer">
                                                 <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
