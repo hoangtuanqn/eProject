@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import categoriesData from "../../data/categories.json";
+import { ChevronDown } from "lucide-react";
 export default function MenuDesktop() {
     const { pathname } = useLocation(); // lấy url hiện tại
     return (
@@ -145,10 +146,11 @@ export default function MenuDesktop() {
                     </div>
                 </li>
                 <li>
-                    <a href="#!" className="header__link">
-                        Pages
-                        <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
-                    </a>
+                        <a href="#!" className="header__link">
+                            Pages
+                            <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
+                            {/* <ChevronDown size={20} /> */}
+                        </a>
                     {/* Submenu */}
                     <ul className="header__submenu">
                         <li>

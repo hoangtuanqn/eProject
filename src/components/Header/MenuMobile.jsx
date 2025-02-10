@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import categoriesData from "../../data/categories.json";
+import { ChevronDown } from "lucide-react";
 
 const MenuMobile = ({ toggleSubmenu }) => {
     const { pathname } = useLocation();
@@ -192,9 +193,11 @@ const MenuMobile = ({ toggleSubmenu }) => {
                                         strokeLinecap="round"
                                     />
                                 </svg>
+                                
                             </button>
                             <ul className="mobile-submenu">
                                 <li>
+
                                     <Link to="/pages/about" className="mobile-submenu__link">
                                         About Us
                                     </Link>

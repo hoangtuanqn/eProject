@@ -102,12 +102,20 @@ export default function Header() {
                         </button>
 
                         {/* Desktop Navigation */}
-                        <MenuDesktop />
-                        <img
+                        <div className="header__logo-wrap">
+                            <img
+                                src="/assets/imgs/logo.png"
+                                alt={process.env.REACT_APP_BRAND_NAME}
+                                className="header__logo"
+                            />
+
+                            <MenuDesktop />
+                        </div>
+                        {/* <img
                             src="/assets/imgs/logo.png"
                             alt={process.env.REACT_APP_BRAND_NAME}
                             className="header__logo"
-                        />
+                        /> */}
                         {/* Search */}
                         <div className="dfbetween">
                             <button
