@@ -176,11 +176,11 @@ export default function MenuDesktop() {
                                 Partners
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <a href="#!" className="header__submenu-link">
                                 Compare
                             </a>
-                        </li>
+                        </li> */}
                         <li>
                             <Link to="/pages/wishlist" className="header__submenu-link">
                                 Wishlist

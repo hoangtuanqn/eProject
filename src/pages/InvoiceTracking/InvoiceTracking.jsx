@@ -121,7 +121,6 @@ export default function InvoiceTracking() {
     const getStatusStep = (status) => {
         switch (status) {
             case "pending":
-                return 1;
             case "processing":
                 return 1;
             case "shipped":
@@ -131,6 +130,19 @@ export default function InvoiceTracking() {
             default:
                 return 1;
         }
+    };
+
+    // Thêm hàm tính ngày dự kiến giao hàng
+    const calculateExpectedDelivery = (orderDate) => {
+        const minDate = new Date(orderDate);
+        const maxDate = new Date(orderDate);
+
+        // Thêm 3 ngày cho thời gian giao hàng tối thiểu
+        minDate.setDate(minDate.getDate() + 3);
+        // Thêm 5 ngày cho thời gian giao hàng tối đa
+        maxDate.setDate(maxDate.getDate() + 5);
+
+        return `${formatDate(minDate)} - ${formatDate(maxDate)}`;
     };
 
     return (
@@ -226,6 +238,14 @@ export default function InvoiceTracking() {
                             <div className="invoice-tracking__info-group">
                                 <span className="invoice-tracking__label">Order Date</span>
                                 <span className="invoice-tracking__value">{formatDate(orderData.orderDate)}</span>
+                            </div>
+                            <div className="invoice-tracking__info-group">
+                                <span className="invoice-tracking__label">Expected Delivery</span>
+                                <span className="invoice-tracking__value">
+                                    {orderData.expectedDelivery
+                                        ? formatDate(orderData.expectedDelivery)
+                                        : calculateExpectedDelivery(orderData.orderDate)}
+                                </span>
                             </div>
                             <div className="invoice-tracking__info-group">
                                 <span className="invoice-tracking__label">Customer Name</span>
