@@ -73,7 +73,6 @@ const handleGooglePayCheckout = async ({
         }
     } catch (error) {
         setIsLoading(false);
-        toast.error("Payment failed. Please try again!");
         throw error;
     }
 };

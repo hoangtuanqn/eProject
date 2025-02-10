@@ -30,6 +30,7 @@ import OrderError from "./pages/OrderError/OrderError";
 import HandleReturnPaypal from "./pages/CheckOuts/HandleReturnPaypal";
 import Coupons from "./pages/Coupons";
 import Careers from "./pages/Careers";
+import InvoiceTracking from "./pages/InvoiceTracking";
 
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
@@ -76,6 +77,12 @@ const App = () => {
 
                 {/* Page Careers */}
                 <Route path="/pages/careers" element={<Careers />} exact />
+
+                {/* Page Invoice Tracking */}
+                <Route path="/pages/invoice-tracking" element={<InvoiceTracking />} exact />
+
+                {/* Page Invoice Tracking */}
+                <Route path="/pages/invoice-tracking/:orderId" element={<InvoiceTracking />} exact />
 
                 {/* Danh mục product*/}
                 <Route path="/categories" element={<Categories />} exact />

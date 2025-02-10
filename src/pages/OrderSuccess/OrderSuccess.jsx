@@ -226,7 +226,12 @@ export default function OrderSuccess() {
                     <h1>Order Placed Successfully!</h1>
                     <p>Thank you for your purchase. Your order is being processed.</p>
                     <div className="order-success__order-number">
-                        Order Number: <strong>{orderNumberFromState}</strong>
+                        Order Number:{" "}
+                        <strong>
+                            <Link to={`/pages/invoice-tracking/${orderNumberFromState}`} style={{ color: "currentColor" }}>
+                                {orderNumberFromState}
+                            </Link>
+                        </strong>
                     </div>
                 </motion.div>
 

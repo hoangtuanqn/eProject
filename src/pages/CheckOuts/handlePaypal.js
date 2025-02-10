@@ -37,7 +37,7 @@ export const handlePaypalCheckout = async ({
                             },
                         },
                         items: cartItems.map((item) => ({
-                            name: item.name,
+                            name: `${item.name} - Size: ${item.size} - Color: ${item.color}`,
                             unit_amount: {
                                 currency_code: "USD",
                                 value: item.price.toFixed(2),

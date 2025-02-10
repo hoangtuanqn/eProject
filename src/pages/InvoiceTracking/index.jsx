@@ -1,0 +1,23 @@
+import React from "react";
+import InvoiceTracking from "./InvoiceTracking";
+import Breadcrumb from "../../components/Breadcrumb";
+import useTitle from "../../hooks/useTitle";
+
+const breadcrumbItems = [
+    { label: "Home", url: "/" },
+    { label: "Invoice Tracking", url: "/pages/invoice-tracking" },
+];
+
+export default function Index() {
+    useTitle("Invoice Tracking");
+    return (
+        <>
+            <main className="main">
+
+                <Breadcrumb title="" items={breadcrumbItems} style={{ alignItems: "flex-start" }} />
+
+                <InvoiceTracking />
+            </main>
+        </>
+    );
+}

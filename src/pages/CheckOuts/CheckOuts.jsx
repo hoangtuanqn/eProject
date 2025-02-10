@@ -161,25 +161,35 @@ const CheckOut = () => {
     }, [navigate]); // Chỉ phụ thuộc vào navigate
 
     const calculateSubtotal = () => {
-        const rawSubtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+        // Tính tổng tiền hàng gốc
+        const rawSubtotal = cartItems.reduce((total, item) => {
+            // Làm tròn số tiền để tránh lỗi số thập phân
+            return total + Math.round(item.price * item.quantity * 100) / 100;
+        }, 0);
 
         if (!appliedCoupon) return rawSubtotal;
 
+        // Tính tiền giảm giá nếu có coupon
         let discountableAmount = 0;
         if (appliedCoupon.valid_categories.length === 0) {
             discountableAmount = rawSubtotal;
         } else {
             discountableAmount = cartItems
                 .filter((item) => appliedCoupon.valid_categories.includes(item.category))
-                .reduce((total, item) => total + item.price * item.quantity, 0);
+                .reduce((total, item) => {
+                    return total + Math.round(item.price * item.quantity * 100) / 100;
+                }, 0);
         }
 
-        const discount = (discountableAmount * appliedCoupon.discount) / 100;
+        const discount = Math.round((discountableAmount * appliedCoupon.discount) / 100);
         return rawSubtotal - discount;
     };
 
-    const shippingCost = 5;
-    const total = calculateSubtotal() + shippingCost;
+    // Thêm giá trị mặc định cho phí ship
+    const shippingCost = Number(process.env.REACT_APP_SHIPPING_COST) || 0;
+
+    // Làm tròn tổng tiền cuối cùng
+    const total = Math.round((calculateSubtotal() + shippingCost) * 100) / 100;
 
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat("en-US", {

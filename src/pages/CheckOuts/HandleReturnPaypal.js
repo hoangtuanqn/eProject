@@ -42,7 +42,6 @@ const OrderSuccess = () => {
                         return;
                     }
 
-
                     // 3. Calculate order totals
                     const calculateSubtotal = () => {
                         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
