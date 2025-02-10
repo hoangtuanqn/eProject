@@ -28,7 +28,7 @@ const RelatedProducts = memo(({ relatedProducts }) => {
             >
                 {relatedProducts.map((product) => (
                     <SwiperSlide key={product.id}>
-                        <motion.article className="product-card">
+                        <motion.article className="product-card product-card--boder">
                             <figure className="category-product__wrapper">
                                 {product.sale > 0 && <span className="badge__sale">{`${product.sale}% OFF`}</span>}
                                 <div className="image-wrapper">
@@ -54,7 +54,6 @@ const RelatedProducts = memo(({ relatedProducts }) => {
                                             )}
                                         </button>
                                     </div>
-
                                 </div>
                             </figure>
                             <div className="category__product-details">

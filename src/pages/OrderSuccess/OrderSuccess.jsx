@@ -5,6 +5,7 @@ import { CheckCircle, Package, MapPin, Clock, ArrowRight, Printer } from "lucide
 import "../../styles/order.css";
 import axios from "axios";
 import productData from "../../data/products.json";
+import categories from "../../data/categories.json";
 import { CircularProgress, Box } from "@mui/material";
 
 export default function OrderSuccess() {
@@ -270,37 +271,55 @@ export default function OrderSuccess() {
                                 <h2>Order Details</h2>
                             </div>
                             <div className="order-success__items-list">
-                                {items.map((item) => (
-                                    <div key={item.id} className="cart-page__item">
-                                        <div className="cart-page__item-image">
-                                            <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
-                                        </div>
+                                {items.map((item) => {
+                                    const itemProduct = productData.find((p) => p.id === item.id);
+                                    const itemCategory = categories.find((c) => c.name === item.category);
+                                    return (
+                                        <div key={item.id} className="cart-page__item">
+                                            <div className="cart-page__item-image">
+                                                <Link to={`/product/${itemProduct.slug}`}>
+                                                    <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
+                                                </Link>
+                                            </div>
 
-                                        <div className="cart-page__item-details">
-                                            <div className="cart-page__item-info">
-                                                <span className="cart-page__item-category">{item.category}</span>
-                                                <h3 className="cart-page__item-name">{item.name}</h3>
-                                                <div className="cart-item__details">
-                                                    <div className="cart-item__detail">
-                                                        <span className="cart-item__label">Size:</span>
-                                                        <span className="cart-item__value">{item.size}</span>
+                                            <div className="cart-page__item-details">
+                                                <div className="cart-page__item-info">
+                                                    <Link
+                                                        to={`/category/${itemCategory.slug}`}
+                                                        className="cart-page__item-category"
+                                                    >
+                                                        {item.category}
+                                                    </Link>
+                                                    <h3>
+                                                        <Link
+                                                            to={`/product/${itemProduct.slug}`}
+                                                            className="cart-page__item-name"
+                                                        >
+                                                            {item.name}
+                                                        </Link>
+                                                    </h3>
+                                                    <div className="cart-item__details">
+                                                        <div className="cart-item__detail">
+                                                            <span className="cart-item__label">Size:</span>
+                                                            <span className="cart-item__value">{item.size}</span>
+                                                        </div>
+                                                        <div className="cart-item__detail">
+                                                            <span className="cart-item__label">Color:</span>
+                                                            <span className="cart-item__value">{item.color}</span>
+                                                        </div>
+                                                        <div className="cart-item__detail">
+                                                            <span className="cart-item__label">Quantity:</span>
+                                                            <span className="cart-item__value">{item.quantity}</span>
+                                                        </div>
                                                     </div>
-                                                    <div className="cart-item__detail">
-                                                        <span className="cart-item__label">Color:</span>
-                                                        <span className="cart-item__value">{item.color}</span>
-                                                    </div>
-                                                    <div className="cart-item__detail">
-                                                        <span className="cart-item__label">Quantity:</span>
-                                                        <span className="cart-item__value">{item.quantity}</span>
-                                                    </div>
+                                                    <span className="cart-item__current-price">
+                                                        {formatPrice(item.price * item.quantity)}
+                                                    </span>
                                                 </div>
-                                                <span className="cart-item__current-price">
-                                                    {formatPrice(item.price * item.quantity)}
-                                                </span>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         </div>
                     </motion.div>

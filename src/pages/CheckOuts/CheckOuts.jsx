@@ -1,5 +1,5 @@
 import { useState, useEffect, memo } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { motion } from "framer-motion";
 import * as Yup from "yup";
@@ -570,10 +570,22 @@ const CheckOut = () => {
                                 {cartItems.map((item) => (
                                     <div key={item.id} className="checkout__item">
                                         <div className="checkout__item-image">
-                                            <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
+                                            <a href={`/product/${item.slug}`} target="_blank" rel="noreferrer">
+                                                <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
+                                            </a>
                                         </div>
+
                                         <div className="checkout__item-info">
-                                            <h3 className="checkout__item-name">{item.name}</h3>
+                                            <h3>
+                                                <a
+                                                    href={`/product/${item.slug}`}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="checkout__item-name"
+                                                >
+                                                    {item.name}
+                                                </a>
+                                            </h3>
 
                                             <p className="checkout__item-meta">
                                                 Size: {item.size} | Color: {item.color} | Qty: {item.quantity}

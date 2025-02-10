@@ -160,7 +160,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                     <AnimatePresence mode="popLayout">
                         {cartItems.length > 0 ? (
                             cartItems.map((item) => {
-                                const categoryProduct = categories.find((c) => c.id === item.categoryId);
+                                const categoryProduct = categories.find((c) => c.name === item.category);
                                 const itemProductOrigin = products.find((p) => p.id === item.id);
                                 return (
                                     <motion.article
