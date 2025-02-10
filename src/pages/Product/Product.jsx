@@ -248,7 +248,7 @@ export default function Product() {
                                         <div className="product__review-header">
                                             <div className="product__review-user">
                                                 <img
-                                                    src={`/assets/imgs/avatar-${review}.jpg`}
+                                                    src={`/assets/imgs/ui-0${review}.jpg`}
                                                     alt="User avatar"
                                                     className="product__review-avatar"
                                                 />

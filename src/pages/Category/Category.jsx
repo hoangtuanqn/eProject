@@ -74,11 +74,10 @@ export default function Category({ nameCategory }) {
     // Kiểm tra path và slug
     useEffect(() => {
         // Nếu path là /all-product thì không cần kiểm tra
-        if (slug === "all-product") return;
 
         // Kiểm tra xem slug có tồn tại trong categories không
         const categoryExists = categoriesData.some((category) => category.slug === slug);
-        if (!categoryExists) {
+        if (!categoryExists && slug !== "all-product") {
             navigate("/404", { replace: true });
         }
         setIsChecking(false);
