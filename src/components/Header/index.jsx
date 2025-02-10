@@ -10,12 +10,13 @@ import MenuDesktop from "./MenuDesktop";
 import MenuMobile from "./MenuMobile";
 import Cart from "./MenuCart";
 import { useGlobalState } from "../../context/GlobalContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Heart, Search, ShoppingCart } from "lucide-react";
 
 export default function Header() {
     const { cartQuantity, wishlistQuantity } = useGlobalState();
     const mobileMenuRef = useRef(null);
+
     const searchRef = useRef(null);
     const cartRef = useRef(null);
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -58,7 +59,7 @@ export default function Header() {
 
         return mobileMenuRef;
     }
-
+    const { pathname } = useLocation(); // lấy url hiện tại
     return (
         <>
             {/* Gradient */}
@@ -103,11 +104,21 @@ export default function Header() {
 
                         {/* Desktop Navigation */}
                         <div className="header__logo-wrap">
-                            <img
-                                src="/assets/imgs/logo.png"
-                                alt={process.env.REACT_APP_BRAND_NAME}
-                                className="header__logo"
-                            />
+                            <Link
+                                to="/"
+                                rel="noreferrer"
+                                onClick={() =>
+                                    // Nếu đang ở trang chủ thì kéo lên
+                                    // Không phải ở trang chủ thì quay về trang chủ
+                                    pathname === "/" ? window.scrollTo({ top: 0, behavior: "smooth" }) : ""
+                                }
+                            >
+                                <img
+                                    src="/assets/imgs/logo.png"
+                                    alt={process.env.REACT_APP_BRAND_NAME}
+                                    className="header__logo"
+                                />
+                            </Link>
 
                             <MenuDesktop />
                         </div>

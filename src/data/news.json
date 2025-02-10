@@ -1,0 +1,101 @@
+[
+    {
+        "id": 1,
+        "name": "The Future of Artificial Intelligence in 2025",
+        "slug": "future-of-ai-2025",
+        "thumbnail": "/assets/imgs/news/news-1.jpg",
+        "content": "<h2>AI Revolution in 2025</h2><p>In 2025, artificial intelligence is reshaping our world, enhancing healthcare, transportation, and customer service. AI systems are improving natural language processing, enabling chatbots to handle complex queries effectively. In healthcare, machine learning analyzes medical data for better patient outcomes. Autonomous vehicles are becoming mainstream, transforming logistics and safety. However, ethical concerns about accountability and privacy arise as AI becomes more integrated into daily life. The future of AI holds immense potential, but it is crucial to prioritize ethical considerations to ensure a beneficial impact on society.</p>",
+        "published_date": "2025-02-15T10:00:00Z",
+        "author": "Dr. Sarah Chen"
+    },
+    {
+        "id": 2,
+        "name": "Web3 and the Decentralized Internet",
+        "slug": "web3-decentralized-internet",
+        "thumbnail": "/assets/imgs/news/news-2.jpg",
+        "content": "<h2>The Evolution of the Internet</h2><p>Web3 represents the next generation of the internet, built on blockchain technology and decentralized protocols. This new paradigm promises to return data ownership to users and create a more equitable digital ecosystem.</p><h2>Key Features of Web3</h2><ul><li>Decentralized Applications (dApps)</li><li>Smart Contracts</li><li>Token-based Economics</li></ul><p><em>The transition to Web3 marks a fundamental shift in how we interact with the digital world.</em></p>",
+
+        "published_date": "2025-02-14T15:30:00Z",
+        "author": "Michael Thompson"
+    },
+    {
+        "id": 3,
+        "name": "Quantum Computing Breakthrough",
+        "slug": "quantum-computing-breakthrough",
+        "thumbnail": "/assets/imgs/news/news-3.jpg",
+
+        "content": "<h2>Revolutionary Quantum Discovery</h2><p>Scientists have achieved a major breakthrough in quantum computing, developing a stable 1000-qubit processor. This advancement brings us closer to practical quantum applications in cryptography and drug discovery.</p><img src='http://localhost:3000/assets/imgs/quantum.webp' alt='Quantum Computer'/><p>The implications for cybersecurity and scientific research are profound.</p>",
+        "published_date": "2025-02-13T08:45:00Z",
+        "author": "Prof. James Wilson"
+    },
+    {
+        "id": 4,
+        "name": "Green Technology Innovations",
+        "slug": "green-technology-innovations",
+        "thumbnail": "/assets/imgs/news/news-4.jpg",
+
+        "content": "<h2>Sustainable Tech Solutions</h2><p>Recent innovations in green technology are paving the way for a sustainable future. From advanced solar cells to carbon capture technology, these developments are crucial in fighting climate change.</p><p>Key innovations include new battery technologies and efficient renewable energy systems.</p>",
+        "published_date": "2025-02-12T14:20:00Z",
+        "author": "Emma Green"
+    },
+    {
+        "id": 5,
+        "name": "Cybersecurity Trends 2025",
+        "slug": "cybersecurity-trends-2025",
+        "thumbnail": "/assets/imgs/news/news-5.jpg",
+
+        "content": "<h2>Emerging Threats and Solutions</h2><p>The cybersecurity landscape continues to evolve with new threats emerging daily. <strong>AI-powered security systems</strong> are becoming essential in protecting digital assets.</p><h2>Key Focus Areas</h2><ul><li>Zero-Trust Architecture</li><li>AI-Based Threat Detection</li><li>Quantum-Safe Cryptography</li></ul>",
+        "published_date": "2025-02-11T11:15:00Z",
+        "author": "Alex Security"
+    },
+    {
+        "id": 6,
+        "name": "The Rise of Virtual Reality in Education",
+        "slug": "vr-in-education",
+        "thumbnail": "/assets/imgs/news/news-6.jpg",
+
+        "content": "<h2>Transforming Learning Experiences</h2><p>Virtual Reality is revolutionizing education by providing immersive learning experiences. Students can now explore historical events, complex scientific concepts, and foreign cultures in unprecedented ways.</p><img src='http://localhost:3000/assets/imgs/vr-education.webp' alt='VR in Classroom'/><p>Educational institutions worldwide are adopting VR technology to enhance student engagement and understanding.</p>",
+        "published_date": "2025-02-10T09:30:00Z",
+        "author": "Dr. Maria Rodriguez"
+    },
+    {
+        "id": 7,
+        "name": "5G and Beyond: The Future of Connectivity",
+        "slug": "future-of-5g",
+        "thumbnail": "/assets/imgs/news/news-7.jpg",
+
+        "content": "<h2>Next-Generation Networks</h2><p>As 5G networks become widespread, research is already underway for 6G technology. These advanced networks will enable new applications in augmented reality, autonomous vehicles, and smart cities.</p><p><em>The future of connectivity will transform how we live and work.</em></p>",
+        "published_date": "2025-02-09T16:45:00Z",
+        "author": "Tech Forward"
+    },
+    {
+        "id": 8,
+        "name": "Blockchain in Supply Chain Management",
+        "slug": "blockchain-supply-chain",
+        "thumbnail": "/assets/imgs/news/news-8.jpg",
+
+        "content": "<h2>Revolutionizing Supply Chains</h2><p>Blockchain technology is transforming supply chain management by providing unprecedented transparency and traceability. Companies can now track products from source to consumer with complete accuracy.</p><h2>Benefits</h2><ul><li>Enhanced Transparency</li><li>Reduced Fraud</li><li>Improved Efficiency</li></ul>",
+        "published_date": "2025-02-08T13:20:00Z",
+        "author": "Linda Chain"
+    },
+    {
+        "id": 9,
+        "name": "The Evolution of Cloud Computing",
+        "slug": "cloud-computing-evolution",
+        "thumbnail": "/assets/imgs/news/news-9.jpg",
+
+        "content": "<h2>Cloud Technologies in 2025</h2><p>Cloud computing continues to evolve with new services and capabilities. Edge computing and hybrid cloud solutions are becoming increasingly important for modern businesses.</p><p>The integration of AI and machine learning in cloud services is creating new possibilities for data analysis and automation.</p>",
+        "published_date": "2025-02-07T10:10:00Z",
+        "author": "Cloud Expert"
+    },
+    {
+        "id": 10,
+        "name": "Robotics in Healthcare",
+        "slug": "robotics-healthcare",
+        "thumbnail": "/assets/imgs/news/news-10.jpg",
+
+        "content": "<h2>Medical Robotics Revolution</h2><p>Surgical robots and automated care assistants are transforming healthcare delivery. These advanced systems provide precise, consistent care while reducing human error.</p><img src='http://localhost:3000/assets/imgs/medical-robot.webp' alt='Medical Robot'/><p>The future of healthcare will see increased collaboration between human medical professionals and robotic systems.</p>",
+        "published_date": "2025-02-06T14:30:00Z",
+        "author": "Dr. Robert Health"
+    }
+]

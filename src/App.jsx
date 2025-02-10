@@ -31,7 +31,8 @@ import HandleReturnPaypal from "./pages/CheckOuts/HandleReturnPaypal";
 import Coupons from "./pages/Coupons";
 import Careers from "./pages/Careers";
 import InvoiceTracking from "./pages/InvoiceTracking";
-
+import News from "./pages/News";
+import BlogDetail from "./pages/BlogDetail";
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
     const location = useLocation();
@@ -83,6 +84,12 @@ const App = () => {
 
                 {/* Page Invoice Tracking */}
                 <Route path="/pages/invoice-tracking/:orderId" element={<InvoiceTracking />} exact />
+
+                {/* Danh mục product*/}
+                <Route path="/blog/news" element={<News />} exact />
+
+                {/* Chi tiết bài viết*/}
+                <Route path="/blog/news/:slug" element={<BlogDetail />} exact />
 
                 {/* Danh mục product*/}
                 <Route path="/categories" element={<Categories />} exact />
