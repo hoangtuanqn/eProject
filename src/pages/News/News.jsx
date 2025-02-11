@@ -10,7 +10,6 @@ export default function News() {
 
         return new Date(dateString).toLocaleDateString("en-US", options);
     };
-
     return (
         <section className="news-page">
             <div className="container">
@@ -34,14 +33,13 @@ export default function News() {
                 <div className="news-grid">
                     {newsData.map((article, index) => (
                         <motion.article
-                            key={article.id}
+                            key={article.slug}
                             className="news-card"
                             layout
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.8 }}
                             whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
                         >
                             <Link to={`/blog/news/${article.slug}`} className="news-card__image-wrapper">
                                 <img
@@ -60,12 +58,12 @@ export default function News() {
 
                                 <div className="news-card__meta">
                                     <div className="news-card__meta-item">
-                                        {/* <User size={16} /> */}
+                                        <User size={16} />
                                         <span>{article.author}</span>
                                     </div>
                                     <div className="news-card__meta-item">
-                                        {/* <Calendar size={16} /> */}
-                                        {/* <span>{formatDate(article.published_date)}</span> */}
+                                        <Calendar size={16} />
+                                        <span>{formatDate(article.published_date)}</span>
                                     </div>
                                 </div>
                             </div>

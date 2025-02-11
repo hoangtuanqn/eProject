@@ -34,7 +34,7 @@
 
 .blog-detail__featured-image {
     width: 100%;
-    max-height: 600px;
+    /* max-height: 600px; */
     object-fit: cover;
     border-radius: 16px;
     margin-bottom: 40px;
