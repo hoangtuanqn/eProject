@@ -310,25 +310,9 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                     </div>
 
                     <div className="cart__buttons">
-                        {numberTotal > 0 ? (
-                            <>
-                                <Link to="/cart" onClick={handleClose} className="cart__button cart__button--filled">
-                                    View Cart
-                                </Link>
-                                {/* <Link
-                                    to="/checkouts"
-                                    onClick={handleClose}
-                                    className="cart__button cart__button--filled"
-                                >
-                                    Check Out
-                                </Link> */}
-                            </>
-                        ) : (
-                            <>
-                                <span className="cart__button cart__button--outline disabled">View Cart</span>
-                                <span className="cart__button cart__button--filled disabled">Check Out</span>
-                            </>
-                        )}
+                        <Link to="/cart" onClick={handleClose} className="cart__button cart__button--filled">
+                            View Cart
+                        </Link>
                     </div>
                 </div>
             </div>

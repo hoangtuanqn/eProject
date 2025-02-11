@@ -19,7 +19,7 @@ export default function Index() {
     const breadcrumbItems = [
         { label: "Home", url: "/" },
         { label: "News", url: "/blog/news" },
-        { label: article.name, url: `/blog/news/${article.slug}` },
+        { label: `Blog Detail: ${article.name}`, url: `/blog/news/${article.slug}` },
     ];
 
     return (

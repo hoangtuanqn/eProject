@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Heart, Search, ShoppingCart } from "lucide-react";
 
 import { initMobileMenu } from "~/assets/js/main";
@@ -13,6 +13,7 @@ import Counter from "./Counter";
 import MenuDesktop from "./MenuDesktop";
 import MenuMobile from "./MenuMobile";
 import Cart from "./MenuCart";
+import toast from "react-hot-toast";
 
 export default function Header() {
     const { cartQuantity, wishlistQuantity } = useGlobalState();
@@ -21,6 +22,7 @@ export default function Header() {
     const searchRef = useRef(null);
     const cartRef = useRef(null);
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [valueSearch, setValueSearch] = useState("");
 
     // Tái sử dụng hàm đóng menu/search/cart
     const closeMenuWithAnimation = () => closeWithAnimation(mobileMenuRef);
@@ -61,6 +63,20 @@ export default function Header() {
         return mobileMenuRef;
     }
     const { pathname } = useLocation(); // lấy url hiện tại
+    const navigate = useNavigate();
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (!valueSearch) {
+            toast.error("Please enter a search term");
+            return;
+        }
+        navigate("/category/all-product", {
+            state: { searchTerm: valueSearch },
+        });
+        setValueSearch("");
+        closeSearchWithAnimation();
+    };
     return (
         <>
             {/* Gradient */}
@@ -161,15 +177,17 @@ export default function Header() {
                         {/* Search */}
                         <div className="search" ref={searchRef}>
                             <div className="search__content">
-                                <form action="">
+                                <form action="" onSubmit={handleSearch}>
                                     <div className="search__group-input">
                                         <input
                                             type="text"
                                             name=""
                                             className="search__input"
+                                            value={valueSearch}
+                                            onChange={(e) => setValueSearch(e.target.value)}
                                             placeholder="Search our store"
                                         />
-                                        <button type="button" className="search__button">
+                                        <button type="submit" className="search__button">
                                             <svg
                                                 className="icon icon-search"
                                                 aria-hidden="true"

@@ -419,18 +419,23 @@ export default function Product() {
                         <div className="product__colors">
                             <h3>Select Color</h3>
                             <div className="product__color-options">
-                                {product.colors.map((color) => (
-                                    <Tooltip content={color} key={color}>
-                                        <button
-                                            className={clsx(
-                                                "product__color-option",
-                                                selectedColor === color && "active",
-                                            )}
-                                            onClick={() => setSelectedColor(color)}
-                                            style={{ backgroundColor: color.toLowerCase() }}
-                                        ></button>
-                                    </Tooltip>
-                                ))}
+                                {product.colors.map((color, index) => {
+                                    return (
+                                        <Tooltip content={color} key={color}>
+                                            <button
+                                                className={clsx(
+                                                    "product__color-option",
+                                                    selectedColor === color && "active",
+                                                )}
+                                                onClick={() => {
+                                                    setSelectedColor(color);
+                                                    setSelectedImage(product.detailImageColors[index]);
+                                                }}
+                                                style={{ backgroundColor: color.toLowerCase() }}
+                                            ></button>
+                                        </Tooltip>
+                                    );
+                                })}
                             </div>
                         </div>
 

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { clsx } from "clsx";
@@ -38,9 +38,13 @@ export default function Category({ nameCategory }) {
         min: 1,
         max: 999,
     });
+    const location = useLocation();
     const [priceRangeSlider, setPriceRangeSlider] = useState(999);
     const [selectedSale, setSelectedSale] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState(() => {
+        // Chỉ lấy search từ location.state khi khởi tạo lần đầu
+        return location.state?.searchTerm || "";
+    });
 
     // Thêm state tạm thời cho mobile filter
     const [tempMobileFilters, setTempMobileFilters] = useState({

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trash2, BadgePercent, Trash2Icon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { Trash2, BadgePercent, Trash2Icon } from "lucide-react";
 import "~/styles/cart.css";
 import products from "~/data/products.json";
 import { useCartActions } from "~/utils/handleCart";
@@ -200,18 +200,18 @@ export default function Cart() {
     };
     const listCoupons = getSuggestedCoupons();
 
-    const handleClearCart = async () => {
-        if (window.confirm("Are you sure you want to clear your cart?")) {
-            setIsCalculating(true);
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            localStorage.setItem("cart", "[]");
-            setCartItems([]);
-            setSelectedItems([]);
-            setAppliedCoupon(null);
-            setIsCalculating(false);
-            toast.success("Cart cleared successfully");
-        }
-    };
+    // const handleClearCart = async () => {
+    //     if (window.confirm("Are you sure you want to clear your cart?")) {
+    //         setIsCalculating(true);
+    //         await new Promise((resolve) => setTimeout(resolve, 1000));
+    //         localStorage.setItem("cart", "[]");
+    //         setCartItems([]);
+    //         setSelectedItems([]);
+    //         setAppliedCoupon(null);
+    //         setIsCalculating(false);
+    //         toast.success("Cart cleared successfully");
+    //     }
+    // };
 
     const handleSelectItem = (itemId, color, size) => {
         const key = `${itemId}-${color}-${size}`;
