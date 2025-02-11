@@ -1,14 +1,12 @@
 import React, { memo } from "react";
-import { Heart, HeartOff, ShoppingCartIcon } from "lucide-react";
+import { Heart, HeartOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import productData from "../../data/products.json";
-import { useCartActions } from "../../utils/handleCart";
 import { useWishlistActions } from "../../utils/handleWishlist";
 import "../../styles/featuredProducts.css";
 import { Rating } from "@mui/material";
 import { calculateOriginalPrice } from "../../utils/helpers";
 const FeaturedProducts = () => {
-    const { handleCartAction, isProductInCart, loadingStates: cartLoadingStates } = useCartActions();
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
 
     const featuredProducts = productData

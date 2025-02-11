@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Contact from "./Contact";
 import Breadcrumb from "../../components/Breadcrumb";
 import useTitle from "../../hooks/useTitle";
