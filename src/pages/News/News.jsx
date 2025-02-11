@@ -13,25 +13,8 @@ export default function News() {
     return (
         <section className="news-page">
             <div className="container">
-                {/* <motion.h1
-                    className="section-title"
-                    initial={{ opacity: 0, y: -30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                    Latest News
-                </motion.h1>
-                <motion.p
-                    className="section-subtitle"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                >
-                    Stay updated with our latest articles and insights
-                </motion.p> */}
-
                 <div className="news-grid">
-                    {newsData.map((article, index) => (
+                    {newsData.reverse().map((article, index) => (
                         <motion.article
                             key={article.slug}
                             className="news-card"

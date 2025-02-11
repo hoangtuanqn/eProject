@@ -18,22 +18,25 @@ export default function BlogPosts() {
 
                     <div className="blog-posts__grid">
                         {/* Blog 1 */}
-                        {news.slice(0, 3).map((item) => (
-                            <article className="blog-posts__item">
-                                <figure>
-                                    <Link to={`/news/${item.slug}`}>
-                                        <img src={item.thumbnail} alt={item.name} className="blog-posts__image" />
-                                    </Link>
-                                </figure>
-                                <div className="blog-posts__content">
-                                    <h3 className="blog-posts__name">{item.name}</h3>
-                                    <Link to={`/news/${item.slug}`} className="blog-posts__link">
-                                        Read more
-                                        <ArrowRight size={20} />
-                                    </Link>
-                                </div>
-                            </article>
-                        ))}
+                        {news
+                            .reverse()
+                            .slice(0, 3)
+                            .map((item) => (
+                                <article className="blog-posts__item" key={item.id}>
+                                    <figure>
+                                        <Link to={`/blog/news/${item.slug}`}>
+                                            <img src={item.thumbnail} alt={item.name} className="blog-posts__image" />
+                                        </Link>
+                                    </figure>
+                                    <div className="blog-posts__content">
+                                        <h3 className="blog-posts__name">{item.name}</h3>
+                                        <Link to={`/blog/news/${item.slug}`} className="blog-posts__link">
+                                            Read more
+                                            <ArrowRight size={20} />
+                                        </Link>
+                                    </div>
+                                </article>
+                            ))}
                     </div>
                 </div>
             </section>

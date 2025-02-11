@@ -145,6 +145,7 @@
     text-align: center;
     font-weight: 600;
 }
+
 .header__link {
     display: inline-flex;
     align-items: center;
@@ -156,7 +157,7 @@
     line-height: 1;
     word-break: break-word;
 }
-.header__link:hover::after {
+.header__nav > li:not(:has(.header__submenu__big)):hover::after {
     content: "";
     position: absolute;
     bottom: -6px;
@@ -166,6 +167,7 @@
     background-color: var(--color-grey-7);
     animation: underline 0.3s ease;
 }
+
 @keyframes underline {
     from {
         width: 0;

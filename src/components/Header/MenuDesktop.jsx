@@ -146,11 +146,11 @@ export default function MenuDesktop() {
                     </div>
                 </li>
                 <li>
-                        <a href="#!" className="header__link">
-                            Pages
-                            <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
-                            {/* <ChevronDown size={20} /> */}
-                        </a>
+                    <a href="#!" className="header__link">
+                        Pages
+                        <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
+                        {/* <ChevronDown size={20} /> */}
+                    </a>
                     {/* Submenu */}
                     <ul className="header__submenu">
                         <li>
