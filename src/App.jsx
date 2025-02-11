@@ -3,36 +3,36 @@ import { useLayoutEffect } from "react";
 // Router dom
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import "./styles/reset.css"; // Reset css
-import "./styles/global.css"; // CSS Common
+import "~/styles/reset.css"; // Reset css
+import "~/styles/global.css"; // CSS Common
 
 // Import Page
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "~/components/Header";
+import Footer from "~/components/Footer";
 
-import HomePage from "./pages/HomePage";
-import Search from "./pages/Search";
-import Policies from "./pages/Policies";
-import NotFound from "./pages/NotFound";
-import Category from "./pages/Category";
-import Categories from "./pages/Categories";
-import Product from "./pages/Product";
-import Contact from "./pages/Contact";
-import Faq from "./pages/Faq";
-import AboutUs from "./pages/AboutUs";
-import Gallery from "./pages/Gallery";
-import Partners from "./pages/Partners";
-import WishList from "./pages/WishList";
-import Cart from "./pages/Cart";
-import CheckOuts from "./pages/CheckOuts";
-import OrderSuccess from "./pages/OrderSuccess";
-import OrderError from "./pages/OrderError/OrderError";
-import HandleReturnPaypal from "./pages/CheckOuts/HandleReturnPaypal";
-import Coupons from "./pages/Coupons";
-import Careers from "./pages/Careers";
-import InvoiceTracking from "./pages/InvoiceTracking";
-import News from "./pages/News";
-import BlogDetail from "./pages/BlogDetail";
+import HomePage from "~/pages/HomePage";
+import Search from "~/pages/Search";
+import Policies from "~/pages/Policies";
+import NotFound from "~/pages/NotFound";
+import Category from "~/pages/Category";
+import Categories from "~/pages/Categories";
+import Product from "~/pages/Product";
+import Contact from "~/pages/Contact";
+import Faq from "~/pages/Faq";
+import AboutUs from "~/pages/AboutUs";
+import Gallery from "~/pages/Gallery";
+import Partners from "~/pages/Partners";
+import WishList from "~/pages/WishList";
+import Cart from "~/pages/Cart";
+import CheckOuts from "~/pages/CheckOuts";
+import OrderSuccess from "~/pages/OrderSuccess";
+import OrderError from "~/pages/OrderError/OrderError";
+import HandleReturnPaypal from "~/pages/CheckOuts/HandleReturnPaypal";
+import Coupons from "~/pages/Coupons";
+import Careers from "~/pages/Careers";
+import InvoiceTracking from "~/pages/InvoiceTracking";
+import News from "~/pages/News";
+import BlogDetail from "~/pages/BlogDetail";
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
     const location = useLocation();

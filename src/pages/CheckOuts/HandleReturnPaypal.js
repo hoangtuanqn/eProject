@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { handleGetAccessTokenPaypal } from "../../utils/menuHelpers";
+import { handleGetAccessTokenPaypal } from "~/utils/menuHelpers";
 import { useNavigate } from "react-router-dom";
 import { handleOrder } from "./handleOrder";
 import { Box, CircularProgress } from "@mui/material";

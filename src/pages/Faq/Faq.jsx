@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
-import "../../styles/faq.css";
-import faqData from "../../data/faq.json";
+import "~/styles/faq.css";
+import faqData from "~/data/faq.json";
 
 export default function Faq() {
     const [openQuestion, setOpenQuestion] = useState(1);

@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Rating } from "@mui/material";
 import { Heart, HeartOff } from "lucide-react";
-import products from "../../data/products.json";
-import { calculateOriginalPrice } from "../../utils/helpers";
-import { useWishlistActions } from "../../utils/handleWishlist";
+import products from "~/data/products.json";
+import { calculateOriginalPrice } from "~/utils/helpers";
+import { useWishlistActions } from "~/utils/handleWishlist";
 
 const SuggestedProducts = ({ idCategory }) => {
     const [sortedProducts, setSortedProducts] = useState([]);

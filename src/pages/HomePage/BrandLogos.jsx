@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/brandLogos.css"; // Import CSS Module
+import "~/styles/brandLogos.css"; // Import CSS Module
 
 export default function BrandLogos() {
     return (

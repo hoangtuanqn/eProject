@@ -1,7 +1,7 @@
 import React from "react";
 import Gallery from "./Gallery";
-import Breadcrumb from "../../components/Breadcrumb";
-import useTitle from "../../hooks/useTitle";
+import Breadcrumb from "~/components/Breadcrumb";
+import useTitle from "~/hooks/useTitle";
 
 const breadcrumbItems = [
     { label: "Home", url: "/" },

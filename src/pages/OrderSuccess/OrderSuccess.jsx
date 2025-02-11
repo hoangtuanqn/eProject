@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 import { CheckCircle, Package, MapPin, Clock, ArrowRight, Printer } from "lucide-react";
-import "../../styles/order.css";
+import "~/styles/order.css";
 import axios from "axios";
-import productData from "../../data/products.json";
-import categories from "../../data/categories.json";
+import productData from "~/data/products.json";
+import categories from "~/data/categories.json";
 import { CircularProgress, Box } from "@mui/material";
 
 export default function OrderSuccess() {
@@ -228,7 +228,10 @@ export default function OrderSuccess() {
                     <div className="order-success__order-number">
                         Order Number:{" "}
                         <strong>
-                            <Link to={`/pages/invoice-tracking/${orderNumberFromState}`} style={{ color: "currentColor" }}>
+                            <Link
+                                to={`/pages/invoice-tracking/${orderNumberFromState}`}
+                                style={{ color: "currentColor" }}
+                            >
                                 {orderNumberFromState}
                             </Link>
                         </strong>

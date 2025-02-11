@@ -1,6 +1,6 @@
 import React from "react";
-import "./not-data.css";
 import { Link } from "react-router-dom";
+import "./not-data.css";
 
 export default function NotData({ hiddenBtn = true }) {
     return (

@@ -1,11 +1,11 @@
 import React, { memo } from "react";
-import { Heart, HeartOff } from "lucide-react";
 import { Link } from "react-router-dom";
-import productData from "../../data/products.json";
-import { useWishlistActions } from "../../utils/handleWishlist";
-import "../../styles/featuredProducts.css";
+import { Heart, HeartOff } from "lucide-react";
+import productData from "~/data/products.json";
+import { useWishlistActions } from "~/utils/handleWishlist";
+import "~/styles/featuredProducts.css";
 import { Rating } from "@mui/material";
-import { calculateOriginalPrice } from "../../utils/helpers";
+import { calculateOriginalPrice } from "~/utils/helpers";
 const FeaturedProducts = () => {
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
 

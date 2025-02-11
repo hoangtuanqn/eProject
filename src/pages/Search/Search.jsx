@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../../styles/search.css";
+import "~/styles/search.css";
 // Library aos
 import AOS from "aos";
 import "aos/dist/aos.css";

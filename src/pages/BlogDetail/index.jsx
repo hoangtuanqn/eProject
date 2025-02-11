@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import BlogDetail from "./BlogDetail";
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
-import useTitle from "../../hooks/useTitle";
+import Breadcrumb from "~/components/Breadcrumb/Breadcrumb";
+import useTitle from "~/hooks/useTitle";
 import { useParams } from "react-router-dom";
-import newsData from "../../data/news.json";
+import newsData from "~/data/news.json";
 export default function Index() {
     useTitle("Blog Detail");
     const { slug } = useParams();

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Calendar, User } from "lucide-react";
+import React from "react";
 import { motion } from "framer-motion";
-import newsData from "../../data/news.json";
-import "../../styles/blogDetail.css";
+import { Calendar, User } from "lucide-react";
+import "~/styles/blogDetail.css";
 
 export default function BlogDetail({ article }) {
     if (!article) {

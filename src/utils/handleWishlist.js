@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import products from "../data/products.json";
-import { useGlobalState } from "../context/GlobalContext";
+import products from "~/data/products.json";
+import { useGlobalState } from "~/context/GlobalContext";
 
 export const useWishlistActions = () => {
     const [loadingStates, setLoadingStates] = useState({});

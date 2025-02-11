@@ -5,8 +5,8 @@ import { Navigation, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
 import { Rating } from "@mui/material";
 import { Heart, HeartOff } from "lucide-react";
-import { calculateOriginalPrice } from "../../utils/helpers";
-import { useWishlistActions } from "../../utils/handleWishlist";
+import { calculateOriginalPrice } from "~/utils/helpers";
+import { useWishlistActions } from "~/utils/handleWishlist";
 
 const RelatedProducts = memo(({ relatedProducts }) => {
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();

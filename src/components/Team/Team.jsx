@@ -5,9 +5,8 @@ import { Github, Twitter, Linkedin, Instagram, X } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "../../styles/team.css";
-
-import teamMembers from "../../data/team.json";
+import teamMembers from "~/data/team.json";
+import "~/styles/team.css";
 
 export default function Team() {
     const [selectedMember, setSelectedMember] = useState(null);

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../styles/breadcrumb.css";
+import "~/styles/breadcrumb.css";
 
 export default function Breadcrumb({ title, items, style = {} }) {
     return (

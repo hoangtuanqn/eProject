@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
-import "../../styles/cartHover.css";
-import { useGlobalState } from "../../context/GlobalContext";
-import products from "../../data/products.json";
+import "~/styles/cartHover.css";
+import { useGlobalState } from "~/context/GlobalContext";
+import products from "~/data/products.json";
 
 export default function CartHover() {
     const { cartQuantity } = useGlobalState();

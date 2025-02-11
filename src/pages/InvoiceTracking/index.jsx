@@ -1,7 +1,7 @@
 import React from "react";
 import InvoiceTracking from "./InvoiceTracking";
-import Breadcrumb from "../../components/Breadcrumb";
-import useTitle from "../../hooks/useTitle";
+import Breadcrumb from "~/components/Breadcrumb";
+import useTitle from "~/hooks/useTitle";
 
 const breadcrumbItems = [
     { label: "Home", url: "/" },
@@ -13,7 +13,6 @@ export default function Index() {
     return (
         <>
             <main className="main">
-
                 <Breadcrumb title="" items={breadcrumbItems} style={{ alignItems: "flex-start" }} />
 
                 <InvoiceTracking />

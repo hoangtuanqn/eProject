@@ -4,12 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Trash2, X } from "lucide-react";
 import { toast } from "react-hot-toast";
 import clsx from "clsx";
-import { closeWithAnimation, handleClickOutside } from "../../utils/menuHelpers";
-import { useCartActions, handleCheckQuantity } from "../../utils/handleCart";
-import { useGlobalState } from "../../context/GlobalContext";
-import categories from "../../data/categories.json";
-import products from "../../data/products.json";
-import "../../styles/menuCart.css";
+import { closeWithAnimation, handleClickOutside } from "~/utils/menuHelpers";
+import { useCartActions, handleCheckQuantity } from "~/utils/handleCart";
+import { useGlobalState } from "~/context/GlobalContext";
+import categories from "~/data/categories.json";
+import products from "~/data/products.json";
+import "~/styles/menuCart.css";
 
 const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
     const {

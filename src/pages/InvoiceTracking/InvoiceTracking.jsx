@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import products from "../../data/products.json";
-import "../../styles/invoiceTracking.css";
-import categories from "../../data/categories.json";
+import products from "~/data/products.json";
+import "~/styles/invoiceTracking.css";
+import categories from "~/data/categories.json";
 
 export default function InvoiceTracking() {
     const { orderId: orderIdFromUrl } = useParams();

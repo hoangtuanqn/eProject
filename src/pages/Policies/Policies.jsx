@@ -1,6 +1,6 @@
 import React from "react";
-import "../../styles/policies.css";
 import { Link } from "react-router-dom";
+import "~/styles/policies.css";
 
 export default function Policies() {
     return (

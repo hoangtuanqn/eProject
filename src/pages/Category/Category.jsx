@@ -6,13 +6,13 @@ import { clsx } from "clsx";
 import { DoorClosedIcon as CloseIcon, FilterIcon, Heart, HeartOff } from "lucide-react";
 import toast from "react-hot-toast";
 
-import "../../styles/category.css";
-import NotData from "../../components/NotData";
-import productData from "../../data/products.json";
-import categoriesData from "../../data/categories.json";
-import { useCartActions } from "../../utils/handleCart";
-import { useWishlistActions } from "../../utils/handleWishlist";
-import { calculateOriginalPrice } from "../../utils/helpers";
+import "~/styles/category.css";
+import NotData from "~/components/NotData";
+import productData from "~/data/products.json";
+import categoriesData from "~/data/categories.json";
+import { useCartActions } from "~/utils/handleCart";
+import { useWishlistActions } from "~/utils/handleWishlist";
+import { calculateOriginalPrice } from "~/utils/helpers";
 
 export default function Category({ nameCategory }) {
     const navigate = useNavigate();

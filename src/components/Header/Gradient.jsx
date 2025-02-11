@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/gradient.css";
+import "~/styles/gradient.css";
 export default function Gradient() {
     return (
         <>

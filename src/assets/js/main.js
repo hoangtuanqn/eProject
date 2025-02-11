@@ -1,4 +1,4 @@
-import { toggleSubmenu } from "../../utils/menuHelpers";
+import { toggleSubmenu } from "~/utils/menuHelpers";
 
 export function initMobileMenu() {
     try {

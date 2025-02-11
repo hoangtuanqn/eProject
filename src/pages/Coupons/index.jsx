@@ -1,7 +1,7 @@
 import React from "react";
 import Coupons from "./Coupons";
-import Breadcrumb from "../../components/Breadcrumb";
-import useTitle from "../../hooks/useTitle";
+import Breadcrumb from "~/components/Breadcrumb";
+import useTitle from "~/hooks/useTitle";
 
 export default function Index() {
     useTitle("Coupons");

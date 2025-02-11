@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { XCircle, ArrowRight } from "lucide-react";
-import "../../styles/order.css";
+import "~/styles/order.css";
 
 export default function OrderError() {
     return (

@@ -1,18 +1,18 @@
-import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { handleCheckQuantity, useCartActions } from "../../utils/handleCart";
-import { useWishlistActions } from "../../utils/handleWishlist";
-import "../../styles/product.css";
-import useTitle from "../../hooks/useTitle";
+import { handleCheckQuantity, useCartActions } from "~/utils/handleCart";
+import { useWishlistActions } from "~/utils/handleWishlist";
+import "~/styles/product.css";
+import useTitle from "~/hooks/useTitle";
+import productsData from "~/data/products.json";
+import categories from "~/data/categories.json";
+import { calculateOriginalPrice } from "~/utils/helpers";
 import SuggestedProducts from "./SuggestedProducts";
 import RelatedProducts from "./RelatedProducts";
-import productsData from "../../data/products.json";
-import categories from "../../data/categories.json";
-import { calculateOriginalPrice } from "../../utils/helpers";
 import toast from "react-hot-toast";
 import clsx from "clsx";
-import Tooltip from "../../components/Tooltip";
+import Tooltip from "~/components/Tooltip";
 import { Rating } from "@mui/material";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 

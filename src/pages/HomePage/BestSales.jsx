@@ -1,13 +1,12 @@
 import React, { memo } from "react";
-import "../../styles/bestSales.css"; // Import CSS Module
-import productData from "../../data/products.json";
-import { Heart, HeartOff } from "lucide-react";
-import { useCartActions } from "../../utils/handleCart";
-import { useWishlistActions } from "../../utils/handleWishlist";
-import { Rating } from "@mui/material";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { Link } from "react-router-dom";
-import { calculateOriginalPrice } from "../../utils/helpers";
+import { Rating } from "@mui/material";
+import { Heart, HeartOff } from "lucide-react";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import productData from "~/data/products.json";
+import { useWishlistActions } from "~/utils/handleWishlist";
+import { calculateOriginalPrice } from "~/utils/helpers";
+import "~/styles/bestSales.css"; // Import CSS Module
 const BestSales = () => {
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
 
@@ -91,12 +90,10 @@ const BestSales = () => {
                                                         alt="Loading..."
                                                         className="loading-spinner"
                                                     />
+                                                ) : isProductInWishlist(id) ? (
+                                                    <HeartOff size={20} />
                                                 ) : (
-                                                    isProductInWishlist(id) ? (
-                                                        <HeartOff size={20} />
-                                                    ) : (
-                                                        <Heart size={20} />
-                                                    )
+                                                    <Heart size={20} />
                                                 )}
                                             </button>
                                         </div>

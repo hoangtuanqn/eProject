@@ -1,10 +1,10 @@
+import { useRef } from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import "../../styles/partners.css";
-import { Link } from "react-router-dom";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import "~/styles/partners.css";
 
 const partners = [
     { id: 1, name: "Partner 1", logo: "/assets/imgs/brand-logo-1.webp" },

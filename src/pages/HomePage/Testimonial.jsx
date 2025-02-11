@@ -4,10 +4,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import "../../styles/testimonial.css"; // Import CSS Module
-
-import testimonials from "../../data/testimonials.json"; // Import file JSON
+import "~/styles/testimonial.css"; // Import CSS Module
 import { Rating } from "@mui/material";
+import testimonials from "~/data/testimonials.json"; // Import file JSON
 
 export default function Testimonial() {
     return (

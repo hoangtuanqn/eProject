@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import data from "../../data/categories.json";
-import product from "../../data/products.json";
-import "../../styles/categories.css";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import "~/styles/categories.css";
+import data from "~/data/categories.json";
+import product from "~/data/products.json";
 
 export default function Categories() {
     const [counter, setCounter] = useState(() => {

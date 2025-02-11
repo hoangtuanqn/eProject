@@ -1,8 +1,8 @@
 import React from "react";
-import "../../styles/blogPosts.css";
-import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import news from "../../data/news.json";
+import { ArrowRight } from "lucide-react";
+import news from "~/data/news.json";
+import "~/styles/blogPosts.css";
 export default function BlogPosts() {
     return (
         <>

@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Box, CircularProgress } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trash2, BadgePercent, Trash2Icon } from "lucide-react";
-import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import "~/styles/cart.css";
 import products from "~/data/products.json";
-import coupons from "~/data/coupons.json";
-import categories from "~/data/categories.json";
 import { useCartActions } from "~/utils/handleCart";
+import coupons from "~/data/coupons.json";
+import toast from "react-hot-toast";
+import { Box, CircularProgress } from "@mui/material";
 import { useGlobalState } from "~/context/GlobalContext";
+import categories from "~/data/categories.json";
 
 export default function Cart() {
     const navigate = useNavigate();

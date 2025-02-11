@@ -1,6 +1,6 @@
-import { Check, Truck, Gift, Crown, ArrowRight, ArrowUpRight } from "lucide-react";
-import "../../styles/aboutUs.css";
-import Team from "../../components/Team"; // Không trỏ vào file index vì nó có BreadCumb
+import { Check, Truck, Gift, Crown, ArrowUpRight } from "lucide-react";
+import "~/styles/aboutUs.css";
+import Team from "~/components/Team"; // Không trỏ vào file index vì nó có BreadCumb
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 const features = [

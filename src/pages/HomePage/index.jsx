@@ -1,13 +1,13 @@
 // Import Component
 import { useEffect } from "react";
-import useTitle from "../../hooks/useTitle";
+import useTitle from "~/hooks/useTitle";
 
 import Hero from "./Hero";
+import BestSales from "./BestSales";
+import BrandLogos from "./BrandLogos";
 import CategoryHighlights from "./CategoryHighlights";
 import FeaturedProducts from "./FeaturedProducts";
 import Marquee from "./Marquee";
-import BestSales from "./BestSales";
-import BrandLogos from "./BrandLogos";
 import VideoPromo from "./VideoPromo";
 import Testimonial from "./Testimonial";
 import BlogPosts from "./BlogPosts";

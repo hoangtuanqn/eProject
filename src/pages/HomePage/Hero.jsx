@@ -1,8 +1,8 @@
 import React from "react";
-import "../../styles/hero.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import "~/styles/hero.css";
 
 export default function Hero() {
     return (
@@ -44,7 +44,7 @@ export default function Hero() {
                         >
                             <Link to="/categories" className="btn hero__btn">
                                 Shop Now
-                                <ArrowUpRight size={20}/>
+                                <ArrowUpRight size={20} />
                             </Link>
                         </motion.div>
                     </div>

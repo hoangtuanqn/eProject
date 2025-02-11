@@ -1,6 +1,6 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { handleGetAccessTokenPaypal } from "../../utils/menuHelpers";
+import { handleGetAccessTokenPaypal } from "~/utils/menuHelpers";
 export const handlePaypalCheckout = async ({
     total,
     calculateSubtotal,

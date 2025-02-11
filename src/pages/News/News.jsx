@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Calendar, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import newsData from "../../data/news.json";
-import "../../styles/news.css";
+import newsData from "~/data/news.json";
+import "~/styles/news.css";
 
 export default function News() {
     const formatDate = (dateString) => {

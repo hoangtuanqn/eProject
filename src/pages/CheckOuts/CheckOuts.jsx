@@ -20,9 +20,9 @@ import {
 } from "lucide-react";
 
 import { handleOrder } from "./handleOrder";
-import products from "../../data/products.json";
-import countries from "../../data/countries.json";
-import "../../styles/checkOuts.css";
+import products from "~/data/products.json";
+import countries from "~/data/countries.json";
+import "~/styles/checkOuts.css";
 import toast from "react-hot-toast";
 import { handlePaypalCheckout } from "./handlePaypal";
 import handleGooglePayCheckout from "./handleGooglePay";

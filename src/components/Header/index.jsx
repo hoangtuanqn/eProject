@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { initMobileMenu } from "../../assets/js/main";
+import { Link, useLocation } from "react-router-dom";
+import { Heart, Search, ShoppingCart } from "lucide-react";
 
-import "../../styles/header.css";
-import "../../styles/headerSearch.css";
-import Gradient from "../Header/Gradient";
-import Counter from "../Header/Counter";
-import { openMenu, closeWithAnimation, handleClickOutside, toggleSubmenu } from "../../utils/menuHelpers";
+import { initMobileMenu } from "~/assets/js/main";
+import { openMenu, closeWithAnimation, handleClickOutside, toggleSubmenu } from "~/utils/menuHelpers";
+import { useGlobalState } from "~/context/GlobalContext";
+
+import "~/styles/header.css";
+import "~/styles/headerSearch.css";
+import Gradient from "./Gradient";
+import Counter from "./Counter";
 import MenuDesktop from "./MenuDesktop";
 import MenuMobile from "./MenuMobile";
 import Cart from "./MenuCart";
-import { useGlobalState } from "../../context/GlobalContext";
-import { Link, useLocation } from "react-router-dom";
-import { Heart, Search, ShoppingCart } from "lucide-react";
 
 export default function Header() {
     const { cartQuantity, wishlistQuantity } = useGlobalState();

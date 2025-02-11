@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import categoriesData from "../../data/categories.json";
-import { ChevronDown } from "lucide-react";
+import categoriesData from "~/data/categories.json";
 
 const MenuMobile = ({ toggleSubmenu }) => {
     const { pathname } = useLocation();

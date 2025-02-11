@@ -1,6 +1,6 @@
 import React from "react";
-import "../../styles/categoryHighlights.css";
 import { Link } from "react-router-dom";
+import "~/styles/categoryHighlights.css";
 export default function CategoryHighlights() {
     return (
         <>

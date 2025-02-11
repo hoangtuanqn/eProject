@@ -1,6 +1,6 @@
 import React from "react";
 import CheckOuts from "./CheckOuts";
-import useTitle from "../../hooks/useTitle";
+import useTitle from "~/hooks/useTitle";
 
 export default function Index() {
     useTitle("Checkout");
@@ -11,6 +11,5 @@ export default function Index() {
                 <CheckOuts />
             </main>
         </>
-
     );
 }

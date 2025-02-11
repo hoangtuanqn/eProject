@@ -1,12 +1,12 @@
+import axios from "axios";
 import { useState } from "react";
-import { Phone, Mail, MapPin, Clock, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import "../../styles/contact.css";
-import axios from "axios";
-import stores from "../../data/stores.json";
+import { motion } from "framer-motion";
+import { Phone, Mail, MapPin, Clock, ChevronRight } from "lucide-react";
+import stores from "~/data/stores.json";
 import toast from "react-hot-toast";
+import "~/styles/contact.css";
 
 export default function Contact() {
     const [selectedStore, setSelectedStore] = useState(stores[0]);

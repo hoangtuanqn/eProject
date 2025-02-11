@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../../styles/videoPromo.css"; // Import CSS Module
 import { CirclePlay } from "lucide-react";
+import "~/styles/videoPromo.css"; // Import CSS Module
 
 export default function VideoPromo() {
     const [isPlaying, setIsPlaying] = useState(false);

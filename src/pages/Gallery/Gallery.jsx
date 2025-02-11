@@ -1,8 +1,8 @@
 import React, { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ZoomInIcon as Zoom, X } from "lucide-react";
-import "../../styles/gallery.css";
-import galleryItems from "../../data/gallery.json";
+import "~/styles/gallery.css";
+import galleryItems from "~/data/gallery.json";
 const categories = [
     "All",
     "Preschool Uniforms",

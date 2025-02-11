@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Mail, Phone, Bath, Scissors, Stethoscope, LogIn, User, Heart, ShoppingCart, MapPin } from "lucide-react";
-import "../../styles/footer.css";
+import "~/styles/footer.css";
 import Newsletter from "./Newsletter";
 import { initTicker } from "./ticker";
-import { initScrollToTop } from "../../utils/scrollToTop";
-import stores from "../../data/stores.json";
+import { initScrollToTop } from "~/utils/scrollToTop";
+import stores from "~/data/stores.json";
 export default function Footer() {
     useEffect(() => {
         initTicker();
@@ -49,7 +49,6 @@ export default function Footer() {
                                     {process.env.REACT_APP_BRAND_PHONE}
                                 </a>
                             </p>
-
                         </div>
 
                         {/* Our Store */}

@@ -1,7 +1,7 @@
 import React from "react";
-import Breadcrumb from "../../components/Breadcrumb";
+import Breadcrumb from "~/components/Breadcrumb";
 import AboutUs from "./AboutUs";
-import useTitle from "../../hooks/useTitle";
+import useTitle from "~/hooks/useTitle";
 export default function Index() {
     const breadcrumbItems = [
         { label: "Home", url: "/" },

@@ -1,6 +1,6 @@
 import React from "react";
-import "../../styles/marquee.css"; // Import CSS Module
-import marqueeData from "../../data/marquee.json";
+import "~/styles/marquee.css"; // Import CSS Module
+import marqueeData from "~/data/marquee.json";
 
 const Marquee = () => {
     return (
