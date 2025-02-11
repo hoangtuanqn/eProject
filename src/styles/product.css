@@ -685,7 +685,7 @@
     }
 
     .product__quantity-input {
-        width: 100%;
+        /* width: 100%; */
         justify-content: flex-start;
     }
 
