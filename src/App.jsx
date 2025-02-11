@@ -15,6 +15,8 @@ import Search from "~/pages/Search";
 import Policies from "~/pages/Policies";
 import NotFound from "~/pages/NotFound";
 import Category from "~/pages/Category";
+import Awards from "~/pages/Awards";
+import SizeGuide from "~/pages/SizeGuide";
 import Categories from "~/pages/Categories";
 import Product from "~/pages/Product";
 import Contact from "~/pages/Contact";
@@ -30,7 +32,7 @@ import OrderError from "~/pages/OrderError/OrderError";
 import HandleReturnPaypal from "~/pages/CheckOuts/HandleReturnPaypal";
 import Coupons from "~/pages/Coupons";
 import Careers from "~/pages/Careers";
-import InvoiceTracking from "~/pages/InvoiceTracking";
+import OrderTracking from "~/pages/OrderTracking";
 import News from "~/pages/News";
 import BlogDetail from "~/pages/BlogDetail";
 const App = () => {
@@ -80,10 +82,16 @@ const App = () => {
                 <Route path="/pages/careers" element={<Careers />} exact />
 
                 {/* Page Invoice Tracking */}
-                <Route path="/pages/invoice-tracking" element={<InvoiceTracking />} exact />
+                <Route path="/pages/order-tracking" element={<OrderTracking />} exact />
 
                 {/* Page Invoice Tracking */}
-                <Route path="/pages/invoice-tracking/:orderId" element={<InvoiceTracking />} exact />
+                <Route path="/pages/order-tracking/:orderId" element={<OrderTracking />} exact />
+
+                {/* Page Awards */}
+                <Route path="/pages/awards" element={<Awards />} exact />
+
+                {/* Page Size Guide */}
+                <Route path="/pages/size-guide" element={<SizeGuide />} exact />
 
                 {/* Danh mục product*/}
                 <Route path="/blog/news" element={<News />} exact />

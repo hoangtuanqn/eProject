@@ -229,7 +229,7 @@ export default function OrderSuccess() {
                         Order Number:{" "}
                         <strong>
                             <Link
-                                to={`/pages/invoice-tracking/${orderNumberFromState}`}
+                                to={`/pages/order-tracking/${orderNumberFromState}`}
                                 style={{ color: "currentColor" }}
                             >
                                 {orderNumberFromState}

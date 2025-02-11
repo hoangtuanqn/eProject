@@ -21,7 +21,7 @@ export default function MenuDesktop() {
                 </li>
                 <li>
                     <a href="#!" className="header__link">
-                        Shop
+                        Products
                         <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
                     </a>
                     {/* Submenu Big */}
@@ -32,92 +32,138 @@ export default function MenuDesktop() {
                                 <div className="header__submenu-left">
                                     {/* Column 1 */}
                                     <div className="submenu-col">
-                                        <h2 className="submenu-title">Instruments</h2>
+                                        <h2 className="submenu-title">School Uniforms</h2>
                                         <ul>
                                             <li>
+                                                <Link to="/category/shirts" className="header__submenu-link">
+                                                    Shirts
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/category/skirts" className="header__submenu-link">
+                                                    Skirts
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/category/frocks" className="header__submenu-link">
+                                                    Frocks
+                                                </Link>
+                                            </li>
+                                            <li>
                                                 <a href="#!" className="header__submenu-link">
-                                                    Cotton Full shirt
+                                                    Trousers
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#!" className="header__submenu-link">
-                                                    Resin Strap
+                                                    Blazers
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#!" className="header__submenu-link">
-                                                    Boheme Rose Gold
+                                                    Winter Wear
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#!" className="header__submenu-link">
-                                                    hat craft
+                                                    School Bags
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#!" className="header__submenu-link">
-                                                    Oxford Shoes
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#!" className="header__submenu-link">
-                                                    Nail Grinder
+                                                    Shoes
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
                                     {/* Column 2 */}
                                     <div className="submenu-col">
-                                        <h2 className="submenu-title">Product</h2>
-
+                                        <h2 className="submenu-title">Sport Uniforms</h2>
                                         <ul>
-                                            {categoriesData.map((item) => {
-                                                return (
-                                                    <li key={item.id}>
-                                                        <Link
-                                                            to={`/category/${item.slug}`}
-                                                            className="header__submenu-link"
-                                                        >
-                                                            {item.name}
-                                                        </Link>
-                                                    </li>
-                                                );
-                                            })}
+                                            <li>
+                                                <Link to="/category/pt-t-shirts" className="header__submenu-link">
+                                                    P.T T-shirts
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/category/pt-shorts" className="header__submenu-link">
+                                                    P.T. Shorts
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/category/pt-track-pants" className="header__submenu-link">
+                                                    P.T. track pants
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <a href="#!" className="header__submenu-link">
+                                                    Sports Shoes
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" className="header__submenu-link">
+                                                    Swimming Costumes
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" className="header__submenu-link">
+                                                    Sports Equipment
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" className="header__submenu-link">
+                                                    Team Jerseys
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#!" className="header__submenu-link">
+                                                    Sports Bags
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                     {/* Column 3 */}
                                     <div className="submenu-col">
                                         <h2 className="submenu-title">Accessories</h2>
-
                                         <ul>
                                             <li>
+                                                <Link to="/category/belts" className="header__submenu-link">
+                                                    Belts
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/category/ties" className="header__submenu-link">
+                                                    Ties
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/category/logos" className="header__submenu-link">
+                                                    Logos
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/category/socks" className="header__submenu-link">
+                                                    Socks
+                                                </Link>
+                                            </li>
+                                            <li>
                                                 <a href="#!" className="header__submenu-link">
-                                                    Rabbit
+                                                    Hair Accessories
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#!" className="header__submenu-link">
-                                                    Cattery Cages
+                                                    Badges
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#!" className="header__submenu-link">
-                                                    Leather
+                                                    Water Bottles
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#!" className="header__submenu-link">
-                                                    Fit Tee print
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#!" className="header__submenu-link">
-                                                    Kong T-shirt
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#!" className="header__submenu-link">
-                                                    Show winter dress
+                                                    Stationery
                                                 </a>
                                             </li>
                                         </ul>
@@ -146,7 +192,7 @@ export default function MenuDesktop() {
                 </li>
                 <li>
                     <a href="#!" className="header__link">
-                        Pages
+                        About
                         <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
                         {/* <ChevronDown size={20} /> */}
                     </a>
@@ -157,19 +203,9 @@ export default function MenuDesktop() {
                                 About Us
                             </Link>
                         </li>
-                        {/* <li>
-                                            <Link to="/pages/team" className="header__submenu-link">
-                                                About Team
-                                            </Link>
-                                        </li> */}
                         <li>
-                            <Link to="/pages/faq" className="header__submenu-link">
-                                FAQ
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/pages/gallery" className="header__submenu-link">
-                                Gallery
+                            <Link to="/pages/careers" className="header__submenu-link">
+                                Careers
                             </Link>
                         </li>
                         <li>
@@ -177,47 +213,241 @@ export default function MenuDesktop() {
                                 Partners
                             </Link>
                         </li>
-                        {/* <li>
+                        <li>
                             <a href="#!" className="header__submenu-link">
-                                Compare
+                                Our History
                             </a>
-                        </li> */}
-                        <li>
-                            <Link to="/pages/wishlist" className="header__submenu-link">
-                                Wishlist
-                            </Link>
                         </li>
                         <li>
-                            <Link to="/categories" className="header__submenu-link">
-                                Categories
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/pages/policies" className="header__submenu-link">
-                                Shipping & Returns Policy
+                            <Link to="/pages/awards" className="header__submenu-link">
+                                Awards & Recognition
                             </Link>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a href="#!" className="header__link">
-                        Blog
+                        Support
+                        <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
+                    </a>
+                    {/* Submenu */}
+                    <ul className="header__submenu">
+                        <li>
+                            <Link to="/pages/faq" className="header__submenu-link">
+                                <span>FAQ</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/pages/policies" className="header__submenu-link">
+                                Policies
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/pages/contact" className="header__submenu-link">
+                                Contact Us
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/pages/size-guide" className="header__submenu-link">
+                                Size Guide
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/pages/order-tracking" className="header__submenu-link">
+                                Order Tracking
+                            </Link>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#!" className="header__link">
+                        Media
                         <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
                     </a>
                     {/* Submenu */}
                     <ul className="header__submenu">
                         <li>
                             <a href="#!" className="header__submenu-link">
-                                Blog Detail
+                                <span>News & Updates</span>
+                                <img
+                                    src="/assets/icon/cheveron-right.svg"
+                                    className="header__submenu__icon-arow"
+                                    alt=""
+                                />
+                            </a>
+                            <ul className="header__submenu2">
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Latest News
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Press Releases
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Blog
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="header__submenu-link">
+                                <span>Gallery</span>
+                                <img
+                                    src="/assets/icon/cheveron-right.svg"
+                                    className="header__submenu__icon-arow"
+                                    alt=""
+                                />
+                            </a>
+                            <ul className="header__submenu2">
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Product Photos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        School Events
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Sports Events
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="header__submenu-link">
+                                <span>Videos</span>
+                                <img
+                                    src="/assets/icon/cheveron-right.svg"
+                                    className="header__submenu__icon-arow"
+                                    alt=""
+                                />
+                            </a>
+                            <ul className="header__submenu2">
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Product Showcases
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        School Stories
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        How-to Guides
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="header__submenu-link">
+                                Testimonials
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <Link to="/pages/contact" className="header__link">
-                        Contact Us
-                        {/* <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" /> */}
-                    </Link>
+                    <a href="#!" className="header__link">
+                        Activities
+                        <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
+                    </a>
+                    {/* Submenu */}
+                    <ul className="header__submenu">
+                        <li>
+                            <a href="#!" className="header__submenu-link">
+                                <span>Wishlist</span>
+                                <img
+                                    src="/assets/icon/cheveron-right.svg"
+                                    className="header__submenu__icon-arow"
+                                    alt=""
+                                />
+                            </a>
+                            <ul className="header__submenu2">
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Saved Items
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Share List
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="header__submenu-link">
+                                <span>Coupons</span>
+                                <img
+                                    src="/assets/icon/cheveron-right.svg"
+                                    className="header__submenu__icon-arow"
+                                    alt=""
+                                />
+                            </a>
+                            <ul className="header__submenu2">
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Active Coupons
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        School Discounts
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Bulk Order Deals
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="header__submenu-link">
+                                <span>Invoice Tracking</span>
+                                <img
+                                    src="/assets/icon/cheveron-right.svg"
+                                    className="header__submenu__icon-arow"
+                                    alt=""
+                                />
+                            </a>
+                            <ul className="header__submenu2">
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Order Status
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Shipping Updates
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!" className="header__submenu-link">
+                                        Return Status
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#!" className="header__submenu-link">
+                                School Programs
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!" className="header__submenu-link">
+                                Loyalty Rewards
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

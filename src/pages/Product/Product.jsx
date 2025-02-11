@@ -15,7 +15,7 @@ import clsx from "clsx";
 import Tooltip from "~/components/Tooltip";
 import { Rating } from "@mui/material";
 import PinterestIcon from "@mui/icons-material/Pinterest";
-
+import sizeGuides from "~/data/sizeGuides.json";
 import {
     Heart,
     Share2,
@@ -290,6 +290,16 @@ export default function Product() {
     };
 
     const slugCategory = categories.find((c) => c.name === product.category)?.slug;
+
+    // Thêm hàm để lấy size guide dựa trên category
+    const getSizeGuideForProduct = () => {
+        if (!product || !product.category) return null;
+
+        // Chuyển đổi category thành slug để match với sizeGuides
+        const categorySlug = product.category.toLowerCase().replace(/ /g, "-");
+        return sizeGuides[categorySlug];
+    };
+
     return (
         <motion.section
             className="product"
@@ -385,20 +395,61 @@ export default function Product() {
                                     Size Guide
                                 </button>
                             </div>
+
                             <AnimatePresence>
                                 {showSizeGuide && (
                                     <motion.div
                                         className="product__size-guide-content"
                                         initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: "auto", opacity: 1 }}
+                                        animate={{ height: 500, opacity: 1 }}
                                         transition={{ duration: 0.5, ease: "easeInOut" }}
                                         exit={{ height: 0, opacity: 0 }}
                                     >
-                                        <img
-                                            src="/assets/imgs/size-guide.webp"
-                                            alt="Size Guide"
-                                            className="product__size-guide-image"
-                                        />
+                                        {getSizeGuideForProduct() ? (
+                                            <div className="size-guide__table-container">
+                                                <h4>{getSizeGuideForProduct().title}</h4>
+                                                <p>{getSizeGuideForProduct().description}</p>
+
+                                                <table className="size-guide__table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Size</th>
+                                                            {Object.keys(getSizeGuideForProduct().sizes[0])
+                                                                .filter((key) => key !== "size")
+                                                                .map((key) => (
+                                                                    <th key={key}>
+                                                                        {key.charAt(0).toUpperCase() + key.slice(1)}{" "}
+                                                                        (cm)
+                                                                    </th>
+                                                                ))}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {getSizeGuideForProduct().sizes.map((size, index) => (
+                                                            <tr key={index}>
+                                                                <td>{size.size}</td>
+                                                                {Object.entries(size)
+                                                                    .filter(([key]) => key !== "size")
+                                                                    .map(([key, value]) => (
+                                                                        <td key={key}>{value}</td>
+                                                                    ))}
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+
+                                                <div className="size-guide__tips">
+                                                    <h5>Measurement Tips</h5>
+                                                    <ul>
+                                                        {getSizeGuideForProduct().measurementTips.map((tip, index) => (
+                                                            <li key={index}>{tip}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <p>Size guide not available for this product category.</p>
+                                        )}
                                     </motion.div>
                                 )}
                             </AnimatePresence>

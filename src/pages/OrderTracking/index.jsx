@@ -1,5 +1,5 @@
 import React from "react";
-import InvoiceTracking from "./InvoiceTracking";
+import InvoiceTracking from "./OrderTracking";
 import Breadcrumb from "~/components/Breadcrumb";
 import useTitle from "~/hooks/useTitle";
 

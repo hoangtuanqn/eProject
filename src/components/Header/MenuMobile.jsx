@@ -71,7 +71,7 @@ const MenuMobile = ({ toggleSubmenu }) => {
                             <ul className="mobile-submenu">
                                 <li>
                                     <button className="mobile-submenu__link" onClick={(e) => toggleSubmenu(e)}>
-                                        <span>Instruments</span>
+                                        <span>School Uniforms</span>
                                         <svg
                                             width="12"
                                             height="12"
@@ -90,24 +90,49 @@ const MenuMobile = ({ toggleSubmenu }) => {
                                     <ul className="mobile-submenu__child">
                                         <li>
                                             <a href="#!" className="mobile-submenu__link">
-                                                Cotton Full shirt
+                                                Shirts
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#!" className="mobile-submenu__link">
-                                                Resin Strap
+                                                Skirts
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#!" className="mobile-submenu__link">
-                                                Boheme Rose Gold
+                                                Frocks
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Trousers
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Blazers
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Winter Wear
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                School Bags
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Shoes
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
                                     <button className="mobile-submenu__link" onClick={(e) => toggleSubmenu(e)}>
-                                        <span>Product</span>
+                                        <span>Sport Uniforms</span>
                                         <svg
                                             width="12"
                                             height="12"
@@ -124,13 +149,46 @@ const MenuMobile = ({ toggleSubmenu }) => {
                                         </svg>
                                     </button>
                                     <ul className="mobile-submenu__child">
-                                        {categoriesData.map((item) => (
-                                            <li key={item.id}>
-                                                <Link to={`/category/${item.slug}`} className="mobile-submenu__link">
-                                                    {item.name}
-                                                </Link>
-                                            </li>
-                                        ))}
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                P.T T-shirts
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                P.T. Shorts
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                P.T. track pants
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Sports Shoes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Swimming Costumes
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Sports Equipment
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Team Jerseys
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Sports Bags
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li>
@@ -154,17 +212,42 @@ const MenuMobile = ({ toggleSubmenu }) => {
                                     <ul className="mobile-submenu__child">
                                         <li>
                                             <a href="#!" className="mobile-submenu__link">
-                                                Rabbit
+                                                Belts
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#!" className="mobile-submenu__link">
-                                                Cattery Cages
+                                                Ties
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#!" className="mobile-submenu__link">
-                                                Leather
+                                                Logos
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Socks
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Hair Accessories
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Badges
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Water Bottles
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Stationery
                                             </a>
                                         </li>
                                     </ul>
@@ -192,39 +275,94 @@ const MenuMobile = ({ toggleSubmenu }) => {
                                         strokeLinecap="round"
                                     />
                                 </svg>
-                                
                             </button>
                             <ul className="mobile-submenu">
                                 <li>
-
                                     <Link to="/pages/about" className="mobile-submenu__link">
                                         About Us
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/faq" className="mobile-submenu__link">
-                                        FAQ
-                                    </Link>
+                                    <button className="mobile-submenu__link" onClick={(e) => toggleSubmenu(e)}>
+                                        <span>Careers</span>
+                                        <svg
+                                            width="12"
+                                            height="12"
+                                            viewBox="0 0 12 12"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M6 1v10M1 6h10"
+                                                stroke="currentColor"
+                                                strokeWidth="1.5"
+                                                strokeLinecap="round"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <ul className="mobile-submenu__child">
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Job Openings
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Internships
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Work Culture
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
-                                    <Link to="/pages/gallery" className="mobile-submenu__link">
-                                        Gallery
-                                    </Link>
+                                    <button className="mobile-submenu__link" onClick={(e) => toggleSubmenu(e)}>
+                                        <span>Partners</span>
+                                        <svg
+                                            width="12"
+                                            height="12"
+                                            viewBox="0 0 12 12"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M6 1v10M1 6h10"
+                                                stroke="currentColor"
+                                                strokeWidth="1.5"
+                                                strokeLinecap="round"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <ul className="mobile-submenu__child">
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Schools
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Suppliers
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#!" className="mobile-submenu__link">
+                                                Distributors
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
-                                    <Link to="/pages/partners" className="mobile-submenu__link">
-                                        Partners
-                                    </Link>
+                                    <a href="#!" className="mobile-submenu__link">
+                                        Our History
+                                    </a>
                                 </li>
                                 <li>
-                                    <Link to="/categories" className="mobile-submenu__link">
-                                        Categories
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/pages/policies" className="mobile-submenu__link">
-                                        Shipping & Returns Policy
-                                    </Link>
+                                    <a href="#!" className="mobile-submenu__link">
+                                        Awards & Recognition
+                                    </a>
                                 </li>
                             </ul>
                         </li>
