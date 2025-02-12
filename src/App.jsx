@@ -36,6 +36,8 @@ import OrderTracking from "~/pages/OrderTracking";
 import News from "~/pages/News";
 import BlogDetail from "~/pages/BlogDetail";
 import CustomerGrowthChart from "~/pages/CustomerGrowthChart";
+import RecentlyProducts from "~/pages/RecentlyProducts";
+
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
     const location = useLocation();
@@ -129,6 +131,9 @@ const App = () => {
 
                 {/* Page Error - 404 */}
                 <Route path="*" element={<NotFound />} exact />
+
+                {/* Page Recently Products */}
+                <Route path="/pages/recently-products" element={<RecentlyProducts />} exact />
             </Routes>
 
             <Footer />

@@ -3,10 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import categories from "~/data/categories.json";
 import sizeGuides from "~/data/sizeGuides.json";
 import "~/styles/sizeGuide.css";
-
 export default function SizeGuide() {
     const [selectedCategory, setSelectedCategory] = useState("shirts");
-
     return (
         <section className="size-guide">
             <div className="container">
@@ -16,7 +14,6 @@ export default function SizeGuide() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 ></motion.div>
-
                 <div className="gallery__categories">
                     {categories.map((category) => (
                         <motion.button

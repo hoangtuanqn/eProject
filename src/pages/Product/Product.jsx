@@ -7,7 +7,7 @@ import "~/styles/product.css";
 import useTitle from "~/hooks/useTitle";
 import productsData from "~/data/products.json";
 import categories from "~/data/categories.json";
-import { calculateOriginalPrice } from "~/utils/helpers";
+import { calculateOriginalPrice, handleAddRecentProduct } from "~/utils/helpers";
 import SuggestedProducts from "./SuggestedProducts";
 import RelatedProducts from "./RelatedProducts";
 import toast from "react-hot-toast";
@@ -78,7 +78,11 @@ export default function Product() {
             setRelatedProducts(related);
         }
     }, [product]);
-
+    useEffect(() => {
+        if (product) {
+            handleAddRecentProduct(product.id);
+        }
+    }, [product]);
     if (!product) return null;
 
     const originalPrice = product.price;

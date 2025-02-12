@@ -11,7 +11,7 @@ export default function Index() {
     return (
         <>
             <main className="main">
-                <Breadcrumb title="" items={breadcrumbItems} />
+                <Breadcrumb title="" items={breadcrumbItems} style={{ alignItems: "flex-start" }} />
                 <Partners />
             </main>
         </>

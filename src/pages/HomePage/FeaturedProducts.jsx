@@ -99,7 +99,7 @@ const FeaturedProducts = () => {
                                             </div>
                                             <h3 className="category__product-name">{name}</h3>
                                             <p className="category__product-price">
-                                                ${Math.round(salePrice)}
+                                                ${Math.round(price)}
                                                 {sale > 0 && (
                                                     <span className="category__product-price--old">
                                                         ${calculateOriginalPrice(price, sale)}

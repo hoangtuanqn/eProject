@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, Loader, Package, MapPin, Clock, ArrowRight, Printer, Ruler, Palette } from "lucide-react";
+import { Search, Package, MapPin, Clock, ArrowRight, Ruler, Palette } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -144,7 +144,7 @@ export default function InvoiceTracking() {
 
         return `${formatDate(minDate)} - ${formatDate(maxDate)}`;
     };
-
+    
     return (
         <section className="invoice-tracking">
             <div className="container">

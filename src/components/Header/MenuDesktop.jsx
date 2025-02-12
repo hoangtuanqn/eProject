@@ -213,15 +213,11 @@ export default function MenuDesktop() {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/customer-growth-chart" className="header__submenu-link">
+                            <Link to="/pages/customer-growth-chart" className="header__submenu-link">
                                 Growth & Achievement
                             </Link>
                         </li>
-                        <li>
-                            <a href="#!" className="header__submenu-link">
-                                Our History
-                            </a>
-                        </li>
+
                         <li>
                             <Link to="/pages/awards" className="header__submenu-link">
                                 Awards & Recognition
@@ -271,33 +267,6 @@ export default function MenuDesktop() {
                     {/* Submenu */}
                     <ul className="header__submenu">
                         <li>
-                            <a href="#!" className="header__submenu-link">
-                                <span>News & Updates</span>
-                                <img
-                                    src="/assets/icon/cheveron-right.svg"
-                                    className="header__submenu__icon-arow"
-                                    alt=""
-                                />
-                            </a>
-                            <ul className="header__submenu2">
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Latest News
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Press Releases
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Blog
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
                             <Link to="/pages/gallery/product-photos" className="header__submenu-link">
                                 <span>Gallery</span>
                                 <img
@@ -325,36 +294,9 @@ export default function MenuDesktop() {
                             </ul>
                         </li>
                         <li>
-                            <a href="#!" className="header__submenu-link">
-                                <span>Videos</span>
-                                <img
-                                    src="/assets/icon/cheveron-right.svg"
-                                    className="header__submenu__icon-arow"
-                                    alt=""
-                                />
-                            </a>
-                            <ul className="header__submenu2">
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Product Showcases
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        School Stories
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        How-to Guides
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#!" className="header__submenu-link">
-                                Testimonials
-                            </a>
+                            <Link to="/blog/news" className="header__submenu-link">
+                                <span>News</span>
+                            </Link>
                         </li>
                     </ul>
                 </li>
@@ -373,6 +315,11 @@ export default function MenuDesktop() {
                         <li>
                             <Link to="/pages/coupons" className="header__submenu-link">
                                 <span>Coupons</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/pages/recently-products" className="header__submenu-link">
+                                <span>Recently Products</span>
                             </Link>
                         </li>
                         <li>
