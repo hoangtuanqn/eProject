@@ -1,20 +1,43 @@
 import React from "react";
-import Gallery from "./Gallery";
+import { useParams } from "react-router-dom";
+import Product from "./Product";
 import Breadcrumb from "~/components/Breadcrumb";
 import useTitle from "~/hooks/useTitle";
+import SchoolEvents from "./SchoolEvents";
+import SportsEvents from "./SportsEvents";
 
 const breadcrumbItems = [
     { label: "Home", url: "/" },
-    { label: "Our Gallery", url: "/pages/gallery" },
+    { label: "Product Photos", url: "/pages/product-photos" },
 ];
+
 export default function Index() {
-    useTitle("Gallery");
+    const { slug } = useParams();
+    let nameTitle = "";
+    switch (slug) {
+        case "product-photos":
+            nameTitle = "Product Photos";
+            break;
+        case "school-events":
+            nameTitle = "School Events";
+            break;
+        case "sports-events":
+            nameTitle = "Sports Events";
+            break;
+        default:
+            nameTitle = "Gallery";
+            break;
+    }
+    useTitle(nameTitle);
+
     return (
         <>
             <main className="main">
-                <Breadcrumb title="Our Gallery" items={breadcrumbItems} />
+                <Breadcrumb title={nameTitle} items={breadcrumbItems} />
 
-                <Gallery />
+                {slug === "product-photos" && <Product />}
+                {slug === "school-events" && <SchoolEvents />}
+                {slug === "sports-events" && <SportsEvents />}
             </main>
         </>
     );

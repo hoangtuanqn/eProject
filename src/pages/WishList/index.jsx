@@ -6,7 +6,7 @@ export default function Index() {
     useTitle("Wish List");
     const breadcrumbItems = [
         { label: "Home", url: "/" },
-        { label: "Wish List", url: "/wishlist" },
+        { label: "Wish List", url: "/pages/wishlist" },
     ];
     return (
         <>

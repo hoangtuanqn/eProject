@@ -194,7 +194,6 @@ export default function MenuDesktop() {
                     <a href="#!" className="header__link">
                         About
                         <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
-                        {/* <ChevronDown size={20} /> */}
                     </a>
                     {/* Submenu */}
                     <ul className="header__submenu">
@@ -211,6 +210,11 @@ export default function MenuDesktop() {
                         <li>
                             <Link to="/pages/partners" className="header__submenu-link">
                                 Partners
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/customer-growth-chart" className="header__submenu-link">
+                                Growth & Achievement
                             </Link>
                         </li>
                         <li>
@@ -294,29 +298,29 @@ export default function MenuDesktop() {
                             </ul>
                         </li>
                         <li>
-                            <a href="#!" className="header__submenu-link">
+                            <Link to="/pages/gallery/product-photos" className="header__submenu-link">
                                 <span>Gallery</span>
                                 <img
                                     src="/assets/icon/cheveron-right.svg"
                                     className="header__submenu__icon-arow"
                                     alt=""
                                 />
-                            </a>
+                            </Link>
                             <ul className="header__submenu2">
                                 <li>
-                                    <a href="#!" className="header__submenu-link">
+                                    <Link to="/pages/gallery/product-photos" className="header__submenu-link">
                                         Product Photos
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#!" className="header__submenu-link">
+                                    <Link to="/pages/gallery/school-events" className="header__submenu-link">
                                         School Events
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#!" className="header__submenu-link">
+                                    <Link to="/pages/gallery/sports-events" className="header__submenu-link">
                                         Sports Events
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </li>
@@ -362,90 +366,19 @@ export default function MenuDesktop() {
                     {/* Submenu */}
                     <ul className="header__submenu">
                         <li>
-                            <a href="#!" className="header__submenu-link">
+                            <Link to="/pages/wishlist" className="header__submenu-link">
                                 <span>Wishlist</span>
-                                <img
-                                    src="/assets/icon/cheveron-right.svg"
-                                    className="header__submenu__icon-arow"
-                                    alt=""
-                                />
-                            </a>
-                            <ul className="header__submenu2">
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Saved Items
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Share List
-                                    </a>
-                                </li>
-                            </ul>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#!" className="header__submenu-link">
+                            <Link to="/pages/coupons" className="header__submenu-link">
                                 <span>Coupons</span>
-                                <img
-                                    src="/assets/icon/cheveron-right.svg"
-                                    className="header__submenu__icon-arow"
-                                    alt=""
-                                />
-                            </a>
-                            <ul className="header__submenu2">
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Active Coupons
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        School Discounts
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Bulk Order Deals
-                                    </a>
-                                </li>
-                            </ul>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#!" className="header__submenu-link">
-                                <span>Invoice Tracking</span>
-                                <img
-                                    src="/assets/icon/cheveron-right.svg"
-                                    className="header__submenu__icon-arow"
-                                    alt=""
-                                />
-                            </a>
-                            <ul className="header__submenu2">
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Order Status
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Shipping Updates
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#!" className="header__submenu-link">
-                                        Return Status
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#!" className="header__submenu-link">
-                                School Programs
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#!" className="header__submenu-link">
-                                Loyalty Rewards
-                            </a>
+                            <Link to="/pages/order-tracking" className="header__submenu-link">
+                                <span>Order Tracking</span>
+                            </Link>
                         </li>
                     </ul>
                 </li>

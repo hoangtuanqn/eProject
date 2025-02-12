@@ -41,12 +41,12 @@ export default function Testimonial() {
                                         alt={testimonial.name}
                                         className="testimonial__avatar"
                                     />
-                                    <p className="testimonial__role">{testimonial.name}</p>
-                                    <span className="testimonial__desc">{testimonial.role}</span>
+                                    <p className="testimonial__name">{testimonial.name}</p>
+                                    <span className="testimonial__role">{testimonial.role}</span>
                                     <div className="testimonial__stars">
                                         <Rating
                                             name="read-only"
-                                            value={testimonial.stars}
+                                            value={testimonial.rating}
                                             precision={0.1}
                                             readOnly
                                             size="small"
@@ -56,9 +56,8 @@ export default function Testimonial() {
                                             }}
                                         />
                                     </div>
-                                    <p className="testimonial__text">{testimonial.text}</p>
-                                    <p className="testimonial__name">{testimonial.name}</p>
-                                    <p className="testimonial__address">{testimonial.address}</p>
+                                    <p className="testimonial__text">{testimonial.quote}</p>
+                                    <p className="testimonial__date">{testimonial.date}</p>
                                 </div>
                             </SwiperSlide>
                         ))}

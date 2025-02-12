@@ -1,47 +1,17 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ZoomInIcon as Zoom, X } from "lucide-react";
 import "~/styles/gallery.css";
-import galleryItems from "~/data/gallery.json";
-const categories = [
-    "All",
-    "Preschool Uniforms",
-    "Primary School Uniforms",
-    "High School Uniforms",
-    "University Uniforms",
-];
+import sportsEvents from "~/data/sportsEvents.json";
 
-const Gallery = () => {
-    const [selectedCategory, setSelectedCategory] = useState("All");
-    const [filteredItems, setFilteredItems] = useState(galleryItems);
+const SportsEvents = () => {
     const [selectedImage, setSelectedImage] = useState(null);
-
-
-    useEffect(() => {
-        setFilteredItems(
-            selectedCategory === "All"
-                ? galleryItems
-                : galleryItems.filter((item) => item.category === selectedCategory),
-        );
-    }, [selectedCategory]);
 
     return (
         <section className="gallery">
             <div className="container">
                 {/* <h1 className="gallery__title">Our Gallery</h1> */}
-                <div className="gallery__categories">
-                    {categories.map((category) => (
-                        <motion.button
-                            key={category}
-                            className={`gallery__category ${selectedCategory === category ? "active" : ""}`}
-                            onClick={() => setSelectedCategory(category)}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            {category}
-                        </motion.button>
-                    ))}
-                </div>
+
                 <motion.div
                     className="gallery__grid"
                     initial="hidden"
@@ -57,7 +27,7 @@ const Gallery = () => {
                     }}
                 >
                     <AnimatePresence>
-                        {filteredItems.map((item) => (
+                        {sportsEvents.map((item) => (
                             <motion.div
                                 key={item.id}
                                 className="gallery__item"
@@ -105,4 +75,4 @@ const Gallery = () => {
         </section>
     );
 };
-export default memo(Gallery);
+export default memo(SportsEvents);

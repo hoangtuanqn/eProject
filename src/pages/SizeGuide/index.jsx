@@ -6,7 +6,7 @@ export default function Index() {
     useTitle("Size Guide");
     const breadcrumbItems = [
         { label: "Home", url: "/" },
-        { label: "Size Guide", url: "/size-guide" },
+        { label: "Size Guide", url: "/pages/size-guide" },
     ];
     return (
         <>

@@ -35,6 +35,7 @@ import Careers from "~/pages/Careers";
 import OrderTracking from "~/pages/OrderTracking";
 import News from "~/pages/News";
 import BlogDetail from "~/pages/BlogDetail";
+import CustomerGrowthChart from "~/pages/CustomerGrowthChart";
 const App = () => {
     // Start: Xử lý cuộn lên đầu trang khi chuyển trang
     const location = useLocation();
@@ -67,7 +68,7 @@ const App = () => {
                 <Route path="/pages/about" element={<AboutUs />} exact />
 
                 {/* Page Gallery */}
-                <Route path="/pages/gallery" element={<Gallery />} exact />
+                <Route path="/pages/gallery/:slug" element={<Gallery />} />
 
                 {/* Page Partners */}
                 <Route path="/pages/partners" element={<Partners />} exact />
@@ -92,6 +93,9 @@ const App = () => {
 
                 {/* Page Size Guide */}
                 <Route path="/pages/size-guide" element={<SizeGuide />} exact />
+
+                {/* Page Customer Growth Chart */}
+                <Route path="/pages/customer-growth-chart" element={<CustomerGrowthChart />} exact />
 
                 {/* Danh mục product*/}
                 <Route path="/blog/news" element={<News />} exact />
