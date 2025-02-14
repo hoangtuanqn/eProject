@@ -256,6 +256,9 @@
         "best_sale": true,
         "feature": true
     },
+
+
+
     {
         "id": 11,                   
         "name": "Harvard™ Vintage T-Shirt",
@@ -334,57 +337,6 @@
         "feature": true
     },
     {
-        "id": 14,                           
-        "name": "School Uniform Polo T-shirt 01",
-        "category": "P.T. T-shirts",   
-        "price": 15.99,
-        "sale": 41,
-        "quantity": 20,
-        "soldQuantity": 15000,
-        "rating": 4.5,
-        "salesCount": 50,
-        "thumbnail": "/assets/imgs/t_shirts/product-9.webp",                     
-        "education_levels": "Elementary School",
-        "images": [
-            "/assets/imgs/t_shirts/product-9.webp", 
-            "/assets/imgs/t_shirts/product-10.webp",
-            "/assets/imgs/t_shirts/product-11.webp"
-        ],
-        "sizes": ["S", "M", "L"],
-        "gender": "Unisex",
-        "colors": ["MidnightBlue", "Crimson", "Pink"],
-        "detailImageColors": [0, 1, 2],
-        "tags": ["school", "uniform", "formal", "polo"],
-        "slug": "school-uniform-polo-shirt-01",
-        "best_sale": true,
-        "feature": true
-    },
-    {
-        "id": 15,                           
-        "name": "School Uniform Polo T-shirt 02",
-        "category": "P.T. T-shirts",   
-        "price": 15.99,
-        "sale": 41,
-        "quantity": 20,
-        "soldQuantity": 15000,
-        "rating": 4.5,
-        "salesCount": 50,
-        "thumbnail": "/assets/imgs/t_shirts/product-12.webp",                     
-        "education_levels": "Preschool",
-        "images": [
-            "/assets/imgs/t_shirts/product-12.webp", 
-            "/assets/imgs/t_shirts/product-13.webp"
-        ],
-        "sizes": ["S", "M", "L"],
-        "gender": "Unisex",
-        "colors": ["Red", "Green"],
-        "detailImageColors": [0, 1, 2],
-        "tags": ["school", "uniform", "formal", "polo"],
-        "slug": "school-uniform-polo-shirt-02",
-        "best_sale": true,
-        "feature": true
-    },
-    {
         "id": 16,                              
         "name": "School Uniform Kids Short Sleeve Rapid Dry Polo Shirt 03",
         "category": "P.T. T-shirts",   
@@ -409,6 +361,200 @@
         "slug": "school-uniform-polo-shirt-03",
         "best_sale": true,
         "feature": true
+    },
+
+
+
+    {
+        "id": 91,                              
+        "name": "Crew Socks 4-Pack 01",
+        "category": "Socks",   
+        "price": 6.99,
+        "sale": 30,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/socks/product-1.webp",                         
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/socks/product-1.webp",
+            "/assets/imgs/socks/product-2.webp"
+        ],
+        "sizes": [],
+        "gender": "Unisex",
+        "colors": ["While", "Black"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "socks"],
+        "slug": "crew-socks-4pack-01",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 92,                              
+        "name": "Low-Cut Socks 4-Pack 02",
+        "category": "Socks",   
+        "price": 6.99,
+        "sale": 30,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/socks/product-3.webp",                         
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/socks/product-3.webp",
+            "/assets/imgs/socks/product-4.webp"
+        ],
+        "sizes": [],
+        "gender": "Unisex",
+        "colors": ["While", "Black"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "socks"],
+        "slug": "low-cut-socks-4pack-02",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 93,                               
+        "name": "Novelty Crew Socks for Boys 03",
+        "category": "Socks",   
+        "price": 5.49,
+        "sale": 30,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/socks/product-5.webp",                         
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/socks/product-5.webp",
+            "/assets/imgs/socks/product-6.webp",
+            "/assets/imgs/socks/product-7.webp"
+        ],
+        "sizes": [],
+        "gender": "Male",
+        "colors": ["While", "DarkOliveGreen", "MidnightBlue"],
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "socks"],
+        "slug": "novelty-crew-socks-for-boys-03",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 94,                              
+        "name": "Waffle-Knit Crew Socks for Boys 04",
+        "category": "Socks",   
+        "price": 5.49,
+        "sale": 31,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/socks/product-8.webp",                            
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/socks/product-8.webp",
+            "/assets/imgs/socks/product-9.webp",
+            "/assets/imgs/socks/product-10.webp"
+        ],
+        "sizes": [],
+        "gender": "Male",
+        "colors": ["MidnightBlue", "White", "DarkSeaGreen"],
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "socks"],
+        "slug": "waffle-knit-crew-socks-for-boys-04",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 95,                              
+        "name": "Tube Socks 3-Pack 05",
+        "category": "Socks",   
+        "price": 8.99,
+        "sale": 31,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/socks/product-11.webp",                               
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/socks/product-11.webp",
+            "/assets/imgs/socks/product-11.webp",
+            "/assets/imgs/socks/product-11.webp"
+        ],
+        "sizes": [],
+        "gender": "Unisex",
+        "colors": ["Red", "DeepSkyBlue", "Navy"],
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "socks"],
+        "slug": "tube-socks-3pack-05",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 96,                               
+        "name": "Tube Socks 3-Pack 06",
+        "category": "Socks",   
+        "price": 8.99,
+        "sale": 31,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/socks/product-12.webp",                                  
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/socks/product-12.webp",
+            "/assets/imgs/socks/product-12.webp",
+            "/assets/imgs/socks/product-12.webp"
+        ],
+        "sizes": [],
+        "gender": "Unisex",
+        "colors": ["White", "DarkGray", "Black"],
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "socks"],
+        "slug": "tube-socks-3pack-06", 
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 97,                               
+        "name": "3-Pack Athletic Quarter Crew Socks for Girls 07",
+        "category": "Socks",   
+        "price": 12.99,
+        "sale": 31,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/socks/product-13.webp",                                  
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/socks/product-13.webp",
+            "/assets/imgs/socks/product-14.webp"        
+        ],
+        "sizes": [],
+        "gender": "Female",
+        "colors": ["Black", "White"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "socks"],
+        "slug": "3pack-athletic-quarter-crew-socks-for-girls-07", 
+        "best_sale": true,
+        "feature": true
     }
+
+
+
+
+
+
     
 ]
+
+
+
+
