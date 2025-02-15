@@ -621,7 +621,7 @@
         ],
         "sizes": ["S", "M", "L", "XL"],
         "gender": "Female",
-        "colors": ["White"],
+        "colors": ["Navy"],
         "detailImageColors": [0],
         "tags": ["school", "uniform", "formal"],
         "slug": "french-toast-girls-school-uniform-short-sleeve-ruffle-pique-polo-dress-sizes-4-16",  
@@ -629,6 +629,135 @@
         "feature": true
     },
 
+    {
+        "id": 26,                       
+        "name": "Wonder Nation Girls School Uniform Performance Polo Dress with Pockets, Sizes 4-16",
+        "category": "Frocks",   
+        "price": 10.11,
+        "sale": 20,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/frocks/product-7.webp",                                  
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/frocks/product-7.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["Navy"],
+        "detailImageColors": [0],
+        "tags": ["school", "uniform", "formal"],
+        "slug": "wonder-nation-girls-school-uniform-performance-polo-dress-with-pockets-sizes-4-16",  
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 27,                       
+        "name": "Classroom School Uniforms Big Kid Pique Polo Short Sleeve Dress",
+        "category": "Frocks",   
+        "price": 22.97,
+        "sale": 20,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/frocks/product-8.webp",                                        
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/frocks/product-8.webp",
+            "/assets/imgs/frocks/product-9.webp",
+            "/assets/imgs/frocks/product-10.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["Pink", "LightBlue", "Green"],
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "uniform", "formal"],
+        "slug": "classroom-school-uniforms-big-kid-pique-polo-short-sleeve-dress",  
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 28,                       
+        "name": "Wonder Nation Girls School Uniform Pleated Ruffle Jumper Dress, Sizes 4-16 & 8-20 Plus",
+        "category": "Frocks",   
+        "price": 12.98,
+        "sale": 20,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/frocks/product-11.webp",                                        
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/frocks/product-11.webp",
+            "/assets/imgs/frocks/product-12.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["Navy", "Wheat"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal"],
+        "slug": "wonder-nation-girls-school-uniform-pleated-ruffle-jumper-dress-sizes-4-16-8-20-plus",  
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 29,                           
+        "name": "Wonder Nation Girls School Uniform Stretch Ponte Pleated Knit Jumper Dress, Sizes 4-16 & Plus",
+        "category": "Frocks",   
+        "price": 12.98,
+        "sale": 20,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/frocks/product-13.webp",                                        
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/frocks/product-13.webp",
+            "/assets/imgs/frocks/product-14.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["Wheat", "Navy"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal"],
+        "slug": "wonder-nation-girls-school-uniform-stretch-ponte-pleated-knit-jumper-dress-sizes-4-16-plus",  
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 30,                           
+        "name": "Classroom School Uniforms Big Kid Plus Prince Short Sleeve Seam Jumper 54913, 18h, Khaki",
+        "category": "Frocks",   
+        "price": 20.98,
+        "sale": 20,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/frocks/product-15.webp",                                        
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/frocks/product-15.webp",
+            "/assets/imgs/frocks/product-16.webp",
+            "/assets/imgs/frocks/product-17.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["Black", "Navy", "Khaki"],
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "uniform", "formal"],
+        "slug": "classroom-school-uniforms-big-kid-plus-prince-short-sleeve-seam-jumper-54913-18h-khaki",  
+        "best_sale": true,
+        "feature": true
+    },
 
     {
         "id": 31,                   
@@ -905,6 +1034,134 @@
     },
 
     {
+        "id": 46,                
+        "name": "Sweat Shorts 2 Pack 10 years",
+        "category": "P.T. shorts", 
+        "price": 25,
+        "sale": 25,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/shorts/product-9.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/shorts/product-9.webp",
+            "/assets/imgs/shorts/product-10.webp"
+        ],
+        "sizes": ["S", "M", "L"],
+        "gender": "Male",
+        "colors": ["Black",  "Navy"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal"],    
+        "slug": "sweat-shorts-2-pack-10-years",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 47,                
+        "name": "Trutex Boys School Shorts (3-15 Years), Junior Boys Elasticated School Shorts - Genuine School Uniform",
+        "category": "P.T. shorts", 
+        "price": 25,
+        "sale": 25,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/shorts/product-11.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/shorts/product-11.webp",
+            "/assets/imgs/shorts/product-12.webp"
+        ],
+        "sizes": ["S", "M", "L"],
+        "gender": "Male",
+        "colors": ["Black",  "Grey"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal"],    
+        "slug": "trutex-boys-school-shorts-3-15-years-junior-boys-elasticated-school-shorts-genuine-school-uniform",  
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 48,                
+        "name": "Trutex Basics 2 Pack Boys School Shorts (3-12 Years), Junior Boys Elasticated School Shorts - Genuine School Uniform",
+        "category": "P.T. shorts", 
+        "price": 18.99,
+        "sale": 25,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/shorts/product-13.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/shorts/product-13.webp"
+        ],
+        "sizes": ["S", "M", "L"],
+        "gender": "Male",
+        "colors": ["Black"],
+        "detailImageColors": [0],
+        "tags": ["school", "uniform", "formal"],    
+        "slug": "trutex-basics-2-pack-boys-school-shorts-3-12-years-junior-boys-elasticated-school-shorts-genuine-school-uniform", 
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 49,                
+        "name": "janisramone Boys School Shorts Trousers Plain Teflon Coated Half Elastic Back Pull On Uniform Short Pants 2-10 Yrs",
+        "category": "P.T. shorts", 
+        "price": 12.50,
+        "sale": 25,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/shorts/product-14.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/shorts/product-14.webp",
+            "/assets/imgs/shorts/product-15.webp"
+        ],
+        "sizes": ["S", "M", "L"],
+        "gender": "Male",
+        "colors": ["Black", "Grey"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal"],    
+        "slug": "janisramone-boys-school-shorts-trousers-plain-teflon-coated-half-elastic-back-pull-on-uniform-short-pants-2-10-yrs", 
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 50,                
+        "name": "Pack of 2 Boys School Shorts Half Elastic Waist Pull On Style Black Grey",
+        "category": "P.T. shorts", 
+        "price": 17.50,
+        "sale": 25,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/shorts/product-16.webp",                 
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/shorts/product-16.webp",
+            "/assets/imgs/shorts/product-17.webp"
+        ],
+        "sizes": ["S", "M", "L"],
+        "gender": "Male",
+        "colors": ["Black", "Grey"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal"],    
+        "slug": "pack-of-2-boys-school-shorts-half-elastic-waist-pull-on-style-black-grey", 
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
         "id": 61,                
         "name": "Faux-Leather Belt F01",
         "category": "Belts", 
@@ -1154,6 +1411,263 @@
         "best_sale": true,
         "feature": true
     },
+    {
+        "id": 161,                
+        "name": "Sendefn Men's Leather Belt Automatic Ratchet Buckle Slide Belt for Dress Casual Trim to Fit with Gift Box",
+        "category": "Belts", 
+        "price": 14.99,
+        "sale": 30,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-21.webp",                       
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-21.webp",    
+            "/assets/imgs/belts/product-22.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["Black", "SaddleBrown"],  
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "sendefn-men-s-leather-belt-automatic-ratchet-buckle-slide-belt-for-dress-casual-trim-to-fit-with-gift-box",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 162,                
+        "name": "Fairwin Mens Belt Nylon Ratchet Belts Casual Golf Web Belt, Waist 43-47",
+        "category": "Belts", 
+        "price": 14.99,
+        "sale": 30,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-23.webp",                       
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-23.webp",    
+            "/assets/imgs/belts/product-24.webp",
+            "/assets/imgs/belts/product-25.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["SteelBlue", "Black", "Wheat"],  
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "fairwin-mens-belt-nylon-ratchet-belts-casual-golf-web-belt-waist-43-47",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 163,                
+        "name": "JASGOOD Belts for Men Nylon Belt Golf Web Work Belt for Jeans Men's Black Belt",
+        "category": "Belts", 
+        "price": 11.99,
+        "sale": 21,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-26.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-26.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["Black", "Wheat", "SteelBlue"], 
+        "detailImageColors": [0],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "jasgood-belts-for-men-nylon-belt-golf-web-work-belt-for-jeans-men-s-black-belt",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 164,                
+        "name": "Grommet Leather Belts for Women, Cute Black Belt, Studded Belt Punk Accessories",
+        "category": "Belts", 
+        "price": 9.99,
+        "sale": 21,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-27.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-27.webp",
+            "/assets/imgs/belts/product-28.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["Black", "Silver"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "grommet-leather-belts-for-women-cute-black-belt-studded-belt-punk-accessories",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 165,                
+        "name": "Maikun Leather Belts for Men Gradient Vintage Brown Belt Mens Casual Dress Belt",
+        "category": "Belts", 
+        "price": 11.99,
+        "sale": 10,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-29.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-29.webp",
+            "/assets/imgs/belts/product-30.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["Black", "Sienna"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "maikun-leather-belts-for-men-gradient-vintage-brown-belt-mens-casual-dress-belt",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 166,                
+        "name": "Men's Ratchet Belt Genuine Leather Mens Belt with Slide Ratchet Belts for men",
+        "category": "Belts", 
+        "price": 19.99,
+        "sale": 15,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-31.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-31.webp",
+            "/assets/imgs/belts/product-32.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["SteelBlue", "Black"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "men-s-ratchet-belt-genuine-leather-mens-belt-with-slide-ratchet-belts-for-men",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 167,                  
+        "name": "Sleek Men's Black Leather Ratchet Belt - Fits up to 43 Waist",
+        "category": "Belts", 
+        "price": 15.99,
+        "sale": 30,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-33.webp",                  
+        "education_levels": "University",
+        "images": [
+            "/assets/imgs/belts/product-33.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["Black"], 
+        "detailImageColors": [0],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "sleek-men-s-black-leather-ratchet-belt-fits-up-to-43-waist",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 168,                  
+        "name": "GAEKEAO Men's Ratchet Belt - Stretch Nylon Hiking Belt with Automatic Slide Buckle",
+        "category": "Belts", 
+        "price": 11.99,
+        "sale": 35,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-34.webp",                  
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-34.webp",
+            "/assets/imgs/belts/product-35.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["PapayaWhip", "Black"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "gaekeao-men-s-ratchet-belt-stretch-nylon-hiking-belt-with-automatic-slide-buckle",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 169,                  
+        "name": "Genuine Dickies Men's Casual Brown Leather Work Belt with Roller Buckle (Regular and Big & Tall Sizes)",
+        "category": "Belts", 
+        "price": 14,
+        "sale": 45,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-36.webp",                    
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-36.webp",
+            "/assets/imgs/belts/product-37.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["Brown", "Black"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "genuine-dickies-men-s-casual-brown-leather-work-belt-with-roller-buckle-regular-and-big-tall-sizes",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 170,                      
+        "name": "Microfiber Leather Mens Ratchet Belt Belts For Men Adjustable Automatic Buckle",
+        "category": "Belts", 
+        "price": 18,
+        "sale": 35,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-38.webp",                    
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-38.webp",
+            "/assets/imgs/belts/product-39.webp",
+            "/assets/imgs/belts/product-40.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["White", "Black", "Navy"], 
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "microfiber-leather-mens-ratchet-belt-belts-for-men-adjustable-automatic-buckle",
+        "best_sale": true,
+        "feature": true
+    },
+
 
 
     
@@ -1576,8 +2090,84 @@
         "slug": "3pack-athletic-quarter-crew-socks-for-girls-07", 
         "best_sale": true,
         "feature": true
-    }
+    },
 
+    {
+        "id": 98,                               
+        "name": "Wrangler Men's Cushion Crew Socks, Work Socks for Men, Black, 6 Pack",
+        "category": "Socks",   
+        "price": 9.98,
+        "sale": 25,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/socks/product-15.webp",                                  
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/socks/product-15.webp",
+            "/assets/imgs/socks/product-16.webp"        
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["White", "Black"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "socks"],
+        "slug": "wrangler-men-s-cushion-crew-socks-work-socks-for-men-black-6-pack", 
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 99,                                  
+        "name": "Fruit of the Loom Work Gear Crew Socks for Men, White, Sizes 6-12 (10-Pack)",
+        "category": "Socks",   
+        "price": 14.98,
+        "sale": 25,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/socks/product-17.webp",                                  
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/socks/product-17.webp",
+            "/assets/imgs/socks/product-18.webp"        
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": [ "Black", "White"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "socks"],
+        "slug": "fruit-of-the-loom-work-gear-crew-socks-for-men-white-sizes-6-12-10-pack", 
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 100,                                
+        "name": "Fruit of the Loom Breathable Ankle Socks (6 Pair Pack) (Men's Big & Tall)",
+        "category": "Socks",   
+        "price": 17.96,
+        "sale": 25,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/socks/product-19.webp",                                   
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/socks/product-19.webp",
+            "/assets/imgs/socks/product-20.webp"        
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["White", "Black"],
+        "detailImageColors": [0, 1],
+        "tags": ["school", "socks"],
+        "slug": "fruit-of-the-loom-breathable-ankle-socks-6-pair-pack-men-s-big-tall",    
+        "best_sale": true,
+        "feature": true
+    }
 
 
 
