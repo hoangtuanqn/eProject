@@ -1912,6 +1912,253 @@
         "feature": true
     },
     {
+        "id": 181,                       
+        "name": "Logo Johns Hopkins University",
+        "category": "Logos",   
+        "price": 1,
+        "sale": 99,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/logos/product-11.webp",                     
+        "education_levels": "University",
+        "images": [
+            "/assets/imgs/logos/product-11.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Blue"], 
+        "detailImageColors": [0],
+        "tags": ["school", "Logos", "Johns Hopkins University"],
+        "slug": "logos-johns-hopkins-university",
+        "best_sale": true,  
+        "feature": true
+    },
+
+    {
+        "id": 182,                        
+        "name": "Logo Duke University",
+        "category": "Logos",   
+        "price": 1,
+        "sale": 99,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/logos/product-12.webp",                               
+        "education_levels": "University",
+        "images": [
+            "/assets/imgs/logos/product-12.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Blue"], 
+        "detailImageColors": [0],
+        "tags": ["school", "Logos", "Duke University"],
+        "slug": "logos-duke-university",
+        "best_sale": true,  
+        "feature": true
+    },
+    {
+        "id": 183,                        
+        "name": "Logo Rice University",
+        "category": "Logos",   
+        "price": 1,
+        "sale": 99,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/logos/product-13.webp",                               
+        "education_levels": "University",
+        "images": [
+            "/assets/imgs/logos/product-13.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Blue"], 
+        "detailImageColors": [0],
+        "tags": ["school", "Logos", "Rice University"],
+        "slug": "logos-rice-university",
+        "best_sale": true,  
+        "feature": true
+    },
+
+    {
+        "id": 184,                        
+        "name": "Logo Wake Forest University",
+        "category": "Logos",   
+        "price": 1,
+        "sale": 99,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/logos/product-14.webp",                                
+        "education_levels": "University",
+        "images": [
+            "/assets/imgs/logos/product-14.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Yellow"],   
+        "detailImageColors": [0],
+        "tags": ["school", "Logos", "Wake Forest University"],
+        "slug": "logos-wake-forest-university",
+        "best_sale": true,  
+        "feature": true
+    },
+    {
+        "id": 185,                          
+        "name": "Logo Boston University",
+        "category": "Logos",   
+        "price": 1,
+        "sale": 99,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/logos/product-15.webp",                                
+        "education_levels": "University",
+        "images": [
+            "/assets/imgs/logos/product-15.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Red"],   
+        "detailImageColors": [0],
+        "tags": ["school", "Logos", "Boston University"],
+        "slug": "logos-boston-university",
+        "best_sale": true,  
+        "feature": true
+    },
+
+    {
+        "id": 186,                          
+        "name": "Logo Santa Clara University",
+        "category": "Logos",   
+        "price": 1,
+        "sale": 99,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/logos/product-16.webp",                                
+        "education_levels": "University",
+        "images": [
+            "/assets/imgs/logos/product-16.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Red"],   
+        "detailImageColors": [0],
+        "tags": ["school", "Logos", "Santa Clara University"],
+        "slug": "logos-santa-clara-university",
+        "best_sale": true,  
+        "feature": true
+    },
+
+    {
+        "id": 187,                          
+        "name": "Logo Cate School",
+        "category": "Logos",   
+        "price": 1,
+        "sale": 99,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/logos/product-17.webp",                                 
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/logos/product-17.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Blue"],   
+        "detailImageColors": [0],
+        "tags": ["school", "Logos", "Cate School"],
+        "slug": "logos-cate-school",
+        "best_sale": true,  
+        "feature": true
+    },
+
+    {
+        "id": 188,                           
+        "name": "Logo Choate Rosemary Hall",
+        "category": "Logos",   
+        "price": 1,
+        "sale": 99,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/logos/product-18.webp",                                  
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/logos/product-18.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Blue"],   
+        "detailImageColors": [0],
+        "tags": ["school", "Logos", "Choate Rosemary Hall"],
+        "slug": "logos-choate-rosemary-hall",
+        "best_sale": true,  
+        "feature": true
+    },
+    {
+        "id": 189,                           
+        "name": "Logo Deerfield Academy",
+        "category": "Logos",   
+        "price": 1,
+        "sale": 99,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/logos/product-19.webp",                                      
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/logos/product-19.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Green"],   
+        "detailImageColors": [0],
+        "tags": ["school", "Logos", "Deerfield Academy"],    
+        "slug": "logos-deerfield-academy",
+        "best_sale": true,  
+        "feature": true
+    },
+
+    {
+        "id": 190,                             
+        "name": "Logo Massachusetts Institute of Technology ",
+        "category": "Logos",   
+        "price": 1,
+        "sale": 99,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/logos/product-20.webp",                                        
+        "education_levels": "University",
+        "images": [
+            "/assets/imgs/logos/product-20.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Red"],   
+        "detailImageColors": [0],
+        "tags": ["school", "Logos", "Massachusetts Institute of Technology"],    
+        "slug": "logos-massachusetts-institute-of-technology",
+        "best_sale": true,  
+        "feature": true
+    },
+
+    {
         "id": 91,                              
         "name": "Crew Socks 4-Pack 01",
         "category": "Socks",   
