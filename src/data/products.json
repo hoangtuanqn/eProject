@@ -261,6 +261,259 @@
         "best_sale": true,
         "feature": true
     },
+
+    {
+        "id": 61,                
+        "name": "Faux-Leather Belt F01",
+        "category": "Belts", 
+        "price": 19.99,
+        "sale": 40,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-1.webp",             
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-1.webp",    
+            "/assets/imgs/belts/product-2.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Black", "SaddleBrown"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "faux-leather-belt-f01",     
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 62,                
+        "name": "Nylon Braided Belt (1.25-inch)",
+        "category": "Belts", 
+        "price": 19.99,
+        "sale": 40,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-3.webp",              
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-3.webp",    
+            "/assets/imgs/belts/product-4.webp",
+            "/assets/imgs/belts/product-5.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["Black", "NavajoWhite", "DarkBlue"], 
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "uniform", "formal", "belt"],            
+        "slug": "nylon-braided-belt",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 63,                
+        "name": "Faux-Leather Belt F02",
+        "category": "Belts", 
+        "price": 19.99,
+        "sale": 40,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-6.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-6.webp",    
+            "/assets/imgs/belts/product-7.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Black", "SaddleBrown"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "faux-leather-belt-f02",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 64,                
+        "name": "Faux-Leather Reversible Belt",
+        "category": "Belts", 
+        "price": 19.99,
+        "sale": 40,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-8.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-8.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Black"], 
+        "detailImageColors": [0],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "faux-leather-reversible-belt",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 65,                
+        "name": "Double Loop Skinny Belt for Women",
+        "category": "Belts", 
+        "price": 19.99,
+        "sale": 40,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-9.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-9.webp",
+            "/assets/imgs/belts/product-10.webp",
+            "/assets/imgs/belts/product-11.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["Wheat", "Sienna", "Black"], 
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "double-loop-skinny-belt-for-women",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 66,                   
+        "name": "Faux Leather Heritage Belt",
+        "category": "Belts", 
+        "price": 9.97,
+        "sale": 40,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-12.webp",                
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-12.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Black", "Wheat", "Sienna"], 
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "faux-leather-heritage-belt",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 67,                
+        "name": "Slim Faux Textured-Leather Belt for Women (0.75-inch)",
+        "category": "Belts", 
+        "price": 19.99,
+        "sale": 40,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-13.webp",                   
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-13.webp",    
+            "/assets/imgs/belts/product-14.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Black", "SaddleBrown"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "slim-faux-textured-leather-belt-for-women",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 68,                
+        "name": "Wide Ring-Buckle Faux-Leather Belt For Women",
+        "category": "Belts", 
+        "price": 19.99,
+        "sale": 40,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-15.webp",                   
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-15.webp",    
+            "/assets/imgs/belts/product-16.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["SaddleBrown", "Black" ], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "wide-ring-buckle-faux-leather-belt-for-women",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 69,                
+        "name": "Classic Faux-Leather Belt",
+        "category": "Belts", 
+        "price": 19.99,
+        "sale": 40,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-17.webp",                       
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-17.webp",    
+            "/assets/imgs/belts/product-18.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Unisex",
+        "colors": ["Black", "SaddleBrown"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "classic-faux-leather-belt",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 70,                
+        "name": "Braided Faux-Leather Belt For Women",
+        "category": "Belts", 
+        "price": 19.99,
+        "sale": 40,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/belts/product-19.webp",                       
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/belts/product-19.webp",    
+            "/assets/imgs/belts/product-20.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Female",
+        "colors": ["Black", "SaddleBrown"],  
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "belt"],    
+        "slug": "braided-faux-leather-belt-for-women",
+        "best_sale": true,
+        "feature": true
+    },
+
+
     
     {
         "id": 81,                       
@@ -478,7 +731,6 @@
         "best_sale": true,  
         "feature": true
     },
-
     {
         "id": 90,                       
         "name": "Logo New York University",
@@ -503,8 +755,6 @@
         "best_sale": true,  
         "feature": true
     },
-
-
     {
         "id": 91,                              
         "name": "Crew Socks 4-Pack 01",
@@ -530,7 +780,6 @@
         "best_sale": true,
         "feature": true
     },
-
     {
         "id": 92,                              
         "name": "Low-Cut Socks 4-Pack 02",
