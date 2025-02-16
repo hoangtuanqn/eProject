@@ -2251,6 +2251,161 @@
         "feature": true
     },
 
+    {
+        "id": 71,                      
+        "name": "Sucrain 1pcs Boy's Necktie Pre-tied Adjustable Neck Strap Tie for Wedding Graduation School Uniforms",
+        "category": "Ties", 
+        "price": 4.99,
+        "sale": 35,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/ties/product-1.webp",                    
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/ties/product-1.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["Navy"], 
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "uniform", "formal", "ties"],      
+        "slug": "sucrain-1pcs-boy-s-necktie-pre-tied-adjustable-neck-strap-tie-for-wedding-graduation-school-uniforms",
+        "best_sale": true,
+        "feature": true
+    },
+    {
+        "id": 72,                      
+        "name": "Jacob Alexander Boy's 14 Pretied Solid Color Zipper Tie",
+        "category": "Ties", 
+        "price": 14.99,
+        "sale": 35,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/ties/product-2.webp",                    
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/ties/product-2.webp",
+            "/assets/imgs/ties/product-3.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["Navy", "White"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "ties"],      
+        "slug": "jacob-alexander-boy-s-14-pretied-solid-color-zipper-tie",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 73,                          
+        "name": "Aurya Boys' Solid Color Zipper Tie 15 inch/19 inch Polyester Satin Zipper Neckties",
+        "category": "Ties", 
+        "price": 6.99,
+        "sale": 13,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/ties/product-4.webp",                    
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/ties/product-4.webp",
+            "/assets/imgs/ties/product-5.webp",
+            "/assets/imgs/ties/product-6.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["Black", "Red", "DarkBlue"], 
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "uniform", "formal", "ties"],      
+        "slug": "aurya-boys-solid-color-zipper-tie-15-inch-19-inch-polyester-satin-zipper-neckties",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 74,                          
+        "name": "Kajeer Ties for Kids Boys Necktie Adjustable - Woven Little Boys Pre-tied for Kids Formal Wedding Graduation School Uniforms",
+        "category": "Ties", 
+        "price": 9.99,
+        "sale": 20,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/ties/product-7.webp",                    
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/ties/product-7.webp",
+            "/assets/imgs/ties/product-8.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["Red", "White"], 
+        "detailImageColors": [0, 1],
+        "tags": ["school", "uniform", "formal", "ties"],      
+        "slug": "kajeer-ties-for-kids-boys-necktie-adjustable-woven-little-boys-pre-tied-for-kids-formal-wedding-graduation-school-uniforms",    
+        "best_sale": true,
+        "feature": true
+    },
+    
+    {
+        "id": 75,                          
+        "name": "Mantieqingway Pre-tied Ties for Kids Boys 1/2 Pack 14 inch Adjustable Zipper Neck Tie for Wedding Graduation School Uniforms",
+        "category": "Ties", 
+        "price": 7.99,
+        "sale": 25,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/ties/product-9.webp",                    
+        "education_levels": "Elementary School",
+        "images": [
+            "/assets/imgs/ties/product-9.webp", 
+            "/assets/imgs/ties/product-10.webp",
+            "/assets/imgs/ties/product-11.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["Black", "LightBlue", "Violet"], 
+        "detailImageColors": [0, 1, 2],
+        "tags": ["school", "uniform", "formal", "ties"],      
+        "slug": "mantieqingway-pre-tied-ties-for-kids-boys-1-2-pack-14-inch-adjustable-zipper-neck-tie-for-wedding-graduation-school-uniforms",
+        "best_sale": true,
+        "feature": true
+    },
+
+    {
+        "id": 76,                             
+        "name": "Mantieqingway School Ties for Boys/Kids, Pre-tied Adjustable Neckties Boys Tie for Graduation Uniforms Party Casual(Age 5-12)",
+        "category": "Ties", 
+        "price": 7.99,
+        "sale": 25,
+        "quantity": 20,
+        "soldQuantity": 15000,
+        "rating": 4.5,
+        "salesCount": 50,
+        "thumbnail": "/assets/imgs/ties/product-12.webp",                     
+        "education_levels": "High School",
+        "images": [
+            "/assets/imgs/ties/product-12.webp"
+        ],
+        "sizes": ["S", "M", "L", "XL"],
+        "gender": "Male",
+        "colors": ["DarkSlateBlue"], 
+        "detailImageColors": [0], 
+        "tags": ["school", "uniform", "formal", "ties"],      
+        "slug": "mantieqingway-school-ties-for-boys-kids-pre-tied-adjustable-neckties-boys-tie-for-graduation-uniforms-party-casual-age-5-12",
+        "best_sale": true,
+        "feature": true
+    },
+
 
 
     
