@@ -29,13 +29,9 @@ export default function Hero() {
         <section className="hero">
             <Carousel
                 showArrows={true}
-                showStatus={false}
-                showThumbs={false}
+                useKeyboardArrows={true}
+                autoFocus={true}
                 infiniteLoop={true}
-                autoPlay={true}
-                interval={5000}
-                stopOnHover={true}
-                swipeable={true}
                 emulateTouch={true}
             >
                 {slides.map((slide, index) => (
