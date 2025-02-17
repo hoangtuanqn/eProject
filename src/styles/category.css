@@ -119,6 +119,7 @@
 .filter__category-icon {
     width: 16px;
     height: 16px;
+    -o-object-fit: cover;
     object-fit: cover;
 }
 .rotate-up {
@@ -161,8 +162,10 @@
     /*aspect-ratio: 1 / 1;*/
     height: 450px;
     max-height: 450px;
+    -o-object-position: top;
     object-position: top;
     width: 100%;
+    -o-object-fit: cover;
     object-fit: cover;
 }
 .category__product-image:hover {
@@ -179,6 +182,11 @@
     text-align: center;
     color: #121212;
     line-height: 1.4;
+    /* Giới hạn số dòng */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
 }
 .category__product-price {
     font-size: 1.6rem;
@@ -705,11 +713,13 @@
 /* Thêm hiệu ứng hover */
 .price-range-slider::-webkit-slider-thumb:hover {
     transform: scale(1.1);
+    -webkit-transition: transform 0.2s ease;
     transition: transform 0.2s ease;
 }
 
 .price-range-slider::-moz-range-thumb:hover {
     transform: scale(1.1);
+    -moz-transition: transform 0.2s ease;
     transition: transform 0.2s ease;
 }
 
@@ -746,6 +756,22 @@
 
 .price-range__input-field:focus {
     border-color: #000;
+}
+.price-range__input-field::-webkit-input-placeholder {
+    color: #666;
+    font-size: 1.4rem;
+}
+.price-range__input-field::-moz-placeholder {
+    color: #666;
+    font-size: 1.4rem;
+}
+.price-range__input-field:-ms-input-placeholder {
+    color: #666;
+    font-size: 1.4rem;
+}
+.price-range__input-field::-ms-input-placeholder {
+    color: #666;
+    font-size: 1.4rem;
 }
 .price-range__input-field::placeholder {
     color: #666;

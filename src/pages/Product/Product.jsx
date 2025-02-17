@@ -1,8 +1,10 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Carousel } from "react-responsive-carousel";
 import { handleCheckQuantity, useCartActions } from "~/utils/handleCart";
 import { useWishlistActions } from "~/utils/handleWishlist";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import "~/styles/product.css";
 import useTitle from "~/hooks/useTitle";
 import productsData from "~/data/products.json";
@@ -332,7 +334,28 @@ export default function Product() {
                             onHoverEnd={() => setIsZoomed(false)}
                         >
                             {product.sale > 0 && <span className="product__sale-badge">{product.sale}% OFF</span>}
-                            <img src={product.images[selectedImage]} alt={product.name} />
+                            <Carousel
+                                showArrows={true}
+                                showThumbs={true}
+                                infiniteLoop={true}
+                                emulateTouch={true}
+                                autoFocus={true}
+                                selectedItem={selectedImage}
+                                onChange={(index) => setSelectedImage(index)}
+                                renderThumbs={() =>
+                                    product.images.map((image, index) => (
+                                        <div key={index} className="product__image-thumbnail">
+                                            <img src={image} alt={`${product.name} view ${index + 1}`} />
+                                        </div>
+                                    ))
+                                }
+                            >
+                                {product.images.map((image, index) => (
+                                    <div key={index}>
+                                        <img src={image} alt={`${product.name} view ${index + 1}`} />
+                                    </div>
+                                ))}
+                            </Carousel>
                         </motion.div>
                         <div className="product__image-gallery">
                             {product.images.map((image, index) => (
