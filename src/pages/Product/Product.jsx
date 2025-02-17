@@ -329,7 +329,9 @@ export default function Product() {
                     <ChevronRight size={16} />
                     <Link to={`/category/${slugCategory}`}>{product.category}</Link>
                     <ChevronRight size={16} />
-                    <span>{product.name}</span>
+                    <span className="line-clamp" style={{ "--line-clamp": 1 }}>
+                        {product.name}
+                    </span>
                 </nav>
 
                 <div className="product__grid">

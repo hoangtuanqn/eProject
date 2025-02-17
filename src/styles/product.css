@@ -34,7 +34,6 @@
 /* Images Section */
 .product__images {
     position: relative;
-    width: fit-content;
 }
 
 .product__image-main {
@@ -134,7 +133,7 @@
     font-weight: 500;
     color: var(--color-grey-7);
     margin-bottom: 15px;
-    line-height: 1.2;
+    line-height: 1.4;
 }
 
 .product__meta {
@@ -661,9 +660,7 @@
     .btn--secondary {
         width: 100%;
     }
-    .product__image-main {
-        aspect-ratio: 1;
-    }
+
 
     .product__title {
         font-size: 2.4rem;
@@ -679,9 +676,7 @@
     }
 
     .product__buttons {
-        /* flex-direction: column;
-        flex: 1;
-        flex-wrap: wrap; */
+
 
         display: grid;
         grid-auto-columns: 1fr;

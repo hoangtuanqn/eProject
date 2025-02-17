@@ -135,10 +135,6 @@ export default function Category({ nameCategory }) {
     }, []);
 
     // Helper function to get minimum price from models
-    const getMinPrice = useCallback((product) => {
-        if (!product.models) return product.price;
-        return Math.min(...Object.values(product.models).map((model) => model.price));
-    }, []);
 
     const calculateSalePrice = useCallback((originalPrice, salePercentage) => {
         if (!salePercentage) return originalPrice;
@@ -1146,11 +1142,7 @@ export default function Category({ nameCategory }) {
                                 <div className={`category__product-grid columns-${displayColumns} responsive-grid`}>
                                     <AnimatePresence>
                                         {getVisibleItems().map((item) => {
-                                            const minPrice = getMinPrice(item);
                                             // Nếu có sale thì minPrice là giá đã giảm, cần tính ngược lại giá gốc
-                                            const originalPrice =
-                                                item.sale > 0 ? calculateOriginalPrice(minPrice, item.sale) : minPrice;
-                                            const finalPrice = minPrice; // Giá hiển thị chính là minPrice (đã bao gồm giảm giá)
 
                                             return (
                                                 <motion.article
@@ -1217,10 +1209,10 @@ export default function Category({ nameCategory }) {
                                                         <div className="category__product-details">
                                                             <h3 className="category__product-name">{item.name}</h3>
                                                             <span className="category__product-price dfcenter">
-                                                                ${Math.round(finalPrice)}
+                                                                ${item.price}
                                                                 {item.sale > 0 && (
                                                                     <span className="category__product-price--old">
-                                                                        ${Math.round(originalPrice)}
+                                                                        ${calculateOriginalPrice(item.price, item.sale)}
                                                                     </span>
                                                                 )}
                                                             </span>
