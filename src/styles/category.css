@@ -159,9 +159,10 @@
     transition: all ease 0.3s;
     display: block;
     border-radius: 12px;
-    /*aspect-ratio: 1 / 1;*/
-    height: 450px;
-    max-height: 450px;
+    aspect-ratio: 0.75 / 1;
+    /* height: 350px; */
+
+    /* max-height: 450px; */
     -o-object-position: top;
     object-position: top;
     width: 100%;

@@ -32,6 +32,7 @@ import {
     ShoppingCart,
     ExternalLink,
     HeartOff,
+    X,
 } from "lucide-react";
 
 import "swiper/css";
@@ -52,6 +53,7 @@ export default function Product() {
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [activeTab, setActiveTab] = useState("details");
+    const [showImageModal, setShowImageModal] = useState(false);
 
     const { handleCartAction, isProductInCart } = useCartActions();
     const { handleWishlistAction } = useCallback(useWishlistActions(), []);
@@ -306,6 +308,11 @@ export default function Product() {
         return sizeGuides[categorySlug];
     };
 
+    // Thêm handler cho việc click vào hình ảnh
+    const handleImageClick = () => {
+        setShowImageModal(true);
+    };
+
     return (
         <motion.section
             className="product"
@@ -343,20 +350,13 @@ export default function Product() {
                                 showStatus={false}
                                 selectedItem={selectedImage}
                                 onChange={(index) => setSelectedImage(index)}
-                                // renderThumbs={() =>
-                                //     product.images.map((image, index) => (
-                                //         <div key={index} className="product__image-thumbnail">
-                                //             <img
-                                //                 src={image}
-                                //                 alt={`${product.name} view ${index + 1}`}
-                                //                 className="product__image-thumbnail-img"
-                                //             />
-                                //         </div>
-                                //     ))
-                                // }
                             >
                                 {product.images.map((image, index) => (
-                                    <div key={index} className="product__image-thumbnail-img">
+                                    <div
+                                        key={index}
+                                        className="product__image-thumbnail-img"
+                                        onClick={handleImageClick}
+                                    >
                                         <img src={image} alt={`${product.name} view ${index + 1}`} />
                                     </div>
                                 ))}
@@ -744,6 +744,47 @@ export default function Product() {
                 <RelatedProducts relatedProducts={relatedProducts} handleWishlistAction={handleWishlistAction} />
                 <SuggestedProducts idCategory={product.category} handleWishlistAction={handleWishlistAction} />
             </div>
+
+            <AnimatePresence>
+                {showImageModal && (
+                    <motion.div
+                        className="product__image-modal"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setShowImageModal(false)}
+                    >
+                        <motion.div
+                            className="product__image-modal-content"
+                            onClick={(e) => e.stopPropagation()}
+                            initial={{ scale: 0.8 }}
+                            animate={{ scale: 1 }}
+                            exit={{ scale: 0.8 }}
+                        >
+                            <button className="product__image-modal-close" onClick={() => setShowImageModal(false)}>
+                                <X className="product__image-modal-close-icon" />
+                            </button>
+                            <Carousel
+                                showArrows={true}
+                                showThumbs={true}
+                                infiniteLoop={true}
+                                emulateTouch={true}
+                                selectedItem={selectedImage}
+                                onChange={(index) => setSelectedImage(index)}
+                                showStatus={false}
+                                thumbWidth={80}
+                                className="product__image-modal-carousel"
+                            >
+                                {product.images.map((image, index) => (
+                                    <div key={index} className="product__image-modal-slide">
+                                        <img src={image} alt={`${product.name} view ${index + 1}`} />
+                                    </div>
+                                ))}
+                            </Carousel>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.section>
     );
 }
