@@ -241,7 +241,7 @@
         "feature": true
     },
     {
-        "id": 11,      
+        "id": 11,
         "name": "French Toast Boys' Short Sleeve Classic Poplin Dress Shirt (Standard & Husky)",
         "category": "Shirts",
         "price": 9,
@@ -332,7 +332,7 @@
     },
 
     {
-        "id": 15,  
+        "id": 15,
         "name": "Bienzoe Girls Shirt Long Sleeve: White Button Up Kids School Uniform Cotton Oxford Collared Puff Dress Blouse",
         "category": "Shirts",
         "price": 22.9,
@@ -354,7 +354,7 @@
         "feature": true
     },
     {
-        "id": 16,  
+        "id": 16,
         "name": "Bienzoe Girls Shirt Short Sleeve: White Button Up Kids School Uniform Cotton Oxford Collar Puff Dress Blouse",
         "category": "Shirts",
         "price": 18.9,
@@ -423,7 +423,7 @@
     },
 
     {
-        "id": 19,   
+        "id": 19,
         "name": "IZOD Girls School Uniform Sensory-Friendly Pleated Scooter Skirt with Undershorts, Soft Fabric, Tagless with Flat Seams",
         "category": "Skirts",
         "price": 15.68,
@@ -471,7 +471,7 @@
         "feature": true
     },
     {
-        "id": 21,   
+        "id": 21,
         "name": "French Toast Girls' Stretch Contrast Waistband Scooter",
         "category": "Skirts",
         "price": 15.74,
@@ -519,7 +519,7 @@
         "feature": true
     },
     {
-        "id": 23,   
+        "id": 23,
         "name": "SANGTREE Girl Women Plus Size Pleated Uniform Casual Skater Tennis Skirt with Elastic Waist and Pockets",
         "category": "Skirts",
         "price": 24.49,
@@ -615,7 +615,7 @@
         "feature": true
     },
     {
-        "id": 27,       
+        "id": 27,
         "name": "Bienzoe Girls School Uniform Skirt: Kids Adjustable Waist Stretchy Pleated Skort",
         "category": "Skirts",
         "price": 19.99,
@@ -785,7 +785,7 @@
     },
 
     {
-        "id": 34,  
+        "id": 34,
         "name": "Bienzoe Girls School Uniform Skirt: Kids Adjustable Waist Pleated Dance Skort",
         "category": "Skirts",
         "price": 19.99,
@@ -829,7 +829,7 @@
         "feature": true
     },
     {
-        "id": 36,      
+        "id": 36,
         "name": "SANGTREE Women Girls Pleated Skirts with Shorts, Elastic Waist Uniform Plus Size Tennis Casual Skirt, 2 Years - US 4XL",
         "category": "Skirts",
         "price": 31.99,
@@ -905,7 +905,7 @@
     },
 
     {
-        "id": 39,   
+        "id": 39,
         "name": "Miutii Kids Girls School Uniform Jumper Dress Stretch Sleeveless V Neck Wide Strap Pleated Dress Navy Blue 6",
         "category": "Frocks",
         "price": 27.99,
@@ -1089,7 +1089,7 @@
         "feature": true
     },
     {
-        "id": 47,       
+        "id": 47,
         "name": "Wonder Nation Girls School Uniform Stretch Ponte Pleated Knit Jumper Dress, Sizes 4-16 & Plus",
         "category": "Frocks",
         "price": 12.98,
@@ -1346,7 +1346,7 @@
     },
 
     {
-        "id": 58,   
+        "id": 58,
         "name": "UNACOO Boys Girls Cotton Pique Polo Shirts Short Sleeve School Uniform Collar T-Shirts Moisture Wicking Performance Polo",
         "category": "P.T. T-shirts",
         "price": 17.99,
@@ -1391,7 +1391,7 @@
         "feature": true
     },
     {
-        "id": 60,   
+        "id": 60,
         "name": "Grey Generous Fit Classic Plus Fit Shorts 2 Pack 4 years",
         "category": "P.T. shorts",
         "price": 19.99,
@@ -1507,7 +1507,7 @@
     },
 
     {
-        "id": 65,               
+        "id": 65,
         "name": "Trutex Boys School Shorts (3-15 Years), Junior Boys Elasticated School Shorts - Genuine School Uniform",
         "category": "P.T. shorts",
         "price": 25,
@@ -1530,7 +1530,7 @@
     },
 
     {
-        "id": 66,   
+        "id": 66,
         "name": "Trutex Basics 2 Pack Boys School Shorts (3-12 Years), Junior Boys Elasticated School Shorts - Genuine School Uniform",
         "category": "P.T. shorts",
         "price": 18.99,
@@ -1552,7 +1552,7 @@
         "feature": true
     },
     {
-        "id": 67,   
+        "id": 67,
         "name": "janisramone Boys School Shorts Trousers Plain Teflon Coated Half Elastic Back Pull On Uniform Short Pants 2-10 Yrs",
         "category": "P.T. shorts",
         "price": 12.5,
@@ -1575,7 +1575,7 @@
     },
 
     {
-        "id": 68,   
+        "id": 68,
         "name": "Pack of 2 Boys School Shorts Half Elastic Waist Pull On Style Black Grey",
         "category": "P.T. shorts",
         "price": 17.5,
@@ -1620,7 +1620,7 @@
         "feature": true
     },
     {
-        "id": 70,  
+        "id": 70,
         "name": "French Toast Boys Flat Front Performance Stretch Short",
         "category": "P.T. shorts",
         "price": 17.5,
@@ -1643,7 +1643,7 @@
     },
 
     {
-        "id": 71,   
+        "id": 71,
         "name": "Black Unisex Joggers 2 Pack 4 years",
         "category": "P.T. track pants",
         "price": 17.5,
@@ -1900,7 +1900,7 @@
         "feature": true
     },
     {
-        "id": 82,   
+        "id": 82,
         "name": "Nylon Braided Belt (1.25-inch)",
         "category": "Belts",
         "price": 19.99,
@@ -2106,7 +2106,7 @@
         "feature": true
     },
     {
-        "id": 91,  
+        "id": 91,
         "name": "Sendefn Men's Leather Belt Automatic Ratchet Buckle Slide Belt for Dress Casual Trim to Fit with Gift Box",
         "category": "Belts",
         "price": 14.99,
@@ -2128,7 +2128,7 @@
         "feature": true
     },
     {
-        "id": 92,      
+        "id": 92,
         "name": "Fairwin Mens Belt Nylon Ratchet Belts Casual Golf Web Belt, Waist 43-47",
         "category": "Belts",
         "price": 14.99,
@@ -2790,7 +2790,7 @@
     },
 
     {
-        "id": 120,  
+        "id": 120,
         "name": "Jacop Boy's 15 Pretied Solid Color Zipper Ties",
         "category": "Ties",
         "price": 12.99,
@@ -2901,7 +2901,7 @@
         "feature": true
     },
     {
-        "id": 125,   
+        "id": 125,
         "name": "Logo American Heritage Schools",
         "category": "Logos",
         "price": 1,
@@ -2989,7 +2989,7 @@
         "feature": true
     },
     {
-        "id": 129,   
+        "id": 129,
         "name": "Logo Blair Academy",
         "category": "Logos",
         "price": 1,
@@ -3282,7 +3282,7 @@
         "feature": true
     },
     {
-        "id": 142,   
+        "id": 142,
         "name": "Low-Cut Socks 4-Pack 02",
         "category": "Socks",
         "price": 6.99,
@@ -3304,7 +3304,7 @@
         "feature": true
     },
     {
-        "id": 143,   
+        "id": 143,
         "name": "Novelty Crew Socks for Boys 03",
         "category": "Socks",
         "price": 5.49,
@@ -3547,7 +3547,7 @@
         "feature": true
     },
     {
-        "id": 153,  
+        "id": 153,
         "name": "Grey, White & Black Unisex Trainer Socks 5 Pack 6-8.5",
         "category": "Socks",
         "price": 9,
@@ -3698,7 +3698,7 @@
         "feature": true
     },
     {
-        "id": 159,          
+        "id": 159,
         "name": "Letter Socks, Classic Striped Socks with Letter in Green, Back-to-school Gifts, Socks for Men&Women.",
         "category": "Socks",
         "price": 15.64,
