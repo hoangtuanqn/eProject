@@ -11,14 +11,15 @@ export default function WishList() {
     const { handleWishlistAction } = useWishlistActions();
     const handleGetWishlist = () => {
         const savedWishlist = localStorage.getItem("wishlist");
-        return savedWishlist ? JSON.parse(savedWishlist) : [];
+        const wishlistIds = savedWishlist ? JSON.parse(savedWishlist) : [];
+        return products.filter((product) => wishlistIds.includes(product.id));
     };
+
     const [wishlist, setWishlist] = useState(handleGetWishlist);
     const [deletingItemId, setDeletingItemId] = useState(null);
 
     const removeFromWishlist = async (product) => {
         setDeletingItemId(product.id);
-        // Đợi animation hoàn thành (300ms) trước khi xóa
         await new Promise((resolve) => setTimeout(resolve, 300));
         await handleWishlistAction(product);
         setWishlist(handleGetWishlist());
@@ -31,13 +32,13 @@ export default function WishList() {
                 {wishlist.length > 0 ? (
                     <div className="featured-products__grid">
                         <AnimatePresence mode="popLayout">
-                            {wishlist.map((index) => {
-                                if (!products[index]) return null;
+                            {wishlist.map((product) => {
+                                // if (!products[index]) return null;
 
-                                const product = products.find((product) => product.id === index);
+                                // const product = products.find((product) => product.id === index);
                                 return (
                                     <motion.article
-                                        key={index}
+                                        key={product.id}
                                         className="product-card"
                                         layout
                                         initial={{ opacity: 0, scale: 0.8 }}

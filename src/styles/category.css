@@ -849,6 +849,7 @@
     overflow: hidden;
     position: relative;
     border-radius: 12px;
+    border: 1px solid #ecececce;
 }
 
 .product-actions {
