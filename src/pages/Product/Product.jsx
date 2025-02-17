@@ -340,18 +340,23 @@ export default function Product() {
                                 infiniteLoop={true}
                                 emulateTouch={true}
                                 autoFocus={true}
+                                showStatus={false}
                                 selectedItem={selectedImage}
                                 onChange={(index) => setSelectedImage(index)}
-                                renderThumbs={() =>
-                                    product.images.map((image, index) => (
-                                        <div key={index} className="product__image-thumbnail">
-                                            <img src={image} alt={`${product.name} view ${index + 1}`} />
-                                        </div>
-                                    ))
-                                }
+                                // renderThumbs={() =>
+                                //     product.images.map((image, index) => (
+                                //         <div key={index} className="product__image-thumbnail">
+                                //             <img
+                                //                 src={image}
+                                //                 alt={`${product.name} view ${index + 1}`}
+                                //                 className="product__image-thumbnail-img"
+                                //             />
+                                //         </div>
+                                //     ))
+                                // }
                             >
                                 {product.images.map((image, index) => (
-                                    <div key={index}>
+                                    <div key={index} className="product__image-thumbnail-img">
                                         <img src={image} alt={`${product.name} view ${index + 1}`} />
                                     </div>
                                 ))}

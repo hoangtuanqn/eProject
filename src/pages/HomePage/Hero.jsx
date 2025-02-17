@@ -32,6 +32,7 @@ export default function Hero() {
                 useKeyboardArrows={true}
                 autoFocus={true}
                 infiniteLoop={true}
+                showStatus={false}
                 emulateTouch={true}
             >
                 {slides.map((slide, index) => (
