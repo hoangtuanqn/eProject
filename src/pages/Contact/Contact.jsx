@@ -7,6 +7,7 @@ import { Phone, Mail, MapPin, Clock, ChevronRight } from "lucide-react";
 import stores from "~/data/stores.json";
 import toast from "react-hot-toast";
 import "~/styles/contact.css";
+import { isValidEmail } from "~/utils/helpers";
 
 export default function Contact() {
     const [selectedStore, setSelectedStore] = useState(stores[0]);
@@ -15,7 +16,9 @@ export default function Contact() {
     // Define validation schema
     const validationSchema = Yup.object({
         name: Yup.string().required("Name is required"),
-        email: Yup.string().email("Invalid email address").required("Email is required"),
+        email: Yup.string()
+            .required("Email is required")
+            .test("is-valid-email", "Invalid email address", (value) => isValidEmail(value)),
         phone: Yup.string().required("Phone number is required"),
         message: Yup.string().required("Message is required"),
         store: Yup.string().required("Please select a store"),

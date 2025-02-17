@@ -49,10 +49,6 @@ export const toggleSubmenu = (e) => {
     menuItem.classList.toggle("active");
 };
 
-export const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-};
 
 // Lấy access token paypal
 export const handleGetAccessTokenPaypal = async () => {
