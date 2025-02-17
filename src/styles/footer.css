@@ -299,3 +299,18 @@
 @media screen and (min-width: 1025px) {
     /* Preserve existing desktop styles */
 }
+
+.footer__message {
+    margin-top: 10px;
+    font-size: 1.4rem;
+    padding: 5px 0;
+    border-radius: 4px;
+}
+
+.footer__message.success {
+    color: #4caf50;
+}
+
+.footer__message.error {
+    color: #f44336;
+}

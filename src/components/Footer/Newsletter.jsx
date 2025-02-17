@@ -1,10 +1,10 @@
 import React, { useState, useRef, useCallback } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { isValidEmail } from "~/utils/helpers";
 // Component này sử dụng CSS chung với Footer
 export default function Newsletter() {
     const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState({ text: "", type: "" });
     const [loading, setLoading] = useState(false);
     const emailInputRef = useRef(null);
 
@@ -13,7 +13,7 @@ export default function Newsletter() {
             const { data } = await axios.get("https://679c74f887618946e65240bb.mockapi.io/api/v1/subscribers");
             return data.some((entry) => entry.email === email);
         } catch (error) {
-            toast.error("Error checking email");
+            setMessage({ text: "Error checking email", type: "error" });
             throw error;
         }
     };
@@ -29,20 +29,15 @@ export default function Newsletter() {
             return false;
         }
     };
-    // Check format hợp lệ của email
-    const isValidEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
 
     const handleSubmit = useCallback(
         async (e) => {
             e.preventDefault();
-            setMessage("");
-            emailInputRef.current.classList.remove("error"); // Reset error state before validation
+            setMessage({ text: "", type: "" });
+            emailInputRef.current.classList.remove("error");
 
             if (!isValidEmail(email)) {
-                toast.error("Invalid email format");
+                setMessage({ text: "Invalid email format", type: "error" });
                 emailInputRef.current.classList.add("error");
                 emailInputRef.current.focus();
                 return;
@@ -54,24 +49,24 @@ export default function Newsletter() {
                 const emailExists = await checkEmailExists(email);
 
                 if (emailExists) {
-                    toast.error("Email already subscribed");
+                    setMessage({ text: "Email already subscribed", type: "error" });
                     emailInputRef.current.classList.add("error");
                     emailInputRef.current.focus();
                 } else {
                     const success = await subscribeEmail(email);
 
                     if (success) {
-                        toast.success("Subscription successful!");
+                        setMessage({ text: "Subscription successful!", type: "success" });
                         setEmail("");
                         emailInputRef.current.classList.remove("error");
                     } else {
-                        toast.error("Subscription failed. Please try again");
+                        setMessage({ text: "Subscription failed. Please try again", type: "error" });
                         emailInputRef.current.classList.add("error");
                         emailInputRef.current.focus();
                     }
                 }
             } catch (error) {
-                toast.error("An error occurred. Please try again");
+                setMessage({ text: "An error occurred. Please try again", type: "error" });
                 emailInputRef.current.classList.add("error");
                 emailInputRef.current.focus();
             } finally {
@@ -83,7 +78,7 @@ export default function Newsletter() {
 
     const handleInputChange = useCallback((e) => {
         setEmail(e.target.value);
-        setMessage(""); // Clear message when user starts typing
+        setMessage({ text: "", type: "" }); // Clear message when user starts typing
         emailInputRef.current.classList.remove("error"); // Reset border
     }, []);
 
@@ -114,6 +109,7 @@ export default function Newsletter() {
                             )}
                         </button>
                     </div>
+                    {message.text && <p className={`footer__message ${message.type}`}>{message.text}</p>}
                 </form>
             </div>
         </>
