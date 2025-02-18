@@ -189,6 +189,7 @@
 }
 
 .best-sales-item__sold {
+    line-height: 1.4;
     font-size: 1.5rem;
 }
 
@@ -196,6 +197,9 @@
 
 /* Mobile */
 @media screen and (max-width: 749px) {
+    .best-sales-item__sold {
+        font-size: 1.2rem;
+    }
     .best-sales {
         margin-top: 50px;
     }

@@ -786,6 +786,12 @@ export default function Product() {
                                 onChange={(index) => setSelectedImage(index)}
                                 showStatus={false}
                                 thumbWidth={80}
+                                swipeable={true}
+                                preventMovementUntilSwipeScrollTolerance={true}
+                                swipeScrollTolerance={50}
+                                axis="horizontal"
+                                useKeyboardArrows={true}
+                                stopOnHover={true}
                                 className="product__image-modal-carousel"
                             >
                                 {product.images.map((image, index) => (

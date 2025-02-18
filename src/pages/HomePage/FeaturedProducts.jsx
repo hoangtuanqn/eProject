@@ -12,7 +12,6 @@ const FeaturedProducts = () => {
     const featuredProducts = productData
         .filter((product) => product.feature)
         .sort((a, b) => {
-            // Sắp xếp theo rating (đánh giá) giảm dần
             if (b.rating !== a.rating) {
                 return b.rating - a.rating;
             }
