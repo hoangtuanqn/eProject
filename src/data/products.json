@@ -1211,7 +1211,7 @@
         "category": "P.T. T-shirts",
         "price": 20.99,
         "sale": 20,
-        "quantity": 20,
+        "quantity": 0,
         "soldQuantity": 15000,
         "rating": 4.5,
         "salesCount": 50,

@@ -13,6 +13,7 @@ const BestSales = () => {
     /*Sản phẩm được sắp xếp theo tiêu chí => Rating và doanh thu cao*/
     // Tính toán doanh thu và sắp xếp sản phẩm
     const bestSellingProducts = productData
+        .filter((product) => product.best_sale)
         .map((product) => ({
             ...product,
             revenue: product.price * product.soldQuantity, // Tính doanh thu để sắp xếp
