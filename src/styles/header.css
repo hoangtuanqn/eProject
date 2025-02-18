@@ -594,7 +594,7 @@
 /* Responsive - Luôn nằm ở cuối cùng */
 
 /* Mobile */
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 768px) {
     /* Header */
     .header {
         /* position: relative; */
