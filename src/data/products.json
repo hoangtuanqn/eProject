@@ -44,7 +44,7 @@
         "detailImageColors": [0, 1],
         "tags": ["school", "uniform", "formal"],
         "slug": "slim-fit-oxford-shirt",
-        "best_sale": false,
+        "best_sale": true,
         "feature": true
     },
 
@@ -72,7 +72,7 @@
         "detailImageColors": [0, 1, 2, 3],
         "tags": ["school", "uniform", "formal"],
         "slug": "short-sleeve-school-shirt",
-        "best_sale": false,
+        "best_sale": true,
         "feature": true
     },
 
