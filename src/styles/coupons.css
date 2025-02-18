@@ -15,6 +15,7 @@
 }
 
 .coupon-page__grid {
+    display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 30px;
@@ -25,14 +26,20 @@
     background-color: #ffffff;
     border-radius: 16px;
     overflow: hidden;
+    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     position: relative;
     border: 2px dashed #e0e0e0;
 }
 
 .coupon-card:hover {
+    -webkit-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
     transform: translateY(-5px);
+    -webkit-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
 
@@ -43,9 +50,12 @@
     background: #ff6b6b;
     color: white;
     padding: 5px 30px;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
     transform: rotate(45deg);
     font-weight: 600;
     font-size: 1.2rem;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -54,8 +64,14 @@
 }
 
 .coupon-card__header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
     align-items: flex-start;
     margin-bottom: 20px;
 }
@@ -93,8 +109,13 @@
 }
 
 .coupon-card__categories {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 15px;
@@ -116,8 +137,14 @@
 }
 
 .coupon-card__code-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -129,7 +156,11 @@
 }
 
 .coupon-card__copy {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: 8px;
     background-color: #00b894;
@@ -138,11 +169,15 @@
     padding: 10px 20px;
     border-radius: 25px;
     cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
 .coupon-card__copy:hover {
     background-color: #00a28d;
+    -webkit-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
     transform: translateY(-2px);
 }
 
@@ -163,6 +198,7 @@
     }
 
     .coupon-page__grid {
+        -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
         padding: 0 15px;
     }

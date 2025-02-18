@@ -1,10 +1,3 @@
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.4.14,
-* Autoprefixer: v10.4.7
-* Browsers: last 4 version
-*/
-
 /* View Promo */
 .video-promo {
     margin-top: 90px;
@@ -167,6 +160,7 @@
 @media screen and (min-width: 768px) and (max-width: 991px) {
 
     .video-promo__inner {
+        -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
     }
     .video-promo__subtitle {

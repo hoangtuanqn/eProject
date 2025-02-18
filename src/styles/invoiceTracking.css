@@ -1,17 +1,33 @@
 .invoice-tracking {
     margin-top: 80px;
     padding-bottom: 80px;
-    animation: fadeIn 0.5s ease;
+    -webkit-animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.5s ease;
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(20px);
+                transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+    }
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        -webkit-transform: translateY(20px);
+                transform: translateY(20px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
     }
 }
 
@@ -22,28 +38,48 @@
     background: white;
     border-radius: 16px;
     border: 1px solid #eee;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
 .invoice-tracking__container:hover {
-    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+    -webkit-box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
 }
 
 .invoice-tracking__header {
     text-align: center;
     margin-bottom: 50px;
-    animation: slideDown 0.6s ease;
+    -webkit-animation: slideDown 0.6s ease;
+            animation: slideDown 0.6s ease;
+}
+
+@-webkit-keyframes slideDown {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(-30px);
+                transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+    }
 }
 
 @keyframes slideDown {
     from {
         opacity: 0;
-        transform: translateY(-30px);
+        -webkit-transform: translateY(-30px);
+                transform: translateY(-30px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
     }
 }
 
@@ -62,29 +98,51 @@
 }
 
 .invoice-tracking__form {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 16px;
     margin-bottom: 50px;
-    animation: slideUp 0.6s ease 0.2s backwards;
+    -webkit-animation: slideUp 0.6s ease 0.2s backwards;
+            animation: slideUp 0.6s ease 0.2s backwards;
+}
+
+@-webkit-keyframes slideUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(30px);
+                transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+    }
 }
 
 @keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        -webkit-transform: translateY(30px);
+                transform: translateY(30px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
     }
 }
 
 .invoice-tracking__input {
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     padding: 18px 24px;
     border: 2px solid #eee;
     border-radius: 14px;
     font-size: 1.6rem;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     background: #f8f9fa;
 }
@@ -93,7 +151,8 @@
     outline: none;
     border-color: var(--color-grey-7);
     background: white;
-    box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.1);
+    -webkit-box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.1);
+            box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.1);
 }
 
 .invoice-tracking__button {
@@ -104,29 +163,45 @@
     border-radius: 14px;
     font-size: 1.6rem;
     cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     gap: 12px;
     font-weight: 500;
 }
 
 .invoice-tracking__button:hover {
     background: #1a252f;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    -webkit-transform: translateY(-2px);
+        -ms-transform: translateY(-2px);
+            transform: translateY(-2px);
+    -webkit-box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .invoice-tracking__button:active {
-    transform: translateY(0);
+    -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+            transform: translateY(0);
 }
 
 .invoice-tracking__button:disabled {
     background: #ddd;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+    -webkit-transform: none;
+        -ms-transform: none;
+            transform: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
 }
 
 .invoice-tracking__status {
@@ -149,12 +224,18 @@
     width: 33%;
     height: 3px;
     background: #eee;
-    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+    -webkit-transition: background-color 0.5s ease;
+    -o-transition: background-color 0.5s ease;
     transition: background-color 0.5s ease;
 }
 
 .invoice-tracking__status-line:first-child {
-    transform: translateY(-50%) translateX(-100%);
+    -webkit-transform: translateY(-50%) translateX(-100%);
+        -ms-transform: translateY(-50%) translateX(-100%);
+            transform: translateY(-50%) translateX(-100%);
 }
 
 .invoice-tracking__status-line.active {
@@ -162,18 +243,31 @@
 }
 
 .invoice-tracking__status-steps {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     position: relative;
     z-index: 1;
 }
 
 .invoice-tracking__status-step {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     gap: 12px;
     color: #666;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
@@ -183,10 +277,18 @@
     background: white;
     border: 3px solid #eee;
     border-radius: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     color: #666;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     position: relative;
     overflow: hidden;
@@ -196,38 +298,62 @@
     background: var(--color-grey-7);
     border-color: var(--color-grey-7);
     color: white;
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+            transform: scale(1.1);
+    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .invoice-tracking__status-step.active {
     color: var(--color-grey-7);
-    transform: translateY(-5px);
+    -webkit-transform: translateY(-5px);
+        -ms-transform: translateY(-5px);
+            transform: translateY(-5px);
 }
 
 .invoice-tracking__result {
     opacity: 0;
-    animation: fadeInUp 0.8s ease forwards;
+    -webkit-animation: fadeInUp 0.8s ease forwards;
+            animation: fadeInUp 0.8s ease forwards;
     background: white;
     border-radius: 16px;
     border: 1px solid #eee;
     padding: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(40px);
+                transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+    }
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(40px);
+        -webkit-transform: translateY(40px);
+                transform: translateY(40px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
     }
 }
 
 .invoice-tracking__order-info {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 1fr 24px 1fr;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
     padding: 30px;
@@ -235,12 +361,18 @@
     border-radius: 16px;
     border: 1px solid #eee;
     margin-bottom: 40px;
-    animation: fadeIn 0.6s ease 0.3s backwards;
+    -webkit-animation: fadeIn 0.6s ease 0.3s backwards;
+            animation: fadeIn 0.6s ease 0.3s backwards;
 }
 
 .invoice-tracking__info-section {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     gap: 24px;
 }
 
@@ -249,19 +381,30 @@
     padding: 20px;
     border-radius: 12px;
     border: 1px solid #eee;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
 .invoice-tracking__info-group:hover {
     border-color: var(--color-grey-7);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
+    -webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    -webkit-transform: translateY(-2px);
+        -ms-transform: translateY(-2px);
+            transform: translateY(-2px);
 }
 
 .invoice-tracking__info-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin-bottom: 12px;
 }
 
@@ -303,15 +446,24 @@
 }
 
 .invoice-tracking__contact-details {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     gap: 12px;
     margin-top: 12px;
 }
 
 .invoice-tracking__contact-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     gap: 8px;
     font-size: 1.4rem;
     color: var(--color-grey-7);
@@ -327,13 +479,20 @@
     border-radius: 16px;
     border: 1px solid #eee;
     overflow: hidden;
-    animation: fadeIn 0.6s ease 0.4s backwards;
+    -webkit-animation: fadeIn 0.6s ease 0.4s backwards;
+            animation: fadeIn 0.6s ease 0.4s backwards;
 }
 
 .invoice-tracking__items-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     padding: 24px 30px;
     border-bottom: 1px solid #eee;
     background: #f8f9fa;
@@ -356,25 +515,37 @@
 
 .invoice-tracking__items-list {
     padding: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     gap: 20px;
 }
 
 .invoice-tracking__item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 24px;
     padding: 20px;
     background: white;
     border-radius: 12px;
     border: 1px solid #eee;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
 .invoice-tracking__item:hover {
     border-color: var(--color-grey-7);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
+    -webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    -webkit-transform: translateY(-2px);
+        -ms-transform: translateY(-2px);
+            transform: translateY(-2px);
 }
 
 .invoice-tracking__item-image {
@@ -389,24 +560,44 @@
     aspect-ratio: 1 / 1;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
     transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
 .invoice-tracking__item:hover .invoice-tracking__item-image img {
-    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+            transform: scale(1.05);
 }
 
 .invoice-tracking__item-content {
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 .invoice-tracking__item-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
 }
 
 .invoice-tracking__item-name {
@@ -422,20 +613,32 @@
 }
 
 .invoice-tracking__item-specs {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 24px;
 }
 
 .invoice-tracking__spec {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     gap: 8px;
 }
 
 .invoice-tracking__spec-icon {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     width: 24px;
     height: 24px;
     background: #f8f9fa;
@@ -460,12 +663,17 @@
     background: #f8f9fa;
     border-radius: 12px;
     border: 1px solid #eee;
-    animation: fadeIn 0.6s ease 0.5s backwards;
+    -webkit-animation: fadeIn 0.6s ease 0.5s backwards;
+            animation: fadeIn 0.6s ease 0.5s backwards;
 }
 
 .invoice-tracking__summary-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     padding: 12px 0;
     font-size: 1.5rem;
     color: #666;
@@ -482,22 +690,35 @@
 
 .invoice-tracking__actions {
     margin-top: 40px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 20px;
-    animation: fadeIn 0.6s ease 0.6s backwards;
+    -webkit-animation: fadeIn 0.6s ease 0.6s backwards;
+            animation: fadeIn 0.6s ease 0.6s backwards;
 }
 
 .invoice-tracking__action-btn {
     margin: 0 auto;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     padding: 18px 36px;
     border-radius: 14px;
     font-size: 1.5rem;
     cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     gap: 12px;
     text-decoration: none;
     font-weight: 500;
@@ -512,7 +733,9 @@
 .invoice-tracking__action-btn--print:hover {
     background: #f8f9fa;
     border-color: var(--color-grey-7);
-    transform: translateY(-2px);
+    -webkit-transform: translateY(-2px);
+        -ms-transform: translateY(-2px);
+            transform: translateY(-2px);
 }
 
 .invoice-tracking__action-btn--continue {
@@ -523,8 +746,11 @@
 
 .invoice-tracking__action-btn--continue:hover {
     background: #1a252f;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    -webkit-transform: translateY(-2px);
+        -ms-transform: translateY(-2px);
+            transform: translateY(-2px);
+    -webkit-box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 @media screen and (max-width: 749px) {
@@ -542,10 +768,14 @@
     }
 
     .invoice-tracking__form {
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
     }
 
     .invoice-tracking__order-info {
+        -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
         padding: 20px;
     }
@@ -559,7 +789,10 @@
     }
 
     .invoice-tracking__actions {
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
     }
 
     .invoice-tracking__status-icon {
@@ -572,7 +805,10 @@
     }
 
     .invoice-tracking__item {
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
         gap: 16px;
     }
 
@@ -584,10 +820,16 @@
     }
 
     .invoice-tracking__item-specs {
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
         gap: 12px;
     }
     .cart-item__details {
-        flex-direction: row;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
     }
 }

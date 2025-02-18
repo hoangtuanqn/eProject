@@ -79,7 +79,6 @@ textarea {
     font-size: 16px !important; /* Prevents zoom on iOS */
 }
 
-
 .scrollToTopBtn {
     position: fixed;
     bottom: 70px;
@@ -114,16 +113,6 @@ textarea {
     color: rgba(18, 18, 18);
 }
 
-
-
-
-
-
-
-
-
-
-
 /* Gradient */
 
 .gradient {
@@ -149,10 +138,6 @@ textarea {
     font-size: 1.5rem;
     line-height: 1.8;
 }
-
-
-
-
 
 /* Header */
 .header {
@@ -342,6 +327,8 @@ textarea {
     border: none;
     color: var(--color-grey-7);
     cursor: pointer;
+    -webkit-transform: translate(8px, 2px);
+    -ms-transform: translate(8px, 2px);
     transform: translate(8px, 2px);
 }
 
@@ -528,12 +515,19 @@ textarea {
     display: block;
 }
 .search__content {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     background-color: #fff;
     height: 40vh;
     padding: 20px;
+    -webkit-animation: fadeInSearch 0.5s ease;
     animation: fadeInSearch 0.5s ease;
 }
 
@@ -554,29 +548,52 @@ textarea {
 }
 
 .search__input:focus {
+    -webkit-box-shadow: 0 0 5px 2px rgba(18, 18, 18, 0.15);
     box-shadow: 0 0 5px 2px rgba(18, 18, 18, 0.15);
 }
 
 .search__button {
     position: absolute;
     top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     right: 15px;
     background-color: transparent;
     border: none;
     cursor: pointer;
     padding: 5px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
 }
-@keyframes fadeInSearch {
+@-webkit-keyframes fadeInSearch {
     from {
         opacity: 0;
+        -webkit-transform: translateY(-100%);
         transform: translateY(-100%);
     }
     to {
         opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+@keyframes fadeInSearch {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
         transform: translateY(0);
     }
 }
@@ -603,21 +620,6 @@ textarea {
         font-size: 14px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Hero */
 .hero {
@@ -687,12 +689,6 @@ textarea {
     align-items: center;
     gap: 10px;
 }
-
-
-
-
-
-
 
 /* category-highlights */
 .category-highlights {
@@ -774,19 +770,12 @@ textarea {
     text-underline-offset: 10px;
 }
 
-
-
-
-
-
 /* Featured and Best sales */
 
 .featured-products,
 .best-sales {
     margin-top: 90px;
 }
-
-
 
 .featured-products__grid,
 .best-sales__grid {
@@ -937,9 +926,6 @@ textarea {
     box-shadow: 0 5px 10px rgba(18, 18, 18, 0.15);
 }
 
-
-
-
 /* Marquee */
 .marquee {
     margin-top: 80px;
@@ -1024,9 +1010,6 @@ textarea {
     }
 }
 
-
-
-
 /* Brand */
 .brand-logos {
     margin-top: 80px;
@@ -1064,10 +1047,6 @@ textarea {
 .brand-logos__image:hover {
     opacity: 1;
 }
-
-
-
-
 
 /* View Promo */
 .video-promo {
@@ -1164,10 +1143,6 @@ textarea {
     width: 26px;
     height: 26px;
 }
-
-
-
-
 
 /* Existing Testimonial styles */
 .testimonial {
@@ -1351,9 +1326,6 @@ textarea {
         justify-content: center;
     }
 }
-
-
-
 
 /* Check our blog start */
 .blog-posts {

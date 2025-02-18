@@ -30,6 +30,8 @@
     height: auto;
     -webkit-transition: opacity var(--transition);
     -o-transition: opacity var(--transition);
+    -webkit-transition: opacity var(--transition) 0.3s ease;
+    -o-transition: opacity var(--transition) 0.3s ease;
     transition: opacity var(--transition) 0.3s ease;
 }
 
@@ -48,7 +50,10 @@
     }
 
     .brand-logos__list {
+        -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
         gap: 30px 20px;
         padding: 0 15px;

@@ -4,9 +4,13 @@
 }
 
 .faq__grid {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-columns: 1fr 60px 1fr;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
     align-items: start;
 }
 
@@ -18,7 +22,12 @@
 }
 
 .faq__questions {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     gap: 10px;
 }
@@ -29,8 +38,14 @@
 
 .faq__question {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     padding: 20px 0;
     background: none;
@@ -40,6 +55,8 @@
     font-size: 1.6rem;
     color: rgb(18, 18, 18);
     font-weight: 500;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
     transition: color 0.3s ease;
 }
 
@@ -54,17 +71,26 @@
 .faq__icon {
     width: 20px;
     height: 20px;
+    -ms-flex-negative: 0;
     flex-shrink: 0;
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
     transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
 .faq__question.active .faq__icon {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
     transform: rotate(180deg);
 }
 
 .faq__answer {
     max-height: 0;
     overflow: hidden;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     opacity: 0;
 }
@@ -97,11 +123,13 @@
     width: 100%;
     height: auto;
     display: block;
+    -o-object-fit: cover;
     object-fit: cover;
 }
 
 @media (max-width: 968px) {
     .faq__grid {
+        -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
         gap: 40px;
     }
@@ -109,6 +137,8 @@
     .faq__image {
         position: relative;
         top: 0;
+        -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
         order: -1;
     }
 

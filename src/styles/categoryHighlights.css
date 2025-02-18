@@ -136,6 +136,7 @@
 /* PC Low Resolution */
 @media screen and (min-width: 768px) and (max-width: 991px) {
     .category-highlights__list {
+        -ms-grid-columns: repeat(2, 1fr);
         grid-template-columns: repeat(2, 1fr);
     }
 }

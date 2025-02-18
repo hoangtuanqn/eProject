@@ -94,8 +94,14 @@ img {
     height: auto;
 }
 .btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     gap: 10px;
     padding: 10px 20px;
@@ -103,6 +109,8 @@ img {
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     margin-top: 20px;
     font-weight: 500;
@@ -167,8 +175,15 @@ textarea {
 
 /* Section title and subtitle */
 .section-top {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: 10px;
 }
@@ -210,6 +225,7 @@ strong {
     aspect-ratio: 1 / 1;
     width: 80%;
     max-width: 20px;
+    -o-object-fit: cover;
     object-fit: cover;
 }
 
@@ -220,15 +236,24 @@ strong {
     border-radius: 50%;
     background: white;
     border: 1px solid #ccc;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     position: relative;
 }
 
 .cart-btn:hover {
+    -webkit-box-shadow: 0 5px 10px rgba(18, 18, 18, 0.15);
     box-shadow: 0 5px 10px rgba(18, 18, 18, 0.15);
 }
 
@@ -246,7 +271,11 @@ strong {
 
 /* Tăng/ giảm số lượng đơn hàng */
 .product__quantity-input {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     border: 1px solid #eee;
     border-radius: 8px;
@@ -263,9 +292,17 @@ strong {
     background: white;
     color: #666;
     cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
 .cart-page__remove-btn:hover {
@@ -316,16 +353,26 @@ strong {
 
 /* Carousel customization */
 .carousel .control-arrow {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     background: #898787e3 !important;
     padding: 12px;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     top: 50% !important;
+    -webkit-transform: translateY(-50%) !important;
+    -ms-transform: translateY(-50%) !important;
     transform: translateY(-50%) !important;
 }
 
@@ -344,6 +391,7 @@ strong {
 
 .carousel .dot {
     background: #fff !important;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
