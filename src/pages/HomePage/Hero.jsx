@@ -11,12 +11,12 @@ import clsx from "clsx";
 export default function Hero() {
     const slides = [
         {
-            image: "https://i.imgur.com/Uy5GpgR.jpeg",
+            image: "/assets/imgs/background-1.jpg",
             title: "The Largest School Uniform Supplier in the Country",
             description: "We prioritize user experience and provide the best uniform solutions for students.",
         },
         {
-            image: "https://i.imgur.com/xfFGdfe.jpeg",
+            image: "/assets/imgs/background-2.jpg",
             title: "Explore Our Latest Collection",
             description: "Stylish and comfortable uniforms designed for students.",
         },

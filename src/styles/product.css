@@ -661,7 +661,6 @@
         width: 100%;
     }
 
-
     .product__title {
         font-size: 2.4rem;
     }
@@ -676,8 +675,6 @@
     }
 
     .product__buttons {
-
-
         display: grid;
         grid-auto-columns: 1fr;
         grid-template-columns: 1fr 1fr;
@@ -1142,10 +1139,12 @@
 
 .product__image-modal-slide {
     height: calc(100vh - 120px);
+    width: fit-content;
+    margin: 0 auto;
 }
 
 .product__image-modal-slide img {
-    width: 100%;
+    width: unset !important;
     height: 100%;
     object-fit: contain;
 }

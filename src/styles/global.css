@@ -55,6 +55,10 @@ body {
 a {
     text-decoration: none;
 }
+i,
+svg {
+    color: currentColor;
+}
 .bold {
     font-weight: bold;
 }
