@@ -2,39 +2,40 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "~/styles/hero.css";
+import clsx from "clsx";
 
 export default function Hero() {
     const slides = [
         {
-            image: "/assets/imgs/hero-image-lg-3.png",
-            title: "Quality School Uniforms for Every Season",
-            description: "Tell your story through meaningful school uniforms",
+            image: "https://i.imgur.com/Uy5GpgR.jpeg",
+            title: "The Largest School Uniform Supplier in the Country",
+            description: "We prioritize user experience and provide the best uniform solutions for students.",
         },
         {
-            image: "/assets/imgs/hero-image-lg-3.png",
-            title: "Discover Our New Collection",
-            description: "Stylish and comfortable uniforms for students",
-        },
-        {
-            image: "/assets/imgs/hero-image-lg-3.png",
-            title: "Premium Quality Materials",
-            description: "Designed to last throughout the school year",
+            image: "https://i.imgur.com/xfFGdfe.jpeg",
+            title: "Explore Our Latest Collection",
+            description: "Stylish and comfortable uniforms designed for students.",
         },
     ];
 
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        arrows: true,
+    };
+
     return (
         <section className="hero">
-            <Carousel
-                showArrows={true}
-                useKeyboardArrows={true}
-                autoFocus={true}
-                infiniteLoop={true}
-                showStatus={false}
-                emulateTouch={true}
-            >
+            <Slider {...settings}>
                 {slides.map((slide, index) => (
                     <div key={index} className="hero-slide">
                         <div
@@ -46,7 +47,12 @@ export default function Hero() {
                         <div className="container">
                             <div className="hero__inner">
                                 <motion.h1
-                                    className="hero__heading"
+                                    className={clsx("hero__heading", {
+                                        "line-clamp": window.innerWidth > 750,
+                                    })}
+                                    style={{
+                                        "--line-clamp": 3,
+                                    }}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.6 }}
@@ -78,7 +84,7 @@ export default function Hero() {
                         </div>
                     </div>
                 ))}
-            </Carousel>
+            </Slider>
         </section>
     );
 }
