@@ -29,7 +29,15 @@ export default function BlogPosts() {
                                         </Link>
                                     </figure>
                                     <div className="blog-posts__content">
-                                        <h3 className="blog-posts__name line-clamp" style={{"--line-clamp": 3}}>{item.name}</h3>
+                                        <h3>
+                                            <Link
+                                                to={`/blog/news/${item.slug}`}
+                                                className="blog-posts__name line-clamp"
+                                                style={{ "--line-clamp": 3 }}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </h3>
                                         <Link to={`/blog/news/${item.slug}`} className="blog-posts__link">
                                             Read more
                                             <ArrowRight size={20} />

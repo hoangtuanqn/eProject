@@ -14,9 +14,7 @@
     border-radius: 10px;
     text-align: center;
 }
-.product-card--boder {
-    border: 1px solid #dfdfdfcc;
-}
+
 .product-card__image {
     -webkit-transition: all ease 0.3s;
     -o-transition: all ease 0.3s;

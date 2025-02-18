@@ -1,16 +1,46 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import "~/styles/policies.css";
 
 export default function Policies() {
+    // Add this array of policy highlights
+    const policyHighlights = [
+        "30-day return policy",
+        "Free shipping on returns",
+        "Secure data protection",
+        "No third-party data sharing",
+        "Customer rights protection",
+    ];
+
     return (
-        <section className="policies">
+        <motion.section
+            className="policies"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
+        >
             <div className="container">
-                <div className="policies__wrapper">
+                <motion.div
+                    className="policies__wrapper"
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                >
                     {/* <h1 className="policies__title">Our Policies</h1> */}
 
-                    <div className="policies__content">
-                        <div className="policies__section">
+                    <motion.div
+                        className="policies__content"
+                        initial={{ x: -30, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.4 }}
+                    >
+                        <motion.div
+                            className="policies__section"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3, delay: 0.6 }}
+                        >
                             <h2 className="policies__section-title">Returns & Refunds</h2>
                             <div className="policies__text">
                                 <p>
@@ -51,9 +81,14 @@ export default function Policies() {
                                     Initiate a Return
                                 </a> */}
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div className="policies__section">
+                        <motion.div
+                            className="policies__section"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3, delay: 0.8 }}
+                        >
                             <h2 className="policies__section-title">Privacy Policy</h2>
                             <div className="policies__text">
                                 <p>
@@ -99,41 +134,45 @@ export default function Policies() {
                                 <p>
                                     If you have any questions about our Privacy Policy or wish to exercise your rights,
                                     please contact our Data Protection Officer at{" "}
-                                    <a href="mailto:{process.env.REACT_APP_BRAND_EMAIL}" className="policies__highlight">
+                                    <a
+                                        href="mailto:{process.env.REACT_APP_BRAND_EMAIL}"
+                                        className="policies__highlight"
+                                    >
                                         {process.env.REACT_APP_BRAND_EMAIL}
                                     </a>
                                     .
                                 </p>
 
-
                                 <Link to="/pages/contact" className="policies__button">
                                     Contact Us
                                 </Link>
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
 
-                    <div className="policies__summary">
+                    <motion.div
+                        className="policies__summary"
+                        initial={{ x: 30, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 1 }}
+                    >
                         <h3 className="policies__summary-title">Policy Highlights</h3>
                         <ul className="policies__summary-list">
-                            <li className="policies__summary-item">30-day return window for all purchases</li>
-                            <li className="policies__summary-item">Free returns on all domestic orders</li>
-                            <li className="policies__summary-item">Secure payment processing</li>
-                            <li className="policies__summary-item">Personal data protection and privacy</li>
-                            <li className="policies__summary-item">
-                                No sharing of customer information with third parties
-                            </li>
-                            <li className="policies__summary-item">
-                                Right to access, modify, or delete your personal data
-                            </li>
-                            <li className="policies__summary-item">Transparent communication about policy changes</li>
-                            <li className="policies__summary-item">
-                                Dedicated customer support for policy-related inquiries
-                            </li>
+                            {policyHighlights.map((highlight, index) => (
+                                <motion.li
+                                    key={index}
+                                    className="policies__summary-item"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.3, delay: 1.2 + index * 0.1 }}
+                                >
+                                    {highlight}
+                                </motion.li>
+                            ))}
                         </ul>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </div>
-        </section>
+        </motion.section>
     );
 }

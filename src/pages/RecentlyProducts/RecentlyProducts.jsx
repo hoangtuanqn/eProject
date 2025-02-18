@@ -129,7 +129,7 @@ export default function WishList() {
                                             </div>
                                             <h3 className="category__product-name">{product.name}</h3>
                                             <p className="category__product-price">
-                                                ${Math.round(product.price)}
+                                                ${product.price}
                                                 {product.sale > 0 && (
                                                     <span className="category__product-price--old">
                                                         ${calculateOriginalPrice(product.price, product.sale)}

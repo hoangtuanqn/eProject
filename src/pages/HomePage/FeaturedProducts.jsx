@@ -36,9 +36,6 @@ const FeaturedProducts = () => {
                     <div className="featured-products__grid">
                         {featuredProducts.map((product) => {
                             const { id, name, price, sale, thumbnail, slug } = product;
-                            const originalPrice = price;
-                            const salePrice = sale > 0 ? price * (1 - sale / 100) : price;
-
                             return (
                                 <article key={id} className="product-card" data-aos="zoom-in">
                                     <figure className="category-product__wrapper">
@@ -79,35 +76,42 @@ const FeaturedProducts = () => {
                                             </div>
                                         </div>
                                     </figure>
-                                    <Link to={`/product/${slug}`}>
-                                        <div className="category__product-details">
-                                            <div className="product-card__rating-wrap">
-                                                <Rating
-                                                    name="read-only"
-                                                    value={product.rating}
-                                                    precision={0.1}
-                                                    readOnly
-                                                    size="small"
-                                                    sx={{
-                                                        fontSize: "1.8rem",
-                                                        color: "#ffd700",
-                                                    }}
-                                                />
-                                                <span className="best-sales-item__rating-value">
-                                                    ({product.rating.toFixed(1)})
-                                                </span>
-                                            </div>
-                                            <h3 className="category__product-name">{name}</h3>
-                                            <p className="category__product-price">
-                                                ${price}
-                                                {sale > 0 && (
-                                                    <span className="category__product-price--old">
-                                                        ${calculateOriginalPrice(price, sale)}
-                                                    </span>
-                                                )}
-                                            </p>
+
+                                    <div className="category__product-details">
+                                        <div className="product-card__rating-wrap">
+                                            <Rating
+                                                name="read-only"
+                                                value={product.rating}
+                                                precision={0.1}
+                                                readOnly
+                                                size="small"
+                                                sx={{
+                                                    fontSize: "1.8rem",
+                                                    color: "#ffd700",
+                                                }}
+                                            />
+                                            <span className="best-sales-item__rating-value">
+                                                ({product.rating.toFixed(1)})
+                                            </span>
                                         </div>
-                                    </Link>
+                                        <h3>
+                                            <Link
+                                                to={`/product/${slug}`}
+                                                className="category__product-name line-clamp"
+                                                style={{ "--line-clamp": 2 }}
+                                            >
+                                                {name}
+                                            </Link>
+                                        </h3>
+                                        <p className="category__product-price">
+                                            ${price}
+                                            {sale > 0 && (
+                                                <span className="category__product-price--old">
+                                                    ${calculateOriginalPrice(price, sale)}
+                                                </span>
+                                            )}
+                                        </p>
+                                    </div>
                                 </article>
                             );
                         })}

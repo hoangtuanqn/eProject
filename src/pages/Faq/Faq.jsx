@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
+import { motion } from "framer-motion";
 import "~/styles/faq.css";
 import faqData from "~/data/faq.json";
 
@@ -11,14 +12,37 @@ export default function Faq() {
     };
 
     return (
-        <section className="faq">
+        <motion.section
+            className="faq"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+        >
             <div className="container">
-                <div className="faq__grid">
+                <motion.div
+                    className="faq__grid"
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                >
                     <div className="faq__content">
-                        <h1 className="faq__title">Shipping information</h1>
+                        <motion.h1
+                            className="faq__title"
+                            initial={{ x: -30, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 0.3, delay: 0.4 }}
+                        >
+                            Shipping information
+                        </motion.h1>
                         <div className="faq__questions">
-                            {faqData.map((item) => (
-                                <div key={item.id} className="faq__item">
+                            {faqData.map((item, index) => (
+                                <motion.div
+                                    key={item.id}
+                                    className="faq__item"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+                                >
                                     <button
                                         className={`faq__question ${openQuestion === item.id ? "active" : ""}`}
                                         onClick={() => toggleQuestion(item.id)}
@@ -35,20 +59,26 @@ export default function Faq() {
                                             <p key={index}>{paragraph}</p>
                                         ))}
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                     </div>
-                    <div className="faq__image">
+                    <motion.div
+                        className="faq__image"
+                        initial={{ x: 30, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.4 }}
+                        whileHover={{ scale: 1.02 }}
+                    >
                         <img
                             src="/assets/imgs/faq.webp"
                             alt="Customer Service Representative"
                             width={600}
                             height={800}
                         />
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </div>
-        </section>
+        </motion.section>
     );
 }
