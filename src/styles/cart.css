@@ -308,6 +308,7 @@
 
     .cart-page__item {
         grid-template-columns: auto 100px 1fr;
+        padding: 20px 0;
     }
 
     .cart-page__item-image {

@@ -39,6 +39,7 @@
 }
 
 .about-us__title {
+    line-height: 1.4;
     font-size: 4rem;
     font-weight: 500;
     margin-bottom: 20px;

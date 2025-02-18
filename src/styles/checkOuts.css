@@ -107,6 +107,7 @@
     border: 1.5px solid #eaeaea;
     border-radius: 12px;
     transition: all 0.3s ease;
+    overflow: hidden;
 }
 
 .checkout__payment-option:hover {
@@ -177,6 +178,7 @@
 .checkout__payment-description {
     font-size: 1.3rem;
     color: #666;
+    line-height: 1.4;
 }
 
 .checkout__payment-icon {
@@ -246,6 +248,7 @@
     font-weight: 500;
     color: var(--color-grey-7);
     margin-bottom: 4px;
+    line-height: 1.4;
 }
 
 .checkout__item-meta {

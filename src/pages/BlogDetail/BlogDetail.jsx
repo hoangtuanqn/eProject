@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, User } from "lucide-react";
+import { Calendar, User, Share2, Facebook, Twitter, MoreHorizontal } from "lucide-react";
+import PinterestIcon from "@mui/icons-material/Pinterest";
 import "~/styles/blogDetail.css";
+import { Tooltip } from "@mui/material";
+import { toast } from "react-hot-toast";
 
 export default function BlogDetail({ article }) {
+    const [showShareMenu, setShowShareMenu] = useState(false);
+
     if (!article) {
         return <div>Loading...</div>;
     }
@@ -11,6 +16,34 @@ export default function BlogDetail({ article }) {
     const formatDate = (dateString) => {
         const options = { year: "numeric", month: "long", day: "numeric" };
         return new Date(dateString).toLocaleDateString("en-US", options);
+    };
+
+    const handleSocialShare = (platform) => {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent(`Check out this article: ${article.name}`);
+
+        const shareUrls = {
+            facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+            twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+            pinterest: `https://pinterest.com/pin/create/button/?url=${url}&description=${text}&media=${encodeURIComponent(
+                article.thumbnail,
+            )}`,
+        };
+
+        window.open(shareUrls[platform], "_blank", "width=600,height=400");
+    };
+
+    const handleShare = () => {
+        navigator
+            .share({
+                title: article.name,
+                text: `Check out this article: ${article.name}`,
+                url: window.location.href,
+            })
+            .catch(() => {
+                navigator.clipboard.writeText(window.location.href);
+                toast.success("Link copied to clipboard!");
+            });
     };
 
     return (
@@ -49,8 +82,41 @@ export default function BlogDetail({ article }) {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    dangerouslySetInnerHTML={{ __html: article.content }}
-                />
+                >
+                    <div dangerouslySetInnerHTML={{ __html: article.content }} />
+
+                    <div className="blog-detail__share">
+                        <div className="blog-detail__share-container">
+                            <Tooltip content="Share">
+                                <motion.button
+                                    className="btn btn--secondary blog-detail__share-btn"
+                                    onClick={() => setShowShareMenu(!showShareMenu)}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <Share2 size={20} />
+                                </motion.button>
+                            </Tooltip>
+
+                            {showShareMenu && (
+                                <div className="blog-detail__share-menu">
+                                    <button onClick={() => handleSocialShare("facebook")}>
+                                        <Facebook size={20} /> Facebook
+                                    </button>
+                                    <button onClick={() => handleSocialShare("twitter")}>
+                                        <Twitter size={20} /> Twitter
+                                    </button>
+                                    <button onClick={() => handleSocialShare("pinterest")}>
+                                        <PinterestIcon sx={{ fontSize: 20 }} /> Pinterest
+                                    </button>
+                                    <button onClick={handleShare}>
+                                        <MoreHorizontal size={20} /> More
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </motion.div>
             </div>
         </article>
     );

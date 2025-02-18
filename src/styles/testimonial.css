@@ -41,7 +41,11 @@
 
 .testimonial__name {
     margin-top: 8px;
+    margin-bottom: 3px;
     font-weight: 600;
+}
+.testimonial__role {
+    color: rgba(18, 18, 18, 0.496);
 }
 
 .testimonial__role,

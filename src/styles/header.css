@@ -284,6 +284,7 @@
     position: fixed;
     top: 0;
     /* left: -100%; */
+    z-index: 101;
     width: 85%;
     max-width: 400px;
     height: 100%;

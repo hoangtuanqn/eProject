@@ -127,7 +127,8 @@ textarea {
 /* Scroll Top BTN */
 .scrollToTopBtn {
     position: fixed;
-    z-index: 999;
+    /* z-index: 999; */
+    z-index: 2;
     bottom: 110px;
     right: 25px;
     outline: none;
