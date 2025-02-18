@@ -114,7 +114,7 @@ const App = () => {
                 {/* Hiển thị 1 sản phẩm */}
                 <Route path="/product/:slug" element={<Product />} exact />
 
-                {/* Trang giỏ hàng */}
+                {/* Trang giỏ hàng */}  
                 <Route path="/cart" element={<Cart />} exact />
 
                 {/* Trang giỏ hàng */}

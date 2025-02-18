@@ -900,7 +900,7 @@
         "detailImageColors": [0, 1, 2],
         "tags": ["school", "uniform", "formal"],
         "slug": "womens-girls-pleated-tennis-skirts-high-waisted-a-line-skirt-school-uniform-athletic-golf-skorts-with-shorts-2t-4xl",
-        "best_sale": false,
+        "best_sale": true,
         "feature": true
     },
 
@@ -945,7 +945,7 @@
         "detailImageColors": [0],
         "tags": ["school", "uniform", "formal"],
         "slug": "yonghs-kids-girls-v-neck-pleated-jumpers-sleeveless-wide-strap-school-uniform-dress-khaki-8",
-        "best_sale": false,
+        "best_sale": true,
         "feature": true
     },
     {

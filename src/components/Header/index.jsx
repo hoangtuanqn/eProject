@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, memo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Heart, Search, ShoppingCart } from "lucide-react";
 
@@ -15,7 +15,9 @@ import MenuMobile from "./MenuMobile";
 import Cart from "./MenuCart";
 import toast from "react-hot-toast";
 
-export default function Header() {
+function Header() {
+    // console.log("Xin chào anh em");
+
     const { cartQuantity, wishlistQuantity } = useGlobalState();
     const mobileMenuRef = useRef(null);
 
@@ -57,11 +59,6 @@ export default function Header() {
             }
         };
     }, []);
-    function dongMenu() {
-        console.log(mobileMenuRef);
-
-        return mobileMenuRef;
-    }
     const { pathname } = useLocation(); // lấy url hiện tại
     const navigate = useNavigate();
 
@@ -240,3 +237,4 @@ export default function Header() {
         </>
     );
 }
+export default memo(Header);
