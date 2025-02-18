@@ -88,6 +88,11 @@
     left: 0;
 }
 
+@media screen and (max-width: 749px) {
+    .blog-posts {
+        margin-top: 50px;
+    }
+}
 @media (max-width: 768px) {
     .blog-posts__grid {
         -ms-grid-columns: 1fr;

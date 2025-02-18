@@ -21,19 +21,19 @@
         "id": 4,
         "name": "P.T. T-shirts",
         "image": "/assets/imgs/category-4.jpg",
-        "slug": "pt-t-shirts"
+        "slug": "pttshirts"
     },
     {
         "id": 5,
         "name": "P.T. shorts",
         "image": "/assets/imgs/category-5.jpg",
-        "slug": "pt-shorts"
+        "slug": "ptshorts"
     },
     {
         "id": 6,
         "name": "P.T. track pants",
         "image": "/assets/imgs/category-6.jpg",
-        "slug": "pt-track-pants"
+        "slug": "pttrackpants"
     },
     {
         "id": 7,

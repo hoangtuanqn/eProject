@@ -12,9 +12,11 @@ export default function Breadcrumb({ title, items, style = {} }) {
                     <div className="breadcrumb__list">
                         {items.map((item, index) => (
                             <React.Fragment key={index}>
-                                <div className="breadcrumb__item line-clamp" style={{ "--line-clamp": 1 }}>
+                                <div>
                                     {index === items.length - 1 ? (
-                                        <span>{item.label}</span>
+                                        <span className="breadcrumb__item line-clamp" style={{ "--line-clamp": 1 }}>
+                                            {item.label}
+                                        </span>
                                     ) : (
                                         <Link
                                             to={item.url}

@@ -64,71 +64,6 @@
             "Length: Measure from waist to desired length"
         ]
     },
-    "pants": {
-        "title": "Pants Size Guide",
-        "description": "Measure waist and inseam for the best fit",
-        "sizes": [
-            {
-                "size": "S",
-                "waist": "76-81",
-                "inseam": "76-78"
-            },
-            {
-                "size": "M",
-                "waist": "81-86",
-                "inseam": "78-80"
-            },
-            {
-                "size": "L",
-                "waist": "86-91",
-                "inseam": "80-82"
-            },
-            {
-                "size": "XL",
-                "waist": "91-96",
-                "inseam": "82-84"
-            }
-        ],
-        "measurementTips": [
-            "Waist: Measure around the narrowest part of your waist",
-            "Inseam: Measure from the top of the inner thigh to the bottom of the ankle"
-        ]
-    },
-    "dresses": {
-        "title": "Dresses Size Guide",
-        "description": "Measure bust, waist, and hip for the perfect fit",
-        "sizes": [
-            {
-                "size": "S",
-                "bust": "81-86",
-                "waist": "61-66",
-                "hip": "86-91"
-            },
-            {
-                "size": "M",
-                "bust": "86-91",
-                "waist": "66-71",
-                "hip": "91-96"
-            },
-            {
-                "size": "L",
-                "bust": "91-96",
-                "waist": "71-76",
-                "hip": "96-101"
-            },
-            {
-                "size": "XL",
-                "bust": "96-101",
-                "waist": "76-81",
-                "hip": "101-106"
-            }
-        ],
-        "measurementTips": [
-            "Bust: Measure around the fullest part of your bust",
-            "Waist: Measure around your natural waistline",
-            "Hip: Measure around the fullest part of your hips"
-        ]
-    },
     "frocks": {
         "title": "Frocks Size Guide",
         "description": "Measure bust, waist, and hip for the perfect fit",
@@ -164,7 +99,7 @@
             "Hip: Measure around the fullest part of your hips"
         ]
     },
-    "pt-t-shirts": {
+    "pttshirts": {
         "title": "P.T. T-shirts Size Guide",
         "description": "Measure chest width for the best fit",
         "sizes": [
@@ -199,7 +134,7 @@
             "Shoulder: Measure from shoulder point to shoulder point"
         ]
     },
-    "pt-shorts": {
+    "ptshorts": {
         "title": "P.T. Shorts Size Guide",
         "description": "Measure waist and length for the best fit",
         "sizes": [
@@ -229,7 +164,7 @@
             "Length: Measure from waist to desired length"
         ]
     },
-    "pt-track-pants": {
+    "pttrackpants": {
         "title": "P.T. Track Pants Size Guide",
         "description": "Measure waist and inseam for the best fit",
         "sizes": [

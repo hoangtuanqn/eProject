@@ -68,20 +68,23 @@ export default function Product() {
         setProduct(foundProduct);
         setSelectedSize(foundProduct.sizes[0]);
         setSelectedColor(foundProduct.colors[0]);
+        setQuantity(1);
         setSelectedImage(0);
+        setIsZoomed(false);
+        setShowSizeGuide(false);
+        setShowShareMenu(false);
+        setIsLoading(false);
         setActiveTab("details");
+        setShowImageModal(false);
+
+        const related = productsData
+            .filter((p) => p.category === foundProduct.category && p.id !== foundProduct.id)
+            .slice(0, 8);
+        setRelatedProducts(related);
     }, [slug, navigate]);
 
     useTitle(product?.name || "Product");
 
-    useEffect(() => {
-        if (product) {
-            const related = productsData
-                .filter((p) => p.category === product.category && p.id !== product.id)
-                .slice(0, 8);
-            setRelatedProducts(related);
-        }
-    }, [product]);
     useEffect(() => {
         if (product) {
             handleAddRecentProduct(product.id);
@@ -304,7 +307,9 @@ export default function Product() {
         if (!product || !product.category) return null;
 
         // Chuyển đổi category thành slug để match với sizeGuides
-        const categorySlug = product.category.toLowerCase().replace(/ /g, "-");
+        const categorySlug = product.category.toLowerCase().replace(/ |\.|-/g, "");
+        console.log(categorySlug);
+
         return sizeGuides[categorySlug];
     };
 
@@ -327,7 +332,13 @@ export default function Product() {
                     <ChevronRight size={16} />
                     <Link to="/categories">Categories</Link>
                     <ChevronRight size={16} />
-                    <Link to={`/category/${slugCategory}`}>{product.category}</Link>
+                    <Link
+                        className="breadcrumb__item line-clamp"
+                        style={{ "--line-clamp": 1 }}
+                        to={`/category/${slugCategory}`}
+                    >
+                        {product.category}
+                    </Link>
                     <ChevronRight size={16} />
                     <span className="line-clamp" style={{ "--line-clamp": 1 }}>
                         {product.name}
@@ -435,7 +446,7 @@ export default function Product() {
                                     <motion.div
                                         className="product__size-guide-content"
                                         initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: 500, opacity: 1 }}
+                                        animate={{ height: window.innerWidth <= 749 ? 550 : 500, opacity: 1 }}
                                         transition={{ duration: 0.5, ease: "easeInOut" }}
                                         exit={{ height: 0, opacity: 0 }}
                                     >

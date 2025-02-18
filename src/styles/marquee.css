@@ -81,3 +81,10 @@
         transform: translateX(-100%);
     }
 }
+@media screen and (max-width: 749px) {
+    .marquee {
+        margin-top: 50px;
+    }
+}
+
+

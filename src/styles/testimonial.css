@@ -126,6 +126,9 @@
 
 /* Mobile */
 @media (max-width: 749px) {
+    .testimonial {
+        margin-top: 50px;
+    }
     .testimonial .swiper-button-next,
     .testimonial .swiper-button-prev {
         display: none;

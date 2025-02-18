@@ -160,9 +160,6 @@
     display: block;
     border-radius: 12px;
     aspect-ratio: 0.75 / 1;
-    /* height: 350px; */
-
-    /* max-height: 450px; */
     -o-object-position: top;
     object-position: top;
     width: 100%;
@@ -687,6 +684,10 @@
 
 /* Mobile styles */
 @media screen and (max-width: 749px) {
+    .category__product-image {
+        aspect-ratio: 1 / 1;
+        object-position: center;
+    }
     .desktop-only {
         display: none;
     }
@@ -940,9 +941,7 @@
 /* Mobile styles */
 @media screen and (max-width: 749px) {
     .product-actions {
-        position: absolute;
         top: 10px; /* Đặt ở góc trên thay vì giữa */
-        right: 10px;
         transform: none;
         visibility: visible;
         opacity: 1;

@@ -13,7 +13,6 @@ import categories from "~/data/categories.json";
 
 export default function Cart() {
     const navigate = useNavigate();
-
     const [cartItems, setCartItems] = useState([]);
     const [notes, setNotes] = useState({});
     const [isCalculating, setIsCalculating] = useState(false);

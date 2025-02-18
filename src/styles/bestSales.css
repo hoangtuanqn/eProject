@@ -175,7 +175,7 @@
 /* Mobile */
 @media screen and (max-width: 749px) {
     .best-sales {
-        margin-top: 40px;
+        margin-top: 50px;
     }
 
     .best-sales__grid {

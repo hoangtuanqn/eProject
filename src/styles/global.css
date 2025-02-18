@@ -356,6 +356,14 @@ strong {
 
 /* Mobile responsive */
 @media screen and (max-width: 749px) {
+    .cart-btn {
+        width: 30px;
+        height: 30px;
+    }
+    .badge__sale {
+        padding: 4px 6px;
+        font-size: 1rem;
+    }
     .carousel .control-arrow {
         width: 30px;
         height: 30px;

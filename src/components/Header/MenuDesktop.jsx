@@ -81,17 +81,17 @@ export default function MenuDesktop() {
                                         <h2 className="submenu-title">Sport Uniforms</h2>
                                         <ul>
                                             <li>
-                                                <Link to="/category/pt-t-shirts" className="header__submenu-link">
+                                                <Link to="/category/pttshirts" className="header__submenu-link">
                                                     P.T T-shirts
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link to="/category/pt-shorts" className="header__submenu-link">
+                                                <Link to="/category/ptshorts" className="header__submenu-link">
                                                     P.T. Shorts
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link to="/category/pt-track-pants" className="header__submenu-link">
+                                                <Link to="/category/pttrackpants" className="header__submenu-link">
                                                     P.T. track pants
                                                 </Link>
                                             </li>

@@ -108,8 +108,8 @@
     object-fit: contain;
     background: #f9f9f9;
     border-radius: 8px;
-    padding: 8px;
-    flex-shrink: 0;
+    /* padding: 8px; */
+    border: 1px solid #f0f0f0;
 }
 
 .cart-item__info {
