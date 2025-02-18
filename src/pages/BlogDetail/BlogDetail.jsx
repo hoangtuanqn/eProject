@@ -34,16 +34,22 @@ export default function BlogDetail({ article }) {
     };
 
     const handleShare = () => {
-        navigator
-            .share({
-                title: article.name,
-                text: `Check out this article: ${article.name}`,
-                url: window.location.href,
-            })
-            .catch(() => {
-                navigator.clipboard.writeText(window.location.href);
-                toast.success("Link copied to clipboard!");
-            });
+        if (navigator.share) {
+            navigator
+                .share({
+                    title: article.name,
+                    text: `Check out this article: ${article.name}`,
+                    url: window.location.href,
+                })
+                .catch((error) => {
+                    console.error("Error sharing:", error);
+                    navigator.clipboard.writeText(window.location.href);
+                    toast.success("Link copied to clipboard!");
+                });
+        } else {
+            navigator.clipboard.writeText(window.location.href);
+            toast.success("Link copied to clipboard!");
+        }
     };
 
     return (
@@ -109,7 +115,7 @@ export default function BlogDetail({ article }) {
                                     <button onClick={() => handleSocialShare("pinterest")}>
                                         <PinterestIcon sx={{ fontSize: 20 }} /> Pinterest
                                     </button>
-                                    <button onClick={handleShare}>
+                                    <button onClick={handleShare} className="hiddenMobile">
                                         <MoreHorizontal size={20} /> More
                                     </button>
                                 </div>

@@ -9,13 +9,29 @@ import categories from "~/data/categories.json";
 const CouponPage = () => {
     const [copiedCode, setCopiedCode] = useState(null);
 
-    const copyToClipboard = (code) => {
+    const copyToClipboard = async (code) => {
         try {
-            navigator.clipboard.writeText(code);
+            // Try the modern Clipboard API first
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(code);
+            } else {
+                // Fallback for older browsers and mobile
+                const textArea = document.createElement("textarea");
+                textArea.value = code;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                document.execCommand("copy");
+                textArea.remove();
+            }
             setCopiedCode(code);
             toast.success("Copied to clipboard");
             setTimeout(() => setCopiedCode(null), 2000);
         } catch (error) {
+            console.error("Copy failed:", error);
             toast.error("Failed to copy to clipboard");
         }
     };

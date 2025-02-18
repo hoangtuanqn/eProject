@@ -54,32 +54,9 @@ const BestSales = () => {
                                                 className="best-sale-item__thumb"
                                             />
                                         </Link>
-                                        <div className="product-actions" onClick={(e) => e.preventDefault()}>
-                                            {/* <button
-                                                    className={`cart-btn ${cartLoadingStates[id] ? "loading" : ""} ${
-                                                        isProductInCart(id) ? "in-cart" : ""
-                                                    }`}
-                                                    title={isProductInCart(id) ? "Remove from cart" : "Add to cart"}
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleCartAction(product);
-                                                    }}
-                                                    disabled={cartLoadingStates[id]}
-                                                >
-                                                    {cartLoadingStates[id] ? (
-                                                        <img
-                                                            src="/assets/icon/loading.gif"
-                                                            alt="Loading..."
-                                                            className="loading-spinner"
-                                                        />
-                                                    ) : (
-                                                        <ShoppingCartIcon size={20} />
-                                                    )}
-                                                </button> */}
+                                        <div className="product-card__actions">
                                             <button
-                                                className={`cart-btn ${wishlistLoadingStates[id] ? "loading" : ""} ${
-                                                    isProductInWishlist(id) ? "in-cart" : ""
-                                                }`}
+                                                className="action-btn"
                                                 onClick={() =>
                                                     handleWishlistAction(productData.find((p) => p.id === id))
                                                 }

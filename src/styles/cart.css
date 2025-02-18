@@ -440,9 +440,8 @@
     }
 
     .cart-page__item-actions {
-        -webkit-transform: translateX(calc(-100% + 32px + 15px));
-        -ms-transform: translateX(calc(-100% + 32px + 15px));
-        transform: translateX(calc(-100% + 32px + 15px));
+        margin-left: -100px;
+        transform: translateX(calc(-15px));
         gap: 12px;
     }
 

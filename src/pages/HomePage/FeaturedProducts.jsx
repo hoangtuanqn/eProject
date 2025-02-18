@@ -44,20 +44,10 @@ const FeaturedProducts = () => {
                                                 <img src={thumbnail} alt={name} className="category__product-image" />
                                             </Link>
 
-                                            <div className="product-actions" onClick={(e) => e.preventDefault()}>
+                                            <div className="product-card__actions">
                                                 <button
-                                                    className={`cart-btn ${
-                                                        wishlistLoadingStates[id] ? "loading" : ""
-                                                    } ${isProductInWishlist(id) ? "in-cart" : ""}`}
-                                                    title={
-                                                        isProductInWishlist(id)
-                                                            ? "Remove from wishlist"
-                                                            : "Add to wishlist"
-                                                    }
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleWishlistAction(product);
-                                                    }}
+                                                    className="action-btn"
+                                                    onClick={() => handleWishlistAction(product)}
                                                     disabled={wishlistLoadingStates[id]}
                                                 >
                                                     {wishlistLoadingStates[id] ? (

@@ -363,6 +363,12 @@ export default function Product() {
                                 showStatus={false}
                                 selectedItem={selectedImage}
                                 onChange={(index) => setSelectedImage(index)}
+                                swipeable={true}
+                                preventMovementUntilSwipeScrollTolerance={true}
+                                swipeScrollTolerance={50}
+                                axis="horizontal"
+                                useKeyboardArrows={true}
+                                stopOnHover={true}
                             >
                                 {product.images.map((image, index) => (
                                     <div
@@ -687,8 +693,8 @@ export default function Product() {
                                         <button onClick={() => handleSocialShare("pinterest")}>
                                             <PinterestIcon sx={{ fontSize: 20 }} /> Pinterest
                                         </button>
-                                        <button onClick={handleShare}>
-                                            <MoreHorizontal size={20} /> More
+                                        <button onClick={handleShare} className="hiddenMobile">
+                                            <MoreHorizontal size={20} /> Share More
                                         </button>
                                     </div>
                                 )}
@@ -786,12 +792,6 @@ export default function Product() {
                                 onChange={(index) => setSelectedImage(index)}
                                 showStatus={false}
                                 thumbWidth={80}
-                                swipeable={true}
-                                preventMovementUntilSwipeScrollTolerance={true}
-                                swipeScrollTolerance={50}
-                                axis="horizontal"
-                                useKeyboardArrows={true}
-                                stopOnHover={true}
                                 className="product__image-modal-carousel"
                             >
                                 {product.images.map((image, index) => (

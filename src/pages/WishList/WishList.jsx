@@ -103,9 +103,16 @@ export default function WishList() {
                                                     ({product.rating.toFixed(1)})
                                                 </span>
                                             </div>
-                                            <h3 className="category__product-name">{product.name}</h3>
+                                            <h3>
+                                                <Link
+                                                    to={`/product/${product.slug}`}
+                                                    className="category__product-name"
+                                                >
+                                                    {product.name}
+                                                </Link>
+                                            </h3>
                                             <p className="category__product-price">
-                                                ${Math.round(product.price)}
+                                                ${product.price}
                                                 {product.sale > 0 && (
                                                     <span className="category__product-price--old">
                                                         ${calculateOriginalPrice(product.price, product.sale)}

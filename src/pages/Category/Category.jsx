@@ -1174,16 +1174,9 @@ export default function Category({ nameCategory }) {
                                                                         "category__product-image--opacity",
                                                                 )}
                                                             />
-                                                            <div className="product-actions">
+                                                            <div className="product-card__actions">
                                                                 <button
-                                                                    className={`cart-btn ${
-                                                                        wishlistLoadingStates[item.id] ? "loading" : ""
-                                                                    } ${isProductInWishlist(item.id) ? "in-cart" : ""}`}
-                                                                    title={
-                                                                        isProductInWishlist(item.id)
-                                                                            ? "Remove from wishlist"
-                                                                            : "Add to wishlist"
-                                                                    }
+                                                                    className="action-btn"
                                                                     onClick={(e) => {
                                                                         e.preventDefault();
                                                                         handleWishlistAction(item);
@@ -1199,9 +1192,9 @@ export default function Category({ nameCategory }) {
                                                                             height={18}
                                                                         />
                                                                     ) : isProductInWishlist(item.id) ? (
-                                                                        <HeartOff size={18} />
+                                                                        <HeartOff size={20} />
                                                                     ) : (
-                                                                        <Heart size={18} />
+                                                                        <Heart size={20} />
                                                                     )}
                                                                 </button>
                                                             </div>
