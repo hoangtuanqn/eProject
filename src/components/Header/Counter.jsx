@@ -44,7 +44,9 @@ export default function Counter() {
         };
 
         // Xóa Comment là hoạt động lại
-        // handleVisit(); // Gọi hàm xử lý khi trang load
+        if (process.env.REACT_APP_PRODUCTION === "true") {
+            handleVisit(); // Gọi hàm xử lý khi trang load
+        }
     }, []);
 
     // Hàm cập nhật số người dùng mới nhất khi click vào .header__counter

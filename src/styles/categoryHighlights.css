@@ -18,6 +18,10 @@
     gap: 30px;
     padding: 0 50px;
 }
+.category-highlights__list a {
+    display: block;
+    width: 100%;
+}
 
 .category-highlights__item {
     position: relative;
@@ -32,11 +36,7 @@
     transition: var(--transition);
     cursor: pointer;
 }
-.category-highlights__item {
-    aspect-ratio: 2 / 1;
-}
 .category-highlights__background {
-
     position: absolute;
     inset: 0;
     background-size: cover;
@@ -93,6 +93,7 @@
 @media screen and (max-width: 749px) {
     /* Category Highlights */
     .category-highlights__item {
+        aspect-ratio: unset;
         height: 224px;
     }
     .category-highlights {

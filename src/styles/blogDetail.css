@@ -56,6 +56,7 @@
 }
 
 .blog-detail__content p {
+    text-align: justify;
     margin-bottom: 20px;
 }
 
@@ -101,11 +102,11 @@
     }
 
     .blog-detail__title {
-        font-size: 3rem;
+        font-size: 2.4rem;
     }
 
     .blog-detail__meta {
-        flex-direction: column;
+        /* flex-direction: column; */
         gap: 15px;
     }
 
