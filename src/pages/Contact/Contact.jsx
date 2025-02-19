@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Formik, Form, Field } from "formik";
+import { useLocation } from "react-router-dom";
 import * as Yup from "yup";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, ChevronRight } from "lucide-react";
@@ -13,6 +14,7 @@ import { Star } from "@mui/icons-material";
 import REQUEST_TYPES from "~/data/requestTypeContact.json";
 
 export default function Contact() {
+    const location = useLocation();
     const [selectedStore, setSelectedStore] = useState(stores[0]);
     const [loading, setLoading] = useState(false);
 
@@ -82,7 +84,7 @@ export default function Contact() {
     });
 
     const initialValues = {
-        requestType: REQUEST_TYPES.GENERAL,
+        requestType: REQUEST_TYPES[location.state?.type] || REQUEST_TYPES.GENERAL,
         store: stores[0].name,
         name: "",
         email: "",

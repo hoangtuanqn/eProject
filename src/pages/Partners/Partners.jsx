@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import "~/styles/partners.css";
 
@@ -21,6 +21,7 @@ export default function Partners() {
     const ctaRef = useRef(null);
     const isGridInView = useInView(gridRef, { once: true, margin: "-100px" });
     const isCtaInView = useInView(ctaRef, { once: true, margin: "-100px" });
+    const navigate = useNavigate();
 
     return (
         <section className="partners">
@@ -135,7 +136,7 @@ export default function Partners() {
                     >
                         Join our network of industry-leading companies and grow your business with us.
                     </motion.p>
-                    <Link to="/pages/contact">
+                    <Link to="/pages/contact" state={{ type: "PARTNERSHIP" }}>
                         <motion.button
                             className="btn partners__cta-button"
                             whileHover={{

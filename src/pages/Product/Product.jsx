@@ -33,6 +33,7 @@ import {
     ExternalLink,
     HeartOff,
     X,
+    Star,
 } from "lucide-react";
 
 import "swiper/css";
@@ -237,6 +238,23 @@ export default function Product() {
                                         }}
                                     />
                                     <p>{product.soldQuantity.toLocaleString()} verified ratings</p>
+                                    <motion.button
+                                        className="btn product__review-btn"
+                                        onClick={() =>
+                                            navigate("/pages/contact", {
+                                                state: { type: "FEEDBACK" },
+                                            })
+                                        }
+                                        whileHover={{
+                                            scale: 1.05,
+                                            backgroundColor: "#000",
+                                            boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
+                                        }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        <Star size={18} />
+                                        Write a Review
+                                    </motion.button>
                                 </div>
                                 <div className="product__rating-bars">
                                     {[5, 4, 3, 2, 1].map((stars) => (

@@ -5,18 +5,20 @@ import jobListings from "~/data/jobListings.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Clock, Briefcase, Plus, Minus, FileUser } from "lucide-react";
 import "~/styles/careers.css";
+import { useNavigate } from "react-router-dom";
 
-const handleApplyNow = () => {
-    // toast.success("The function is being developed by Team 02 - FPT APTECH");
-    toast("Coming soon", {
-        icon: <FileUser />,
-    });
-};
 export default function CareersPage() {
+    const navigate = useNavigate();
     const [expandedJob, setExpandedJob] = useState(null);
 
     const toggleJob = (id) => {
         setExpandedJob(expandedJob === id ? null : id);
+    };
+
+    const handleApplyNow = () => {
+        navigate("/pages/contact", {
+            state: { type: "JOB" },
+        });
     };
 
     return (

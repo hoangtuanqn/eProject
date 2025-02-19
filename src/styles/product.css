@@ -29,7 +29,35 @@
 .product__breadcrumb a:hover {
     color: var(--color-grey-7);
 }
+.product__review-btn {
+    margin: 0 auto;
+    margin-top: 1.5rem;
+    padding: 1.2rem 2.4rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+}
 
+.product__review-btn svg {
+    stroke-width: 2px;
+}
+
+.product__review-btn:hover {
+    background-color: #000;
+    transform: translateY(-2px);
+}
+
+.product__review-btn:active {
+    transform: translateY(0);
+}
 .product__grid {
     display: -ms-grid;
     display: grid;
