@@ -173,17 +173,29 @@ export default function MenuDesktop() {
                                 {/* Info right */}
                                 <div className="header__submenu-right">
                                     <figure>
-                                        <a href="#!">
-                                            <img src="/assets/imgs/bag-1.jpg" alt="" className="submenu__img" />
-                                        </a>
+                                        <Link to="/category/all-product" className="submenu__img-link">
+                                            <img src="/assets/imgs/ads-1.webp" alt="" className="submenu__img" />
+                                        </Link>
 
                                         <figcaption className="submenu__desc">Featured</figcaption>
                                     </figure>
                                     <figure>
-                                        <a href="#!">
-                                            <img src="/assets/imgs/bag-2.jpg" alt="" className="submenu__img" />
-                                        </a>
+                                        <Link to="/category/all-product" className="submenu__img-link">
+                                            <img src="/assets/imgs/ads-2.webp" alt="" className="submenu__img" />
+                                        </Link>
                                         <figcaption className="submenu__desc">New Arrivals</figcaption>
+                                    </figure>{" "}
+                                    <figure>
+                                        <Link to="/category/all-product" className="submenu__img-link">
+                                            <img src="/assets/imgs/ads-3.webp" alt="" className="submenu__img" />
+                                        </Link>
+                                        <figcaption className="submenu__desc">Special Offers</figcaption>
+                                    </figure>{" "}
+                                    <figure>
+                                        <Link to="/category/all-product" className="submenu__img-link">
+                                            <img src="/assets/imgs/ads-4.webp" alt="" className="submenu__img" />
+                                        </Link>
+                                        <figcaption className="submenu__desc">All Products</figcaption>
                                     </figure>
                                 </div>
                             </div>

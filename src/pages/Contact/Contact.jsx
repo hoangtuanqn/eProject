@@ -120,7 +120,7 @@ export default function Contact() {
                         ...baseData,
                         resumeFileName: values.resume?.name || "",
                     };
-                    console.log("Job Application Data:", jobData);
+                    // console.log("Job Application Data:", jobData);
                     await axios.post(endpoint, jobData);
                     break;
 
@@ -131,7 +131,7 @@ export default function Contact() {
                         rating: values.rating,
                         feedbackDocsFileName: values.feedbackDocs?.name || "",
                     };
-                    console.log("Feedback Data:", feedbackData);
+                    // console.log("Feedback Data:", feedbackData);
                     await axios.post(endpoint, feedbackData);
                     break;
 
@@ -151,7 +151,7 @@ export default function Contact() {
                         }
                     }
 
-                    console.log("Contact/Partnership Data:", Object.fromEntries(formData));
+                    // console.log("Contact/Partnership Data:", Object.fromEntries(formData));
                     await axios.post(endpoint, formData, {
                         headers: {
                             "Content-Type": "multipart/form-data",
@@ -159,8 +159,19 @@ export default function Contact() {
                     });
                     break;
             }
-
-            toast.success("Form submitted successfully!");
+            if (values.requestType !== REQUEST_TYPES.FEEDBACK) {
+                toast.success(
+                    `Your request has been successfully submitted to ${selectedStore.name}! We will get back to you as soon as possible.`,
+                );
+            } else {
+                if (values.rating > 2) {
+                    toast.success("Thank you for taking the time to rate our product.");
+                } else {
+                    toast.success(
+                        `We are sorry for your experience. Our support team at ${selectedStore.name} is available to assist you. Please reach out to us for further help.`,
+                    );
+                }
+            }
             resetForm();
         } catch (error) {
             console.error("Submit error:", error);
@@ -174,7 +185,9 @@ export default function Contact() {
             } else {
                 console.error("Error message:", error.message);
             }
-            toast.error(error.response?.data?.message || "Error submitting form. Please try again");
+            toast.error(
+                "An error occurred while submitting your request. Please check your information and try again.",
+            );
         } finally {
             setLoading(false);
             setSubmitting(false);

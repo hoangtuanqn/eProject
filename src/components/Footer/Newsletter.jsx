@@ -49,14 +49,14 @@ export default function Newsletter() {
                 const emailExists = await checkEmailExists(email);
 
                 if (emailExists) {
-                    setMessage({ text: "Email already subscribed", type: "error" });
+                    setMessage({ text: "This email is already subscribed.", type: "error" });
                     emailInputRef.current.classList.add("error");
                     emailInputRef.current.focus();
                 } else {
                     const success = await subscribeEmail(email);
 
                     if (success) {
-                        setMessage({ text: "Subscription successful!", type: "success" });
+                        setMessage({ text: "You have successfully subscribed to our newsletter!", type: "success" });
                         setEmail("");
                         emailInputRef.current.classList.remove("error");
                     } else {
