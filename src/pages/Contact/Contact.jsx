@@ -136,7 +136,7 @@ export default function Contact() {
                 case REQUEST_TYPES.PARTNERSHIP:
                 case REQUEST_TYPES.GENERAL:
                 default:
-                    endpoint = "https://67a3bb0f31d0d3a6b78479f5.mockapi.io/api/v1/contacts";
+                    endpoint = "https://679c72d387618946e65238ce.mockapi.io/api/v1/contacts";
                     // Với contact và partnership, sử dụng FormData để gửi files
                     Object.entries(baseData).forEach(([key, value]) => {
                         formData.append(key, value);

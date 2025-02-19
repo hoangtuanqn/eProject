@@ -16,7 +16,7 @@ export default function News() {
                 <div className="news-grid">
                     {newsData.reverse().map((article, index) => (
                         <motion.article
-                            key={article.slug}
+                            key={article.id}
                             className="news-card"
                             layout
                             initial={{ opacity: 0, scale: 0.8 }}
