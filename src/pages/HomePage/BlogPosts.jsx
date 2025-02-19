@@ -25,7 +25,12 @@ export default function BlogPosts() {
                                 <article className="blog-posts__item" key={item.id}>
                                     <figure>
                                         <Link to={`/blog/news/${item.slug}`}>
-                                            <img src={item.thumbnail} alt={item.name} className="blog-posts__image" />
+                                            <img
+                                                src={item.thumbnail}
+                                                alt={item.name}
+                                                className="blog-posts__image"
+                                                loading="lazy"
+                                            />
                                         </Link>
                                     </figure>
                                     <div className="blog-posts__content">

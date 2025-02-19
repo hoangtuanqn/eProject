@@ -51,6 +51,7 @@ const BestSales = () => {
                                                 src={thumbnail}
                                                 alt={name}
                                                 width="100%"
+                                                loading="lazy"
                                                 className="best-sale-item__thumb"
                                             />
                                         </Link>

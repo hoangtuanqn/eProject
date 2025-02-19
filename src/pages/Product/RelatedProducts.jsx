@@ -19,6 +19,7 @@ const RelatedProducts = memo(({ relatedProducts }) => {
                 spaceBetween={20}
                 slidesPerView={4}
                 navigation
+                pagination={{ clickable: true }}
                 breakpoints={{
                     320: { slidesPerView: 1 },
                     640: { slidesPerView: 2 },

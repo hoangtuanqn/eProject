@@ -39,6 +39,7 @@ export default function Testimonial() {
                                     <img
                                         src={testimonial.avatar}
                                         alt={testimonial.name}
+                                        loading="lazy"
                                         className="testimonial__avatar"
                                     />
                                     <p className="testimonial__name">{testimonial.name}</p>

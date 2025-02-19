@@ -225,7 +225,7 @@ export default function Category({ nameCategory }) {
     const filteredProductsList = useMemo(() => {
         return productData.filter((product) => {
             // Thêm điều kiện search
-            const searchCondition = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+            const searchCondition = product.name.toLowerCase().includes(searchTerm.trim().toLowerCase());
 
             // Lọc sản phẩm hết hàng
             if (product.quantity <= 0) return false;

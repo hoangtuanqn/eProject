@@ -19,8 +19,6 @@
     margin-top: 30px;
     display: -ms-grid;
     display: grid;
-    /* grid-template-columns: repeat(auto-fit, minmax(447px, 1fr)); */
-    -ms-grid-columns: 1fr 30px 1fr 30px 1fr;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
 }
@@ -101,14 +99,13 @@
     .blog-posts {
         margin-top: 50px;
     }
-}
-@media (max-width: 768px) {
     .blog-posts__grid {
         -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
     }
 }
-@media screen and (min-width: 768px) and (max-width: 991px) {
+
+@media screen and (min-width: 750px) and (max-width: 1024px) {
     .blog-posts__grid {
         -ms-grid-columns: repeat(2, 1fr);
         grid-template-columns: repeat(2, 1fr);

@@ -1,11 +1,29 @@
 import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { Mail, Phone, Bath, Scissors, Stethoscope, LogIn, User, Heart, ShoppingCart, MapPin } from "lucide-react";
+import {
+    Mail,
+    Phone,
+    FileText,
+    Scissors,
+    LogIn,
+    User,
+    Heart,
+    ShoppingCart,
+    MapPin,
+    HelpCircle,
+    BriefcaseBusiness,
+    Map,
+    Facebook,
+    Instagram,
+    Twitter,
+    Linkedin,
+} from "lucide-react";
 import "~/styles/footer.css";
 import Newsletter from "./Newsletter";
 import { initTicker } from "./ticker";
 import { initScrollToTop } from "~/utils/scrollToTop";
 import stores from "~/data/stores.json";
+import { Link } from "react-router-dom";
 export default function Footer() {
     useEffect(() => {
         initTicker();
@@ -24,9 +42,9 @@ export default function Footer() {
             <footer className="footer">
                 <div className="container">
                     <div className="footer__inner">
-                        {/* Contact Info */}
+                        {/* Company Information */}
                         <div className="footer__column">
-                            <h3 className="footer__heading">Contact Info</h3>
+                            <h3 className="footer__heading">Company Information</h3>
                             {stores.map((store, index) => (
                                 <address className="footer__address" key={store.id}>
                                     <MapPin size={18} style={{ marginRight: "8px" }} />
@@ -51,55 +69,56 @@ export default function Footer() {
                             </p>
                         </div>
 
-                        {/* Our Store */}
+                        {/* Quick Links */}
                         <div className="footer__column">
-                            <h3 className="footer__heading">Our Store</h3>
+                            <h3 className="footer__heading">Quick Links</h3>
                             <ul className="footer__list">
                                 <li>
-                                    <a href="#!" className="footer__link">
-                                        <Scissors size={18} /> Full Grooming
-                                    </a>
+                                    <Link to="/pages/policies" className="footer__link">
+                                        <FileText size={20} strokeWidth={1.5} />
+                                        <span>Policies</span>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#!" className="footer__link">
-                                        <Bath size={18} /> Bath and Dry
-                                    </a>
+                                    <Link to="/pages/faq" className="footer__link">
+                                        <HelpCircle size={18} /> FAQ
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#!" className="footer__link">
-                                        <Scissors size={18} /> Styling
-                                    </a>
+                                    <Link to="/pages/careers" className="footer__link">
+                                        <BriefcaseBusiness size={18} /> Careers
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a href="#!" className="footer__link">
-                                        <Stethoscope size={18} /> Medical Bath
-                                    </a>
+                                    <Link to="/pages/sitemap" className="footer__link">
+                                        <Map size={18} /> Sitemap
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
 
-                        {/* Useful Links */}
+                        {/*Social Media */}
                         <div className="footer__column">
-                            <h3 className="footer__heading">Useful Links</h3>
-                            <ul className="footer__list">
+                            <h3 className="footer__heading">Social Media</h3>
+                            <ul className="footer__list footer__social-list">
                                 <li>
-                                    <a href="#!" className="footer__link">
-                                        <LogIn size={18} /> Login
+                                    <a href="#!" className="footer__social-link facebook">
+                                        <Facebook size={24} />
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#!" className="footer__link">
-                                        <User size={18} /> My account
+                                    <a href="#!" className="footer__social-link instagram">
+                                        <Instagram size={24} />
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#!" className="footer__link">
-                                        <Heart size={18} /> Wishlist
+                                    <a href="#!" className="footer__social-link twitter">
+                                        <Twitter size={24} />
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#!" className="footer__link">
-                                        <ShoppingCart size={18} /> Checkout
+                                    <a href="#!" className="footer__social-link linkedin">
+                                        <Linkedin size={24} />
                                     </a>
                                 </li>
                             </ul>

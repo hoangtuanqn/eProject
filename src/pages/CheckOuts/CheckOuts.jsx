@@ -27,7 +27,7 @@ import toast from "react-hot-toast";
 import { handlePaypalCheckout } from "./handlePaypal";
 import handleGooglePayCheckout from "./handleGooglePay";
 import { Box, CircularProgress } from "@mui/material";
-
+import { isValidEmail } from "~/utils/helpers";
 const CheckOut = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -49,20 +49,23 @@ const CheckOut = () => {
             .required("Last name is required")
             .min(2, "Last name must be at least 2 characters")
             .max(50, "Last name must be less than 50 characters"),
-        email: Yup.string().required("Email is required").email("Invalid email format"),
+        email: Yup.string()
+            .required("Email is required")
+            .test("is-valid-email", "Invalid email format", (value) => isValidEmail(value)),
         phone: Yup.string()
             .required("Phone number is required")
-            .matches(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/, "Invalid phone number format"),
-        address: Yup.string().required("Address is required").min(5, "Address must be at least 5 characters"),
+            .matches(/^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/, "Invalid phone number format"),
+        address: Yup.string()
+            .required("Street address is required")
+            .min(5, "Street address must be at least 5 characters"),
+        apartment: Yup.string().optional().min(2, "Apartment must be at least 2 characters if provided"),
         city: Yup.string().required("City is required"),
-        state: Yup.string().required("State is required"),
+        state: Yup.string().required("State/Province is required"),
         postalCode: Yup.string()
             .required("Postal code is required")
-            .matches(/^[0-9]{5,}(?:-[0-9]{4})?$/, "Invalid postal code format"),
+            .matches(/^\d{5,6}(-\d{4})?$/, "Postal code must be in format: 123456 or 12345-1234"),
         country: Yup.string().required("Country is required"),
-        // paymentMethod: Yup.string()
-        //     .required("Payment method is required")
-        //     .oneOf(["cod", "paypal", "momo"], "Invalid payment method"),
+        note: Yup.string().optional().max(300, "Note must not exceed 300 characters"),
     });
 
     // Formik hook

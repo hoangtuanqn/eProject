@@ -27,7 +27,7 @@ const Gallery = () => {
                     }}
                 >
                     <AnimatePresence>
-                        {schoolEvents.map((item) => (
+                        {schoolEvents.map((item, index) => (
                             <motion.div
                                 key={item.id}
                                 className="gallery__item"
@@ -38,7 +38,7 @@ const Gallery = () => {
                                 whileHover={{ scale: 1.05 }}
                                 onClick={() => setSelectedImage(item)}
                             >
-                                <img src={item.src || "/placeholder.svg"} alt={item.category} />
+                                <img src={item.src} alt={item.category} loading={index > 30 ? "lazy" : "eager"} />
                                 <div className="gallery__item-overlay">
                                     <Zoom size={24} />
                                 </div>

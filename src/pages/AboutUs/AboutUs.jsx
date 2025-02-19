@@ -92,7 +92,7 @@ export default function AboutUs() {
                                         transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
                                         whileHover={{ scale: 1.05 }}
                                     >
-                                        <Check className="about-us__feature-icon" />
+                                        <Check className="about-us__feature-icon" size={20} />
                                         <span>{feature.text}</span>
                                     </motion.div>
                                 ))}

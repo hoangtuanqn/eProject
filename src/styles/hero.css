@@ -81,17 +81,18 @@
 }
 
 .hero .slick-prev {
-    left: 100px;
+    left: 20px;
 }
 .hero .slick-next {
-    right: 100px;
+    right: 20px;
 }
 
 .hero .slick-prev:before,
 .hero .slick-next:before {
     font-size: 50px;
-    color: var(--color-grey-7);
+    color: rgba(18, 18, 18, 0.457);
 }
+
 /* Responsive */
 /* Mobile */
 @media screen and (max-width: 749px) {
@@ -145,6 +146,10 @@
     }
     .hero__desc {
         font-size: 1.8rem;
+    }
+    .hero .slick-prev:before,
+    .hero .slick-next:before {
+        font-size: 40px;
     }
 }
 

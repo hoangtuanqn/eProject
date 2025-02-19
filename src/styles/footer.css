@@ -10,9 +10,8 @@
 .footer__inner {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 1fr 30px 1fr 30px 1fr 30px 1fr;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    grid-template-columns: 1.5fr 0.7fr repeat(2, 1fr);
+    gap: 50px 30px;
     padding-bottom: 50px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -26,6 +25,8 @@
 }
 
 .footer__address {
+    display: flex;
+    align-items: center;
     font-style: normal;
     color: rgba(255, 255, 255, 0.75);
     font-size: 1.5rem;
@@ -336,4 +337,45 @@
 
 .footer__message.error {
     color: #f44336;
+}
+
+/* Social Media Icons */
+.footer__social-list {
+    display: flex;
+    gap: 15px;
+    flex-direction: row !important;
+    margin-top: 10px;
+}
+
+.footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.footer__social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.footer__social-link.facebook:hover {
+    background-color: #1877f2;
+}
+
+.footer__social-link.instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.footer__social-link.twitter:hover {
+    background-color: #1da1f2;
+}
+
+.footer__social-link.linkedin:hover {
+    background-color: #0077b5;
 }

@@ -33,7 +33,7 @@ export default function InvoiceTracking() {
             return {
                 ...item,
                 name: productDetails?.name || "Unknown Product",
-                thumbnail: productDetails?.thumbnail || "/placeholder.svg",
+                thumbnail: productDetails?.thumbnail,
                 price: productDetails?.price || 0,
                 category: productDetails?.category,
                 slug: productDetails?.slug,
@@ -79,7 +79,7 @@ export default function InvoiceTracking() {
         setIsLoading(true);
         try {
             const response = await axios.get("https://67a3bb0f31d0d3a6b78479f5.mockapi.io/api/v1/order");
-            const order = response.data.find((order) => order.orderId === searchOrderId);
+            const order = response.data.find((order) => order.orderId === searchOrderId.trim());
 
             if (!order) {
                 toast.error("Order not found");
@@ -144,7 +144,7 @@ export default function InvoiceTracking() {
 
         return `${formatDate(minDate)} - ${formatDate(maxDate)}`;
     };
-    
+
     return (
         <section className="invoice-tracking">
             <div className="container">

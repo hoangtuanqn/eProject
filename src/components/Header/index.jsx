@@ -67,12 +67,17 @@ export default function Header() {
 
     const handleSearch = (e) => {
         e.preventDefault();
+
         if (!valueSearch) {
             toast.error("Please enter a search term");
             return;
         }
+        if (valueSearch.trim().length > 255) {
+            toast.error("Search term must be less than 255 characters");
+            return;
+        }
         navigate("/category/all-product", {
-            state: { searchTerm: valueSearch },
+            state: { searchTerm: valueSearch.trim() },
         });
         setValueSearch("");
         closeSearchWithAnimation();
@@ -186,6 +191,7 @@ export default function Header() {
                                             value={valueSearch}
                                             onChange={(e) => setValueSearch(e.target.value)}
                                             placeholder="Search our store"
+                                            maxLength={255}
                                         />
                                         <button type="submit" className="search__button">
                                             <svg

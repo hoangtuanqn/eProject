@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Heart, Search, ShoppingCart } from "lucide-react";
+import { useGlobalState } from "~/context/GlobalContext";
+import Counter from "./Counter";
 
 const MenuMobile = ({ toggleSubmenu }) => {
     const { pathname } = useLocation();
+    const { cartQuantity, wishlistQuantity } = useGlobalState();
 
     const handleSubmenuClick = (e) => {
         const menu = document.querySelector(".mobile-menu");
@@ -23,7 +27,12 @@ const MenuMobile = ({ toggleSubmenu }) => {
 
             <div className="mobile-menu__content">
                 <div className="mobile-menu__header">
-                    <h2 className="mobile-menu__title">Maverick Dresses</h2>
+                    <h2>
+                        <Link to="/" className="mobile-menu__title">
+                            Maverick Dresses
+                        </Link>
+                    </h2>
+
                     {/* Button close Menu */}
                     <button className="mobile-menu__close" aria-label="Close menu">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -400,18 +409,35 @@ const MenuMobile = ({ toggleSubmenu }) => {
                         </li>
                     </ul>
                 </nav>
-                <a href="#!" className="mobile-menu__login">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M16.667 17.5v-1.667a3.333 3.333 0 00-3.334-3.333H6.667a3.333 3.333 0 00-3.334 3.333V17.5M10 9.167A3.333 3.333 0 1010 2.5a3.333 3.333 0 000 6.667z"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                    Log in
-                </a>
+                {/* Add icons before login link */}
+                <div className="mobile-menu__bottom">
+                    <div className="mobile-menu__icons">
+                        <Link to="/pages/search" className="mobile-menu__icon-btn" aria-label="Search">
+                            <Search size={20} />
+                        </Link>
+                        <Link to="/pages/wishlist" className="mobile-menu__icon-btn" aria-label="Wishlist">
+                            <Heart size={20} />
+                            <span className="cart-badge">{wishlistQuantity}</span>
+                        </Link>
+                        <Link to="/cart" className="mobile-menu__icon-btn" aria-label="Cart">
+                            <ShoppingCart size={20} />
+                            <span className="cart-badge">{cartQuantity}</span>
+                        </Link>
+                    </div>
+                    {/* <a href="#!" className="mobile-menu__visited">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16.667 17.5v-1.667a3.333 3.333 0 00-3.334-3.333H6.667a3.333 3.333 0 00-3.334 3.333V17.5M10 9.167A3.333 3.333 0 1010 2.5a3.333 3.333 0 000 6.667z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                        Log in
+                    </a> */}
+                    <Counter />
+                </div>
             </div>
         </div>
     );

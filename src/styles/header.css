@@ -5,8 +5,7 @@
     left: 0;
     background-color: #fff;
     z-index: 3;
-    min-height: 66px;
-    padding: 5px 0;
+
     -webkit-box-shadow: 0 1px 5px rgba(18, 18, 18, 0.05);
     box-shadow: 0 1px 5px rgba(18, 18, 18, 0.05);
 }
@@ -32,6 +31,10 @@
 }
 .header__nav > li:not(:has(.header__submenu__big)) {
     position: relative;
+}
+.header__inner {
+    min-height: 66px;
+    padding: 5px 0;
 }
 .header__icon-arow {
     -webkit-transform: translateY(1px);
@@ -442,10 +445,11 @@
     cursor: pointer;
     text-align: left;
 }
-.mobile-menu__login {
+.mobile-menu__visited {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    justify-content: center;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -534,7 +538,7 @@
     display: none;
     background: none;
     border: none;
-    padding: 8px;
+    padding: 8px 10px;
     cursor: pointer;
     color: rgba(18, 18, 18, 0.75);
 }
@@ -661,15 +665,47 @@
     transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
+.mobile-menu__icon-btn {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: inherit;
+}
+
+.mobile-menu__icon-btn:hover {
+    opacity: 0.8;
+}
+.mobile-menu__bottom {
+    padding: 20px;
+    border-top: 1px solid #ededed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px 0;
+}
+
+.mobile-menu__icons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.mobile-menu__icon-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: rgba(18, 18, 18, 0.75);
+}
+
 /* Responsive - Luôn nằm ở cuối cùng */
 
 /* Mobile */
 @media screen and (max-width: 768px) {
     /* Header */
     .header {
-        /* position: relative; */
-        height: 60px;
-        padding: 10px 0;
+        height: fit-content;
     }
 
     .header__inner {
@@ -698,6 +734,19 @@
     }
     .mobile-menu-toggle {
         display: block;
+    }
+    .cart-badge {
+        top: -2px;
+        right: -2px;
+        font-size: 1rem;
+        min-width: 18px;
+    }
+    .header__icon-wrap svg {
+        width: 30px;
+        height: 30px;
+    }
+    .mobile-menu__icons {
+        gap: 30px;
     }
 }
 

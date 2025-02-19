@@ -86,10 +86,12 @@
     font-size: 1.5rem;
     color: rgb(18, 18, 18);
 }
-
+.about-us__feature span {
+    line-height: 1.6;
+}
 .about-us__feature-icon {
-    width: 20px;
-    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
     color: #22c55e;
 }
 
@@ -222,7 +224,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 749px) {
     .about-us {
         margin-top: 60px;
         padding-bottom: 60px;

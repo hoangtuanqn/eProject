@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import "~/styles/search.css";
 // Library aos
 import AOS from "aos";
@@ -6,6 +8,9 @@ import "aos/dist/aos.css";
 // Import icon from react-icons
 
 export default function Search() {
+    const [searchValue, setSearchValue] = useState("");
+    const navigate = useNavigate();
+
     useEffect(() => {
         AOS.init({
             duration: 1200,
@@ -14,12 +19,21 @@ export default function Search() {
         });
     }, []);
 
-    const handleSearch = () => {
-        // Implement search functionality here
-        const searchInput = document.querySelector(".search__input");
-        if (searchInput) {
-            console.log("Searching for:", searchInput.value);
+    const handleSearch = (e) => {
+        e.preventDefault();
+
+        if (!searchValue) {
+            toast.error("Please enter a search term");
+            return;
         }
+        if (searchValue.trim().length > 255) {
+            toast.error("Search term must be less than 255 characters");
+            return;
+        }
+        navigate("/category/all-product", {
+            state: { searchTerm: searchValue.trim() },
+        });
+        setSearchValue("");
     };
 
     return (
@@ -27,16 +41,19 @@ export default function Search() {
             <h1 data-aos="fade-down" className="searchPage__title">
                 Search our store
             </h1>
-            <div className="searchPage__input-wrapper" data-aos="fade-up">
-                <input type="text" className="searchPage__input" placeholder="Search our store" />
-                <img
-                    src="/assets/icon/search.svg"
-                    alt=""
-                    className="searchPage__icon"
-                    size={20}
-                    onClick={handleSearch}
+            <form onSubmit={handleSearch} className="searchPage__input-wrapper" data-aos="fade-up">
+                <input
+                    type="text"
+                    className="searchPage__input"
+                    placeholder="Search our store"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    maxLength={255}
                 />
-            </div>
+                <button type="submit" className="searchPage__icon-button">
+                    <img src="/assets/icon/search.svg" alt="Search" className="searchPage__icon" size={20} />
+                </button>
+            </form>
         </section>
     );
 }
