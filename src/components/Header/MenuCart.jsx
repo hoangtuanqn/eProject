@@ -218,7 +218,10 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                         <div className="cart-item__actions">
                                             <div className="product__quantity-input">
                                                 <button
-                                                    className="product__quantity-button"
+                                                    className={clsx(
+                                                        "product__quantity-button",
+                                                        itemProductOrigin.quantity <= 0 && "disabled",
+                                                    )}
                                                     onClick={() =>
                                                         handleQuantityInput(
                                                             item.id,
@@ -232,7 +235,10 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                                 <input
                                                     type="number"
                                                     value={item.quantity}
-                                                    className="product__quantity-number"
+                                                    className={clsx(
+                                                        "product__quantity-number",
+                                                        itemProductOrigin.quantity <= 0 && "disabled",
+                                                    )}
                                                     onChange={(e) => {
                                                         const val = parseInt(e.target.value);
                                                         if (val > itemProductOrigin.quantity) {
@@ -253,7 +259,10 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                                     max={itemProductOrigin.quantity}
                                                 />
                                                 <button
-                                                    className="product__quantity-button"
+                                                    className={clsx(
+                                                        "product__quantity-button",
+                                                        itemProductOrigin.quantity <= 0 && "disabled",
+                                                    )}
                                                     onClick={() =>
                                                         handleQuantityInput(
                                                             item.id,
@@ -266,7 +275,10 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                                 </button>
                                             </div>
                                             <button
-                                                className="cart-page__remove-btn"
+                                                className={clsx(
+                                                    "cart-page__remove-btn",
+                                                    itemProductOrigin.quantity <= 0 && "disabled",
+                                                )}
                                                 onClick={() => handleRemoveItem(item.id)}
                                                 disabled={deletingItemId === item.id}
                                             >

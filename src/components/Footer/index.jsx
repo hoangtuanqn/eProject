@@ -4,11 +4,6 @@ import {
     Mail,
     Phone,
     FileText,
-    Scissors,
-    LogIn,
-    User,
-    Heart,
-    ShoppingCart,
     MapPin,
     HelpCircle,
     BriefcaseBusiness,
@@ -17,6 +12,7 @@ import {
     Instagram,
     Twitter,
     Linkedin,
+    Inbox,
 } from "lucide-react";
 import "~/styles/footer.css";
 import Newsletter from "./Newsletter";
@@ -92,6 +88,16 @@ export default function Footer() {
                                 <li>
                                     <Link to="/pages/sitemap" className="footer__link">
                                         <Map size={18} /> Sitemap
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/pages/partners" className="footer__link">
+                                        <Inbox size={18} /> Partners
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/pages/contact" className="footer__link">
+                                        <Phone size={18} /> Contact Us
                                     </Link>
                                 </li>
                             </ul>

@@ -112,6 +112,10 @@ export default function Product() {
     };
 
     const handleBuyNow = async () => {
+        if (product.quantity <= 0) {
+            toast.error("Product is out of stock");
+            return;
+        }
         if (!selectedSize || !selectedColor) {
             toast.error("Please select size and color");
             return;
@@ -589,7 +593,10 @@ export default function Product() {
                             <div className="product__quantity-wrap">
                                 <div className="product__quantity-input">
                                     <button
-                                        className="product__quantity-button"
+                                        className={clsx(
+                                            "product__quantity-button",
+                                            product.quantity <= 0 && "disabled",
+                                        )}
                                         onClick={() => {
                                             if (handleCheckQuantity(product.quantity, quantity - 1)) {
                                                 setQuantity((q) => q - 1);
@@ -601,7 +608,10 @@ export default function Product() {
 
                                     <input
                                         type="number"
-                                        className="product__quantity-number"
+                                        className={clsx(
+                                            "product__quantity-number",
+                                            product.quantity <= 0 && "disabled",
+                                        )}
                                         value={quantity}
                                         onChange={(e) => {
                                             if (handleCheckQuantity(product.quantity, e.target.value)) {
@@ -612,7 +622,10 @@ export default function Product() {
                                         max={product.quantity}
                                     />
                                     <button
-                                        className="product__quantity-button"
+                                        className={clsx(
+                                            "product__quantity-button",
+                                            product.quantity <= 0 && "disabled",
+                                        )}
                                         onClick={() => {
                                             if (handleCheckQuantity(product.quantity, quantity + 1)) {
                                                 setQuantity((q) => q + 1);
@@ -624,7 +637,10 @@ export default function Product() {
                                 </div>
 
                                 <motion.button
-                                    className="btn btn--primary product__add-to-cart"
+                                    className={clsx(
+                                        "btn btn--primary product__add-to-cart",
+                                        product.quantity <= 0 && "disabled",
+                                    )}
                                     onClick={handleAddToCart}
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
@@ -659,9 +675,11 @@ export default function Product() {
                             </motion.button> */}
 
                             <motion.button
-                                className="btn btn--secondary product__buy-now"
+                                className={clsx(
+                                    "btn btn--secondary product__buy-now",
+                                    product.quantity <= 0 && "disabled",
+                                )}
                                 onClick={handleBuyNow}
-                                whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
                                 <ExternalLink size={20} />

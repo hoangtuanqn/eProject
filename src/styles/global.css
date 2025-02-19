@@ -310,7 +310,11 @@ strong {
     border-color: #ffe6e6;
     background: #fff2f2;
 }
-
+.disabled {
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+}
 /* Responsive */
 
 /* Mobile */

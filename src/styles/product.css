@@ -548,7 +548,7 @@
     transition: var(--transition);
 }
 
-.product__buy-now:hover {
+.product__buy-now:hover:not(.disabled) {
     background: #c53030;
 }
 
