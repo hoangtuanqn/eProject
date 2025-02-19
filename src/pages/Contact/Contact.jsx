@@ -112,7 +112,7 @@ export default function Contact() {
 
             switch (values.requestType) {
                 case REQUEST_TYPES.JOB:
-                    endpoint = "https://67a3bb0f31d0d3a6b78479f5.mockapi.io/api/v1/careers/apply";
+                    endpoint = "https://67b58bb007ba6e59083d4879.mockapi.io/api/v1/careers/apply";
                     // Gửi dữ liệu dạng JSON thay vì FormData vì API không hỗ trợ lưu file
                     const jobData = {
                         ...baseData,
