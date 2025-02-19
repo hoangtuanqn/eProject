@@ -30,6 +30,7 @@
 }
 .sort__name,
 .sort__count-product {
+    min-width: fit-content;
     font-weight: 500;
     color: rgba(18, 18, 18, 0.75);
 }

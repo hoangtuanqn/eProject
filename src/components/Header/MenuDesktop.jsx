@@ -260,13 +260,18 @@ export default function MenuDesktop() {
                             </Link>
                         </li>
                         <li>
+                            <Link to="/pages/order-tracking" className="header__submenu-link">
+                                Invoice Tracking
+                            </Link>
+                        </li>
+                        <li>
                             <Link to="/pages/size-guide" className="header__submenu-link">
                                 Size Guide
                             </Link>
                         </li>
                         <li>
-                            <Link to="/pages/order-tracking" className="header__submenu-link">
-                                Order Tracking
+                            <Link to="/pages/sitemap" className="header__submenu-link">
+                                Sitemap
                             </Link>
                         </li>
                     </ul>

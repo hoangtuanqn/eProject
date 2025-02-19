@@ -77,9 +77,6 @@
     },
     "shopping": {
         "title": "Shopping & Cart",
-        "items": [
-            { "name": "View Cart", "path": "/cart" },
-            { "name": "Checkout", "path": "/checkout" }
-        ]
+        "items": [{ "name": "View Cart", "path": "/cart" }]
     }
 }

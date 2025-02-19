@@ -17,6 +17,7 @@ import NotFound from "~/pages/NotFound";
 import Category from "~/pages/Category";
 import Awards from "~/pages/Awards";
 import SizeGuide from "~/pages/SizeGuide";
+import Sitemap from "~/pages/Sitemap";
 import Categories from "~/pages/Categories";
 import Product from "~/pages/Product";
 import Contact from "~/pages/Contact";
@@ -95,6 +96,9 @@ const App = () => {
 
                 {/* Page Size Guide */}
                 <Route path="/pages/size-guide" element={<SizeGuide />} exact />
+
+                {/* Page Sitemap */}
+                <Route path="/pages/sitemap" element={<Sitemap />} exact />
 
                 {/* Page Customer Growth Chart */}
                 <Route path="/pages/customer-growth-chart" element={<CustomerGrowthChart />} exact />

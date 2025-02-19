@@ -11,7 +11,7 @@ export default function Index() {
     return (
         <>
             <main className="main2">
-                <Breadcrumb title="Sitemap" items={breadcrumbItems} style={{ alignItems: "flex-start" }} />
+                <Breadcrumb title="" items={breadcrumbItems} style={{ alignItems: "flex-start" }} />
                 <Sitemap />
             </main>
         </>
