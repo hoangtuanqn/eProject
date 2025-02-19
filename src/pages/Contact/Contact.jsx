@@ -35,12 +35,13 @@ export default function Contact() {
             .min(10, "Phone number must be at least 10 digits")
             .max(15, "Phone number must not exceed 15 digits"),
         message: Yup.string().required("Message is required").min(10, "Message must be at least 10 characters"),
-        // Conditional validations
+
+        // Job Application specific fields
         resume: Yup.mixed().when("requestType", {
             is: REQUEST_TYPES.JOB,
             then: (schema) =>
                 schema
-                    .required("Resume is required")
+                    .required("Resume is required for job applications")
                     .test("fileSize", "File too large (max 5MB)", (value) => !value || value.size <= 5 * 1024 * 1024)
                     .test(
                         "fileType",
@@ -52,14 +53,31 @@ export default function Contact() {
                                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                             ].includes(value?.type),
                     ),
+            otherwise: (schema) => schema.nullable(),
         }),
+
+        // Partnership specific fields
         partnershipType: Yup.string().when("requestType", {
             is: REQUEST_TYPES.PARTNERSHIP,
             then: (schema) => schema.required("Partnership type is required"),
+            otherwise: (schema) => schema.nullable(),
         }),
+        partnershipDocs: Yup.mixed().when("requestType", {
+            is: REQUEST_TYPES.PARTNERSHIP,
+            then: (schema) => schema.nullable(),
+            otherwise: (schema) => schema.nullable(),
+        }),
+
+        // Feedback specific fields
         rating: Yup.number().when("requestType", {
             is: REQUEST_TYPES.FEEDBACK,
             then: (schema) => schema.required("Rating is required"),
+            otherwise: (schema) => schema.nullable(),
+        }),
+        feedbackDocs: Yup.mixed().when("requestType", {
+            is: REQUEST_TYPES.FEEDBACK,
+            then: (schema) => schema.nullable(),
+            otherwise: (schema) => schema.nullable(),
         }),
     });
 
@@ -94,28 +112,31 @@ export default function Contact() {
 
             switch (values.requestType) {
                 case REQUEST_TYPES.JOB:
-                    endpoint = "https://679c72d387618946e65238ce.mockapi.io/api/v1/careers/apply";
+                    endpoint = "https://67a3bb0f31d0d3a6b78479f5.mockapi.io/api/v1/careers/apply";
                     // Gửi dữ liệu dạng JSON thay vì FormData vì API không hỗ trợ lưu file
-                    await axios.post(endpoint, {
+                    const jobData = {
                         ...baseData,
                         resumeFileName: values.resume?.name || "",
-                    });
+                    };
+                    console.log("Job Application Data:", jobData);
+                    await axios.post(endpoint, jobData);
                     break;
 
                 case REQUEST_TYPES.FEEDBACK:
-                    endpoint = "https://679c72d387618946e65238ce.mockapi.io/api/v1/feedback";
-                    await axios.post(endpoint, {
+                    endpoint = "https://67a3bb0f31d0d3a6b78479f5.mockapi.io/api/v1/feedback";
+                    const feedbackData = {
                         ...baseData,
                         rating: values.rating,
-                        // Không gửi file feedback, chỉ gửi tên file để lưu record
                         feedbackDocsFileName: values.feedbackDocs?.name || "",
-                    });
+                    };
+                    console.log("Feedback Data:", feedbackData);
+                    await axios.post(endpoint, feedbackData);
                     break;
 
                 case REQUEST_TYPES.PARTNERSHIP:
                 case REQUEST_TYPES.GENERAL:
                 default:
-                    endpoint = "https://679c72d387618946e65238ce.mockapi.io/api/v1/contacts";
+                    endpoint = "https://67a3bb0f31d0d3a6b78479f5.mockapi.io/api/v1/contacts";
                     // Với contact và partnership, sử dụng FormData để gửi files
                     Object.entries(baseData).forEach(([key, value]) => {
                         formData.append(key, value);
@@ -128,6 +149,7 @@ export default function Contact() {
                         }
                     }
 
+                    console.log("Contact/Partnership Data:", Object.fromEntries(formData));
                     await axios.post(endpoint, formData, {
                         headers: {
                             "Content-Type": "multipart/form-data",
@@ -140,6 +162,16 @@ export default function Contact() {
             resetForm();
         } catch (error) {
             console.error("Submit error:", error);
+            // Log chi tiết lỗi
+            if (error.response) {
+                console.error("Error response:", error.response.data);
+                console.error("Error status:", error.response.status);
+                console.error("Error headers:", error.response.headers);
+            } else if (error.request) {
+                console.error("Error request:", error.request);
+            } else {
+                console.error("Error message:", error.message);
+            }
             toast.error(error.response?.data?.message || "Error submitting form. Please try again");
         } finally {
             setLoading(false);
