@@ -12,7 +12,7 @@ export default function Index() {
     useTitle("Invoice Tracking");
     return (
         <>
-            <main className="main">
+            <main className="main" style={{ minHeight: "50vh" }}>
                 <Breadcrumb title="" items={breadcrumbItems} style={{ alignItems: "flex-start" }} />
 
                 <InvoiceTracking />

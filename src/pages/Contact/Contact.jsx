@@ -8,38 +8,139 @@ import stores from "~/data/stores.json";
 import toast from "react-hot-toast";
 import "~/styles/contact.css";
 import { isValidEmail } from "~/utils/helpers";
+import { Rating } from "@mui/material";
+import { Star } from "@mui/icons-material";
+import REQUEST_TYPES from "~/data/requestTypeContact.json";
 
 export default function Contact() {
     const [selectedStore, setSelectedStore] = useState(stores[0]);
     const [loading, setLoading] = useState(false);
 
-    // Define validation schema
+    // Update validation schema
     const validationSchema = Yup.object({
-        name: Yup.string().required("Name is required"),
+        requestType: Yup.string().required("Request type is required"),
+        store: Yup.string().required("Please select a store"),
+        name: Yup.string()
+            .required("Name is required")
+            .matches(/^[A-Za-z\s]+$/, "Name can only contain letters and spaces")
+            .min(2, "Name must be at least 2 characters")
+            .trim(),
         email: Yup.string()
             .required("Email is required")
+            .email("Invalid email format")
             .test("is-valid-email", "Invalid email address", (value) => isValidEmail(value)),
-        phone: Yup.string().required("Phone number is required"),
-        message: Yup.string().required("Message is required"),
-        store: Yup.string().required("Please select a store"),
+        phone: Yup.string()
+            .required("Phone number is required")
+            .matches(/^[+\-()0-9\s]+$/, "Phone number can only contain numbers, +, -, (), and spaces")
+            .min(10, "Phone number must be at least 10 digits")
+            .max(15, "Phone number must not exceed 15 digits"),
+        message: Yup.string().required("Message is required").min(10, "Message must be at least 10 characters"),
+        // Conditional validations
+        resume: Yup.mixed().when("requestType", {
+            is: REQUEST_TYPES.JOB,
+            then: (schema) =>
+                schema
+                    .required("Resume is required")
+                    .test("fileSize", "File too large (max 5MB)", (value) => !value || value.size <= 5 * 1024 * 1024)
+                    .test(
+                        "fileType",
+                        "Only PDF/DOCX files allowed",
+                        (value) =>
+                            !value ||
+                            [
+                                "application/pdf",
+                                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                            ].includes(value?.type),
+                    ),
+        }),
+        partnershipType: Yup.string().when("requestType", {
+            is: REQUEST_TYPES.PARTNERSHIP,
+            then: (schema) => schema.required("Partnership type is required"),
+        }),
+        rating: Yup.number().when("requestType", {
+            is: REQUEST_TYPES.FEEDBACK,
+            then: (schema) => schema.required("Rating is required"),
+        }),
     });
 
     const initialValues = {
+        requestType: REQUEST_TYPES.GENERAL,
+        store: stores[0].name,
         name: "",
         email: "",
         phone: "",
         message: "",
-        store: stores[0].name,
+        resume: null,
+        partnershipType: "",
+        partnershipDocs: null,
+        rating: 4,
+        feedbackDocs: null,
     };
 
     const handleSubmit = async (values, { resetForm, setSubmitting }) => {
         setLoading(true);
         try {
-            await axios.post("https://679c72d387618946e65238ce.mockapi.io/api/v1/contacts", values);
+            let endpoint = "";
+            let formData = new FormData();
+
+            // Chuẩn bị dữ liệu cơ bản
+            const baseData = {
+                store: values.store,
+                name: values.name,
+                email: values.email,
+                phone: values.phone,
+                message: values.message,
+            };
+
+            switch (values.requestType) {
+                case REQUEST_TYPES.JOB:
+                    endpoint = "https://679c72d387618946e65238ce.mockapi.io/api/v1/careers/apply";
+                    // Gửi dữ liệu dạng JSON thay vì FormData vì API không hỗ trợ lưu file
+                    await axios.post(endpoint, {
+                        ...baseData,
+                        resumeFileName: values.resume?.name || "",
+                    });
+                    break;
+
+                case REQUEST_TYPES.FEEDBACK:
+                    endpoint = "https://679c72d387618946e65238ce.mockapi.io/api/v1/feedback";
+                    await axios.post(endpoint, {
+                        ...baseData,
+                        rating: values.rating,
+                        // Không gửi file feedback, chỉ gửi tên file để lưu record
+                        feedbackDocsFileName: values.feedbackDocs?.name || "",
+                    });
+                    break;
+
+                case REQUEST_TYPES.PARTNERSHIP:
+                case REQUEST_TYPES.GENERAL:
+                default:
+                    endpoint = "https://679c72d387618946e65238ce.mockapi.io/api/v1/contacts";
+                    // Với contact và partnership, sử dụng FormData để gửi files
+                    Object.entries(baseData).forEach(([key, value]) => {
+                        formData.append(key, value);
+                    });
+
+                    if (values.requestType === REQUEST_TYPES.PARTNERSHIP) {
+                        formData.append("partnershipType", values.partnershipType);
+                        if (values.partnershipDocs) {
+                            formData.append("partnershipDocs", values.partnershipDocs);
+                        }
+                    }
+
+                    await axios.post(endpoint, formData, {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    });
+                    break;
+            }
+
             toast.success("Form submitted successfully!");
             resetForm();
         } catch (error) {
-            toast.error("Error submitting form. Please try again");
+            console.error("Submit error:", error);
+            toast.error(error.response?.data?.message || "Error submitting form. Please try again");
         } finally {
             setLoading(false);
             setSubmitting(false);
@@ -110,7 +211,9 @@ export default function Contact() {
                                             className={`contact__store ${
                                                 selectedStore.id === store.id ? "active" : ""
                                             }`}
-                                            onClick={() => handleStoreSelect(store)}
+                                            onClick={() => {
+                                                handleStoreSelect(store);
+                                            }}
                                             whileHover={{ scale: 1.02 }}
                                             whileTap={{ scale: 0.98 }}
                                         >
@@ -154,8 +257,31 @@ export default function Contact() {
                                 validationSchema={validationSchema}
                                 onSubmit={handleSubmit}
                             >
-                                {({ errors, touched, isSubmitting }) => (
+                                {({ errors, touched, isSubmitting, setFieldValue, values }) => (
                                     <Form className="contact__form">
+                                        <div className="contact__form-group">
+                                            <label htmlFor="requestType" className="contact__form-label">
+                                                Request Type:
+                                            </label>
+                                            <Field
+                                                as="select"
+                                                id="requestType"
+                                                name="requestType"
+                                                className={`contact__form-input ${
+                                                    errors.requestType && touched.requestType ? "error" : ""
+                                                }`}
+                                            >
+                                                {Object.values(REQUEST_TYPES).map((type) => (
+                                                    <option key={type} value={type}>
+                                                        {type}
+                                                    </option>
+                                                ))}
+                                            </Field>
+                                            {errors.requestType && touched.requestType && (
+                                                <div className="error-message">{errors.requestType}</div>
+                                            )}
+                                        </div>
+
                                         <div className="contact__form-group">
                                             <label htmlFor="store" className="contact__form-label">
                                                 Select Store:
@@ -167,6 +293,14 @@ export default function Contact() {
                                                 className={`contact__form-input ${
                                                     errors.store && touched.store ? "error" : ""
                                                 }`}
+                                                onChange={(e) => {
+                                                    const selectedStoreName = e.target.value;
+                                                    const store = stores.find((s) => s.name === selectedStoreName);
+                                                    if (store) {
+                                                        handleStoreSelect(store);
+                                                    }
+                                                    setFieldValue("store", selectedStoreName);
+                                                }}
                                             >
                                                 {stores.map((store) => (
                                                     <option key={store.id} value={store.name}>
@@ -246,6 +380,117 @@ export default function Contact() {
                                                 <div className="error-message">{errors.message}</div>
                                             )}
                                         </div>
+
+                                        {/* Conditional fields based on request type */}
+                                        {values.requestType === REQUEST_TYPES.JOB && (
+                                            <div className="contact__form-group">
+                                                <label htmlFor="resume" className="contact__form-label">
+                                                    Resume Upload (PDF/DOCX, Max 5MB):
+                                                </label>
+                                                <input
+                                                    type="file"
+                                                    id="resume"
+                                                    name="resume"
+                                                    accept=".pdf,.docx"
+                                                    onChange={(event) => {
+                                                        setFieldValue("resume", event.currentTarget.files[0]);
+                                                    }}
+                                                    className={`contact__form-input ${
+                                                        errors.resume && touched.resume ? "error" : ""
+                                                    }`}
+                                                />
+                                                {errors.resume && touched.resume && (
+                                                    <div className="error-message">{errors.resume}</div>
+                                                )}
+                                            </div>
+                                        )}
+
+                                        {values.requestType === REQUEST_TYPES.PARTNERSHIP && (
+                                            <>
+                                                <div className="contact__form-group">
+                                                    <label htmlFor="partnershipType" className="contact__form-label">
+                                                        Partnership Type:
+                                                    </label>
+                                                    <Field
+                                                        as="select"
+                                                        id="partnershipType"
+                                                        name="partnershipType"
+                                                        className={`contact__form-input ${
+                                                            errors.partnershipType && touched.partnershipType
+                                                                ? "error"
+                                                                : ""
+                                                        }`}
+                                                    >
+                                                        <option value="">Select Partnership Type</option>
+                                                        <option value="Supplier">Supplier</option>
+                                                        <option value="Distributor">Distributor</option>
+                                                        <option value="Reseller">Reseller</option>
+                                                    </Field>
+                                                    {errors.partnershipType && touched.partnershipType && (
+                                                        <div className="error-message">{errors.partnershipType}</div>
+                                                    )}
+                                                </div>
+                                                <div className="contact__form-group">
+                                                    <label htmlFor="partnershipDocs" className="contact__form-label">
+                                                        Upload Related Documents (Optional):
+                                                    </label>
+                                                    <input
+                                                        type="file"
+                                                        id="partnershipDocs"
+                                                        name="partnershipDocs"
+                                                        accept=".pdf,.docx,.jpg,.png"
+                                                        onChange={(event) => {
+                                                            setFieldValue(
+                                                                "partnershipDocs",
+                                                                event.currentTarget.files[0],
+                                                            );
+                                                        }}
+                                                        className="contact__form-input"
+                                                    />
+                                                </div>
+                                            </>
+                                        )}
+
+                                        {values.requestType === REQUEST_TYPES.FEEDBACK && (
+                                            <>
+                                                <div className="contact__form-group">
+                                                    <label htmlFor="rating" className="contact__form-label">
+                                                        Rating:
+                                                    </label>
+                                                    <Rating
+                                                        name="rating"
+                                                        value={values.rating}
+                                                        onChange={(_, newValue) => {
+                                                            setFieldValue("rating", newValue);
+                                                        }}
+                                                        precision={0.5}
+                                                        defaultValue={4}
+                                                        size="large"
+                                                        emptyIcon={
+                                                            <Star style={{ opacity: 0.55 }} fontSize="inherit" />
+                                                        }
+                                                    />
+                                                    {errors.rating && touched.rating && (
+                                                        <div className="error-message">{errors.rating}</div>
+                                                    )}
+                                                </div>
+                                                <div className="contact__form-group">
+                                                    <label htmlFor="feedbackDocs" className="contact__form-label">
+                                                        Upload Supporting Documents (Optional):
+                                                    </label>
+                                                    <input
+                                                        type="file"
+                                                        id="feedbackDocs"
+                                                        name="feedbackDocs"
+                                                        accept=".pdf,.docx,.jpg,.png"
+                                                        onChange={(event) => {
+                                                            setFieldValue("feedbackDocs", event.currentTarget.files[0]);
+                                                        }}
+                                                        className="contact__form-input"
+                                                    />
+                                                </div>
+                                            </>
+                                        )}
 
                                         <motion.button
                                             type="submit"

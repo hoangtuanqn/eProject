@@ -251,6 +251,23 @@
     width: 20px;
     height: 20px;
 }
+
+.contact__form-input[type="file"] {
+    padding: 8px;
+    border: 1px dashed rgba(18, 18, 18, 0.2);
+    background-color: #f8f8f8;
+}
+
+.contact__form-input[type="file"]:hover {
+    border-color: rgba(18, 18, 18, 0.4);
+}
+
+.contact__rating-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 @media (max-width: 768px) {
     .contact__grid {
         -ms-grid-columns: 1fr;
