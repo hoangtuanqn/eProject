@@ -55,7 +55,7 @@ export default function Contact() {
                                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                             ].includes(value?.type),
                     ),
-            otherwise: (schema) => schema.nullable(),
+            otherwise: (schema) => schema.nullable().optional(),
         }),
 
         // Partnership specific fields
@@ -294,29 +294,6 @@ export default function Contact() {
                                 {({ errors, touched, isSubmitting, setFieldValue, values }) => (
                                     <Form className="contact__form">
                                         <div className="contact__form-group">
-                                            <label htmlFor="requestType" className="contact__form-label">
-                                                Request Type:
-                                            </label>
-                                            <Field
-                                                as="select"
-                                                id="requestType"
-                                                name="requestType"
-                                                className={`contact__form-input ${
-                                                    errors.requestType && touched.requestType ? "error" : ""
-                                                }`}
-                                            >
-                                                {Object.values(REQUEST_TYPES).map((type) => (
-                                                    <option key={type} value={type}>
-                                                        {type}
-                                                    </option>
-                                                ))}
-                                            </Field>
-                                            {errors.requestType && touched.requestType && (
-                                                <div className="error-message">{errors.requestType}</div>
-                                            )}
-                                        </div>
-
-                                        <div className="contact__form-group">
                                             <label htmlFor="store" className="contact__form-label">
                                                 Select Store:
                                             </label>
@@ -344,6 +321,29 @@ export default function Contact() {
                                             </Field>
                                             {errors.store && touched.store && (
                                                 <div className="error-message">{errors.store}</div>
+                                            )}
+                                        </div>
+
+                                        <div className="contact__form-group">
+                                            <label htmlFor="requestType" className="contact__form-label">
+                                                Request Type:
+                                            </label>
+                                            <Field
+                                                as="select"
+                                                id="requestType"
+                                                name="requestType"
+                                                className={`contact__form-input ${
+                                                    errors.requestType && touched.requestType ? "error" : ""
+                                                }`}
+                                            >
+                                                {Object.values(REQUEST_TYPES).map((type) => (
+                                                    <option key={type} value={type}>
+                                                        {type}
+                                                    </option>
+                                                ))}
+                                            </Field>
+                                            {errors.requestType && touched.requestType && (
+                                                <div className="error-message">{errors.requestType}</div>
                                             )}
                                         </div>
 
