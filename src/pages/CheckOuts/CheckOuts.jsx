@@ -142,8 +142,8 @@ const CheckOut = () => {
         const cartStorage = JSON.parse(localStorage.getItem("cart"))?.filter((item) => item.selected) || [];
 
         // Kiểm tra nếu không có cart items, redirect về trang categories
-        if (!cartStorage.length) {
-            navigate("/categories");
+        if (!cartStorage.length || !location.state?.validCart) {
+            navigate("/cart");
             return;
         }
 
