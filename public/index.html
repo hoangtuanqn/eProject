@@ -3,11 +3,26 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            name="description"
-            content="Maverick Dresses - Discover our exclusive dress collection for every occasion."
-        />
-        <title>Maverick Dresses</title>
+
+        <!-- Primary Meta Tags -->
+        <title>%REACT_APP_META_TITLE%</title>
+        <meta name="title" content="%REACT_APP_META_TITLE%" />
+        <meta name="description" content="%REACT_APP_META_DESCRIPTION%" />
+        <meta name="keywords" content="%REACT_APP_META_KEYWORDS%" />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="%PUBLIC_URL%" />
+        <meta property="og:title" content="%REACT_APP_META_TITLE%" />
+        <meta property="og:description" content="%REACT_APP_META_DESCRIPTION%" />
+        <meta property="og:image" content="%PUBLIC_URL%%REACT_APP_OG_IMAGE%" />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="%PUBLIC_URL%" />
+        <meta property="twitter:title" content="%REACT_APP_META_TITLE%" />
+        <meta property="twitter:description" content="%REACT_APP_META_DESCRIPTION%" />
+        <meta property="twitter:image" content="%PUBLIC_URL%%REACT_APP_OG_IMAGE%" />
 
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="57x57" href="%PUBLIC_URL%/assets/favicon/apple-icon-57x57.png" />
