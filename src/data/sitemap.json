@@ -71,8 +71,7 @@
         "items": [
             { "name": "Wishlist", "path": "/pages/wishlist" },
             { "name": "Coupons", "path": "/pages/coupons" },
-            { "name": "Recently Products", "path": "/pages/recently-products" },
-            { "name": "Order Tracking", "path": "/pages/order-tracking" }
+            { "name": "Recently Products", "path": "/pages/recently-products" }
         ]
     },
     "shopping": {

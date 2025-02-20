@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import products from "~/data/products.json";
-import "~/styles/invoiceTracking.css";
+import "~/styles/orderTracking.css";
 import categories from "~/data/categories.json";
 
 export default function InvoiceTracking() {
@@ -146,22 +146,22 @@ export default function InvoiceTracking() {
     };
 
     return (
-        <section className="invoice-tracking">
+        <section className="order-tracking">
             <div className="container">
-                <div className="invoice-tracking__header">
-                    <h1 className="invoice-tracking__title">Track Your Order</h1>
-                    <p className="invoice-tracking__subtitle">Enter your order number to track your order status</p>
+                <div className="order-tracking__header">
+                    <h1 className="order-tracking__title">Track Your Order</h1>
+                    <p className="order-tracking__subtitle">Enter your order number to track your order status</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="invoice-tracking__form">
+                <form onSubmit={handleSubmit} className="order-tracking__form">
                     <input
                         type="text"
-                        className="invoice-tracking__input"
+                        className="order-tracking__input"
                         placeholder="Enter your order number"
                         value={orderId}
                         onChange={(e) => setOrderId(e.target.value)}
                     />
-                    <button type="submit" className="invoice-tracking__button" disabled={isLoading}>
+                    <button type="submit" className="order-tracking__button" disabled={isLoading}>
                         {isLoading ? (
                             <>
                                 <img src="/assets/icon/loading.gif" alt="Loading..." className="loading-spinner" />
@@ -178,50 +178,50 @@ export default function InvoiceTracking() {
 
                 {orderData && (
                     <motion.div
-                        className="invoice-tracking__result"
+                        className="order-tracking__result"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <div className="invoice-tracking__status">
-                            <div className="invoice-tracking__status-track">
+                        <div className="order-tracking__status">
+                            <div className="order-tracking__status-track">
                                 <div
-                                    className={`invoice-tracking__status-line ${
+                                    className={`order-tracking__status-line ${
                                         getStatusStep(orderData.status) >= 2 ? "active" : ""
                                     }`}
                                 ></div>
                                 <div
-                                    className={`invoice-tracking__status-line ${
+                                    className={`order-tracking__status-line ${
                                         getStatusStep(orderData.status) >= 3 ? "active" : ""
                                     }`}
                                 ></div>
-                                <div className="invoice-tracking__status-steps">
+                                <div className="order-tracking__status-steps">
                                     <div
-                                        className={`invoice-tracking__status-step ${
+                                        className={`order-tracking__status-step ${
                                             getStatusStep(orderData.status) >= 1 ? "active" : ""
                                         }`}
                                     >
-                                        <div className="invoice-tracking__status-icon">
+                                        <div className="order-tracking__status-icon">
                                             <Package size={20} />
                                         </div>
                                         <span>Processing</span>
                                     </div>
                                     <div
-                                        className={`invoice-tracking__status-step ${
+                                        className={`order-tracking__status-step ${
                                             getStatusStep(orderData.status) >= 2 ? "active" : ""
                                         }`}
                                     >
-                                        <div className="invoice-tracking__status-icon">
+                                        <div className="order-tracking__status-icon">
                                             <MapPin size={20} />
                                         </div>
                                         <span>Shipped</span>
                                     </div>
                                     <div
-                                        className={`invoice-tracking__status-step ${
+                                        className={`order-tracking__status-step ${
                                             getStatusStep(orderData.status) >= 3 ? "active" : ""
                                         }`}
                                     >
-                                        <div className="invoice-tracking__status-icon">
+                                        <div className="order-tracking__status-icon">
                                             <Clock size={20} />
                                         </div>
                                         <span>Delivered</span>
@@ -230,41 +230,41 @@ export default function InvoiceTracking() {
                             </div>
                         </div>
 
-                        <div className="invoice-tracking__order-info">
-                            <div className="invoice-tracking__info-group">
-                                <span className="invoice-tracking__label">Order Number</span>
-                                <span className="invoice-tracking__value">{orderData.orderId}</span>
+                        <div className="order-tracking__order-info">
+                            <div className="order-tracking__info-group">
+                                <span className="order-tracking__label">Order Number</span>
+                                <span className="order-tracking__value">{orderData.orderId}</span>
                             </div>
-                            <div className="invoice-tracking__info-group">
-                                <span className="invoice-tracking__label">Order Date</span>
-                                <span className="invoice-tracking__value">{formatDate(orderData.orderDate)}</span>
+                            <div className="order-tracking__info-group">
+                                <span className="order-tracking__label">Order Date</span>
+                                <span className="order-tracking__value">{formatDate(orderData.orderDate)}</span>
                             </div>
-                            <div className="invoice-tracking__info-group">
-                                <span className="invoice-tracking__label">Expected Delivery</span>
-                                <span className="invoice-tracking__value">
+                            <div className="order-tracking__info-group">
+                                <span className="order-tracking__label">Expected Delivery</span>
+                                <span className="order-tracking__value">
                                     {orderData.expectedDelivery
                                         ? formatDate(orderData.expectedDelivery)
                                         : calculateExpectedDelivery(orderData.orderDate)}
                                 </span>
                             </div>
-                            <div className="invoice-tracking__info-group">
-                                <span className="invoice-tracking__label">Customer Name</span>
-                                <span className="invoice-tracking__value">
+                            <div className="order-tracking__info-group">
+                                <span className="order-tracking__label">Customer Name</span>
+                                <span className="order-tracking__value">
                                     {orderData.customerInfo.firstName} {orderData.customerInfo.lastName}
                                 </span>
                             </div>
-                            <div className="invoice-tracking__info-group">
-                                <span className="invoice-tracking__label">Contact</span>
-                                <span className="invoice-tracking__value">
+                            <div className="order-tracking__info-group">
+                                <span className="order-tracking__label">Contact</span>
+                                <span className="order-tracking__value">
                                     {orderData.customerInfo.phone} | {orderData.customerInfo.email}
                                 </span>
                             </div>
                         </div>
 
-                        <div className="invoice-tracking__shipping">
-                            <div className="invoice-tracking__info-group">
-                                <span className="invoice-tracking__label">Shipping Address</span>
-                                <span className="invoice-tracking__value">
+                        <div className="order-tracking__shipping">
+                            <div className="order-tracking__info-group">
+                                <span className="order-tracking__label">Shipping Address</span>
+                                <span className="order-tracking__value">
                                     <br />
                                     {orderData.shippingAddress.apartment}
                                     <br />
@@ -275,19 +275,19 @@ export default function InvoiceTracking() {
                             </div>
                         </div>
 
-                        <div className="invoice-tracking__items">
-                            <div className="invoice-tracking__items-header">
-                                <h2 className="invoice-tracking__items-title">Order Items</h2>
-                                <span className="invoice-tracking__items-count">
+                        <div className="order-tracking__items">
+                            <div className="order-tracking__items-header">
+                                <h2 className="order-tracking__items-title">Order Items</h2>
+                                <span className="order-tracking__items-count">
                                     {orderData.orderDetails.items.length} items
                                 </span>
                             </div>
 
-                            <div className="invoice-tracking__items-list">
+                            <div className="order-tracking__items-list">
                                 {orderData.orderDetails.items.map((item, index) => {
                                     return (
-                                        <div key={index} className="invoice-tracking__item">
-                                            <div className="invoice-tracking__item-image">
+                                        <div key={index} className="order-tracking__item">
+                                            <div className="order-tracking__item-image">
                                                 <Link
                                                     to={`/product/${item.slug}`}
                                                     target="_blank"
@@ -297,8 +297,8 @@ export default function InvoiceTracking() {
                                                 </Link>
                                             </div>
 
-                                            <div className="invoice-tracking__item-content">
-                                                <div className="invoice-tracking__item-category">
+                                            <div className="order-tracking__item-content">
+                                                <div className="order-tracking__item-category">
                                                     <div className="cart-page__item-info">
                                                         <Link
                                                             to={`/category/${(() => {
@@ -339,33 +339,29 @@ export default function InvoiceTracking() {
                                                     </div>
                                                 </div>
 
-                                                <div className="invoice-tracking__item-specs">
-                                                    <div className="invoice-tracking__spec">
-                                                        <div className="invoice-tracking__spec-icon">
+                                                <div className="order-tracking__item-specs">
+                                                    <div className="order-tracking__spec">
+                                                        <div className="order-tracking__spec-icon">
                                                             <Ruler size={14} />
                                                         </div>
-                                                        <span className="invoice-tracking__spec-label">Size:</span>
-                                                        <span className="invoice-tracking__spec-value">
-                                                            {item.size}
-                                                        </span>
+                                                        <span className="order-tracking__spec-label">Size:</span>
+                                                        <span className="order-tracking__spec-value">{item.size}</span>
                                                     </div>
 
-                                                    <div className="invoice-tracking__spec">
-                                                        <div className="invoice-tracking__spec-icon">
+                                                    <div className="order-tracking__spec">
+                                                        <div className="order-tracking__spec-icon">
                                                             <Palette size={14} />
                                                         </div>
-                                                        <span className="invoice-tracking__spec-label">Color:</span>
-                                                        <span className="invoice-tracking__spec-value">
-                                                            {item.color}
-                                                        </span>
+                                                        <span className="order-tracking__spec-label">Color:</span>
+                                                        <span className="order-tracking__spec-value">{item.color}</span>
                                                     </div>
 
-                                                    <div className="invoice-tracking__spec">
-                                                        <div className="invoice-tracking__spec-icon">
+                                                    <div className="order-tracking__spec">
+                                                        <div className="order-tracking__spec-icon">
                                                             <Package size={14} />
                                                         </div>
-                                                        <span className="invoice-tracking__spec-label">Quantity:</span>
-                                                        <span className="invoice-tracking__spec-value">
+                                                        <span className="order-tracking__spec-label">Quantity:</span>
+                                                        <span className="order-tracking__spec-value">
                                                             {item.quantity}
                                                         </span>
                                                     </div>
@@ -377,29 +373,29 @@ export default function InvoiceTracking() {
                             </div>
                         </div>
 
-                        <div className="invoice-tracking__summary">
-                            <div className="invoice-tracking__summary-row">
+                        <div className="order-tracking__summary">
+                            <div className="order-tracking__summary-row">
                                 <span>Subtotal</span>
                                 <span>{formatPrice(orderData.orderDetails.subtotal)}</span>
                             </div>
-                            <div className="invoice-tracking__summary-row">
+                            <div className="order-tracking__summary-row">
                                 <span>Shipping</span>
                                 <span>{formatPrice(orderData.orderDetails.shippingCost)}</span>
                             </div>
-                            <div className="invoice-tracking__summary-row invoice-tracking__summary-row--total">
+                            <div className="order-tracking__summary-row order-tracking__summary-row--total">
                                 <span>Total</span>
                                 <span>{formatPrice(orderData.orderDetails.total)}</span>
                             </div>
                         </div>
 
-                        <div className="invoice-tracking__actions">
-                            {/* <button className="invoice-tracking__action-btn invoice-tracking__action-btn--print">
+                        <div className="order-tracking__actions">
+                            {/* <button className="order-tracking__action-btn invoice-tracking__action-btn--print">
                                 <Printer size={20} />
                                 Print Order
                             </button> */}
                             <Link
                                 to="/categories"
-                                className="invoice-tracking__action-btn invoice-tracking__action-btn--continue"
+                                className="order-tracking__action-btn order-tracking__action-btn--continue"
                             >
                                 Continue Shopping
                                 <ArrowRight size={20} />

@@ -244,12 +244,47 @@
     content: "";
     position: absolute;
     bottom: -6px;
-    left: 0;
+    left: -4%;
     width: 100%;
     height: 3px;
     background-color: var(--color-grey-7);
     -webkit-animation: underline 0.3s ease;
     animation: underline 0.3s ease;
+}
+/* Sửa đổi cách hiển thị submenu big và giữ hiệu ứng hover */
+.header__nav-bigmenu:hover + .header__submenu__big,
+.header__submenu__big:hover {
+    display: block;
+}
+
+/* Thêm hiệu ứng underline khi hover vào submenu big */
+.header__nav-bigmenu:hover::after,
+.header__submenu__big:hover + .header__nav-bigmenu::after,
+.header__nav-bigmenu:has(+ .header__submenu__big:hover)::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: -4%;
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-grey-7);
+    animation: underline 0.3s ease;
+}
+
+/* Đảm bảo submenu big ẩn mặc định */
+.header__submenu__big {
+    display: none;
+}
+
+/* Add active state for main menu items only */
+.header__nav > li.active::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: -4%;
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-grey-7);
 }
 
 @-webkit-keyframes underline {

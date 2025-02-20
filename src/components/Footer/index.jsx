@@ -115,29 +115,49 @@ export default function Footer() {
                             <h3 className="footer__heading">Social Media</h3>
                             <ul className="footer__list footer__social-list">
                                 <li>
-                                    <a href="#!" className="footer__social-link facebook">
+                                    <a
+                                        href="https://www.facebook.com/TheFashionWorldVN/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="footer__social-link facebook"
+                                    >
                                         <Facebook size={24} />
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#!" className="footer__social-link instagram">
+                                    <a
+                                        href="https://www.instagram.com/modeblogg/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="footer__social-link instagram"
+                                    >
                                         <Instagram size={24} />
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#!" className="footer__social-link twitter">
+                                    <a
+                                        href="https://x.com/fashion?mx=2"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="footer__social-link twitter"
+                                    >
                                         <Twitter size={24} />
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#!" className="footer__social-link linkedin">
+                                    <a
+                                        href="#!"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="footer__social-link linkedin"
+                                    >
                                         <Linkedin size={24} />
                                     </a>
                                 </li>
                             </ul>
                             <ul className="footer__list footer__social-list">
                                 <li>
-                                    <iframe
+                                    {/* <iframe
                                         title="Facebook Page Timeline"
                                         src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F100063156842633&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
                                         width="340"
@@ -146,7 +166,7 @@ export default function Footer() {
                                         loading="lazy"
                                         allowFullScreen={true}
                                         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                                    ></iframe>
+                                    ></iframe> */}
                                 </li>
                             </ul>
                         </div>
@@ -157,7 +177,7 @@ export default function Footer() {
 
                     {/* Footer Bottom */}
                     <div className="footer__bottom">
-                        <p className="footer__copyright">&copy; 2025, Team 02 FPT APTECH</p>
+                        <p className="footer__copyright">&copy; 2025, Team 02 FPT Aptech Vietnam</p>
                         <div className="footer__payment">
                             <img src="/assets/icon/visa.svg" alt="Visa" className="footer__payment-img" />
                             <img src="/assets/icon/mastercard.svg" alt="Mastercard" className="footer__payment-img" />

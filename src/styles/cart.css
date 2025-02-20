@@ -112,6 +112,9 @@
     line-height: 1.4;
     margin: 4px 0;
 }
+.cart-page__item-name:hover {
+    color: rgba(18, 18, 18, 0.659);
+}
 
 .cart-page__item-actions {
     display: -webkit-box;

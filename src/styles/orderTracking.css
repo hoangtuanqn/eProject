@@ -1,20 +1,20 @@
-.invoice-tracking {
+.order-tracking {
     margin-top: 80px;
     padding-bottom: 80px;
     -webkit-animation: fadeIn 0.5s ease;
-            animation: fadeIn 0.5s ease;
+    animation: fadeIn 0.5s ease;
 }
 
 @-webkit-keyframes fadeIn {
     from {
         opacity: 0;
         -webkit-transform: translateY(20px);
-                transform: translateY(20px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
         -webkit-transform: translateY(0);
-                transform: translateY(0);
+        transform: translateY(0);
     }
 }
 
@@ -22,16 +22,16 @@
     from {
         opacity: 0;
         -webkit-transform: translateY(20px);
-                transform: translateY(20px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
         -webkit-transform: translateY(0);
-                transform: translateY(0);
+        transform: translateY(0);
     }
 }
 
-.invoice-tracking__container {
+.order-tracking__container {
     max-width: 800px;
     margin: auto;
     padding: 40px;
@@ -39,34 +39,34 @@
     border-radius: 16px;
     border: 1px solid #eee;
     -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     -webkit-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
-.invoice-tracking__container:hover {
+.order-tracking__container:hover {
     -webkit-box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
-            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
 }
 
-.invoice-tracking__header {
+.order-tracking__header {
     text-align: center;
     margin-bottom: 50px;
     -webkit-animation: slideDown 0.6s ease;
-            animation: slideDown 0.6s ease;
+    animation: slideDown 0.6s ease;
 }
 
 @-webkit-keyframes slideDown {
     from {
         opacity: 0;
         -webkit-transform: translateY(-30px);
-                transform: translateY(-30px);
+        transform: translateY(-30px);
     }
     to {
         opacity: 1;
         -webkit-transform: translateY(0);
-                transform: translateY(0);
+        transform: translateY(0);
     }
 }
 
@@ -74,16 +74,16 @@
     from {
         opacity: 0;
         -webkit-transform: translateY(-30px);
-                transform: translateY(-30px);
+        transform: translateY(-30px);
     }
     to {
         opacity: 1;
         -webkit-transform: translateY(0);
-                transform: translateY(0);
+        transform: translateY(0);
     }
 }
 
-.invoice-tracking__title {
+.order-tracking__title {
     font-size: 3.6rem;
     color: var(--color-grey-7);
     margin-bottom: 16px;
@@ -91,32 +91,32 @@
     letter-spacing: -0.5px;
 }
 
-.invoice-tracking__subtitle {
+.order-tracking__subtitle {
     font-size: 1.6rem;
     color: #666;
     line-height: 1.6;
 }
 
-.invoice-tracking__form {
+.order-tracking__form {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     gap: 16px;
     margin-bottom: 50px;
     -webkit-animation: slideUp 0.6s ease 0.2s backwards;
-            animation: slideUp 0.6s ease 0.2s backwards;
+    animation: slideUp 0.6s ease 0.2s backwards;
 }
 
 @-webkit-keyframes slideUp {
     from {
         opacity: 0;
         -webkit-transform: translateY(30px);
-                transform: translateY(30px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
         -webkit-transform: translateY(0);
-                transform: translateY(0);
+        transform: translateY(0);
     }
 }
 
@@ -124,19 +124,19 @@
     from {
         opacity: 0;
         -webkit-transform: translateY(30px);
-                transform: translateY(30px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
         -webkit-transform: translateY(0);
-                transform: translateY(0);
+        transform: translateY(0);
     }
 }
 
-.invoice-tracking__input {
+.order-tracking__input {
     -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
+    -ms-flex: 1;
+    flex: 1;
     padding: 18px 24px;
     border: 2px solid #eee;
     border-radius: 14px;
@@ -147,15 +147,15 @@
     background: #f8f9fa;
 }
 
-.invoice-tracking__input:focus {
+.order-tracking__input:focus {
     outline: none;
     border-color: var(--color-grey-7);
     background: white;
     -webkit-box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.1);
-            box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.1);
+    box-shadow: 0 0 0 4px rgba(44, 62, 80, 0.1);
 }
 
-.invoice-tracking__button {
+.order-tracking__button {
     padding: 18px 36px;
     background: var(--color-grey-7);
     color: white;
@@ -170,41 +170,41 @@
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     gap: 12px;
     font-weight: 500;
 }
 
-.invoice-tracking__button:hover {
+.order-tracking__button:hover {
     background: #1a252f;
     -webkit-transform: translateY(-2px);
-        -ms-transform: translateY(-2px);
-            transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    transform: translateY(-2px);
     -webkit-box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.invoice-tracking__button:active {
+.order-tracking__button:active {
     -webkit-transform: translateY(0);
-        -ms-transform: translateY(0);
-            transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
 }
 
-.invoice-tracking__button:disabled {
+.order-tracking__button:disabled {
     background: #ddd;
     cursor: not-allowed;
     -webkit-transform: none;
-        -ms-transform: none;
-            transform: none;
+    -ms-transform: none;
+    transform: none;
     -webkit-box-shadow: none;
-            box-shadow: none;
+    box-shadow: none;
 }
 
-.invoice-tracking__status {
+.order-tracking__status {
     margin: 50px 0;
     padding: 30px;
     background: #f8f9fa;
@@ -212,12 +212,12 @@
     border: 1px solid #eee;
 }
 
-.invoice-tracking__status-track {
+.order-tracking__status-track {
     position: relative;
     padding: 30px 0;
 }
 
-.invoice-tracking__status-line {
+.order-tracking__status-line {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -225,45 +225,45 @@
     height: 3px;
     background: #eee;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
     -webkit-transition: background-color 0.5s ease;
     -o-transition: background-color 0.5s ease;
     transition: background-color 0.5s ease;
 }
 
-.invoice-tracking__status-line:first-child {
+.order-tracking__status-line:first-child {
     -webkit-transform: translateY(-50%) translateX(-100%);
-        -ms-transform: translateY(-50%) translateX(-100%);
-            transform: translateY(-50%) translateX(-100%);
+    -ms-transform: translateY(-50%) translateX(-100%);
+    transform: translateY(-50%) translateX(-100%);
 }
 
-.invoice-tracking__status-line.active {
+.order-tracking__status-line.active {
     background: var(--color-grey-7);
 }
 
-.invoice-tracking__status-steps {
+.order-tracking__status-steps {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     position: relative;
     z-index: 1;
 }
 
-.invoice-tracking__status-step {
+.order-tracking__status-step {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     gap: 12px;
     color: #666;
     -webkit-transition: all 0.3s ease;
@@ -271,7 +271,7 @@
     transition: all 0.3s ease;
 }
 
-.invoice-tracking__status-icon {
+.order-tracking__status-icon {
     width: 50px;
     height: 50px;
     background: white;
@@ -281,11 +281,11 @@
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     color: #666;
     -webkit-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -294,46 +294,46 @@
     overflow: hidden;
 }
 
-.invoice-tracking__status-step.active .invoice-tracking__status-icon {
+.order-tracking__status-step.active .order-tracking__status-icon {
     background: var(--color-grey-7);
     border-color: var(--color-grey-7);
     color: white;
     -webkit-transform: scale(1.1);
-        -ms-transform: scale(1.1);
-            transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
     -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.invoice-tracking__status-step.active {
+.order-tracking__status-step.active {
     color: var(--color-grey-7);
     -webkit-transform: translateY(-5px);
-        -ms-transform: translateY(-5px);
-            transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    transform: translateY(-5px);
 }
 
-.invoice-tracking__result {
+.order-tracking__result {
     opacity: 0;
     -webkit-animation: fadeInUp 0.8s ease forwards;
-            animation: fadeInUp 0.8s ease forwards;
+    animation: fadeInUp 0.8s ease forwards;
     background: white;
     border-radius: 16px;
     border: 1px solid #eee;
     padding: 30px;
     -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 @-webkit-keyframes fadeInUp {
     from {
         opacity: 0;
         -webkit-transform: translateY(40px);
-                transform: translateY(40px);
+        transform: translateY(40px);
     }
     to {
         opacity: 1;
         -webkit-transform: translateY(0);
-                transform: translateY(0);
+        transform: translateY(0);
     }
 }
 
@@ -341,16 +341,16 @@
     from {
         opacity: 0;
         -webkit-transform: translateY(40px);
-                transform: translateY(40px);
+        transform: translateY(40px);
     }
     to {
         opacity: 1;
         -webkit-transform: translateY(0);
-                transform: translateY(0);
+        transform: translateY(0);
     }
 }
 
-.invoice-tracking__order-info {
+.order-tracking__order-info {
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: 1fr 24px 1fr;
@@ -362,21 +362,21 @@
     border: 1px solid #eee;
     margin-bottom: 40px;
     -webkit-animation: fadeIn 0.6s ease 0.3s backwards;
-            animation: fadeIn 0.6s ease 0.3s backwards;
+    animation: fadeIn 0.6s ease 0.3s backwards;
 }
 
-.invoice-tracking__info-section {
+.order-tracking__info-section {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     gap: 24px;
 }
 
-.invoice-tracking__info-group {
+.order-tracking__info-group {
     background: white;
     padding: 20px;
     border-radius: 12px;
@@ -386,29 +386,29 @@
     transition: all 0.3s ease;
 }
 
-.invoice-tracking__info-group:hover {
+.order-tracking__info-group:hover {
     border-color: var(--color-grey-7);
     -webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     -webkit-transform: translateY(-2px);
-        -ms-transform: translateY(-2px);
-            transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    transform: translateY(-2px);
 }
 
-.invoice-tracking__info-header {
+.order-tracking__info-header {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     margin-bottom: 12px;
 }
 
-.invoice-tracking__label {
+.order-tracking__label {
     font-size: 1.3rem;
     color: #666;
     text-transform: uppercase;
@@ -416,7 +416,7 @@
     font-weight: 500;
 }
 
-.invoice-tracking__value {
+.order-tracking__value {
     margin-left: 20px;
     font-size: 1.5rem;
     color: var(--color-grey-7);
@@ -424,14 +424,14 @@
     line-height: 1.6;
 }
 
-.invoice-tracking__value.highlight {
+.order-tracking__value.highlight {
     font-size: 1.8rem;
     color: var(--color-grey-7);
     font-weight: 600;
     letter-spacing: 0.5px;
 }
 
-.invoice-tracking__badge {
+.order-tracking__badge {
     padding: 4px 12px;
     background: var(--color-grey-7);
     color: white;
@@ -441,70 +441,70 @@
     text-transform: capitalize;
 }
 
-.invoice-tracking__icon {
+.order-tracking__icon {
     color: #666;
 }
 
-.invoice-tracking__contact-details {
+.order-tracking__contact-details {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     gap: 12px;
     margin-top: 12px;
 }
 
-.invoice-tracking__contact-item {
+.order-tracking__contact-item {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     gap: 8px;
     font-size: 1.4rem;
     color: var(--color-grey-7);
 }
 
-.invoice-tracking__contact-item svg {
+.order-tracking__contact-item svg {
     color: #666;
 }
 
-.invoice-tracking__items {
+.order-tracking__items {
     margin-top: 40px;
     background: white;
     border-radius: 16px;
     border: 1px solid #eee;
     overflow: hidden;
     -webkit-animation: fadeIn 0.6s ease 0.4s backwards;
-            animation: fadeIn 0.6s ease 0.4s backwards;
+    animation: fadeIn 0.6s ease 0.4s backwards;
 }
 
-.invoice-tracking__items-header {
+.order-tracking__items-header {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     padding: 24px 30px;
     border-bottom: 1px solid #eee;
     background: #f8f9fa;
 }
 
-.invoice-tracking__items-title {
+.order-tracking__items-title {
     font-size: 1.8rem;
     font-weight: 600;
     color: var(--color-grey-7);
 }
 
-.invoice-tracking__items-count {
+.order-tracking__items-count {
     font-size: 1.4rem;
     color: #666;
     padding: 4px 12px;
@@ -513,19 +513,19 @@
     border: 1px solid #eee;
 }
 
-.invoice-tracking__items-list {
+.order-tracking__items-list {
     padding: 20px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     gap: 20px;
 }
 
-.invoice-tracking__item {
+.order-tracking__item {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -539,29 +539,29 @@
     transition: all 0.3s ease;
 }
 
-.invoice-tracking__item:hover {
+.order-tracking__item:hover {
     border-color: var(--color-grey-7);
     -webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     -webkit-transform: translateY(-2px);
-        -ms-transform: translateY(-2px);
-            transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    transform: translateY(-2px);
 }
 
-.invoice-tracking__item-image {
+.order-tracking__item-image {
     width: 250px;
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid #eee;
 }
 
-.invoice-tracking__item-image img {
+.order-tracking__item-image img {
     display: block;
     aspect-ratio: 1 / 1;
     width: 100%;
     height: 100%;
     -o-object-fit: cover;
-       object-fit: cover;
+    object-fit: cover;
     -webkit-transition: -webkit-transform 0.3s ease;
     transition: -webkit-transform 0.3s ease;
     -o-transition: transform 0.3s ease;
@@ -569,76 +569,76 @@
     transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
-.invoice-tracking__item:hover .invoice-tracking__item-image img {
+.order-tracking__item:hover .order-tracking__item-image img {
     -webkit-transform: scale(1.05);
-        -ms-transform: scale(1.05);
-            transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
 }
 
-.invoice-tracking__item-content {
+.order-tracking__item-content {
     -webkit-box-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
+    -ms-flex: 1;
+    flex: 1;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
 }
 
-.invoice-tracking__item-header {
+.order-tracking__item-header {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     -webkit-box-align: start;
-        -ms-flex-align: start;
-            align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
 }
 
-.invoice-tracking__item-name {
+.order-tracking__item-name {
     font-size: 1.6rem;
     font-weight: 500;
     color: var(--color-grey-7);
 }
 
-.invoice-tracking__item-price {
+.order-tracking__item-price {
     font-size: 1.6rem;
     font-weight: 600;
     color: var(--color-grey-7);
 }
 
-.invoice-tracking__item-specs {
+.order-tracking__item-specs {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     gap: 24px;
 }
 
-.invoice-tracking__spec {
+.order-tracking__spec {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     gap: 8px;
 }
 
-.invoice-tracking__spec-icon {
+.order-tracking__spec-icon {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     width: 24px;
     height: 24px;
     background: #f8f9fa;
@@ -646,40 +646,40 @@
     color: #666;
 }
 
-.invoice-tracking__spec-label {
+.order-tracking__spec-label {
     font-size: 1.3rem;
     color: #666;
 }
 
-.invoice-tracking__spec-value {
+.order-tracking__spec-value {
     font-size: 1.3rem;
     color: var(--color-grey-7);
     font-weight: 500;
 }
 
-.invoice-tracking__summary {
+.order-tracking__summary {
     margin-top: 40px;
     padding: 30px;
     background: #f8f9fa;
     border-radius: 12px;
     border: 1px solid #eee;
     -webkit-animation: fadeIn 0.6s ease 0.5s backwards;
-            animation: fadeIn 0.6s ease 0.5s backwards;
+    animation: fadeIn 0.6s ease 0.5s backwards;
 }
 
-.invoice-tracking__summary-row {
+.order-tracking__summary-row {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
     padding: 12px 0;
     font-size: 1.5rem;
     color: #666;
 }
 
-.invoice-tracking__summary-row--total {
+.order-tracking__summary-row--total {
     font-size: 1.8rem;
     font-weight: 600;
     color: var(--color-grey-7);
@@ -688,17 +688,17 @@
     padding-top: 16px;
 }
 
-.invoice-tracking__actions {
+.order-tracking__actions {
     margin-top: 40px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     gap: 20px;
     -webkit-animation: fadeIn 0.6s ease 0.6s backwards;
-            animation: fadeIn 0.6s ease 0.6s backwards;
+    animation: fadeIn 0.6s ease 0.6s backwards;
 }
 
-.invoice-tracking__action-btn {
+.order-tracking__action-btn {
     margin: 0 auto;
     width: -webkit-fit-content;
     width: -moz-fit-content;
@@ -714,122 +714,122 @@
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     gap: 12px;
     text-decoration: none;
     font-weight: 500;
 }
 
-.invoice-tracking__action-btn--print {
+.order-tracking__action-btn--print {
     background: white;
     color: var(--color-grey-7);
     border: 2px solid #eee;
 }
 
-.invoice-tracking__action-btn--print:hover {
+.order-tracking__action-btn--print:hover {
     background: #f8f9fa;
     border-color: var(--color-grey-7);
     -webkit-transform: translateY(-2px);
-        -ms-transform: translateY(-2px);
-            transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    transform: translateY(-2px);
 }
 
-.invoice-tracking__action-btn--continue {
+.order-tracking__action-btn--continue {
     background: var(--color-grey-7);
     color: white;
     border: none;
 }
 
-.invoice-tracking__action-btn--continue:hover {
+.order-tracking__action-btn--continue:hover {
     background: #1a252f;
     -webkit-transform: translateY(-2px);
-        -ms-transform: translateY(-2px);
-            transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    transform: translateY(-2px);
     -webkit-box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 @media screen and (max-width: 749px) {
-    .invoice-tracking__container {
+    .order-tracking__container {
         padding: 20px;
         margin: 0 15px;
     }
 
-    .invoice-tracking__title {
+    .order-tracking__title {
         font-size: 2.8rem;
     }
 
-    .invoice-tracking__subtitle {
+    .order-tracking__subtitle {
         font-size: 1.4rem;
     }
 
-    .invoice-tracking__form {
+    .order-tracking__form {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
     }
 
-    .invoice-tracking__order-info {
+    .order-tracking__order-info {
         -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
         padding: 20px;
     }
 
-    .invoice-tracking__info-group {
+    .order-tracking__info-group {
         padding: 16px;
     }
 
-    .invoice-tracking__value.highlight {
+    .order-tracking__value.highlight {
         font-size: 1.6rem;
     }
 
-    .invoice-tracking__actions {
+    .order-tracking__actions {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
     }
 
-    .invoice-tracking__status-icon {
+    .order-tracking__status-icon {
         width: 40px;
         height: 40px;
     }
 
-    .invoice-tracking__items-header {
+    .order-tracking__items-header {
         padding: 20px;
     }
 
-    .invoice-tracking__item {
+    .order-tracking__item {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
         gap: 16px;
     }
 
-    .invoice-tracking__item-image {
+    .order-tracking__item-image {
         /* width: 80px;
         height: 80px; */
         width: unset;
         height: unset;
     }
 
-    .invoice-tracking__item-specs {
+    .order-tracking__item-specs {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-                flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
         gap: 12px;
     }
     .cart-item__details {
         -webkit-box-orient: horizontal;
         -webkit-box-direction: normal;
-            -ms-flex-direction: row;
-                flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
     }
 }
