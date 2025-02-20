@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { motion } from "framer-motion";
 import { Calendar, User, Share2, Facebook, Twitter, MoreHorizontal, Heart } from "lucide-react";
 import PinterestIcon from "@mui/icons-material/Pinterest";
@@ -50,7 +50,7 @@ export default function BlogDetail({ article }) {
     });
 
     // Fetch comments and replies
-    useEffect(() => {
+    useLayoutEffect(() => {
         const fetchCommentsAndReplies = async () => {
             try {
                 setIsLoading(true);
@@ -80,6 +80,7 @@ export default function BlogDetail({ article }) {
         if (article?.id) {
             fetchCommentsAndReplies();
         }
+        document.documentElement.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }, [article?.id]);
 
     if (!article) {
