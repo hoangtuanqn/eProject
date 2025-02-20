@@ -478,7 +478,7 @@ export default function BlogDetail({ article }) {
                                             >
                                                 {loadingSendApi ? (
                                                     <img
-                                                        src="/assets/icon/loading.gif"
+                                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                         alt="Loading..."
                                                         className="loading-spinner"
                                                     />
@@ -587,7 +587,7 @@ export default function BlogDetail({ article }) {
                                                                     >
                                                                         {loadingReplyApi ? (
                                                                             <img
-                                                                                src="/assets/icon/loading.gif"
+                                                                                src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                                                 alt="Loading..."
                                                                                 className="loading-spinner"
                                                                             />

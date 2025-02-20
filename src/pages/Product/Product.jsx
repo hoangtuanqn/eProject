@@ -479,7 +479,10 @@ export default function Product() {
                                             className="product__image-thumbnail-img"
                                             onClick={handleImageClick}
                                         >
-                                            <img src={image} alt={`${product.name} view ${index + 1}`} />
+                                            <img
+                                                src={`${process.env.REACT_APP_BASE_URL}/${image}`}
+                                                alt={`${product.name} view ${index + 1}`}
+                                            />
                                         </div>
                                     ))}
                                 </Carousel>
@@ -496,7 +499,10 @@ export default function Product() {
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                     >
-                                        <img src={image} alt={`${product.name} view ${index + 1}`} />
+                                        <img
+                                            src={`${process.env.REACT_APP_BASE_URL}/${image}`}
+                                            alt={`${product.name} view ${index + 1}`}
+                                        />
                                     </motion.div>
                                 ))}
                             </div>
@@ -727,7 +733,7 @@ export default function Product() {
                                     >
                                         {isLoading ? (
                                             <img
-                                                src="/assets/icon/loading.gif"
+                                                src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                 alt="Loading..."
                                                 className="loading-spinner"
                                             />
@@ -903,7 +909,10 @@ export default function Product() {
                                 >
                                     {product.images.map((image, index) => (
                                         <div key={index} className="product__image-modal-slide">
-                                            <img src={image} alt={`${product.name} view ${index + 1}`} />
+                                            <img
+                                                src={`${process.env.REACT_APP_BASE_URL}/${image}`}
+                                                alt={`${product.name} view ${index + 1}`}
+                                            />
                                         </div>
                                     ))}
                                 </Carousel>

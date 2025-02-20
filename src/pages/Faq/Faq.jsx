@@ -71,7 +71,7 @@ export default function Faq() {
                         whileHover={{ scale: 1.02 }}
                     >
                         <img
-                            src="/assets/imgs/faq.webp"
+                            src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/faq.webp`}
                             alt="Customer Service Representative"
                             width={600}
                             height={800}

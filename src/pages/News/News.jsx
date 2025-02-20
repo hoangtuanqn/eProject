@@ -26,7 +26,7 @@ export default function News() {
                         >
                             <Link to={`/blog/news/${article.slug}`} className="news-card__image-wrapper">
                                 <img
-                                    src={article.thumbnail || "/placeholder.svg"}
+                                    src={`${process.env.REACT_APP_BASE_URL}/${article.thumbnail}`}
                                     alt={article.name}
                                     className="news-card__image"
                                 />

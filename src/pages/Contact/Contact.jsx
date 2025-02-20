@@ -564,7 +564,7 @@ export default function Contact() {
                                         >
                                             {loading ? (
                                                 <img
-                                                    src="/assets/icon/loading.gif"
+                                                    src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                     className="contact__loading"
                                                     alt="Loading..."
                                                 />

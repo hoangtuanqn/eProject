@@ -33,7 +33,7 @@ export default function MenuDesktop() {
                 >
                     <a href="#!" className="header__link">
                         Products
-                        <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
+                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/arrow-bottom.svg`} className="header__icon-arow" alt="" />
                     </a>
                 </li>
                 <div className="header__submenu header__submenu__big">
@@ -185,26 +185,26 @@ export default function MenuDesktop() {
                             <div className="header__submenu-right">
                                 <figure>
                                     <Link to="/category/all-product" className="submenu__img-link">
-                                        <img src="/assets/imgs/ads-1.webp" alt="" className="submenu__img" />
+                                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/ads-1.webp`} alt="" className="submenu__img" />
                                     </Link>
 
                                     <figcaption className="submenu__desc">Featured</figcaption>
                                 </figure>
                                 <figure>
                                     <Link to="/category/all-product" className="submenu__img-link">
-                                        <img src="/assets/imgs/ads-2.webp" alt="" className="submenu__img" />
+                                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/ads-2.webp`} alt="" className="submenu__img" />
                                     </Link>
                                     <figcaption className="submenu__desc">New Arrivals</figcaption>
                                 </figure>{" "}
                                 <figure>
                                     <Link to="/category/all-product" className="submenu__img-link">
-                                        <img src="/assets/imgs/ads-3.webp" alt="" className="submenu__img" />
+                                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/ads-3.webp`} alt="" className="submenu__img" />
                                     </Link>
                                     <figcaption className="submenu__desc">Special Offers</figcaption>
                                 </figure>{" "}
                                 <figure>
                                     <Link to="/category/all-product" className="submenu__img-link">
-                                        <img src="/assets/imgs/ads-4.webp" alt="" className="submenu__img" />
+                                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/ads-4.webp`} alt="" className="submenu__img" />
                                     </Link>
                                     <figcaption className="submenu__desc">All Products</figcaption>
                                 </figure>
@@ -227,7 +227,7 @@ export default function MenuDesktop() {
                 >
                     <a href="#!" className="header__link">
                         About
-                        <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
+                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/arrow-bottom.svg`} className="header__icon-arow" alt="" />
                     </a>
                     {/* Submenu */}
                     <ul className="header__submenu">
@@ -275,7 +275,7 @@ export default function MenuDesktop() {
                 >
                     <a href="#!" className="header__link">
                         Support
-                        <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
+                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/arrow-bottom.svg`} className="header__icon-arow" alt="" />
                     </a>
                     {/* Submenu */}
                     <ul className="header__submenu">
@@ -325,7 +325,7 @@ export default function MenuDesktop() {
                 >
                     <a href="#!" className="header__link">
                         Media
-                        <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
+                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/arrow-bottom.svg`} className="header__icon-arow" alt="" />
                     </a>
                     {/* Submenu */}
                     <ul className="header__submenu">
@@ -333,7 +333,7 @@ export default function MenuDesktop() {
                             <Link to="/pages/gallery/product-photos" className="header__submenu-link">
                                 <span>Gallery</span>
                                 <img
-                                    src="/assets/icon/cheveron-right.svg"
+                                    src={`${process.env.REACT_APP_BASE_URL}/assets/icon/cheveron-right.svg`}
                                     className="header__submenu__icon-arow"
                                     alt=""
                                 />
@@ -380,7 +380,7 @@ export default function MenuDesktop() {
                 >
                     <a href="#!" className="header__link">
                         Activities
-                        <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />
+                        <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/arrow-bottom.svg`} className="header__icon-arow" alt="" />
                     </a>
                     {/* Submenu */}
                     <ul className="header__submenu">

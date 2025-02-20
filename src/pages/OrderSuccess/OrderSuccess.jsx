@@ -286,7 +286,7 @@ export default function OrderSuccess() {
                                         <div key={`${item.id}-${item.size}-${item.color}`} className="cart-page__item">
                                             <div className="cart-page__item-image">
                                                 <Link to={`/product/${itemProduct.slug}`}>
-                                                    <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
+                                                    <img src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`} alt={item.name} />
                                                 </Link>
                                             </div>
 

@@ -468,7 +468,7 @@ const CheckOut = () => {
                                             </div>
                                         </div>
                                         <img
-                                            src="/assets/icon/payment-upon-receipt.png"
+                                            src={`${process.env.REACT_APP_BASE_URL}/assets/icon/payment-upon-receipt.png`}
                                             alt="Payment upon receipt"
                                             className="checkout__payment-icon"
                                         />
@@ -494,7 +494,7 @@ const CheckOut = () => {
                                             </div>
                                         </div>
                                         <img
-                                            src="/assets/icon/paypal-big.png"
+                                            src={`${process.env.REACT_APP_BASE_URL}/assets/icon/paypal-big.png`}
                                             alt="PayPal"
                                             className="checkout__payment-icon"
                                         />
@@ -520,7 +520,7 @@ const CheckOut = () => {
                                             </div>
                                         </div>
                                         <img
-                                            src="/assets/icon/google_pay.png"
+                                            src={`${process.env.REACT_APP_BASE_URL}/assets/icon/google_pay.png`}
                                             alt="Google Pay"
                                             className="checkout__payment-icon"
                                         />
@@ -547,7 +547,7 @@ const CheckOut = () => {
                                             </div>
                                         </div>
                                         <img
-                                            src="/assets/icon/momo.svg"
+                                            src={`${process.env.REACT_APP_BASE_URL}/assets/icon/momo.svg`}
                                             alt="Momo"
                                             className="checkout__payment-icon"
                                         />
@@ -583,7 +583,7 @@ const CheckOut = () => {
                                     <div key={`${item.id}-${item.color}-${item.size}`} className="checkout__item">
                                         <div className="checkout__item-image">
                                             <a href={`/product/${item.slug}`} target="_blank" rel="noreferrer">
-                                                <img src={item.thumbnail || "/placeholder.svg"} alt={item.name} />
+                                                <img src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`} alt={item.name} />
                                             </a>
                                         </div>
 

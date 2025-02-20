@@ -15,7 +15,7 @@ export default function VideoPromo() {
                             {!isPlaying ? (
                                 <>
                                     <img
-                                        src="/assets/imgs/video-promo.webp"
+                                        src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/video-promo.webp`}
                                         alt="Video Thumbnail"
                                         className="video-promo__thumbnail"
                                     />
@@ -55,7 +55,10 @@ export default function VideoPromo() {
                                 className="video-promo__subtitle"
                             >
                                 FOLLOW US ON YOUTUBE
-                                <img src="/assets/icon/youtube.svg" alt="YouTube Icon" />
+                                <img
+                                    src={`${process.env.REACT_APP_BASE_URL}/assets/icon/youtube.svg`}
+                                    alt="YouTube Icon"
+                                />
                             </a>
                         </div>
                     </div>

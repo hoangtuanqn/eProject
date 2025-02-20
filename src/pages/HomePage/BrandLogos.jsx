@@ -8,8 +8,12 @@ export default function BrandLogos() {
             <section className="brand-logos">
                 <ul className="brand-logos__list">
                     {brand.map((item) => (
-                        <li className="brand-logos__item">
-                            <img src={item.image} alt={item.name} className="brand-logos__image" />
+                        <li className="brand-logos__item" key={item.id}>
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/${item.image}`}
+                                alt={item.name}
+                                className="brand-logos__image"
+                            />
                         </li>
                     ))}
                 </ul>

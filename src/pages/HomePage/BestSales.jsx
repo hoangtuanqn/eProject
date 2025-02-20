@@ -48,7 +48,7 @@ const BestSales = () => {
                                         {sale > 0 && <span className="badge__sale">SALE {sale}%</span>}
                                         <Link to={`/product/${slug}`}>
                                             <img
-                                                src={thumbnail}
+                                                src={`${process.env.REACT_APP_BASE_URL}/${thumbnail}`}
                                                 alt={name}
                                                 width="100%"
                                                 loading="lazy"
@@ -65,7 +65,7 @@ const BestSales = () => {
                                             >
                                                 {wishlistLoadingStates[id] ? (
                                                     <img
-                                                        src="/assets/icon/loading.gif"
+                                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                         alt="Loading..."
                                                         className="loading-spinner"
                                                     />

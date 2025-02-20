@@ -54,7 +54,7 @@ export default function AboutUs() {
                             transition={{ duration: 0.3 }}
                         >
                             <img
-                                src="/assets/imgs/about-1.webp"
+                                src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/about-1.webp`}
                                 alt="Team working together"
                                 className="about-us__image"
                             />
@@ -191,7 +191,7 @@ export default function AboutUs() {
                             transition={{ duration: 0.6, delay: 1.4 }}
                             whileHover={{ scale: 1.02 }}
                         >
-                            <img src="/assets/imgs/aboutus-2.jpg" alt="Fashion models" className="about-us__image" />
+                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/aboutus-2.jpg`} alt="Fashion models" className="about-us__image" />
                             <div className="about-us__image-overlay"></div>
                         </motion.div>
                     </motion.div>

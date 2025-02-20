@@ -41,7 +41,7 @@ export default function Hero() {
                         <div
                             className="hero__bg"
                             style={{
-                                background: `url('${slide.image}') top center / cover no-repeat`,
+                                background: `url('${process.env.REACT_APP_BASE_URL}/${slide.image}') top center / cover no-repeat`,
                             }}
                         ></div>
                         <div className="container">

@@ -82,7 +82,7 @@ export default function WishList() {
                                             <div className="image-wrapper">
                                                 <Link to={`/product/${product.slug}`}>
                                                     <img
-                                                        src={product.thumbnail || "/placeholder.svg"}
+                                                        src={`${process.env.REACT_APP_BASE_URL}/${product.thumbnail}`}
                                                         alt={product.name}
                                                         className="category__product-image"
                                                     />
@@ -96,7 +96,7 @@ export default function WishList() {
                                                     >
                                                         {deletingItemId === product.id ? (
                                                             <img
-                                                                src="/assets/icon/loading.gif"
+                                                                src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                                 alt="Loading..."
                                                                 className="loading-spinner"
                                                             />

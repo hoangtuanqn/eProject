@@ -164,7 +164,11 @@ export default function InvoiceTracking() {
                     <button type="submit" className="order-tracking__button" disabled={isLoading}>
                         {isLoading ? (
                             <>
-                                <img src="/assets/icon/loading.gif" alt="Loading..." className="loading-spinner" />
+                                <img
+                                    src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
+                                    alt="Loading..."
+                                    className="loading-spinner"
+                                />
                                 Searching...
                             </>
                         ) : (
@@ -293,7 +297,10 @@ export default function InvoiceTracking() {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
-                                                    <img src={item.thumbnail} alt={item.name} />
+                                                    <img
+                                                        src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`}
+                                                        alt={item.name}
+                                                    />
                                                 </Link>
                                             </div>
 

@@ -11,7 +11,7 @@ export default function CategoryHighlights() {
                         <article className="category-highlights__item">
                             <div
                                 className="category-highlights__background"
-                                style={{ background: "url('./assets/imgs/banner-1.png') center/cover no-repeat" }}
+                                style={{ background: `url('${process.env.REACT_APP_BASE_URL}/assets/imgs/banner-1.png') center/cover no-repeat` }}
                             ></div>
                             <div className="category-highlights__content">
                                 <p className="category-highlights__subtitle">TOP COLLECTIONS</p>
@@ -25,7 +25,7 @@ export default function CategoryHighlights() {
                         <article className="category-highlights__item">
                             <div
                                 className="category-highlights__background"
-                                style={{ background: "url('./assets/imgs/banner-2.png') center/cover no-repeat" }}
+                                style={{ background: `url('${process.env.REACT_APP_BASE_URL}/assets/imgs/banner-2.png') center/cover no-repeat` }}
                             ></div>
                             <div className="category-highlights__content">
                                 <p className="category-highlights__subtitle">PREMIUM STYLE</p>
@@ -39,7 +39,7 @@ export default function CategoryHighlights() {
                         <article className="category-highlights__item">
                             <div
                                 className="category-highlights__background"
-                                style={{ background: "url('./assets/imgs/banner-3.png') center/cover no-repeat" }}
+                                style={{ background: `url('${process.env.REACT_APP_BASE_URL}/assets/imgs/banner-3.png') center/cover no-repeat` }}
                             ></div>
                             <div className="category-highlights__content">
                                 <p className="category-highlights__subtitle">EXCLUSIVE SALE</p>

@@ -48,7 +48,7 @@ export default function CartHover() {
             <div className="cart-hover__items">
                 {uniqueCartItems.map((item) => (
                     <div key={item.id} className="cart-hover__item">
-                        <img src={item.thumbnail} alt={item.name} className="cart-hover__item-img" />
+                        <img src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`} alt={item.name} className="cart-hover__item-img" />
                         <div className="cart-hover__item-info">
                             <h4>{item.name}</h4>
                             <p>{formatCurrency(item.price)}</p>

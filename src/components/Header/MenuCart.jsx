@@ -144,18 +144,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                 </div>
 
                 <div className="cart__items-container">
-                    {/* {cartItems.length > 0 && (
-                        <button className="cart-page__clear-btn" onClick={handleClearCart} disabled={isClearing}>
-                            {isClearing ? (
-                                <img src="/assets/icon/loading.gif" alt="Loading..." className="loading-spinner" />
-                            ) : (
-                                <>
-                                    <Trash2 size={16} />
-                                    Clear Cart
-                                </>
-                            )}
-                        </button>
-                    )} */}
+                  
 
                     <AnimatePresence mode="popLayout">
                         {cartItems.length > 0 ? (
@@ -181,7 +170,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                     >
                                         <div className="cart-item__top">
                                             <Link to={`/product/${item.slug}`}>
-                                                <img src={item.thumbnail} alt={item.name} className="cart-item__img" />
+                                                <img src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`} alt={item.name} className="cart-item__img" />
                                             </Link>
                                             <div className="cart-item__info">
                                                 <Link
@@ -297,7 +286,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                             >
                                                 {deletingItemId === item.id ? (
                                                     <img
-                                                        src="/assets/icon/loading.gif"
+                                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                         alt="Loading..."
                                                         className="loading-spinner"
                                                     />
@@ -311,7 +300,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                             })
                         ) : (
                             <div className="cart__empty">
-                                <img src="/assets/imgs/cart_empty.png" alt="Empty cart" className="cart__empty-img" />
+                                <img src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/cart_empty.png`} alt="Empty cart" className="cart__empty-img" />
 
                                 <p className="cart__empty-text">Your cart is empty</p>
                                 <button

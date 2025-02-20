@@ -386,7 +386,7 @@ export default function Cart() {
                                                 </div>
                                                 <div className="cart-page__item-image">
                                                     <Link to={`/product/${item.slug}`}>
-                                                        <img src={item.thumbnail} alt={item.name} />
+                                                        <img src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`} alt={item.name} />
                                                     </Link>
                                                 </div>
                                                 <div className="cart-page__item-details">
@@ -510,7 +510,7 @@ export default function Cart() {
                                                         >
                                                             {deletingItemId === item.id ? (
                                                                 <img
-                                                                    src="/assets/icon/loading.gif"
+                                                                    src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                                     alt="Loading..."
                                                                     className="loading-spinner"
                                                                 />
@@ -614,7 +614,7 @@ export default function Cart() {
                                             >
                                                 {isCalculating ? (
                                                     <img
-                                                        src="/assets/icon/loading.gif"
+                                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                         alt="Loading..."
                                                         className="loading-spinner"
                                                     />
@@ -633,7 +633,7 @@ export default function Cart() {
                                             >
                                                 {isCalculating ? (
                                                     <img
-                                                        src="/assets/icon/loading.gif"
+                                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                         alt="Loading..."
                                                         className="loading-spinner"
                                                     />
@@ -706,7 +706,7 @@ export default function Cart() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                         >
-                            <img src="/assets/imgs/cart_empty.png" alt="Empty cart" />
+                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/cart_empty.png`} alt="Empty cart" />
                             <h2>Your cart is empty</h2>
                             <p>Looks like you haven't added any items to your cart yet.</p>
                             <Link to="/categories" className="btn cart__btn">

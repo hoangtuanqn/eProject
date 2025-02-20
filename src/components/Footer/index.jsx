@@ -184,12 +184,12 @@ export default function Footer() {
                             &copy; {new Date().getFullYear()}, Team 02 FPT Aptech Vietnam
                         </p>
                         <div className="footer__payment">
-                            <img src="/assets/icon/visa.svg" alt="Visa" className="footer__payment-img" />
-                            <img src="/assets/icon/mastercard.svg" alt="Mastercard" className="footer__payment-img" />
-                            <img src="/assets/icon/amex.svg" alt="American Express" className="footer__payment-img" />
-                            <img src="/assets/icon/paypal.svg" alt="PayPal" className="footer__payment-img" />
-                            <img src="/assets/icon/diners.svg" alt="Diners Club" className="dinersclub-img" />
-                            <img src="/assets/icon/discover.svg" alt="Discover" className="footer__payment-img" />
+                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/visa.svg`} alt="Visa" className="footer__payment-img" />
+                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/mastercard.svg`} alt="Mastercard" className="footer__payment-img" />
+                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/amex.svg`} alt="American Express" className="footer__payment-img" />
+                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/paypal.svg`} alt="PayPal" className="footer__payment-img" />
+                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/diners.svg`} alt="Diners Club" className="dinersclub-img" />
+                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/discover.svg`} alt="Discover" className="footer__payment-img" />
                         </div>
                     </div>
 

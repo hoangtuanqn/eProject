@@ -16,7 +16,7 @@ export default function NotFound() {
     return (
         <>
             <section className="notfound">
-                <img data-aos="fade-down" src="/assets/imgs/404.png" alt="Image 404" className="notfound__img" />
+                <img data-aos="fade-down" src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/404.png`} alt="404 error" className="notfound__img" />
                 <h1 className="notfound__title">Oops! Page not found</h1>
                 <p className="notfound__desc">The page you requested does not exist.</p>
                 <Link to="/categories" className="btn notfound__link">

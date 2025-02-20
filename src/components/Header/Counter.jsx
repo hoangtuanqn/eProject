@@ -60,7 +60,7 @@ export default function Counter() {
         <button className="header__icon-wrap dfbetween">
             <Users className="header__icon" size={36} />
             {loading ? (
-                <img src="/assets/icon/loading.gif" className="header__loading" alt="Loading..." />
+                <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`} className="header__loading" alt="Loading..." />
             ) : (
                 <span className="header__counter" onClick={handleCounterClick}>{`${counterVisited} Visitors`}</span>
             )}

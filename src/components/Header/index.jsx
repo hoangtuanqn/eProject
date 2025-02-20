@@ -136,7 +136,7 @@ export default function Header() {
                                 }
                             >
                                 <img
-                                    src="/assets/imgs/logo.png"
+                                    src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/logo.png`}
                                     alt={process.env.REACT_APP_BRAND_NAME}
                                     className="header__logo"
                                 />
@@ -144,11 +144,7 @@ export default function Header() {
 
                             <MenuDesktop />
                         </div>
-                        {/* <img
-                            src="/assets/imgs/logo.png"
-                            alt={process.env.REACT_APP_BRAND_NAME}
-                            className="header__logo"
-                        /> */}
+                     
                         {/* Search */}
                         <div className="dfbetween">
                             <button

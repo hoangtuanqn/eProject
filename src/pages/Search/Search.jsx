@@ -51,7 +51,12 @@ export default function Search() {
                     maxLength={255}
                 />
                 <button type="submit" className="searchPage__icon-button">
-                    <img src="/assets/icon/search.svg" alt="Search" className="searchPage__icon" size={20} />
+                    <img
+                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/search.svg`}
+                        alt="Search"
+                        className="searchPage__icon"
+                        size={20}
+                    />
                 </button>
             </form>
         </section>

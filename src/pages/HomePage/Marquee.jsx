@@ -9,7 +9,7 @@ const Marquee = () => {
                 <div className="marquee__list">
                     {marqueeData.map(({ id, text }) => (
                         <div key={id} className="marquee__content">
-                            <img src="/assets/icon/start.svg" alt="" className="marquee__icon" />
+                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/start.svg`} alt="" className="marquee__icon" />
                             <p className="marquee__desc">{text}</p>
                         </div>
                     ))}

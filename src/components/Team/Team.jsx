@@ -46,7 +46,7 @@ export default function Team() {
                                 <article className="creative-team__item" onClick={() => openModal(member)}>
                                     <div className="creative-team__image-wrapper">
                                         <img
-                                            src={member.image || "/placeholder.svg"}
+                                            src={`${process.env.REACT_APP_BASE_URL}/${member.image}`}
                                             alt={member.name}
                                             className="creative-team__image"
                                         />
@@ -105,7 +105,7 @@ export default function Team() {
                             <X size={24} />
                         </button>
                         <img
-                            src={selectedMember.image || "/placeholder.svg"}
+                            src={`${process.env.REACT_APP_BASE_URL}/${selectedMember.image}`}
                             alt={selectedMember.name}
                             className="team-modal__image"
                         />

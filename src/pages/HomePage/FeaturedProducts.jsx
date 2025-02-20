@@ -41,7 +41,11 @@ const FeaturedProducts = () => {
                                         {sale > 0 && <span className="badge__sale">{`${sale}% OFF`}</span>}
                                         <div className="image-wrapper">
                                             <Link to={`/product/${slug}`}>
-                                                <img src={thumbnail} alt={name} className="category__product-image" />
+                                                <img
+                                                    src={`${process.env.REACT_APP_BASE_URL}/${thumbnail}`}
+                                                    alt={name}
+                                                    className="category__product-image"
+                                                />
                                             </Link>
 
                                             <div className="product-card__actions">
@@ -52,7 +56,7 @@ const FeaturedProducts = () => {
                                                 >
                                                     {wishlistLoadingStates[id] ? (
                                                         <img
-                                                            src="/assets/icon/loading.gif"
+                                                            src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                             alt="Loading..."
                                                             className="loading-spinner"
                                                         />

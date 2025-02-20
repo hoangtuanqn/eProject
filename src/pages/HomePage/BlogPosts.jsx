@@ -26,7 +26,7 @@ export default function BlogPosts() {
                                     <figure className="blog-posts__image-wrapper">
                                         <Link to={`/blog/news/${item.slug}`}>
                                             <img
-                                                src={item.thumbnail}
+                                                src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`}
                                                 alt={item.name}
                                                 className="blog-posts__image"
                                                 loading="lazy"

@@ -880,7 +880,7 @@ export default function Category({ nameCategory }) {
                                 <div className="filter__header" onClick={() => toggleCategory("search")}>
                                     <h3>Search Products</h3>
                                     <img
-                                        src="/assets/icon/chevron-top.svg"
+                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/chevron-top.svg`}
                                         alt=""
                                         className={clsx("filter__icon", {
                                             "filter__icon--active": openCategories.search,
@@ -908,7 +908,7 @@ export default function Category({ nameCategory }) {
                                 <div className="filter__header" onClick={() => toggleCategory("category")}>
                                     <h3>Categories</h3>
                                     <img
-                                        src="/assets/icon/chevron-top.svg"
+                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/chevron-top.svg`}
                                         alt=""
                                         className={clsx("filter__icon", {
                                             "filter__icon--active": openCategories.category,
@@ -943,7 +943,7 @@ export default function Category({ nameCategory }) {
                                 <div className="filter__header" onClick={() => toggleCategory("price")}>
                                     <h3>Price Range</h3>
                                     <img
-                                        src="/assets/icon/chevron-top.svg"
+                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/chevron-top.svg`}
                                         alt=""
                                         className={clsx("filter__icon", {
                                             "filter__icon--active": openCategories.price,
@@ -1018,7 +1018,7 @@ export default function Category({ nameCategory }) {
                                 <div className="filter__header" onClick={() => toggleCategory("education")}>
                                     <h3>Education Level</h3>
                                     <img
-                                        src="/assets/icon/chevron-top.svg"
+                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/chevron-top.svg`}
                                         alt=""
                                         className={clsx("filter__icon", {
                                             "filter__icon--active": openCategories.education,
@@ -1047,7 +1047,7 @@ export default function Category({ nameCategory }) {
                                 <div className="filter__header" onClick={() => toggleCategory("gender")}>
                                     <h3>Gender</h3>
                                     <img
-                                        src="/assets/icon/chevron-top.svg"
+                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/chevron-top.svg`}
                                         alt=""
                                         className={clsx("filter__icon", {
                                             "filter__icon--active": openCategories.gender,
@@ -1076,7 +1076,7 @@ export default function Category({ nameCategory }) {
                                 <div className="filter__header" onClick={() => toggleCategory("sizes")}>
                                     <h3>Sizes</h3>
                                     <img
-                                        src="/assets/icon/chevron-top.svg"
+                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/chevron-top.svg`}
                                         alt=""
                                         className={clsx("filter__icon", {
                                             "filter__icon--active": openCategories.sizes,
@@ -1105,7 +1105,7 @@ export default function Category({ nameCategory }) {
                                 <div className="filter__header" onClick={() => toggleCategory("sale")}>
                                     <h3>Sale Status</h3>
                                     <img
-                                        src="/assets/icon/chevron-top.svg"
+                                        src={`${process.env.REACT_APP_BASE_URL}/assets/icon/chevron-top.svg`}
                                         alt=""
                                         className={clsx("filter__icon", {
                                             "filter__icon--active": openCategories.sale,
@@ -1228,7 +1228,7 @@ export default function Category({ nameCategory }) {
                                         >
                                             {isLoading ? (
                                                 <img
-                                                    src="/assets/icon/loading.gif"
+                                                    src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
                                                     alt="Loading..."
                                                     className="loading-spinner"
                                                 />
