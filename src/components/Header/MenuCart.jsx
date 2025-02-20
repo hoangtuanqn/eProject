@@ -71,7 +71,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
 
     const handleQuantityInput = (id, maxQuantity, value) => {
         value = parseInt(value);
-        if (!handleCheckQuantity(maxQuantity, value)) return;
+        // if (!handleCheckQuantity(maxQuantity, value)) return;
         const newQuantity = Math.max(1, parseInt(value) || 1);
         // Update state
 
@@ -222,13 +222,20 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                                         "product__quantity-button",
                                                         itemProductOrigin.quantity <= 0 && "disabled",
                                                     )}
-                                                    onClick={() =>
-                                                        handleQuantityInput(
-                                                            item.id,
-                                                            itemProductOrigin.quantity,
-                                                            item.quantity - 1,
-                                                        )
-                                                    }
+                                                    onClick={() => {
+                                                        if (
+                                                            handleCheckQuantity(
+                                                                itemProductOrigin.quantity,
+                                                                item.quantity - 1,
+                                                            )
+                                                        ) {
+                                                            handleQuantityInput(
+                                                                item.id,
+                                                                itemProductOrigin.quantity,
+                                                                item.quantity - 1,
+                                                            );
+                                                        }
+                                                    }}
                                                 >
                                                     -
                                                 </button>
@@ -240,20 +247,19 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                                         itemProductOrigin.quantity <= 0 && "disabled",
                                                     )}
                                                     onChange={(e) => {
-                                                        const val = parseInt(e.target.value);
-                                                        if (val > itemProductOrigin.quantity) {
-                                                            toast.error(
-                                                                "Current store only " +
-                                                                    itemProductOrigin.quantity +
-                                                                    " products left",
-                                                            );
-                                                        } else {
+                                                        if (
+                                                            handleCheckQuantity(
+                                                                itemProductOrigin.quantity,
+                                                                e.target.value,
+                                                            )
+                                                        ) {
                                                             handleQuantityInput(
                                                                 item.id,
                                                                 itemProductOrigin.quantity,
                                                                 e.target.value,
                                                             );
                                                         }
+                                                       
                                                     }}
                                                     min="1"
                                                     max={itemProductOrigin.quantity}
@@ -263,13 +269,20 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                                         "product__quantity-button",
                                                         itemProductOrigin.quantity <= 0 && "disabled",
                                                     )}
-                                                    onClick={() =>
-                                                        handleQuantityInput(
-                                                            item.id,
-                                                            itemProductOrigin.quantity,
-                                                            item.quantity + 1,
-                                                        )
-                                                    }
+                                                    onClick={() => {
+                                                        if (
+                                                            handleCheckQuantity(
+                                                                itemProductOrigin.quantity,
+                                                                item.quantity + 1,
+                                                            )
+                                                        ) {
+                                                            handleQuantityInput(
+                                                                item.id,
+                                                                itemProductOrigin.quantity,
+                                                                item.quantity + 1,
+                                                            );
+                                                        }
+                                                    }}
                                                 >
                                                     +
                                                 </button>

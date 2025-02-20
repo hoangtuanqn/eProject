@@ -127,17 +127,20 @@ export const useCartActions = () => {
     };
 };
 export const handleCheckQuantity = (quantity, value) => {
-    const val = parseInt(value);
-    if (value < 1) {
-        toast.error("Minimum quantity is 1");
-        return false;
-    }
-    if (val > quantity) {
-        toast.error("Currently store only " + quantity + " products left");
-        return false;
-    }
+    if (value) {
+        const val = parseInt(value);
+        if (value < 1) {
+            toast.error("Minimum quantity is 1");
+            return false;
+        }
+        if (val > quantity) {
+            toast.error("Currently store only " + quantity + " products left");
+            return false;
+        }
 
-    if (val > 0 && val <= quantity) {
-        return val;
+        if (val > 0 && val <= quantity) {
+            return val;
+        }
     }
+    return true;
 };

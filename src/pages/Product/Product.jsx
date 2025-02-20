@@ -70,6 +70,7 @@ export default function Product() {
         setSelectedSize(foundProduct.sizes[0]);
         setSelectedColor(foundProduct.colors[0]);
         setQuantity(1);
+
         setSelectedImage(0);
         setIsZoomed(false);
         setShowSizeGuide(false);
@@ -92,7 +93,6 @@ export default function Product() {
         }
     }, [product]);
     if (!product) return null;
-
     const originalPrice = product.price;
     const salePrice = product.sale > 0 ? product.price * (1 - product.sale / 100) : null;
 
@@ -105,7 +105,13 @@ export default function Product() {
             toast.error("Please select a color");
             return;
         }
+        if (Number.isNaN(quantity)) {
+            toast.error("Please enter a valid quantity");
+            return;
+        }
         setIsLoading(true);
+        console.log(quantity);
+
         await new Promise((resolve) => setTimeout(resolve, 500));
         await handleCartAction({ ...product, size: selectedSize, color: selectedColor, quantity, selected: false });
         setIsLoading(false);

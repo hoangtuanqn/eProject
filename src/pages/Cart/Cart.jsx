@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Trash2, BadgePercent, Trash2Icon } from "lucide-react";
 import "~/styles/cart.css";
 import products from "~/data/products.json";
-import { useCartActions } from "~/utils/handleCart";
+import { handleCheckQuantity, useCartActions } from "~/utils/handleCart";
 import coupons from "~/data/coupons.json";
 import toast from "react-hot-toast";
 import { Box, CircularProgress } from "@mui/material";
@@ -74,10 +74,6 @@ export default function Cart() {
     // setCartQuantityTemp((prev) => !prev);
 
     const handleQuantityChange = (id, maxQuantity, newQuantity) => {
-        if (newQuantity > maxQuantity) {
-            toast.error("Quantity exceeds the maximum available stock");
-            return;
-        }
         const updatedCart = cartItems.map((item) =>
             item.id === id ? { ...item, quantity: Math.max(1, newQuantity) } : item,
         );
@@ -357,7 +353,7 @@ export default function Cart() {
                                                 key={`${item.id}-${item.size}-${item.color}`}
                                                 className={clsx(
                                                     "cart-page__item",
-                                                    item.quantity >= itemProductOrigin.quantity && "disabled",
+                                                    item.quantity > itemProductOrigin.quantity && "disabled",
                                                 )}
                                                 layout
                                                 initial={{ opacity: 0, y: 20 }}
@@ -427,6 +423,12 @@ export default function Cart() {
                                                         <span className="cart-item__current-price">
                                                             {formatCurrency(item.price * item.quantity)}
                                                         </span>
+                                                        {item.quantity > itemProductOrigin.quantity && (
+                                                            <span className="cart-item__current-price red">
+                                                                The product in stock is currently insufficient to
+                                                                supply.
+                                                            </span>
+                                                        )}
                                                     </div>
 
                                                     <div className="cart-page__item-actions">
@@ -436,13 +438,20 @@ export default function Cart() {
                                                                     "product__quantity-button",
                                                                     item.quantity <= 1 && "disabled",
                                                                 )}
-                                                                onClick={() =>
-                                                                    handleQuantityChange(
-                                                                        item.id,
-                                                                        itemProductOrigin.quantity,
-                                                                        item.quantity - 1,
-                                                                    )
-                                                                }
+                                                                onClick={() => {
+                                                                    if (
+                                                                        handleCheckQuantity(
+                                                                            itemProductOrigin.quantity,
+                                                                            item.quantity - 1,
+                                                                        )
+                                                                    ) {
+                                                                        handleQuantityChange(
+                                                                            item.id,
+                                                                            itemProductOrigin.quantity,
+                                                                            item.quantity - 1,
+                                                                        );
+                                                                    }
+                                                                }}
                                                             >
                                                                 -
                                                             </button>
@@ -451,31 +460,45 @@ export default function Cart() {
                                                                 value={item.quantity}
                                                                 className={clsx(
                                                                     "product__quantity-number",
-                                                                    item.quantity >= itemProductOrigin.quantity &&
+                                                                    item.quantity > itemProductOrigin.quantity &&
                                                                         "disabled",
                                                                 )}
-                                                                onChange={(e) =>
-                                                                    handleQuantityChange(
-                                                                        item.id,
-                                                                        itemProductOrigin.quantity,
-                                                                        Number.parseInt(e.target.value),
-                                                                    )
-                                                                }
+                                                                onChange={(e) => {
+                                                                    if (
+                                                                        handleCheckQuantity(
+                                                                            itemProductOrigin.quantity,
+                                                                            Number.parseInt(e.target.value),
+                                                                        )
+                                                                    ) {
+                                                                        handleQuantityChange(
+                                                                            item.id,
+                                                                            itemProductOrigin.quantity,
+                                                                            Number.parseInt(e.target.value),
+                                                                        );
+                                                                    }
+                                                                }}
                                                                 min="1"
                                                             />
                                                             <button
                                                                 className={clsx(
                                                                     "product__quantity-button",
-                                                                    item.quantity >= itemProductOrigin.quantity &&
+                                                                    item.quantity > itemProductOrigin.quantity &&
                                                                         "disabled",
                                                                 )}
-                                                                onClick={() =>
-                                                                    handleQuantityChange(
-                                                                        item.id,
-                                                                        itemProductOrigin.quantity,
-                                                                        item.quantity + 1,
-                                                                    )
-                                                                }
+                                                                onClick={() => {
+                                                                    if (
+                                                                        handleCheckQuantity(
+                                                                            itemProductOrigin.quantity,
+                                                                            item.quantity + 1,
+                                                                        )
+                                                                    ) {
+                                                                        handleQuantityChange(
+                                                                            item.id,
+                                                                            itemProductOrigin.quantity,
+                                                                            item.quantity + 1,
+                                                                        );
+                                                                    }
+                                                                }}
                                                             >
                                                                 +
                                                             </button>
@@ -665,7 +688,7 @@ export default function Cart() {
                                     onClick={() => {
                                         if (handleProcess()) {
                                             navigate("/checkouts", {
-                                                // Đảm bảo rằng chỉ có thể truy cập trang thanh toán khi bấm vào nút thanh toán
+                                                // Đảm bảo rằng chỉ có thể truy cập trang thanh toán khi bấm
                                                 state: { appliedCoupon: appliedCoupon, validCart: true },
                                             });
                                         }

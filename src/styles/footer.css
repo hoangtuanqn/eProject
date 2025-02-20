@@ -346,6 +346,9 @@
     flex-direction: row !important;
     margin-top: 10px;
 }
+.footer__social-list + .footer__social-list {
+    margin-top: 20px;
+}
 
 .footer__social-link {
     display: flex;

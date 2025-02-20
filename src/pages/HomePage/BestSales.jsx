@@ -79,7 +79,7 @@ const BestSales = () => {
                                     </figure>
 
                                     <div className="best-sales-item__info">
-                                        <h3 className="best-sales-item__name">
+                                        <h3>
                                             <Link to={`/product/${slug}`} className="best-sales-item__name">
                                                 {name}
                                             </Link>

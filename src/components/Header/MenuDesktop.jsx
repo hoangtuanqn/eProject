@@ -311,8 +311,18 @@ export default function MenuDesktop() {
                             </ul>
                         </li>
                         <li>
-                            <Link to="/blog/news" className="header__submenu-link">
+                            <a href="#!" className="header__submenu-link">
                                 <span>News</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#!" className="header__submenu-link">
+                                Fashion News
+                            </a>
+                        </li>
+                        <li>
+                            <Link to="/blog/news" className="header__submenu-link">
+                                Trends
                             </Link>
                         </li>
                     </ul>

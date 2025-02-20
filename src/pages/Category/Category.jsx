@@ -895,6 +895,7 @@ export default function Category({ nameCategory }) {
                                                 className="price-range__input-field"
                                                 placeholder="Search products..."
                                                 value={searchTerm}
+                                                maxLength={255}
                                                 onChange={(e) => setSearchTerm(e.target.value)}
                                             />
                                         </div>

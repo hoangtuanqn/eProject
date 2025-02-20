@@ -359,7 +359,8 @@ const MenuMobile = ({ toggleSubmenu }) => {
                                     <Link to="/blog/news" className="mobile-submenu__link">
                                         News
                                     </Link>
-                                </li>
+                                </li>{" "}
+                                
                             </ul>
                         </li>
                         <li className="mobile-menu__item">

@@ -22,7 +22,10 @@
     flex-direction: column;
     gap: 20px;
 }
-
+.cart-item__current-price.red {
+    margin-top: 10px;
+    color: red;
+}
 .cart-page__item {
     display: -ms-grid;
     display: grid;
