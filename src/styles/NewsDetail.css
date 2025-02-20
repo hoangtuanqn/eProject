@@ -70,8 +70,10 @@
 }
 
 .news-detail__content p {
+    color: var(--color-grey-7);
     text-align: justify;
     margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 
 .news-detail__content img {
@@ -149,6 +151,7 @@
     -webkit-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    margin-top: 0;
 }
 
 .news-detail__share-btn:hover {
@@ -194,7 +197,6 @@
 }
 
 .news-detail__comments {
-    margin-top: 60px;
     padding-top: 40px;
     border-top: 1px solid #eee;
 }
