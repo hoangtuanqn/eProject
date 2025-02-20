@@ -157,16 +157,19 @@ export default function Footer() {
                             </ul>
                             <ul className="footer__list footer__social-list">
                                 <li>
-                                    {/* <iframe
+                                    <iframe
                                         title="Facebook Page Timeline"
                                         src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F100063156842633&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
                                         width="340"
                                         height="200"
-                                        style={{ border: "none", overflow: "hidden" }}
+                                        style={{
+                                            border: "none",
+                                            overflow: "hidden",
+                                        }}
                                         loading="lazy"
                                         allowFullScreen={true}
                                         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                                    ></iframe> */}
+                                    ></iframe>
                                 </li>
                             </ul>
                         </div>
@@ -177,7 +180,9 @@ export default function Footer() {
 
                     {/* Footer Bottom */}
                     <div className="footer__bottom">
-                        <p className="footer__copyright">&copy; 2025, Team 02 FPT Aptech Vietnam</p>
+                        <p className="footer__copyright">
+                            &copy; {new Date().getFullYear()}, Team 02 FPT Aptech Vietnam
+                        </p>
                         <div className="footer__payment">
                             <img src="/assets/icon/visa.svg" alt="Visa" className="footer__payment-img" />
                             <img src="/assets/icon/mastercard.svg" alt="Mastercard" className="footer__payment-img" />
@@ -187,13 +192,7 @@ export default function Footer() {
                             <img src="/assets/icon/discover.svg" alt="Discover" className="footer__payment-img" />
                         </div>
                     </div>
-                    {/* Ticker */}
-                    <div className="footer__ticker-container">
-                        <div className="footer__ticker">
-                            <span id="dateTime"></span>
-                            <span id="location"></span>
-                        </div>
-                    </div>
+
                     {/* Scoll top button */}
                     <button className="scrollToTopBtn" id="scrollToTopBtn">
                         <svg viewBox="0 0 24 24" fill="currentColor">
@@ -202,6 +201,13 @@ export default function Footer() {
                     </button>
                 </div>
             </footer>
+            {/* Ticker */}
+            <div className="footer__ticker-container">
+                <div className="footer__ticker">
+                    <span id="dateTime"></span>
+                    <span id="location"></span>
+                </div>
+            </div>
         </>
     );
 }

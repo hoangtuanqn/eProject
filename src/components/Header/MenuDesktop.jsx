@@ -26,7 +26,11 @@ export default function MenuDesktop() {
                         Home
                     </Link>
                 </li>
-                <li className={clsx("header__nav-bigmenu", { active: pathname.startsWith("/category") })}>
+                <li
+                    className={clsx("header__nav-bigmenu", {
+                        active: pathname.startsWith("/category") || pathname.startsWith("/product"),
+                    })}
+                >
                     <a href="#!" className="header__link">
                         Products
                         <img src="/assets/icon/arrow-bottom.svg" className="header__icon-arow" alt="" />

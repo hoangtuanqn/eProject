@@ -599,10 +599,7 @@ export default function Product() {
                             <div className="product__quantity-wrap">
                                 <div className="product__quantity-input">
                                     <button
-                                        className={clsx(
-                                            "product__quantity-button",
-                                            product.quantity <= 0 && "disabled",
-                                        )}
+                                        className={clsx("product__quantity-button", quantity <= 1 && "disabled")}
                                         onClick={() => {
                                             if (handleCheckQuantity(product.quantity, quantity - 1)) {
                                                 setQuantity((q) => q - 1);
@@ -614,10 +611,7 @@ export default function Product() {
 
                                     <input
                                         type="number"
-                                        className={clsx(
-                                            "product__quantity-number",
-                                            product.quantity <= 0 && "disabled",
-                                        )}
+                                        className="product__quantity-number"
                                         value={quantity}
                                         onChange={(e) => {
                                             if (handleCheckQuantity(product.quantity, e.target.value)) {
@@ -628,10 +622,7 @@ export default function Product() {
                                         max={product.quantity}
                                     />
                                     <button
-                                        className={clsx(
-                                            "product__quantity-button",
-                                            product.quantity <= 0 && "disabled",
-                                        )}
+                                        className={clsx("product__quantity-button")}
                                         onClick={() => {
                                             if (handleCheckQuantity(product.quantity, quantity + 1)) {
                                                 setQuantity((q) => q + 1);
@@ -670,16 +661,6 @@ export default function Product() {
 
                         {/* Action Buttons */}
                         <div className="product__buttons">
-                            {/* <motion.button
-                                className="btn btn--primary product__add-to-cart"
-                                onClick={handleAddToCart}
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                            >
-                                <ShoppingCart size={20} />
-                                Add to Cart
-                            </motion.button> */}
-
                             <motion.button
                                 className={clsx(
                                     "btn btn--secondary product__buy-now",

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import BlogDetail from "./BlogDetail";
+import NewsDetail from "./NewsDetail";
 import Breadcrumb from "~/components/Breadcrumb/Breadcrumb";
 import useTitle from "~/hooks/useTitle";
 import { useParams } from "react-router-dom";
@@ -27,7 +27,7 @@ export default function Index() {
             <main className="main">
                 <Breadcrumb items={breadcrumbItems} style={{ alignItems: "flex-start" }} />
 
-                <BlogDetail article={article} />
+                <NewsDetail article={article} />
             </main>
         </>
     );

@@ -70,7 +70,7 @@ export default function CustomerGrowthChart() {
                     </div>
 
                     <div className="chart-wrapper">
-                        <ResponsiveContainer width="100%" height={500}>
+                        <ResponsiveContainer width="100%" height={window.innerWidth <= 768 ? 300 : 500}>
                             <ComposedChart
                                 data={data}
                                 margin={{

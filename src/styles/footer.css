@@ -4,7 +4,6 @@
     padding: 90px 0 20px;
     background-color: #333333;
     color: #fff;
-    margin-bottom: 32px;
 }
 
 .footer__inner {
@@ -48,6 +47,7 @@
 .footer__link-wrap > .footer__link {
     margin: 0;
 }
+
 .footer__link {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -228,7 +228,7 @@
 
 /* Ticker styles */
 .footer__ticker-container {
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     /* z-index: 100; */
     z-index: 2;
@@ -256,6 +256,7 @@
         -webkit-transform: translateX(100%);
         transform: translateX(100%);
     }
+
     100% {
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
@@ -272,58 +273,6 @@
         transform: translateX(-100%);
     }
 }
-
-/* Responsive */
-
-/* Mobile */
-@media screen and (max-width: 749px) {
-    /* Footer */
-    .footer {
-        margin-top: 40px;
-        padding: 40px 0 20px;
-    }
-
-    .footer__inner {
-        -ms-grid-columns: 1fr;
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .footer__form-group {
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .footer__submit {
-        width: 100%;
-    }
-
-    .footer__bottom {
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-}
-
-/* Tablet */
-@media screen and (min-width: 750px) and (max-width: 1024px) {
-    .footer__inner {
-        -ms-grid-columns: repeat(2, 1fr);
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Desktop */
-@media screen and (min-width: 1025px) {
-    /* Preserve existing desktop styles */
-}
-
 .footer__message {
     margin-top: 10px;
     font-size: 1.4rem;
@@ -383,4 +332,55 @@
 
 .footer__social-link.linkedin:hover {
     background-color: #0077b5;
+}
+
+/* Responsive */
+
+/* Mobile */
+@media screen and (max-width: 749px) {
+    /* Footer */
+    .footer {
+        margin-top: 40px;
+        padding: 40px 0 20px;
+    }
+
+    .footer__inner {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .footer__form-group {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer__submit {
+        width: 100%;
+    }
+
+    .footer__bottom {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
+
+/* Tablet */
+@media screen and (min-width: 750px) and (max-width: 1024px) {
+    .footer__inner {
+        -ms-grid-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop */
+@media screen and (min-width: 1025px) {
+    /* Preserve existing desktop styles */
 }

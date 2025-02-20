@@ -35,7 +35,7 @@ import Coupons from "~/pages/Coupons";
 import Careers from "~/pages/Careers";
 import OrderTracking from "~/pages/OrderTracking";
 import News from "~/pages/News";
-import BlogDetail from "~/pages/BlogDetail";
+import NewsDetail from "~/pages/NewsDetail";
 import CustomerGrowthChart from "~/pages/CustomerGrowthChart";
 import RecentlyProducts from "~/pages/RecentlyProducts";
 
@@ -107,7 +107,7 @@ const App = () => {
                 <Route path="/blog/news" element={<News />} exact />
 
                 {/* Chi tiết bài viết*/}
-                <Route path="/blog/news/:slug" element={<BlogDetail />} exact />
+                <Route path="/blog/news/:slug" element={<NewsDetail />} exact />
 
                 {/* Danh mục product*/}
                 <Route path="/categories" element={<Categories />} exact />
