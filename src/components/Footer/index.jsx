@@ -44,7 +44,14 @@ export default function Footer() {
                             {stores.map((store, index) => (
                                 <address className="footer__address" key={store.id}>
                                     <MapPin size={18} style={{ marginRight: "8px" }} />
-                                    {store.address}
+                                    <a
+                                        href={`https://maps.google.com/?q=${store.coordinates.lat},${store.coordinates.lng}`}
+                                        className="footer__address-link"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {store.address}
+                                    </a>
                                 </address>
                             ))}
 

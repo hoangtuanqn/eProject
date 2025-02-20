@@ -338,7 +338,9 @@
 .footer__message.error {
     color: #f44336;
 }
-
+.footer__address-link {
+    color: inherit;
+}
 /* Social Media Icons */
 .footer__social-list {
     display: flex;

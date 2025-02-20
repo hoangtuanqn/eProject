@@ -37,7 +37,15 @@
     line-height: 1.6;
     margin-bottom: 20px;
 }
-
+.contact__store-detail-link {
+    color: inherit;
+}
+.contact__store-detail-link:hover {
+    color: rgba(18, 18, 18, 0.75);
+}
+.contact__store.active .contact__store-detail-link:hover {
+    color: rgba(248, 227, 227, 0.785);
+}
 /* Store List Styles */
 .contact__stores {
     margin-top: 40px;

@@ -269,15 +269,32 @@ export default function Contact() {
                                                 <div className="contact__store-details">
                                                     <div className="contact__store-detail">
                                                         <MapPin className="contact__store-icon" />
-                                                        <p>{store.address}</p>
+                                                        <a
+                                                            className="contact__store-detail-link"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            href={`https://maps.google.com/?q=${store.coordinates.lat},${store.coordinates.lng}`}
+                                                        >
+                                                            {store.address}
+                                                        </a>
                                                     </div>
                                                     <div className="contact__store-detail">
                                                         <Phone className="contact__store-icon" />
-                                                        <p>{store.phone}</p>
+                                                        <a
+                                                            className="contact__store-detail-link"
+                                                            href={`tel:${store.phone}`}
+                                                        >
+                                                            {store.phone}
+                                                        </a>
                                                     </div>
                                                     <div className="contact__store-detail">
                                                         <Mail className="contact__store-icon" />
-                                                        <p>{store.email}</p>
+                                                        <a
+                                                            className="contact__store-detail-link"
+                                                            href={`mailto:${store.email}`}
+                                                        >
+                                                            {store.email}
+                                                        </a>
                                                     </div>
                                                     <div className="contact__store-detail">
                                                         <Clock className="contact__store-icon" />
