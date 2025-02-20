@@ -2,6 +2,7 @@
 import { useLayoutEffect } from "react";
 // Router dom
 import { Routes, Route, useLocation } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 
 import "~/styles/reset.css"; // Reset css
 import "~/styles/global.css"; // CSS Common
@@ -49,7 +50,7 @@ const App = () => {
     // End: xử lý cuộn lên đầu trang khi chuyển trang
 
     return (
-        <>
+        <HelmetProvider>
             <Header />
             <Routes>
                 {/* HomePage */}
@@ -141,7 +142,7 @@ const App = () => {
             </Routes>
 
             <Footer />
-        </>
+        </HelmetProvider>
     );
 };
 

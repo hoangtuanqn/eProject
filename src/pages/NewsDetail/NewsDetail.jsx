@@ -8,14 +8,13 @@ import { toast } from "react-hot-toast";
 import { Avatar } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { Helmet } from "react-helmet-async";
 
 export default function BlogDetail({ article }) {
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [comments, setComments] = useState([]);
     const [replies, setReplies] = useState([]);
-    const [newComment, setNewComment] = useState("");
     const [replyingTo, setReplyingTo] = useState(null);
-    const [replyContent, setReplyContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [userName, setUserName] = useState("Guest User");
     const [loadingSendApi, setLoadingSendApi] = useState(false);
@@ -284,293 +283,378 @@ export default function BlogDetail({ article }) {
         }
     };
 
+    // Chuẩn bị meta description từ content
+    const getMetaDescription = (content) => {
+        // Loại bỏ HTML tags và lấy 160 ký tự đầu tiên
+        const strippedContent = content.replace(/<[^>]+>/g, "");
+        return strippedContent.length > 160 ? `${strippedContent.substring(0, 157)}...` : strippedContent;
+    };
+
     return (
-        <article className="news-detail">
-            <div className="container">
-                <motion.header
-                    className="news-detail__header"
-                    initial={{ opacity: 0, y: -30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <h1 className="news-detail__title">{article.name}</h1>
-                    <div className="news-detail__meta">
-                        <div className="news-detail__meta-item">
-                            <Calendar size={20} />
-                            <span>{formatDate(article.published_date)}</span>
+        <>
+            <Helmet>
+                {/* Tiêu đề cơ bản */}
+                <title>{article.name}</title>
+                <meta name="description" content={getMetaDescription(article.content)} />
+
+                {/* Open Graph tags cho Facebook */}
+                <meta property="og:title" content={article.name} />
+                <meta property="og:description" content={getMetaDescription(article.content)} />
+                <meta property="og:image" content={article.thumbnail} />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:type" content="article" />
+
+                {/* Twitter Card tags */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={article.name} />
+                <meta name="twitter:description" content={getMetaDescription(article.content)} />
+                <meta name="twitter:image" content={article.thumbnail} />
+
+                {/* Thẻ meta bổ sung cho SEO */}
+                <meta name="author" content={article.author} />
+                <meta name="publisher" content="Your Website Name" />
+                <meta name="keywords" content={`${article.name}, news, article`} />
+
+                {/* Canonical URL */}
+                <link rel="canonical" href={window.location.href} />
+
+                {/* Article specific meta tags */}
+                <meta property="article:published_time" content={article.published_date} />
+                <meta property="article:author" content={article.author} />
+                <meta property="article:section" content="News" />
+
+                {/* Schema.org markup for Google */}
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "NewsArticle",
+                        headline: article.name,
+                        image: [article.thumbnail],
+                        datePublished: article.published_date,
+                        dateModified: article.published_date,
+                        author: [
+                            {
+                                "@type": "Person",
+                                name: article.author,
+                            },
+                        ],
+                        publisher: {
+                            "@type": "Organization",
+                            name: "Your Website Name",
+                            logo: {
+                                "@type": "ImageObject",
+                                url: "/assets/imgs/logo.png", // Thay thế bằng logo của bạn
+                            },
+                        },
+                        description: getMetaDescription(article.content),
+                        mainEntityOfPage: {
+                            "@type": "WebPage",
+                            "@id": window.location.href,
+                        },
+                    })}
+                </script>
+            </Helmet>
+
+            <article className="news-detail">
+                <div className="container">
+                    <motion.header
+                        className="news-detail__header"
+                        initial={{ opacity: 0, y: -30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h1 className="news-detail__title">{article.name}</h1>
+                        <div className="news-detail__meta">
+                            <div className="news-detail__meta-item">
+                                <Calendar size={20} />
+                                <span>{formatDate(article.published_date)}</span>
+                            </div>
+                            <div className="news-detail__meta-item">
+                                <User size={20} />
+                                <span>{article.author}</span>
+                            </div>
                         </div>
-                        <div className="news-detail__meta-item">
-                            <User size={20} />
-                            <span>{article.author}</span>
-                        </div>
-                    </div>
-                </motion.header>
+                    </motion.header>
 
-                <motion.img
-                    src={article.thumbnail}
-                    alt={article.name}
-                    className="news-detail__featured-image"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                />
+                    <motion.img
+                        src={article.thumbnail}
+                        alt={article.name}
+                        className="news-detail__featured-image"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                    />
 
-                <motion.div
-                    className="news-detail__content"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                    <div dangerouslySetInnerHTML={{ __html: article.content }} />
+                    <motion.div
+                        className="news-detail__content"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                    >
+                        <div dangerouslySetInnerHTML={{ __html: article.content }} />
 
-                    <div className="news-detail__share">
-                        <div className="news-detail__share-container">
-                            <Tooltip content="Share">
-                                <motion.button
-                                    className="btn btn--secondary news-detail__share-btn"
-                                    onClick={() => setShowShareMenu(!showShareMenu)}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    <Share2 size={20} />
-                                </motion.button>
-                            </Tooltip>
+                        <div className="news-detail__share">
+                            <div className="news-detail__share-container">
+                                <Tooltip content="Share">
+                                    <motion.button
+                                        className="btn btn--secondary news-detail__share-btn"
+                                        onClick={() => setShowShareMenu(!showShareMenu)}
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        <Share2 size={20} />
+                                    </motion.button>
+                                </Tooltip>
 
-                            {showShareMenu && (
-                                <div className="news-detail__share-menu">
-                                    <button onClick={() => handleSocialShare("facebook")}>
-                                        <Facebook size={20} /> Facebook
-                                    </button>
-                                    <button onClick={() => handleSocialShare("twitter")}>
-                                        <Twitter size={20} /> Twitter
-                                    </button>
-                                    <button onClick={() => handleSocialShare("pinterest")}>
-                                        <PinterestIcon sx={{ fontSize: 20 }} /> Pinterest
-                                    </button>
-                                    <button onClick={handleShare} className="hiddenMobile">
-                                        <MoreHorizontal size={20} /> More
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* Comments section */}
-                    <div className="news-detail__comments">
-                        <h3>Comments</h3>
-
-                        <Formik
-                            initialValues={{
-                                userName: userName,
-                                comment: "",
-                            }}
-                            validationSchema={CommentSchema}
-                            onSubmit={handleCommentSubmit}
-                        >
-                            {({ errors, touched }) => (
-                                <Form className="comment-form">
-                                    <Avatar src={defaultAvatar} alt="User" />
-                                    <div className="comment-input-container">
-                                        <div className="form-group">
-                                            <Field
-                                                name="userName"
-                                                type="text"
-                                                placeholder="Your name"
-                                                className={`form-control ${
-                                                    errors.userName && touched.userName ? "error" : ""
-                                                }`}
-                                            />
-                                            {errors.userName && touched.userName && (
-                                                <div className="error-message">{errors.userName}</div>
-                                            )}
-                                        </div>
-
-                                        <div className="form-group">
-                                            <Field
-                                                name="comment"
-                                                as="textarea"
-                                                placeholder="Write a comment..."
-                                                rows="3"
-                                                className={`form-control ${
-                                                    errors.comment && touched.comment ? "error" : ""
-                                                }`}
-                                            />
-                                            {errors.comment && touched.comment && (
-                                                <div className="error-message">{errors.comment}</div>
-                                            )}
-                                        </div>
-
-                                        <button type="submit" className="btn btn--primary" disabled={loadingSendApi}>
-                                            {loadingSendApi ? (
-                                                <img
-                                                    src="/assets/icon/loading.gif"
-                                                    alt="Loading..."
-                                                    className="loading-spinner"
-                                                />
-                                            ) : (
-                                                "Comment"
-                                            )}
+                                {showShareMenu && (
+                                    <div className="news-detail__share-menu">
+                                        <button onClick={() => handleSocialShare("facebook")}>
+                                            <Facebook size={20} /> Facebook
+                                        </button>
+                                        <button onClick={() => handleSocialShare("twitter")}>
+                                            <Twitter size={20} /> Twitter
+                                        </button>
+                                        <button onClick={() => handleSocialShare("pinterest")}>
+                                            <PinterestIcon sx={{ fontSize: 20 }} /> Pinterest
+                                        </button>
+                                        <button onClick={handleShare} className="hiddenMobile">
+                                            <MoreHorizontal size={20} /> More
                                         </button>
                                     </div>
-                                </Form>
-                            )}
-                        </Formik>
+                                )}
+                            </div>
+                        </div>
 
-                        <div className="comments-list">
-                            {isLoading ? (
-                                <div className="loading-spinner">Loading comments...</div>
-                            ) : comments.length === 0 ? (
-                                <p className="no-comments">No comments yet. Be the first to comment!</p>
-                            ) : (
-                                comments.map((comment) => (
-                                    <div key={comment.id} className="comment">
-                                        <div className="comment-header">
-                                            <Avatar src={comment.avatar} alt={comment.author} />
-                                            <div className="comment-info">
-                                                <h4>{comment.author}</h4>
-                                                <span>{new Date(comment.createdAt).toLocaleDateString()}</span>
+                        {/* Comments section */}
+                        <div className="news-detail__comments">
+                            <h3>Comments</h3>
+
+                            <Formik
+                                initialValues={{
+                                    userName: userName,
+                                    comment: "",
+                                }}
+                                validationSchema={CommentSchema}
+                                onSubmit={handleCommentSubmit}
+                            >
+                                {({ errors, touched }) => (
+                                    <Form className="comment-form">
+                                        <Avatar src={defaultAvatar} alt="User" />
+                                        <div className="comment-input-container">
+                                            <div className="form-group">
+                                                <Field
+                                                    name="userName"
+                                                    type="text"
+                                                    placeholder="Your name"
+                                                    className={`form-control ${
+                                                        errors.userName && touched.userName ? "error" : ""
+                                                    }`}
+                                                />
+                                                {errors.userName && touched.userName && (
+                                                    <div className="error-message">{errors.userName}</div>
+                                                )}
                                             </div>
-                                        </div>
-                                        <p className="comment-content">{comment.content}</p>
-                                        <div className="comment-actions">
+
+                                            <div className="form-group">
+                                                <Field
+                                                    name="comment"
+                                                    as="textarea"
+                                                    placeholder="Write a comment..."
+                                                    rows="3"
+                                                    className={`form-control ${
+                                                        errors.comment && touched.comment ? "error" : ""
+                                                    }`}
+                                                />
+                                                {errors.comment && touched.comment && (
+                                                    <div className="error-message">{errors.comment}</div>
+                                                )}
+                                            </div>
+
                                             <button
-                                                className={`like-button ${isCommentLiked(comment.id) ? "liked" : ""}`}
-                                                onClick={() => handleLikeComment(comment.id, comment.likes || 0)}
+                                                type="submit"
+                                                className="btn btn--primary"
+                                                disabled={loadingSendApi}
                                             >
-                                                <Heart
-                                                    size={16}
-                                                    className={`heart-icon ${
+                                                {loadingSendApi ? (
+                                                    <img
+                                                        src="/assets/icon/loading.gif"
+                                                        alt="Loading..."
+                                                        className="loading-spinner"
+                                                    />
+                                                ) : (
+                                                    "Comment"
+                                                )}
+                                            </button>
+                                        </div>
+                                    </Form>
+                                )}
+                            </Formik>
+
+                            <div className="comments-list">
+                                {isLoading ? (
+                                    <div className="loading-spinner">Loading comments...</div>
+                                ) : comments.length === 0 ? (
+                                    <p className="no-comments">No comments yet. Be the first to comment!</p>
+                                ) : (
+                                    comments.map((comment) => (
+                                        <div key={comment.id} className="comment">
+                                            <div className="comment-header">
+                                                <Avatar src={comment.avatar} alt={comment.author} />
+                                                <div className="comment-info">
+                                                    <h4>{comment.author}</h4>
+                                                    <span>{new Date(comment.createdAt).toLocaleDateString()}</span>
+                                                </div>
+                                            </div>
+                                            <p className="comment-content">{comment.content}</p>
+                                            <div className="comment-actions">
+                                                <button
+                                                    className={`like-button ${
                                                         isCommentLiked(comment.id) ? "liked" : ""
                                                     }`}
-                                                    fill={isCommentLiked(comment.id) ? "#ff4757" : "none"}
-                                                />
-                                                <span>{comment.likes || 0}</span>
-                                            </button>
-                                            <button className="reply-button" onClick={() => setReplyingTo(comment.id)}>
-                                                Reply
-                                            </button>
-                                        </div>
+                                                    onClick={() => handleLikeComment(comment.id, comment.likes || 0)}
+                                                >
+                                                    <Heart
+                                                        size={16}
+                                                        className={`heart-icon ${
+                                                            isCommentLiked(comment.id) ? "liked" : ""
+                                                        }`}
+                                                        fill={isCommentLiked(comment.id) ? "#ff4757" : "none"}
+                                                    />
+                                                    <span>{comment.likes || 0}</span>
+                                                </button>
+                                                <button
+                                                    className="reply-button"
+                                                    onClick={() => setReplyingTo(comment.id)}
+                                                >
+                                                    Reply
+                                                </button>
+                                            </div>
 
-                                        {replyingTo === comment.id && (
-                                            <Formik
-                                                initialValues={{
-                                                    userName: userName,
-                                                    reply: "",
-                                                }}
-                                                validationSchema={ReplySchema}
-                                                onSubmit={handleReplySubmit}
-                                            >
-                                                {({ errors, touched }) => (
-                                                    <Form className="reply-form">
-                                                        <Avatar src={defaultAvatar} alt="User" />
-                                                        <div className="comment-input-container">
-                                                            <div className="form-group">
-                                                                <Field
-                                                                    name="userName"
-                                                                    type="text"
-                                                                    placeholder="Your name"
-                                                                    className={`form-control ${
-                                                                        errors.userName && touched.userName
-                                                                            ? "error"
-                                                                            : ""
-                                                                    }`}
-                                                                />
-                                                                {errors.userName && touched.userName && (
-                                                                    <div className="error-message">
-                                                                        {errors.userName}
-                                                                    </div>
-                                                                )}
-                                                            </div>
-
-                                                            <div className="form-group">
-                                                                <Field
-                                                                    name="reply"
-                                                                    as="textarea"
-                                                                    placeholder="Write a reply..."
-                                                                    rows="2"
-                                                                    className={`form-control ${
-                                                                        errors.reply && touched.reply ? "error" : ""
-                                                                    }`}
-                                                                />
-                                                                {errors.reply && touched.reply && (
-                                                                    <div className="error-message">{errors.reply}</div>
-                                                                )}
-                                                            </div>
-
-                                                            <div className="reply-actions">
-                                                                <button
-                                                                    type="submit"
-                                                                    className="btn btn--primary"
-                                                                    disabled={loadingReplyApi}
-                                                                >
-                                                                    {loadingReplyApi ? (
-                                                                        <img
-                                                                            src="/assets/icon/loading.gif"
-                                                                            alt="Loading..."
-                                                                            className="loading-spinner"
-                                                                        />
-                                                                    ) : (
-                                                                        "Reply"
+                                            {replyingTo === comment.id && (
+                                                <Formik
+                                                    initialValues={{
+                                                        userName: userName,
+                                                        reply: "",
+                                                    }}
+                                                    validationSchema={ReplySchema}
+                                                    onSubmit={handleReplySubmit}
+                                                >
+                                                    {({ errors, touched }) => (
+                                                        <Form className="reply-form">
+                                                            <Avatar src={defaultAvatar} alt="User" />
+                                                            <div className="comment-input-container">
+                                                                <div className="form-group">
+                                                                    <Field
+                                                                        name="userName"
+                                                                        type="text"
+                                                                        placeholder="Your name"
+                                                                        className={`form-control ${
+                                                                            errors.userName && touched.userName
+                                                                                ? "error"
+                                                                                : ""
+                                                                        }`}
+                                                                    />
+                                                                    {errors.userName && touched.userName && (
+                                                                        <div className="error-message">
+                                                                            {errors.userName}
+                                                                        </div>
                                                                     )}
-                                                                </button>
-                                                                <button
-                                                                    type="button"
-                                                                    className="reply-button"
-                                                                    onClick={() => setReplyingTo(null)}
-                                                                >
-                                                                    Cancel
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </Form>
-                                                )}
-                                            </Formik>
-                                        )}
+                                                                </div>
 
-                                        {getCommentReplies(comment.id).length > 0 && (
-                                            <div className="replies">
-                                                {getCommentReplies(comment.id).map((reply) => (
-                                                    <div key={reply.id} className="reply">
-                                                        <div className="comment-header">
-                                                            <Avatar src={reply.avatar} alt={reply.author} />
-                                                            <div className="comment-info">
-                                                                <h4>{reply.author}</h4>
-                                                                <span>
-                                                                    {new Date(reply.createdAt).toLocaleDateString()}
-                                                                </span>
+                                                                <div className="form-group">
+                                                                    <Field
+                                                                        name="reply"
+                                                                        as="textarea"
+                                                                        placeholder="Write a reply..."
+                                                                        rows="2"
+                                                                        className={`form-control ${
+                                                                            errors.reply && touched.reply ? "error" : ""
+                                                                        }`}
+                                                                    />
+                                                                    {errors.reply && touched.reply && (
+                                                                        <div className="error-message">
+                                                                            {errors.reply}
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+
+                                                                <div className="reply-actions">
+                                                                    <button
+                                                                        type="submit"
+                                                                        className="btn btn--primary"
+                                                                        disabled={loadingReplyApi}
+                                                                    >
+                                                                        {loadingReplyApi ? (
+                                                                            <img
+                                                                                src="/assets/icon/loading.gif"
+                                                                                alt="Loading..."
+                                                                                className="loading-spinner"
+                                                                            />
+                                                                        ) : (
+                                                                            "Reply"
+                                                                        )}
+                                                                    </button>
+                                                                    <button
+                                                                        type="button"
+                                                                        className="reply-button"
+                                                                        onClick={() => setReplyingTo(null)}
+                                                                    >
+                                                                        Cancel
+                                                                    </button>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <p className="comment-content">{reply.content}</p>
-                                                        <div className="comment-actions">
-                                                            <button
-                                                                className={`like-button ${
-                                                                    isReplyLiked(reply.id) ? "liked" : ""
-                                                                }`}
-                                                                onClick={() =>
-                                                                    handleLikeReply(reply.id, reply.likes || 0)
-                                                                }
-                                                            >
-                                                                <Heart
-                                                                    size={16}
-                                                                    className={`heart-icon ${
+                                                        </Form>
+                                                    )}
+                                                </Formik>
+                                            )}
+
+                                            {getCommentReplies(comment.id).length > 0 && (
+                                                <div className="replies">
+                                                    {getCommentReplies(comment.id).map((reply) => (
+                                                        <div key={reply.id} className="reply">
+                                                            <div className="comment-header">
+                                                                <Avatar src={reply.avatar} alt={reply.author} />
+                                                                <div className="comment-info">
+                                                                    <h4>{reply.author}</h4>
+                                                                    <span>
+                                                                        {new Date(reply.createdAt).toLocaleDateString()}
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <p className="comment-content">{reply.content}</p>
+                                                            <div className="comment-actions">
+                                                                <button
+                                                                    className={`like-button ${
                                                                         isReplyLiked(reply.id) ? "liked" : ""
                                                                     }`}
-                                                                    fill={isReplyLiked(reply.id) ? "#ff4757" : "none"}
-                                                                />
-                                                                <span>{reply.likes || 0}</span>
-                                                            </button>
+                                                                    onClick={() =>
+                                                                        handleLikeReply(reply.id, reply.likes || 0)
+                                                                    }
+                                                                >
+                                                                    <Heart
+                                                                        size={16}
+                                                                        className={`heart-icon ${
+                                                                            isReplyLiked(reply.id) ? "liked" : ""
+                                                                        }`}
+                                                                        fill={
+                                                                            isReplyLiked(reply.id) ? "#ff4757" : "none"
+                                                                        }
+                                                                    />
+                                                                    <span>{reply.likes || 0}</span>
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                ))
-                            )}
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </motion.div>
-            </div>
-        </article>
+                    </motion.div>
+                </div>
+            </article>
+        </>
     );
 }
