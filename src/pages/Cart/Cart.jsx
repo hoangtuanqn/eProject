@@ -386,7 +386,10 @@ export default function Cart() {
                                                 </div>
                                                 <div className="cart-page__item-image">
                                                     <Link to={`/product/${item.slug}`}>
-                                                        <img src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`} alt={item.name} />
+                                                        <img
+                                                            src={`${process.env.REACT_APP_BASE_URL}${item.thumbnail}`}
+                                                            alt={item.name}
+                                                        />
                                                     </Link>
                                                 </div>
                                                 <div className="cart-page__item-details">

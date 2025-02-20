@@ -37,7 +37,7 @@ export default function Testimonial() {
                             <SwiperSlide key={testimonial.id}>
                                 <div className="testimonial__card">
                                     <img
-                                        src={`${process.env.REACT_APP_BASE_URL}/${testimonial.avatar}`}
+                                        src={`${process.env.REACT_APP_BASE_URL}${testimonial.avatar}`}
                                         alt={testimonial.name}
                                         loading="lazy"
                                         className="testimonial__avatar"

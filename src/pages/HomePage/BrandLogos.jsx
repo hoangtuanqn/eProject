@@ -10,7 +10,7 @@ export default function BrandLogos() {
                     {brand.map((item) => (
                         <li className="brand-logos__item" key={item.id}>
                             <img
-                                src={`${process.env.REACT_APP_BASE_URL}/${item.image}`}
+                                src={`${process.env.REACT_APP_BASE_URL}${item.image}`}
                                 alt={item.name}
                                 className="brand-logos__image"
                             />

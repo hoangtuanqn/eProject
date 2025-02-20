@@ -37,7 +37,11 @@ export default function Categories() {
                         >
                             <figure className="categories__imgs">
                                 <Link to={`/category/${category.slug}`}>
-                                    <img src={`${process.env.REACT_APP_BASE_URL}/${category.image}`} alt={category.name} className="categories__img" />
+                                    <img
+                                        src={`${process.env.REACT_APP_BASE_URL}${category.image}`}
+                                        alt={category.name}
+                                        className="categories__img"
+                                    />
                                 </Link>
                             </figure>
                             <div className="categories__info">

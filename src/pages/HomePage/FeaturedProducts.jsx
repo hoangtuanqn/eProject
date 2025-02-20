@@ -42,7 +42,7 @@ const FeaturedProducts = () => {
                                         <div className="image-wrapper">
                                             <Link to={`/product/${slug}`}>
                                                 <img
-                                                    src={`${process.env.REACT_APP_BASE_URL}/${thumbnail}`}
+                                                    src={`${process.env.REACT_APP_BASE_URL}${thumbnail}`}
                                                     alt={name}
                                                     className="category__product-image"
                                                 />

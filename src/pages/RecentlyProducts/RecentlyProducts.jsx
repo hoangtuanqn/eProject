@@ -82,7 +82,7 @@ export default function WishList() {
                                             <div className="image-wrapper">
                                                 <Link to={`/product/${product.slug}`}>
                                                     <img
-                                                        src={`${process.env.REACT_APP_BASE_URL}/${product.thumbnail}`}
+                                                        src={`${process.env.REACT_APP_BASE_URL}${product.thumbnail}`}
                                                         alt={product.name}
                                                         className="category__product-image"
                                                     />

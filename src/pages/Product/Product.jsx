@@ -480,7 +480,7 @@ export default function Product() {
                                             onClick={handleImageClick}
                                         >
                                             <img
-                                                src={`${process.env.REACT_APP_BASE_URL}/${image}`}
+                                                src={`${process.env.REACT_APP_BASE_URL}${image}`}
                                                 alt={`${product.name} view ${index + 1}`}
                                             />
                                         </div>
@@ -500,7 +500,7 @@ export default function Product() {
                                         whileTap={{ scale: 0.95 }}
                                     >
                                         <img
-                                            src={`${process.env.REACT_APP_BASE_URL}/${image}`}
+                                            src={`${process.env.REACT_APP_BASE_URL}${image}`}
                                             alt={`${product.name} view ${index + 1}`}
                                         />
                                     </motion.div>
@@ -910,7 +910,7 @@ export default function Product() {
                                     {product.images.map((image, index) => (
                                         <div key={index} className="product__image-modal-slide">
                                             <img
-                                                src={`${process.env.REACT_APP_BASE_URL}/${image}`}
+                                                src={`${process.env.REACT_APP_BASE_URL}${image}`}
                                                 alt={`${product.name} view ${index + 1}`}
                                             />
                                         </div>

@@ -170,7 +170,11 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                     >
                                         <div className="cart-item__top">
                                             <Link to={`/product/${item.slug}`}>
-                                                <img src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`} alt={item.name} className="cart-item__img" />
+                                                <img
+                                                    src={`${process.env.REACT_APP_BASE_URL}${item.thumbnail}`}
+                                                    alt={item.name}
+                                                    className="cart-item__img"
+                                                />
                                             </Link>
                                             <div className="cart-item__info">
                                                 <Link

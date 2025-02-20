@@ -583,7 +583,10 @@ const CheckOut = () => {
                                     <div key={`${item.id}-${item.color}-${item.size}`} className="checkout__item">
                                         <div className="checkout__item-image">
                                             <a href={`/product/${item.slug}`} target="_blank" rel="noreferrer">
-                                                <img src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`} alt={item.name} />
+                                                <img
+                                                    src={`${process.env.REACT_APP_BASE_URL}${item.thumbnail}`}
+                                                    alt={item.name}
+                                                />
                                             </a>
                                         </div>
 

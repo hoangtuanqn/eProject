@@ -38,7 +38,11 @@ const Gallery = () => {
                                 whileHover={{ scale: 1.05 }}
                                 onClick={() => setSelectedImage(item)}
                             >
-                                <img src={`${process.env.REACT_APP_BASE_URL}/${item.src}`} alt={item.category} loading={index > 30 ? "lazy" : "eager"} />
+                                <img
+                                    src={`${process.env.REACT_APP_BASE_URL}${item.src}`}
+                                    alt={item.category}
+                                    loading={index > 30 ? "lazy" : "eager"}
+                                />
                                 <div className="gallery__item-overlay">
                                     <Zoom size={24} />
                                 </div>
@@ -64,7 +68,10 @@ const Gallery = () => {
                             exit={{ scale: 0.8 }}
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <img src={`${process.env.REACT_APP_BASE_URL}/${selectedImage.src}`} alt={selectedImage.category} />
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}${selectedImage.src}`}
+                                alt={selectedImage.category}
+                            />
                             <button className="gallery__modal-close" onClick={() => setSelectedImage(null)}>
                                 <X size={24} />
                             </button>

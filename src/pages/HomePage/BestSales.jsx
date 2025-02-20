@@ -48,7 +48,7 @@ const BestSales = () => {
                                         {sale > 0 && <span className="badge__sale">SALE {sale}%</span>}
                                         <Link to={`/product/${slug}`}>
                                             <img
-                                                src={`${process.env.REACT_APP_BASE_URL}/${thumbnail}`}
+                                                src={`${process.env.REACT_APP_BASE_URL}${thumbnail}`}
                                                 alt={name}
                                                 width="100%"
                                                 loading="lazy"
