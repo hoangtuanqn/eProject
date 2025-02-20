@@ -2,15 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Trash2Icon } from "lucide-react";
-import { Rating } from "@mui/material";
 import "~/styles/wishList.css";
 import "~/styles/recentlyProducts.css";
 import products from "~/data/products.json";
-import { useWishlistActions } from "~/utils/handleWishlist";
 import { calculateOriginalPrice, getTimeAgo } from "~/utils/helpers";
 
 export default function WishList() {
-    const { handleWishlistAction } = useWishlistActions();
     const handleGetRecently = () => {
         const savedRecently = localStorage.getItem("recentProducts");
         const recentlyItems = savedRecently ? JSON.parse(savedRecently) : [];

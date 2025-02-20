@@ -12,7 +12,7 @@ export const useWishlistActions = () => {
         const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
         setWishlistItems(savedWishlist);
         setWishlistQuantity(savedWishlist.length);
-    }, [wishlistQuantity]);
+    }, [wishlistQuantity, setWishlistQuantity]);
 
     const getUpdatedWishlistItems = (wishlist) => {
         return wishlist
