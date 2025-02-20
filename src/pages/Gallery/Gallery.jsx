@@ -6,28 +6,29 @@ import useTitle from "~/hooks/useTitle";
 import SchoolEvents from "./SchoolEvents";
 import SportsEvents from "./SportsEvents";
 
-const breadcrumbItems = [
-    { label: "Home", url: "/" },
-    { label: "Product Photos", url: "/pages/product-photos" },
-];
-
 export default function Index() {
     const { slug } = useParams();
+    const breadcrumbItems = [{ label: "Home", url: "/" }];
     let nameTitle = "";
     switch (slug) {
         case "product-photos":
             nameTitle = "Product Photos";
+            breadcrumbItems.push({ label: "Product Photos", url: "/pages/gallery/product-photos" });
             break;
         case "school-events":
             nameTitle = "School Events";
+            breadcrumbItems.push({ label: "School Events", url: "/pages/gallery/school-events" });
             break;
         case "sports-events":
             nameTitle = "Sports Events";
+            breadcrumbItems.push({ label: "Sports Events", url: "/pages/gallery/sports-events" });
             break;
         default:
             nameTitle = "Gallery";
+            breadcrumbItems.push({ label: "Gallery", url: "/pages/gallery" });
             break;
     }
+
     useTitle(nameTitle);
 
     return (

@@ -311,9 +311,9 @@ export default function MenuDesktop() {
                             </ul>
                         </li>
                         <li>
-                            <a href="#!" className="header__submenu-link">
-                                <span>News</span>
-                            </a>
+                            <Link to="/blog/news" className="header__submenu-link">
+                                News
+                            </Link>
                         </li>
                         <li>
                             <a href="#!" className="header__submenu-link">
@@ -321,9 +321,9 @@ export default function MenuDesktop() {
                             </a>
                         </li>
                         <li>
-                            <Link to="/blog/news" className="header__submenu-link">
-                                Trends
-                            </Link>
+                            <a href="#!" className="header__submenu-link">
+                                <span>Trends</span>
+                            </a>
                         </li>
                     </ul>
                 </li>

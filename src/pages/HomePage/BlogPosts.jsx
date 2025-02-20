@@ -23,7 +23,7 @@ export default function BlogPosts() {
                             .slice(0, 3)
                             .map((item) => (
                                 <article className="blog-posts__item" key={item.id}>
-                                    <figure>
+                                    <figure className="blog-posts__image-wrapper">
                                         <Link to={`/blog/news/${item.slug}`}>
                                             <img
                                                 src={item.thumbnail}

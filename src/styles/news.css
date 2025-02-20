@@ -93,10 +93,6 @@
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
-.blog-posts__image:hover {
-    -webkit-box-shadow: 1px 1px 1px 1px #ccc;
-    box-shadow: 1px 1px 1px 1px #ccc;
-}
 .news-card:hover .news-card__overlay {
     opacity: 1;
 }

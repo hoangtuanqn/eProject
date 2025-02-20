@@ -220,7 +220,7 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                                 <button
                                                     className={clsx(
                                                         "product__quantity-button",
-                                                        itemProductOrigin.quantity <= 0 && "disabled",
+                                                        item.quantity <= 1 && "disabled",
                                                     )}
                                                     onClick={() => {
                                                         if (

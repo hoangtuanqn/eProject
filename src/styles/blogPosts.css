@@ -32,8 +32,8 @@
     height: 274px;
     -o-object-fit: cover;
     object-fit: cover;
-    border-radius: 8px;
     display: block;
+    transition: all 0.3s ease;
 }
 
 .blog-posts__content {
@@ -46,6 +46,10 @@
     font-size: 2.4rem;
     font-weight: 500;
     line-height: 1.3;
+    transition: color 0.2s ease;
+}
+.blog-posts__name:hover {
+    color: rgba(18, 18, 18, 0.659);
 }
 
 .blog-posts__link {
@@ -72,7 +76,13 @@
     overflow: hidden;
     z-index: 1;
 }
-
+.blog-posts__image-wrapper {
+    border-radius: 8px;
+    overflow: hidden;
+}
+.blog-posts__image:hover {
+    transform: scale(1.2);
+}
 .blog-posts__link::before {
     content: "";
     position: absolute;
