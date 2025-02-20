@@ -5,15 +5,7 @@ import { useInView } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import "~/styles/partners.css";
-
-const partners = [
-    { id: 1, name: "Partner 1", logo: "/assets/imgs/brand-logo-1.webp" },
-    { id: 2, name: "Partner 2", logo: "/assets/imgs/brand-logo-2.webp" },
-    { id: 3, name: "Partner 3", logo: "/assets/imgs/brand-logo-3.webp" },
-    { id: 4, name: "Partner 4", logo: "/assets/imgs/brand-logo-4.webp" },
-    { id: 5, name: "Partner 5", logo: "/assets/imgs/brand-logo-5.webp" },
-    { id: 6, name: "Partner 6", logo: "/assets/imgs/brand-logo-6.webp" },
-];
+import partners from "~/data/brand.json";
 
 export default function Partners() {
     const [hoveredPartner, setHoveredPartner] = useState(null);
@@ -83,7 +75,7 @@ export default function Partners() {
                             onHoverEnd={() => setHoveredPartner(null)}
                         >
                             <motion.img
-                                src={partner.logo || "/placeholder.svg"}
+                                src={partner.image}
                                 alt={partner.name}
                                 className="partners__logo"
                                 whileHover={{ scale: 1.1 }}

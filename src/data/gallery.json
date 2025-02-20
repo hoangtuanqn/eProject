@@ -22,7 +22,7 @@
     {
         "id": 5,
         "category": "University Uniforms",
-        "src": "/assets/imgs/university_uniforms/product-1.jpg"
+        "src": "/assets/imgs/university_uniforms/product-1.webp"
     },
     {
         "id": 6,
@@ -57,7 +57,7 @@
     {
         "id": 12,
         "category": "University Uniforms",
-        "src": "/assets/imgs/university_uniforms/product-2.jpg"
+        "src": "/assets/imgs/university_uniforms/product-2.webp"
     },
     {
         "id": 13,
@@ -77,7 +77,7 @@
     {
         "id": 16,
         "category": "University Uniforms",
-        "src": "/assets/imgs/university_uniforms/product-3.jpg"
+        "src": "/assets/imgs/university_uniforms/product-3.webp"
     },
     {
         "id": 17,
@@ -102,7 +102,7 @@
     {
         "id": 21,
         "category": "University Uniforms",
-        "src": "/assets/imgs/university_uniforms/product-4.jpg"
+        "src": "/assets/imgs/university_uniforms/product-4.webp"
     },
     {
         "id": 22,
@@ -117,7 +117,7 @@
     {
         "id": 24,
         "category": "University Uniforms",
-        "src": "/assets/imgs/university_uniforms/product-5.jpg"
+        "src": "/assets/imgs/university_uniforms/product-5.webp"
     },
     {
         "id": 25,
@@ -142,7 +142,7 @@
     {
         "id": 29,
         "category": "University Uniforms",
-        "src": "/assets/imgs/university_uniforms/product-6.jpg"
+        "src": "/assets/imgs/university_uniforms/product-6.webp"
     },
     {
         "id": 30,
@@ -177,7 +177,7 @@
     {
         "id": 36,
         "category": "University Uniforms",
-        "src": "/assets/imgs/university_uniforms/product-7.jpg"
+        "src": "/assets/imgs/university_uniforms/product-7.webp"
     },
     {
         "id": 37,
@@ -217,7 +217,7 @@
     {
         "id": 44,
         "category": "University Uniforms",
-        "src": "/assets/imgs/university_uniforms/product-8.jpg"
+        "src": "/assets/imgs/university_uniforms/product-8.webp"
     },
     {
         "id": 45,
@@ -237,6 +237,6 @@
     {
         "id": 48,
         "category": "University Uniforms",
-        "src": "/assets/imgs/university_uniforms/product-9.jpg"
+        "src": "/assets/imgs/university_uniforms/product-9.webp"
     }
 ]

@@ -293,7 +293,7 @@ export default function Product() {
                                         <div className="product__review-header">
                                             <div className="product__review-user">
                                                 <img
-                                                    src={`/assets/imgs/ui-0${review}.jpg`}
+                                                    src={`/assets/imgs/ui-face/user-${review}.webp`}
                                                     alt="User avatar"
                                                     className="product__review-avatar"
                                                 />
@@ -315,8 +315,9 @@ export default function Product() {
                                                 for everyday school wear. My child loves it!
                                             </p>
                                             <div className="product__review-images">
-                                                <img src="/assets/imgs/product-1.png" alt="Customer review 1" />
-                                                <img src="/assets/imgs/product-2.png" alt="Customer review 2" />
+                                                {product.images.map((image, index) => (
+                                                    <img src={image} alt={`Customer review ${index + 1}`} />
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
