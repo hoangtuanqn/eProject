@@ -62,7 +62,7 @@ export default function Counter() {
             {loading ? (
                 <img src="/assets/icon/loading.gif" className="header__loading" alt="Loading..." />
             ) : (
-                <span className="header__counter" onClick={handleCounterClick}>{`${counterVisited} visited`}</span>
+                <span className="header__counter" onClick={handleCounterClick}>{`${counterVisited} Visitors`}</span>
             )}
         </button>
     );
