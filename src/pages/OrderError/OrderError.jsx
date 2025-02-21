@@ -4,6 +4,8 @@ import { XCircle, ArrowRight } from "lucide-react";
 import "~/styles/order.css";
 
 export default function OrderError() {
+    localStorage.removeItem("cartCheckoutPaypal");
+    localStorage.removeItem("checkoutFormData");
     return (
         <div className="order-success">
             <div className="container">

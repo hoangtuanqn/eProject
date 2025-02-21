@@ -12,23 +12,23 @@ export const handlePaypalCheckout = async ({
     try {
         setIsLoading(true);
 
-        // Kiểm tra dữ liệu đầu vào
+        // Check input data
         if (!cartItems || cartItems.length === 0) {
-            throw new Error("Giỏ hàng trống");
+            throw new Error("Cart is empty");
         }
 
         if (!formData) {
-            throw new Error("Thiếu thông tin đặt hàng");
+            throw new Error("Missing order information");
         }
 
         // Save form data to localStorage for later use
         localStorage.setItem("checkoutFormData", JSON.stringify(formData));
-        // Lưu cart items để đồng bộ
+        // Save cart items for synchronization
         localStorage.setItem("cartCheckoutPaypal", JSON.stringify(cartItems));
 
         const access_token_paypal = await handleGetAccessTokenPaypal();
         if (!access_token_paypal) {
-            throw new Error("Không thể kết nối với PayPal");
+            throw new Error("Unable to connect to PayPal");
         }
 
         const response = await axios.post(
@@ -85,7 +85,7 @@ export const handlePaypalCheckout = async ({
         }
     } catch (error) {
         setIsLoading(false);
-        const errorMessage = error.message || "Thanh toán thất bại. Vui lòng thử lại!";
+        const errorMessage = error.message || "Payment failed. Please try again!";
         toast.error(errorMessage);
         throw error;
     }

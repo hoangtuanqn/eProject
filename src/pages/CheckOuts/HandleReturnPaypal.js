@@ -30,7 +30,6 @@ const OrderSuccess = () => {
                         Authorization: `Bearer ${accessToken}`,
                     },
                 });
-                // console.log(orderResponse.data);
                 if (orderResponse.data.status === "APPROVED") {
                     // 2. Get cart and form data from localStorage
                     let cartItems = JSON.parse(localStorage.getItem("cartCheckoutPaypal")) || [];
@@ -59,8 +58,7 @@ const OrderSuccess = () => {
                         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
                     };
                     const shippingCost = process.env.REACT_APP_SHIPPING_COST;
-                    const total = calculateSubtotal() + shippingCost;
-                    console.log(cartItems);
+                    const total = calculateSubtotal() + +shippingCost;
 
                     // 4. Save order to database
                     try {
