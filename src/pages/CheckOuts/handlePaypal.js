@@ -12,10 +12,25 @@ export const handlePaypalCheckout = async ({
     try {
         setIsLoading(true);
 
+        // Kiểm tra dữ liệu đầu vào
+        if (!cartItems || cartItems.length === 0) {
+            throw new Error("Giỏ hàng trống");
+        }
+
+        if (!formData) {
+            throw new Error("Thiếu thông tin đặt hàng");
+        }
+
         // Save form data to localStorage for later use
         localStorage.setItem("checkoutFormData", JSON.stringify(formData));
+        // Lưu cart items để đồng bộ
+        localStorage.setItem("cartCheckoutPaypal", JSON.stringify(cartItems));
 
         const access_token_paypal = await handleGetAccessTokenPaypal();
+        if (!access_token_paypal) {
+            throw new Error("Không thể kết nối với PayPal");
+        }
+
         const response = await axios.post(
             "https://api-m.sandbox.paypal.com/v2/checkout/orders",
             {
@@ -70,7 +85,8 @@ export const handlePaypalCheckout = async ({
         }
     } catch (error) {
         setIsLoading(false);
-        toast.error("Payment failed. Please try again!");
+        const errorMessage = error.message || "Thanh toán thất bại. Vui lòng thử lại!";
+        toast.error(errorMessage);
         throw error;
     }
 };

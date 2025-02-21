@@ -112,7 +112,6 @@ export default function Product() {
             return;
         }
         setIsLoading(true);
-        console.log(quantity);
 
         await new Promise((resolve) => setTimeout(resolve, 500));
         await handleCartAction({ ...product, size: selectedSize, color: selectedColor, quantity, selected: false });

@@ -6,6 +6,7 @@ import { handleGetAccessTokenPaypal } from "~/utils/menuHelpers";
 import { useNavigate } from "react-router-dom";
 import { handleOrder } from "./handleOrder";
 import { Box, CircularProgress } from "@mui/material";
+import products from "~/data/products.json";
 
 const OrderSuccess = () => {
     const navigate = useNavigate();
@@ -32,7 +33,18 @@ const OrderSuccess = () => {
                 // console.log(orderResponse.data);
                 if (orderResponse.data.status === "APPROVED") {
                     // 2. Get cart and form data from localStorage
-                    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+                    let cartItems = JSON.parse(localStorage.getItem("cartCheckoutPaypal")) || [];
+                    cartItems = cartItems
+                        .filter((item) => item.selected)
+                        .map((item) => {
+                            return {
+                                ...item,
+                                price: (() => {
+                                    const product = products.find((p) => p.id === item.id);
+                                    return product.price;
+                                })(),
+                            };
+                        });
 
                     const formData = JSON.parse(localStorage.getItem("checkoutFormData"));
 
@@ -46,15 +58,16 @@ const OrderSuccess = () => {
                     const calculateSubtotal = () => {
                         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
                     };
-                    const shippingCost = 2;
+                    const shippingCost = process.env.REACT_APP_SHIPPING_COST;
                     const total = calculateSubtotal() + shippingCost;
+                    console.log(cartItems);
 
                     // 4. Save order to database
                     try {
                         const orderId = await handleOrder(formData, cartItems, calculateSubtotal, shippingCost, total);
 
                         // 5. Clear checkout data
-                        localStorage.removeItem("cart");
+                        localStorage.removeItem("cartCheckoutPaypal");
                         localStorage.removeItem("checkoutFormData");
 
                         // 6. Redirect to success page

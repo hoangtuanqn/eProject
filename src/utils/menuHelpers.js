@@ -28,7 +28,6 @@ export const handleClickOutside = (e, target, closeCallback) => {
 
 // Hàm xử lý đóng menu khác trước khi mở menu mới
 export const toggleSubmenu = (e) => {
-
     e.preventDefault();
     e.stopPropagation();
 
@@ -48,7 +47,6 @@ export const toggleSubmenu = (e) => {
     // Toggle active class cho menu item hiện tại
     menuItem.classList.toggle("active");
 };
-
 
 // Lấy access token paypal
 export const handleGetAccessTokenPaypal = async () => {

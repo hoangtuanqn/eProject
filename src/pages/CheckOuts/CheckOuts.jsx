@@ -92,6 +92,7 @@ const CheckOut = () => {
                     setIsProcessing(true);
                     try {
                         setIsLoading(true);
+
                         const orderId = await handleOrder(values, cartItems, calculateSubtotal, shippingCost, total);
                         setIsLoading(false);
                         window.location.href = `/order-success/${orderId}`;
@@ -156,6 +157,7 @@ const CheckOut = () => {
                           size: item.size,
                           color: item.color,
                           quantity: item.quantity || 1,
+                          selected: true,
                       }
                     : null;
             })

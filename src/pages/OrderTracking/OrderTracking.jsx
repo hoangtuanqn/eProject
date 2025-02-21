@@ -298,7 +298,7 @@ export default function InvoiceTracking() {
                                                     rel="noopener noreferrer"
                                                 >
                                                     <img
-                                                        src={`${process.env.REACT_APP_BASE_URL}/${item.thumbnail}`}
+                                                        src={`${process.env.REACT_APP_BASE_URL}${item.thumbnail}`}
                                                         alt={item.name}
                                                     />
                                                 </Link>
