@@ -1205,6 +1205,9 @@
     transition: transform 0.3s ease;
     transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
+.product__review-image {
+    border: 1px solid #eee;
+}
 
 .product__review-images img:hover {
     -webkit-transform: scale(1.05);
