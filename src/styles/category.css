@@ -188,6 +188,10 @@
 .category__product-details {
     padding: 15px 0 10px;
 }
+.category__product-item:hover .product-card__actions {
+    opacity: 1;
+    transform: translate(-10px, -50%);
+}
 .category__product-image {
     -webkit-transition: all ease 0.3s;
     -o-transition: all ease 0.3s;
