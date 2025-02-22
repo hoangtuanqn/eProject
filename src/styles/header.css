@@ -73,8 +73,8 @@
     transition: all ease 0.3s;
     -webkit-box-shadow: 0 10px 20px rgba(18, 18, 18, 0.15);
     box-shadow: 0 10px 20px rgba(18, 18, 18, 0.15);
-    -webkit-animation: fadeInSubMenu_HeaderPC 0.5s ease;
-    animation: fadeInSubMenu_HeaderPC 0.5s ease;
+    -webkit-animation: fadeInSubMenu_HeaderPC 0.25s ease;
+    animation: fadeInSubMenu_HeaderPC 0.25s ease;
 }
 .header__submenu > li {
     position: relative;
@@ -105,8 +105,8 @@
 }
 .header__submenu > li:hover > .header__submenu2 {
     display: block;
-    -webkit-animation: fadeInSubMenu_HeaderPC 0.5s ease;
-    animation: fadeInSubMenu_HeaderPC 0.5s ease;
+    -webkit-animation: fadeInSubMenu_HeaderPC 0.25s ease;
+    animation: fadeInSubMenu_HeaderPC 0.25s ease;
 }
 .header__submenu::before {
     content: "";
@@ -376,9 +376,9 @@
     z-index: 4;
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
-    -webkit-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
 }
 
 .mobile-menu__content {
@@ -548,12 +548,12 @@
 }
 
 .mobile-menu.active .mobile-menu__content {
-    -webkit-animation: fadeInMenu 0.5s ease forwards;
-    animation: fadeInMenu 0.5s ease forwards;
+    -webkit-animation: fadeInMenu 0.25s ease forwards;
+    animation: fadeInMenu 0.25s ease forwards;
 }
 .mobile-menu.closing .mobile-menu__content {
-    -webkit-animation: fadeOutMenu 0.5s ease forwards;
-    animation: fadeOutMenu 0.5s ease forwards;
+    -webkit-animation: fadeOutMenu 0.25s ease forwards;
+    animation: fadeOutMenu 0.25s ease forwards;
 }
 .mobile-menu__item.active .mobile-submenu {
     display: block;
