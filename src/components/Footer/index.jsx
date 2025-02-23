@@ -15,7 +15,7 @@ import {
     Inbox,
 } from "lucide-react";
 import "~/styles/footer.css";
-import Newsletter from "./Newsletter";
+import Newsletter from "./NewsLetter";
 import { initTicker } from "./ticker";
 import { initScrollToTop } from "~/utils/scrollToTop";
 import stores from "~/data/stores.json";
@@ -157,7 +157,7 @@ export default function Footer() {
                             </ul>
                             <ul className="footer__list footer__social-list">
                                 <li>
-                                    {/* <iframe
+                                    <iframe
                                         title="Facebook Page Timeline"
                                         src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F100063156842633&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
                                         width="340"
@@ -169,7 +169,7 @@ export default function Footer() {
                                         loading="lazy"
                                         allowFullScreen={true}
                                         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                                    ></iframe> */}
+                                    ></iframe>
                                 </li>
                             </ul>
                         </div>
@@ -184,12 +184,36 @@ export default function Footer() {
                             &copy; {new Date().getFullYear()}, Team 02 FPT Aptech Vietnam
                         </p>
                         <div className="footer__payment">
-                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/visa.svg`} alt="Visa" className="footer__payment-img" />
-                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/mastercard.svg`} alt="Mastercard" className="footer__payment-img" />
-                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/amex.svg`} alt="American Express" className="footer__payment-img" />
-                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/paypal.svg`} alt="PayPal" className="footer__payment-img" />
-                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/diners.svg`} alt="Diners Club" className="dinersclub-img" />
-                            <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/discover.svg`} alt="Discover" className="footer__payment-img" />
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/assets/icon/visa.svg`}
+                                alt="Visa"
+                                className="footer__payment-img"
+                            />
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/assets/icon/mastercard.svg`}
+                                alt="Mastercard"
+                                className="footer__payment-img"
+                            />
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/assets/icon/amex.svg`}
+                                alt="American Express"
+                                className="footer__payment-img"
+                            />
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/assets/icon/paypal.svg`}
+                                alt="PayPal"
+                                className="footer__payment-img"
+                            />
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/assets/icon/diners.svg`}
+                                alt="Diners Club"
+                                className="dinersclub-img"
+                            />
+                            <img
+                                src={`${process.env.REACT_APP_BASE_URL}/assets/icon/discover.svg`}
+                                alt="Discover"
+                                className="footer__payment-img"
+                            />
                         </div>
                     </div>
 

@@ -103,7 +103,11 @@ export default function Newsletter() {
                         </div>
                         <button type="submit" className="btn footer__submit" disabled={loading}>
                             {loading ? (
-                                <img src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`} alt="Loading..." className="loading-spinner" />
+                                <img
+                                    src={`${process.env.REACT_APP_BASE_URL}/assets/icon/loading.gif`}
+                                    alt="Loading..."
+                                    className="loading-spinner"
+                                />
                             ) : (
                                 "SUBSCRIBE"
                             )}
