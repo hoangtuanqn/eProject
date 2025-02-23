@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from "react";
 import axios from "axios";
 import { isValidEmail } from "~/utils/helpers";
 // Component này sử dụng CSS chung với Footer
-export default function Newsletter() {
+export default function NewsLetter() {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState({ text: "", type: "" });
     const [loading, setLoading] = useState(false);

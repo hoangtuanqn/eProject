@@ -15,7 +15,7 @@ import {
     Inbox,
 } from "lucide-react";
 import "~/styles/footer.css";
-import Newsletter from "./NewsLetter";
+import NewsLetter from "./NewsLetter";
 import { initTicker } from "./ticker";
 import { initScrollToTop } from "~/utils/scrollToTop";
 import stores from "~/data/stores.json";
@@ -175,7 +175,7 @@ export default function Footer() {
                         </div>
 
                         {/* Newsletter */}
-                        <Newsletter />
+                        <NewsLetter />
                     </div>
 
                     {/* Footer Bottom */}
