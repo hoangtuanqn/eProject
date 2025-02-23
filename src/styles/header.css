@@ -741,6 +741,27 @@
     color: rgba(18, 18, 18, 0.75);
 }
 
+/* Thay đổi màu link khi hover vào menu big */
+.header__nav-bigmenu:hover .header__link,
+.header__submenu__big:hover + .header__nav-bigmenu .header__link,
+.header__nav-bigmenu:has(+ .header__submenu__big:hover) .header__link {
+    color: #757575;
+}
+
+/* Add active state for submenu links */
+.header__submenu-link.active {
+    color: #757575;
+    font-weight: 500;
+    background-color: #f5f5f5;
+}
+
+/* Override background for bigmenu links */
+.header__submenu__big .header__submenu-link.active {
+    color: rgba(18, 18, 18, 1); /* Màu sẫm hơn */
+    font-weight: 500;
+    background-color: transparent; /* Bỏ background */
+}
+
 /* Responsive - Luôn nằm ở cuối cùng */
 
 /* Mobile */
@@ -811,11 +832,4 @@
         transform: translateX(-50%);
         top: 10px;
     }
-}
-
-/* Thay đổi màu link khi hover vào menu big */
-.header__nav-bigmenu:hover .header__link,
-.header__submenu__big:hover + .header__nav-bigmenu .header__link,
-.header__nav-bigmenu:has(+ .header__submenu__big:hover) .header__link {
-    color: #757575;
 }
