@@ -762,6 +762,27 @@
     background-color: transparent; /* Bỏ background */
 }
 
+/* Add active state for mobile submenu links */
+.mobile-submenu__link.active {
+    color: #757575;
+    font-weight: 500;
+    background-color: #f5f5f5;
+}
+
+/* Add active state for mobile menu main links */
+.mobile-menu__link.active {
+    color: #757575;
+    font-weight: 500;
+    background-color: #f5f5f5;
+}
+
+/* Add active state for mobile menu main links when submenu is open */
+.mobile-menu__item.active > .mobile-menu__link {
+    color: #757575;
+    font-weight: 500;
+    background-color: #f5f5f5;
+}
+
 /* Responsive - Luôn nằm ở cuối cùng */
 
 /* Mobile */

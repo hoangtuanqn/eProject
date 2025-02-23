@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Heart, Search, ShoppingCart } from "lucide-react";
 import { useGlobalState } from "~/context/GlobalContext";
 import Counter from "./Counter";
+import clsx from "clsx";
 
 const MenuMobile = ({ toggleSubmenu }) => {
     const { pathname } = useLocation();
@@ -50,7 +51,9 @@ const MenuMobile = ({ toggleSubmenu }) => {
                         <li className="mobile-menu__item">
                             <Link
                                 to="/"
-                                className="mobile-menu__link"
+                                className={clsx("mobile-menu__link", {
+                                    active: pathname === "/",
+                                })}
                                 onClick={() => {
                                     pathname === "/" && window.scrollTo({ top: 0, behavior: "smooth" });
                                 }}
@@ -60,7 +63,9 @@ const MenuMobile = ({ toggleSubmenu }) => {
                         </li>
                         <li className="mobile-menu__item">
                             <button
-                                className="mobile-menu__link"
+                                className={clsx("mobile-menu__link", {
+                                    active: pathname.includes("/category/"),
+                                })}
                                 data-submenu="products"
                                 onClick={(e) => toggleSubmenu(e)}
                             >
@@ -101,17 +106,32 @@ const MenuMobile = ({ toggleSubmenu }) => {
                                     </button>
                                     <ul className="mobile-submenu__child">
                                         <li>
-                                            <Link to="/category/shirts" className="mobile-submenu__link">
+                                            <Link
+                                                to="/category/shirts"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/category/shirts",
+                                                })}
+                                            >
                                                 Shirts
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/category/skirts" className="mobile-submenu__link">
+                                            <Link
+                                                to="/category/skirts"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/category/skirts",
+                                                })}
+                                            >
                                                 Skirts
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/category/frocks" className="mobile-submenu__link">
+                                            <Link
+                                                to="/category/frocks"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/category/frocks",
+                                                })}
+                                            >
                                                 Frocks
                                             </Link>
                                         </li>
@@ -137,17 +157,32 @@ const MenuMobile = ({ toggleSubmenu }) => {
                                     </button>
                                     <ul className="mobile-submenu__child">
                                         <li>
-                                            <Link to="/category/pttshirts" className="mobile-submenu__link">
+                                            <Link
+                                                to="/category/pttshirts"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/category/pttshirts",
+                                                })}
+                                            >
                                                 P.T T-shirts
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/category/ptshorts" className="mobile-submenu__link">
+                                            <Link
+                                                to="/category/ptshorts"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/category/ptshorts",
+                                                })}
+                                            >
                                                 P.T. Shorts
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/category/pttrackpants" className="mobile-submenu__link">
+                                            <Link
+                                                to="/category/pttrackpants"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/category/pttrackpants",
+                                                })}
+                                            >
                                                 P.T. track pants
                                             </Link>
                                         </li>
@@ -173,22 +208,42 @@ const MenuMobile = ({ toggleSubmenu }) => {
                                     </button>
                                     <ul className="mobile-submenu__child">
                                         <li>
-                                            <Link to="/category/belts" className="mobile-submenu__link">
+                                            <Link
+                                                to="/category/belts"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/category/belts",
+                                                })}
+                                            >
                                                 Belts
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/category/ties" className="mobile-submenu__link">
+                                            <Link
+                                                to="/category/ties"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/category/ties",
+                                                })}
+                                            >
                                                 Ties
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/category/logos" className="mobile-submenu__link">
+                                            <Link
+                                                to="/category/logos"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/category/logos",
+                                                })}
+                                            >
                                                 Logos
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/category/socks" className="mobile-submenu__link">
+                                            <Link
+                                                to="/category/socks"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/category/socks",
+                                                })}
+                                            >
                                                 Socks
                                             </Link>
                                         </li>
@@ -198,7 +253,9 @@ const MenuMobile = ({ toggleSubmenu }) => {
                         </li>
                         <li className="mobile-menu__item">
                             <button
-                                className="mobile-menu__link"
+                                className={clsx("mobile-menu__link", {
+                                    active: pathname.includes("/pages/about"),
+                                })}
                                 data-submenu="about"
                                 onClick={(e) => toggleSubmenu(e)}
                             >
@@ -220,27 +277,52 @@ const MenuMobile = ({ toggleSubmenu }) => {
                             </button>
                             <ul className="mobile-submenu">
                                 <li>
-                                    <Link to="/pages/about" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/about"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/about",
+                                        })}
+                                    >
                                         About Us
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/careers" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/careers"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/careers",
+                                        })}
+                                    >
                                         Careers
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/partners" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/partners"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/partners",
+                                        })}
+                                    >
                                         Partners
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/customer-growth-chart" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/customer-growth-chart"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/customer-growth-chart",
+                                        })}
+                                    >
                                         Growth & Achievement
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/awards" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/awards"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/awards",
+                                        })}
+                                    >
                                         Awards & Recognition
                                     </Link>
                                 </li>
@@ -248,7 +330,12 @@ const MenuMobile = ({ toggleSubmenu }) => {
                         </li>
                         <li className="mobile-menu__item">
                             <button
-                                className="mobile-menu__link"
+                                className={clsx("mobile-menu__link", {
+                                    active:
+                                        pathname.includes("/pages/support") ||
+                                        pathname.includes("/pages/faq") ||
+                                        pathname.includes("/pages/contact"),
+                                })}
                                 data-submenu="support"
                                 onClick={(e) => toggleSubmenu(e)}
                             >
@@ -270,27 +357,52 @@ const MenuMobile = ({ toggleSubmenu }) => {
                             </button>
                             <ul className="mobile-submenu">
                                 <li>
-                                    <Link to="/pages/faq" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/faq"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/faq",
+                                        })}
+                                    >
                                         FAQ
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/policies" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/policies"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/policies",
+                                        })}
+                                    >
                                         Policies
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/contact" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/contact"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/contact",
+                                        })}
+                                    >
                                         Contact Us
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/size-guide" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/size-guide"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/size-guide",
+                                        })}
+                                    >
                                         Size Guide
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/order-tracking" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/order-tracking"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/order-tracking",
+                                        })}
+                                    >
                                         Order Tracking
                                     </Link>
                                 </li>
@@ -298,7 +410,9 @@ const MenuMobile = ({ toggleSubmenu }) => {
                         </li>
                         <li className="mobile-menu__item">
                             <button
-                                className="mobile-menu__link"
+                                className={clsx("mobile-menu__link", {
+                                    active: pathname.includes("/pages/gallery") || pathname.includes("/blog"),
+                                })}
                                 data-submenu="media"
                                 onClick={(e) => toggleSubmenu(e)}
                             >
@@ -339,33 +453,57 @@ const MenuMobile = ({ toggleSubmenu }) => {
                                     </button>
                                     <ul className="mobile-submenu__child">
                                         <li>
-                                            <Link to="/pages/gallery/product-photos" className="mobile-submenu__link">
+                                            <Link
+                                                to="/pages/gallery/product-photos"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/pages/gallery/product-photos",
+                                                })}
+                                            >
                                                 Product Photos
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/pages/gallery/school-events" className="mobile-submenu__link">
+                                            <Link
+                                                to="/pages/gallery/school-events"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/pages/gallery/school-events",
+                                                })}
+                                            >
                                                 School Events
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link to="/pages/gallery/sports-events" className="mobile-submenu__link">
+                                            <Link
+                                                to="/pages/gallery/sports-events"
+                                                className={clsx("mobile-submenu__link", {
+                                                    active: pathname === "/pages/gallery/sports-events",
+                                                })}
+                                            >
                                                 Sports Events
                                             </Link>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <Link to="/blog/news" className="mobile-submenu__link">
+                                    <Link
+                                        to="/blog/news"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/blog/news",
+                                        })}
+                                    >
                                         News
                                     </Link>
-                                </li>{" "}
-                                
+                                </li>
                             </ul>
                         </li>
                         <li className="mobile-menu__item">
                             <button
-                                className="mobile-menu__link"
+                                className={clsx("mobile-menu__link", {
+                                    active:
+                                        pathname.includes("/pages/wishlist") ||
+                                        pathname.includes("/pages/coupons") ||
+                                        pathname.includes("/pages/recently-products"),
+                                })}
                                 data-submenu="activities"
                                 onClick={(e) => toggleSubmenu(e)}
                             >
@@ -387,22 +525,42 @@ const MenuMobile = ({ toggleSubmenu }) => {
                             </button>
                             <ul className="mobile-submenu">
                                 <li>
-                                    <Link to="/pages/wishlist" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/wishlist"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/wishlist",
+                                        })}
+                                    >
                                         Wishlist
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/coupons" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/coupons"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/coupons",
+                                        })}
+                                    >
                                         Coupons
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/recently-products" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/recently-products"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/recently-products",
+                                        })}
+                                    >
                                         Recently Products
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/pages/order-tracking" className="mobile-submenu__link">
+                                    <Link
+                                        to="/pages/order-tracking"
+                                        className={clsx("mobile-submenu__link", {
+                                            active: pathname === "/pages/order-tracking",
+                                        })}
+                                    >
                                         Order Tracking
                                     </Link>
                                 </li>
