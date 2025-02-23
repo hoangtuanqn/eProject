@@ -10,7 +10,6 @@ import "~/styles/category.css";
 import NotData from "~/components/NotData";
 import productData from "~/data/products.json";
 import categoriesData from "~/data/categories.json";
-import { useCartActions } from "~/utils/handleCart";
 import { useWishlistActions } from "~/utils/handleWishlist";
 import { calculateOriginalPrice } from "~/utils/helpers";
 
@@ -68,9 +67,6 @@ export default function Category({ nameCategory }) {
 
     // Thêm state để quản lý trạng thái loading
     const [isLoading, setIsLoading] = useState(false);
-
-    // Add useCartActions hook
-    const { handleCartAction, isProductInCart, loadingStates } = useCartActions();
 
     // Add wishlist hooks
     const { handleWishlistAction, isProductInWishlist, loadingStates: wishlistLoadingStates } = useWishlistActions();
@@ -132,13 +128,6 @@ export default function Category({ nameCategory }) {
             ...prev,
             [category]: !prev[category],
         }));
-    }, []);
-
-    // Helper function to get minimum price from models
-
-    const calculateSalePrice = useCallback((originalPrice, salePercentage) => {
-        if (!salePercentage) return originalPrice;
-        return originalPrice * (1 - salePercentage / 100);
     }, []);
 
     // Định nghĩa các options
@@ -318,7 +307,7 @@ export default function Category({ nameCategory }) {
     }, [filteredProducts, sortOption, sortProducts]);
 
     // Thay thế getCurrentItems bằng getVisibleItems
-    const getVisibleItems = useCallback(() => {
+    let getVisibleItems = useCallback(() => {
         return sortedProducts.slice(0, visibleItems);
     }, [sortedProducts, visibleItems]);
 
@@ -348,12 +337,6 @@ export default function Category({ nameCategory }) {
         const count = selectedAvailability.length;
         setActiveFiltersCount(count);
     }, [selectedAvailability]);
-
-    // Tính toán số trang dựa trên số lượng sản phẩm đã lọc
-    const pageCount = useMemo(
-        () => Math.ceil(filteredProducts.length / visibleItems),
-        [filteredProducts.length, visibleItems],
-    );
 
     // Cập nhật handler cho nút Load More với hiệu ứng loading
     const handleLoadMore = useCallback(() => {
@@ -573,6 +556,10 @@ export default function Category({ nameCategory }) {
         // Reset overflow style cho body khi đóng filter
         document.body.style.overflow = "";
     }, [tempMobileFilters, slug, navigate]);
+
+    const productRelated = useMemo(() => {
+        return productData.reverse().slice(0, 8);
+    }, []);
 
     return (
         <>
@@ -1136,109 +1123,130 @@ export default function Category({ nameCategory }) {
                                 )}
                             </div>
                         </aside>
-                        {!isChecking && (
-                            <div className="category__product">
-                                {filteredProducts.length === 0 && <NotData />}
+                        {!isChecking &&
+                            (() => {
+                                const productFilter = getVisibleItems();
+                                return (
+                                    <div className="category__product">
+                                        {filteredProducts.length === 0 && <NotData />}
 
-                                <div className={`category__product-grid columns-${displayColumns} responsive-grid`}>
-                                    <AnimatePresence>
-                                        {getVisibleItems().map((item) => {
-                                            // Nếu có sale thì minPrice là giá đã giảm, cần tính ngược lại giá gốc
-
-                                            return (
-                                                <motion.article
-                                                    key={item.slug}
-                                                    className="category__product-item"
-                                                    layout
-                                                    initial={{ opacity: 0, scale: 0.8 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    exit={{ opacity: 0, scale: 0.8 }}
-                                                >
-                                                    <Link to={`/product/${item.slug}`}>
-                                                        <figure className="category-product__wrapper">
-                                                            {item.quantity > 0 ? (
-                                                                item.sale > 0 && (
-                                                                    <span className="badge__sale">
-                                                                        {item.sale}% OFF
-                                                                    </span>
-                                                                )
-                                                            ) : (
-                                                                <span className="badge__sale">Sold Out</span>
-                                                            )}
-                                                            <img
-                                                                src={item.thumbnail || "/placeholder.svg"}
-                                                                alt=""
-                                                                className={clsx(
-                                                                    "category__product-image",
-                                                                    item.quantity === 0 &&
-                                                                        "category__product-image--opacity",
-                                                                )}
-                                                            />
-                                                            <div className="product-card__actions">
-                                                                <button
-                                                                    className="action-btn"
-                                                                    onClick={(e) => {
-                                                                        e.preventDefault();
-                                                                        handleWishlistAction(item);
-                                                                    }}
-                                                                    disabled={wishlistLoadingStates[item.id]}
-                                                                >
-                                                                    {wishlistLoadingStates[item.id] ? (
-                                                                        <img
-                                                                            src="/assets/icon/loading.gif"
-                                                                            alt="Loading..."
-                                                                            className="loading-spinner"
-                                                                            width={18}
-                                                                            height={18}
-                                                                        />
-                                                                    ) : isProductInWishlist(item.id) ? (
-                                                                        <HeartOff size={20} />
-                                                                    ) : (
-                                                                        <Heart size={20} />
-                                                                    )}
-                                                                </button>
-                                                            </div>
-                                                        </figure>
-                                                        <div className="category__product-details">
-                                                            <h3 className="category__product-name">{item.name}</h3>
-                                                            <span className="category__product-price dfcenter">
-                                                                ${item.price}
-                                                                {item.sale > 0 && (
-                                                                    <span className="category__product-price--old">
-                                                                        ${calculateOriginalPrice(item.price, item.sale)}
-                                                                    </span>
-                                                                )}
-                                                            </span>
-                                                        </div>
-                                                    </Link>
-                                                </motion.article>
-                                            );
-                                        })}
-                                    </AnimatePresence>
-                                </div>
-
-                                {/* Thay thế ReactPaginate bằng nút Load More */}
-                                {filteredProducts.length > visibleItems && (
-                                    <div className="dfcenter category__load-more">
-                                        <button
-                                            className={`btn ${isLoading ? "loading" : ""}`}
-                                            onClick={handleLoadMore}
-                                            disabled={isLoading}
+                                        {productFilter.length === 0 && (
+                                            <h1 className="category__suggested-title">Suggested Products</h1>
+                                        )}
+                                        <div
+                                            className={`category__product-grid columns-${displayColumns} responsive-grid`}
                                         >
-                                            {isLoading ? (
-                                                <img
-                                                    src="/assets/icon/loading.gif"
-                                                    alt="Loading..."
-                                                    className="loading-spinner"
-                                                />
-                                            ) : (
-                                                "Show More Products"
-                                            )}
-                                        </button>
+                                            <AnimatePresence>
+                                                {(productFilter.length === 0 ? productRelated : productFilter).map(
+                                                    (item) => {
+                                                        // Nếu có sale thì minPrice là giá đã giảm, cần tính ngược lại giá gốc
+
+                                                        return (
+                                                            <motion.article
+                                                                key={item.slug}
+                                                                className="category__product-item"
+                                                                layout
+                                                                initial={{ opacity: 0, scale: 0.8 }}
+                                                                animate={{ opacity: 1, scale: 1 }}
+                                                                exit={{ opacity: 0, scale: 0.8 }}
+                                                            >
+                                                                <Link to={`/product/${item.slug}`}>
+                                                                    <figure className="category-product__wrapper">
+                                                                        {item.quantity > 0 ? (
+                                                                            item.sale > 0 && (
+                                                                                <span className="badge__sale">
+                                                                                    {item.sale}% OFF
+                                                                                </span>
+                                                                            )
+                                                                        ) : (
+                                                                            <span className="badge__sale">
+                                                                                Sold Out
+                                                                            </span>
+                                                                        )}
+                                                                        <img
+                                                                            src={item.thumbnail || "/placeholder.svg"}
+                                                                            alt=""
+                                                                            className={clsx(
+                                                                                "category__product-image",
+                                                                                item.quantity === 0 &&
+                                                                                    "category__product-image--opacity",
+                                                                            )}
+                                                                        />
+                                                                        <div className="product-card__actions">
+                                                                            <button
+                                                                                className="action-btn"
+                                                                                onClick={(e) => {
+                                                                                    e.preventDefault();
+                                                                                    handleWishlistAction(item);
+                                                                                }}
+                                                                                disabled={
+                                                                                    wishlistLoadingStates[item.id]
+                                                                                }
+                                                                            >
+                                                                                {wishlistLoadingStates[item.id] ? (
+                                                                                    <img
+                                                                                        src="/assets/icon/loading.gif"
+                                                                                        alt="Loading..."
+                                                                                        className="loading-spinner"
+                                                                                        width={18}
+                                                                                        height={18}
+                                                                                    />
+                                                                                ) : isProductInWishlist(item.id) ? (
+                                                                                    <HeartOff size={20} />
+                                                                                ) : (
+                                                                                    <Heart size={20} />
+                                                                                )}
+                                                                            </button>
+                                                                        </div>
+                                                                    </figure>
+                                                                    <div className="category__product-details">
+                                                                        <h3 className="category__product-name">
+                                                                            {item.name}
+                                                                        </h3>
+                                                                        <span className="category__product-price dfcenter">
+                                                                            ${item.price}
+                                                                            {item.sale > 0 && (
+                                                                                <span className="category__product-price--old">
+                                                                                    $
+                                                                                    {calculateOriginalPrice(
+                                                                                        item.price,
+                                                                                        item.sale,
+                                                                                    )}
+                                                                                </span>
+                                                                            )}
+                                                                        </span>
+                                                                    </div>
+                                                                </Link>
+                                                            </motion.article>
+                                                        );
+                                                    },
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
+
+                                        {/* Thay thế ReactPaginate bằng nút Load More */}
+                                        {filteredProducts.length > visibleItems && (
+                                            <div className="dfcenter category__load-more">
+                                                <button
+                                                    className={`btn ${isLoading ? "loading" : ""}`}
+                                                    onClick={handleLoadMore}
+                                                    disabled={isLoading}
+                                                >
+                                                    {isLoading ? (
+                                                        <img
+                                                            src="/assets/icon/loading.gif"
+                                                            alt="Loading..."
+                                                            className="loading-spinner"
+                                                        />
+                                                    ) : (
+                                                        "Show More Products"
+                                                    )}
+                                                </button>
+                                            </div>
+                                        )}
                                     </div>
-                                )}
-                            </div>
-                        )}
+                                );
+                            })()}
                     </div>
                 </div>
             </section>
