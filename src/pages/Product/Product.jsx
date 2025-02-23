@@ -35,6 +35,7 @@ import {
     HeartOff,
     X,
     Star,
+    ShoppingBag,
 } from "lucide-react";
 
 import { Helmet } from "react-helmet-async";
@@ -439,6 +440,10 @@ export default function Product() {
                                             ({product.rating.toFixed(1)})
                                         </span>
                                     </div>
+                                    <span className="product__sold-quantity">
+                                        <ShoppingBag size={16} />
+                                        {product.soldQuantity.toLocaleString()} sold
+                                    </span>
                                 </div>
                             </div>
 

@@ -197,6 +197,20 @@
     gap: 20px;
 }
 
+.product__sold-quantity {
+    font-size: 1.4rem;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.product__sold-quantity svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2px;
+}
+
 .product__category {
     font-size: 1.4rem;
     color: var(--color-text);
