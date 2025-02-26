@@ -16,8 +16,8 @@
 
 .careers__hero h1 {
     font-size: 4.5rem;
-    background: -o-linear-gradient(315deg, var(--color-grey-7) 0%, #3498db 100%);
-    background: linear-gradient(135deg, var(--color-grey-7) 0%, #3498db 100%);
+    background: -o-linear-gradient(315deg, rgb(18, 18, 18) 0%, #757575 100%);
+    background: linear-gradient(135deg, rgb(18, 18, 18) 0%, #757575 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 20px;
@@ -68,8 +68,8 @@
     display: block;
     font-size: 4rem;
     font-weight: 700;
-    background: -o-linear-gradient(315deg, var(--color-grey-7) 0%, #3498db 100%);
-    background: linear-gradient(135deg, var(--color-grey-7) 0%, #3498db 100%);
+    background: -o-linear-gradient(315deg, rgb(18, 18, 18) 0%, #757575 100%);
+    background: linear-gradient(135deg, rgb(18, 18, 18) 0%, #757575 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 10px;
@@ -123,7 +123,7 @@
     -webkit-transform: translateY(-5px);
     -ms-transform: translateY(-5px);
     transform: translateY(-5px);
-    border-color: #3498db;
+    border-color: #757575;
 }
 
 .careers__benefit-card h3 {
@@ -163,7 +163,7 @@
 }
 
 .careers__job-card:hover {
-    border-color: #3498db;
+    border-color: #757575;
 }
 
 .careers__job-header {
@@ -275,8 +275,8 @@
 
 .careers__cta h2 {
     font-size: 3.2rem;
-    background: -o-linear-gradient(315deg, var(--color-grey-7) 0%, #3498db 100%);
-    background: linear-gradient(135deg, var(--color-grey-7) 0%, #3498db 100%);
+    background: -o-linear-gradient(315deg, rgb(18, 18, 18) 0%, #757575 100%);
+    background: linear-gradient(135deg, rgb(18, 18, 18) 0%, #757575 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 20px;
