@@ -57,11 +57,7 @@ export default function Header() {
             }
         };
     }, []);
-    function dongMenu() {
-        console.log(mobileMenuRef);
 
-        return mobileMenuRef;
-    }
     const { pathname } = useLocation(); // lấy url hiện tại
     const navigate = useNavigate();
 

@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import categoriesData from "~/data/categories.json";
 export default function MenuDesktop() {
     const { pathname } = useLocation(); // lấy url hiện tại
 

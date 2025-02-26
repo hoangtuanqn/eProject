@@ -17,7 +17,7 @@ export default function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const [notes, setNotes] = useState({});
     const [isCalculating, setIsCalculating] = useState(false);
-    const [shippingCost, setShippingCost] = useState(process.env.REACT_APP_SHIPPING_COST);
+    const [shippingCost] = useState(process.env.REACT_APP_SHIPPING_COST);
     const [deletingItemId, setDeletingItemId] = useState(null);
     const { handleCartAction, getUpdatedCartItems } = useCartActions();
     const [couponCode, setCouponCode] = useState("");
@@ -217,18 +217,6 @@ export default function Cart() {
     };
     const listCoupons = getSuggestedCoupons();
 
-    // const handleClearCart = async () => {
-    //     if (window.confirm("Are you sure you want to clear your cart?")) {
-    //         setIsCalculating(true);
-    //         await new Promise((resolve) => setTimeout(resolve, 1000));
-    //         localStorage.setItem("cart", "[]");
-    //         setCartItems([]);
-    //         setSelectedItems([]);
-    //         setAppliedCoupon(null);
-    //         setIsCalculating(false);
-    //         toast.success("Cart cleared successfully");
-    //     }
-    // };
 
     const handleSelectItem = (itemId, color, size) => {
         const key = `${itemId}-${color}-${size}`;

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { toast } from "react-hot-toast";
 import CountUp from "react-countup";
 import jobListings from "~/data/jobListings.json";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, Briefcase, Plus, Minus, FileUser } from "lucide-react";
+import { MapPin, Clock, Briefcase, Plus, Minus } from "lucide-react";
 import "~/styles/careers.css";
 import { useNavigate } from "react-router-dom";
 

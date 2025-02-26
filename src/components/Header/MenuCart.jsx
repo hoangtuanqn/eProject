@@ -2,7 +2,6 @@ import React, { forwardRef, useCallback, useEffect, useLayoutEffect, useState } 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trash2, X } from "lucide-react";
-import { toast } from "react-hot-toast";
 import clsx from "clsx";
 import { closeWithAnimation, handleClickOutside } from "~/utils/menuHelpers";
 import { useCartActions, handleCheckQuantity } from "~/utils/handleCart";
@@ -22,7 +21,6 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
     } = useGlobalState();
     const [cartItems, setCartItems] = useState([]);
     const [deletingItemId, setDeletingItemId] = useState(null);
-    const [isClearing, setIsClearing] = useState(false);
     const navigate = useNavigate();
     const { handleCartAction, getUpdatedCartItems } = useCartActions();
     const { pathname } = useLocation();
@@ -116,17 +114,6 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
             style: "currency",
             currency: "USD",
         }).format(amount);
-    };
-
-    const handleClearCart = async () => {
-        if (window.confirm("Are you sure you want to clear your cart?")) {
-            setIsClearing(true);
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            localStorage.setItem("cart", "[]");
-            setCartItems([]);
-            setIsClearing(false);
-            toast.success("Cart cleared successfully");
-        }
     };
 
     return (

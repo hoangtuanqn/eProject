@@ -31,14 +31,12 @@ export default function Category({ nameCategory }) {
         gender: true,
     });
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-    const [activeFiltersCount, setActiveFiltersCount] = useState(0);
     const [priceRange, setPriceRange] = useState({ min: 1, max: 999 });
     const [priceInputs, setPriceInputs] = useState({
         min: 1,
         max: 999,
     });
     const location = useLocation();
-    const [priceRangeSlider, setPriceRangeSlider] = useState(999);
     const [selectedSale, setSelectedSale] = useState([]);
     const [searchTerm, setSearchTerm] = useState(() => {
         // Chỉ lấy search từ location.state khi khởi tạo lần đầu
@@ -335,7 +333,6 @@ export default function Category({ nameCategory }) {
     // Tính toán số lượng bộ lọc đang hoạt động
     useEffect(() => {
         const count = selectedAvailability.length;
-        setActiveFiltersCount(count);
     }, [selectedAvailability]);
 
     // Cập nhật handler cho nút Load More với hiệu ứng loading
