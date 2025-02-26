@@ -45,7 +45,8 @@ const App = () => {
     const location = useLocation();
 
     useLayoutEffect(() => {
-        document.documentElement.scrollTo({ top: 0, left: 0, behavior: "instant" });
+        const smoothScroll = location.pathname.includes("/category/") ? "smooth" : "instant";
+        document.documentElement.scrollTo({ top: 0, left: 0, behavior: smoothScroll });
     }, [location.pathname]);
     // End: xử lý cuộn lên đầu trang khi chuyển trang
 
