@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 export default function MenuDesktop() {
     const { pathname } = useLocation(); // lấy url hiện tại
@@ -8,7 +8,32 @@ export default function MenuDesktop() {
         // Kiểm tra xem pathname có match với bất kỳ path nào trong mảng không
         return paths.some((path) => pathname === path);
     };
+    useEffect(() => {
+        const headerLinks = document.querySelectorAll(".header__submenu .header__submenu-link");
 
+        const handleSubmenu = (event) => {
+            const submenu = event.currentTarget.closest(".header__submenu");
+            if (submenu) {
+                console.log(submenu);
+                submenu.classList.add("handleSubmenu");
+                setTimeout(() => {
+                    submenu.classList.remove("handleSubmenu");
+                }, 200);
+            }
+        };
+
+        headerLinks.forEach((link) => {
+            if (link.getAttribute("href") !== "#!") {
+                link.addEventListener("click", handleSubmenu);
+            }
+        });
+
+        return () => {
+            headerLinks.forEach((link) => {
+                link.removeEventListener("click", handleSubmenu);
+            });
+        };
+    }, []);
     return (
         <nav className="hiddenMobile hiddenPClow">
             <ul className="header__nav dfbetween">
