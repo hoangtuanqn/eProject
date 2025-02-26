@@ -1,3 +1,4 @@
+import { useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar, User } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -5,11 +6,15 @@ import newsData from "~/data/news.json";
 import "~/styles/news.css";
 
 export default function News() {
+    const [news, setNews] = useState([]);
     const formatDate = (dateString) => {
         const options = { year: "numeric", month: "long", day: "numeric" };
 
         return new Date(dateString).toLocaleDateString("en-US", options);
     };
+    useLayoutEffect(() => {
+        setNews(newsData.reverse());
+    }, []);
     return (
         <section className="news-page">
             <div className="container">

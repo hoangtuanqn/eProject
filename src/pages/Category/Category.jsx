@@ -145,7 +145,7 @@ export default function Category({ nameCategory }) {
             prev.includes(level) ? prev.filter((l) => l !== level) : [...prev, level],
         );
     }, []);
-
+    
     const handleCategoryChange = useCallback(
         (categoryName) => {
             // Không đứng ở trang all-product

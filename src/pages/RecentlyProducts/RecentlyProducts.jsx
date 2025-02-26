@@ -26,6 +26,9 @@ export default function WishList() {
     const [deletingItemId, setDeletingItemId] = useState(null);
 
     const removeFromRecently = async (product) => {
+        if (!window.confirm("Are you sure you want to remove this product from your recently viewed list?")) {
+            return;
+        }
         setDeletingItemId(product.id);
         await new Promise((resolve) => setTimeout(resolve, 300));
 
@@ -106,20 +109,6 @@ export default function WishList() {
                                         </figure>
                                         <div className="category__product-details">
                                             <div className="product-card__rating-wrap">
-                                                {/* <Rating
-                                                    name="read-only"
-                                                    value={product.rating}
-                                                    precision={0.1}
-                                                    readOnly
-                                                    size="small"
-                                                    sx={{
-                                                        fontSize: "1.8rem",
-                                                        color: "#ffd700",
-                                                    }}
-                                                /> */}
-                                                {/* <span className="best-sales-item__rating-value">
-                                                    ({product.rating.toFixed(1)})
-                                                </span> */}
                                                 <span className="product-card__time-ago">
                                                     Viewed {getTimeAgo(product.timestamp)}
                                                 </span>
