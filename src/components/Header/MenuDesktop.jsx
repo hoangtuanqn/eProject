@@ -14,7 +14,6 @@ export default function MenuDesktop() {
         const handleSubmenu = (event) => {
             const submenu = event.currentTarget.closest(".header__submenu");
             if (submenu) {
-                console.log(submenu);
                 submenu.classList.add("handleSubmenu");
                 setTimeout(() => {
                     submenu.classList.remove("handleSubmenu");

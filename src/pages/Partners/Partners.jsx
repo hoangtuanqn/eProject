@@ -129,15 +129,7 @@ export default function Partners() {
                         Join our network of industry-leading companies and grow your business with us.
                     </motion.p>
                     <Link to="/pages/contact" state={{ type: "PARTNERSHIP" }}>
-                        <motion.button
-                            className="btn partners__cta-button"
-                            whileHover={{
-                                scale: 1.05,
-                                backgroundColor: "#000",
-                                boxShadow: "0 5px 15px rgba(0,0,0,0.2)",
-                            }}
-                            whileTap={{ scale: 0.95 }}
-                        >
+                        <motion.button className="btn partners__cta-button" whileTap={{ scale: 0.95 }}>
                             Apply Now
                             <ArrowUpRight size={20} />
                         </motion.button>
