@@ -10,12 +10,14 @@ const MenuMobile = ({ toggleSubmenu }) => {
     const { cartQuantity, wishlistQuantity } = useGlobalState();
 
     const handleSubmenuClick = (e) => {
-        const menu = document.querySelector(".mobile-menu");
-        menu.classList.add("closing");
-        setTimeout(() => {
-            menu.classList.remove("active", "closing");
-            document.body.style.overflow = "";
-        }, 500);
+        const menu = document.querySelector(".mobile-menu.active");
+        if (menu) {
+            menu.classList.add("closing");
+            setTimeout(() => {
+                menu.classList.remove("active", "closing");
+                document.body.style.overflow = "";
+            }, 500);
+        }
     };
 
     useEffect(() => {

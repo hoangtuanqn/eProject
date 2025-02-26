@@ -64,7 +64,13 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
     }, [ref, onClose]);
 
     useEffect(() => {
-        handleClose();
+        const menu = document.querySelector(".cart.active");
+        if (menu) {
+            menu.classList.add("closing");
+            setTimeout(() => {
+                menu.classList.remove("active", "closing");
+            }, 500);
+        }
     }, [pathname]);
 
     const handleQuantityInput = (id, maxQuantity, value) => {
@@ -131,8 +137,6 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                 </div>
 
                 <div className="cart__items-container">
-                  
-
                     <AnimatePresence mode="popLayout">
                         {cartItems.length > 0 ? (
                             cartItems.map((item) => {
@@ -239,7 +243,6 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                                                                 e.target.value,
                                                             );
                                                         }
-                                                       
                                                     }}
                                                     min="1"
                                                     max={itemProductOrigin.quantity}
@@ -291,7 +294,11 @@ const MenuCart = forwardRef(({ isOpen, onClose }, ref) => {
                             })
                         ) : (
                             <div className="cart__empty">
-                                <img src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/cart_empty.png`} alt="Empty cart" className="cart__empty-img" />
+                                <img
+                                    src={`${process.env.REACT_APP_BASE_URL}/assets/imgs/cart_empty.png`}
+                                    alt="Empty cart"
+                                    className="cart__empty-img"
+                                />
 
                                 <p className="cart__empty-text">Your cart is empty</p>
                                 <button
