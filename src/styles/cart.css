@@ -39,7 +39,7 @@
     padding: 20px;
     background: white;
     border-radius: 12px;
-    border: 1px solid #eee;
+    border: 1px solid #eaeaea;
     -webkit-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -62,7 +62,7 @@
     border-radius: 8px;
     background: #f9f9f9;
     /* padding: 8px; */
-    border: 1px solid #f0f0f0;
+    border: 1px solid #eaeaea;
 }
 
 .cart-page__item-image img {

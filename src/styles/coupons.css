@@ -32,7 +32,7 @@
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     position: relative;
-    border: 2px dashed #e0e0e0;
+    border: 2px dashed #eaeaea;
 }
 
 .coupon-card:hover {
@@ -122,7 +122,7 @@
 }
 
 .coupon-card__category {
-    background-color: #f1f2f6;
+    background-color: #eaeaea;
     color: #2d3436;
     font-size: 1.2rem;
     padding: 6px 12px;
