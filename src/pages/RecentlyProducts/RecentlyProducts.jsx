@@ -26,7 +26,7 @@ export default function WishList() {
     const [deletingItemId, setDeletingItemId] = useState(null);
 
     const removeFromRecently = async (product) => {
-        if (!window.confirm("Are you sure you want to remove this product from your recently viewed list?")) {
+        if (!window.confirm("Are you sure you want to remove this product from Recently Viewed?")) {
             return;
         }
         setDeletingItemId(product.id);

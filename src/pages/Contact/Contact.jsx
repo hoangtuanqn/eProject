@@ -36,7 +36,10 @@ export default function Contact() {
             .matches(/^[+\-()0-9\s]+$/, "Phone number can only contain numbers, +, -, (), and spaces")
             .min(10, "Phone number must be at least 10 digits")
             .max(15, "Phone number must not exceed 15 digits"),
-        message: Yup.string().required("Message is required").min(10, "Message must be at least 10 characters"),
+        message: Yup.string()
+            .required("Message is required")
+            .min(10, "Message must be at least 10 characters")
+            .max(5000, "Message must not exceed 5000 characters"),
 
         // Job Application specific fields
         resume: Yup.mixed().when("requestType", {

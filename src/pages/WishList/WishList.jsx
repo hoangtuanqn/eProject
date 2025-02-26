@@ -19,6 +19,9 @@ export default function WishList() {
     const [deletingItemId, setDeletingItemId] = useState(null);
 
     const removeFromWishlist = async (product) => {
+        if (!window.confirm("Are you sure you want to remove this product from your Wishlist?")) {
+            return;
+        }
         setDeletingItemId(product.id);
         await new Promise((resolve) => setTimeout(resolve, 300));
         await handleWishlistAction(product);

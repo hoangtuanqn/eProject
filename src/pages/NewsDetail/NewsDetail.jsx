@@ -36,8 +36,12 @@ export default function BlogDetail({ article }) {
             .required("Name is required")
             .matches(/^[A-Za-z\s]+$/, "Name can only contain letters and spaces")
             .min(2, "Name must be at least 2 characters")
+            .max(50, "Name is too long")
             .trim(),
-        comment: Yup.string().min(10, "Comment must be at least 10 characters").required("Please enter your comment"),
+        comment: Yup.string()
+            .min(10, "Comment must be at least 10 characters")
+            .max(500, "Comment must not exceed 500 characters")
+            .required("Please enter your comment"),
     });
 
     // Reply validation schema
@@ -45,8 +49,12 @@ export default function BlogDetail({ article }) {
         userName: Yup.string()
             .min(2, "Name must be at least 2 characters")
             .max(50, "Name is too long")
-            .required("Please enter your name"),
-        reply: Yup.string().min(1, "Reply cannot be empty").required("Please enter your reply"),
+            .required("Please enter your name")
+            .matches(/^[A-Za-z\s]+$/, "Name can only contain letters and spaces"),
+        reply: Yup.string()
+            .min(10, "Reply must be at least 10 characters")
+            .max(300, "Reply must not exceed 300 characters")
+            .required("Please enter your reply"),
     });
 
     // Fetch comments and replies

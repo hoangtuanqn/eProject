@@ -19,7 +19,7 @@ export default function News() {
         <section className="news-page">
             <div className="container">
                 <div className="news-grid">
-                    {newsData.reverse().map((article, index) => (
+                    {news.map((article) => (
                         <motion.article
                             key={article.id}
                             className="news-card"
