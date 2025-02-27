@@ -6,7 +6,7 @@ import "~/styles/blogPosts.css";
 export default function BlogPosts() {
     const [newsList, setNewsList] = useState([]);
     useLayoutEffect(() => {
-        setNewsList(news.reverse().slice(0, 3));
+        setNewsList([...news].reverse().slice(0, 3));
     }, []);
     return (
         <>

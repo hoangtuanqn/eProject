@@ -13,7 +13,7 @@ export default function News() {
         return new Date(dateString).toLocaleDateString("en-US", options);
     };
     useLayoutEffect(() => {
-        setNews(newsData.reverse());
+        setNews([...newsData].reverse());
     }, []);
     return (
         <section className="news-page">

@@ -329,9 +329,6 @@
 .header__icon-cart {
     position: relative;
 }
-.header__counter {
-    color: rgba(18, 18, 18);
-}
 .header__icon-wrap {
     position: relative;
     display: -webkit-box;
@@ -646,6 +643,7 @@
 }
 .header__counter {
     font-size: 1.6rem;
+    color: var(--color-grey-7);
 }
 
 /* Thêm vào phần mobile menu styles */
