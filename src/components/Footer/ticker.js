@@ -31,35 +31,52 @@ export function initTicker() {
     function updateLocation() {
         // Kiểm tra trình duyệt có hỗ trợ geolocation không
         if (navigator.geolocation) {
-            // Lấy vị trí hiện tại của người dùng
-            navigator.geolocation.getCurrentPosition(
-                // Callback khi lấy vị trí thành công
-                (position) => {
-                    const latitude = position.coords.latitude; // Lấy vĩ độ
-                    const longitude = position.coords.longitude; // Lấy kinh độ
+            // Tạo button nhưng chưa thêm vào DOM
+            const requestButton = document.createElement("button");
+            requestButton.textContent = "📍 Request Location Access";
+            requestButton.onclick = () => {
+                requestButton.style.display = "none";
+                requestLocationAccess();
+            };
 
-                    // Sử dụng API Nominatim để chuyển đổi tọa độ thành tên địa điểm
-                    axios
-                        .get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
-                        .then(({ data }) => {
-                            // Lấy tên thành phố/thị trấn/tiểu bang và quốc gia
-                            const city = data.address.city || data.address.town || data.address.state;
-                            const country = data.address.country;
-                            // Hiển thị tên địa điểm và quốc gia với biểu tượng định vị
-                            locationElement.textContent = `📍 ${city}, ${country}`;
-                        })
-                        .catch(() => {
-                            // Nếu không lấy được tên địa điểm, hiển thị thông báo lỗi
-                            locationElement.textContent = "📍 Unable to get location name. Please try again later.";
-                        });
-                },
-                // Callback khi có lỗi lấy vị trí
-                (error) => {
-                    locationElement.textContent = "📍 Location not available";
-                },
-            );
+            // Hàm xử lý yêu cầu vị trí
+            function requestLocationAccess() {
+                navigator.geolocation.getCurrentPosition(
+                    // Callback khi lấy vị trí thành công
+                    (position) => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+
+                        axios
+                            .get(
+                                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
+                            )
+                            .then(({ data }) => {
+                                const city = data.address.city || data.address.town || data.address.state;
+                                const country = data.address.country;
+                                locationElement.textContent = `📍 ${city}, ${country}`;
+                            })
+                            .catch(() => {
+                                locationElement.textContent = "📍 Unable to get location name. Please try again later.";
+                            });
+                    },
+                    // Callback khi có lỗi lấy vị trí
+                    (error) => {
+                        // Chỉ hiện button khi người dùng từ chối cấp quyền
+                        locationElement.innerHTML = "";
+                        locationElement.appendChild(requestButton);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0,
+                    },
+                );
+            }
+
+            // Gọi hàm yêu cầu vị trí ngay khi khởi tạo
+            requestLocationAccess();
         } else {
-            // Thông báo nếu trình duyệt không hỗ trợ geolocation
             locationElement.textContent = "📍 Geolocation is not supported";
         }
     }
